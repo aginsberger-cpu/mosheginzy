@@ -372,8 +372,7 @@ document.querySelectorAll('form').forEach(function(form) {
       headers: { 'Accept': 'application/json' }
     }).then(function(response) {
       if (response.ok) {
-        document.getElementById('thankYou').classList.add('show');
-        form.reset();
+        window.location.href = 'thanks.html';
       } else {
         alert('שגיאה בשליחה, נסה שוב');
       }
