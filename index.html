@@ -343,7 +343,7 @@ window.mgSend = function(){
 var SHEET_URL='https://script.google.com/macros/s/AKfycbwUEypI5myQNxeLygjRulfidJHaqfz7DHG3MFkfu0C5mhLfODY0xW-N46FLEzI1LTNb9A/exec';
 var userID=localStorage.getItem('mg-user-id')||'';
 if(!userID){userID=Math.random().toString(36).substr(2,9);localStorage.setItem('mg-user-id',userID);}
-function saveToSheet(question){fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:userID,name:userName,question:question})}).catch(function(){});}
+function saveToSheet(question){fetch(SHEET_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:userID,name:userName,question:question})}).catch(function(){});}
 if(userName)opener();
 
 
