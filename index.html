@@ -309,31 +309,39 @@ function showTyping(){
 function rmTyping(){var t=document.getElementById('mg-typ');if(t)t.remove();}
 function opener(){
   fetch(APIURL,{method:'POST',headers:{'Authorization':'Bearer '+KEY,'Content-Type':'application/json'},body:JSON.stringify({inputs:{},query:'היי',response_mode:'blocking',conversation_id:'',user:'v'})}).then(function(r){return r.json();}).then(function(d){if(d.answer){cid=d.conversation_id;var el=document.getElementById('mg-opener');if(el){el.style.display='flex';el.querySelector('div:last-child').textContent=d.answer;}}}).catch(function(){});
-}
-window.mgSend=function(){
-  var inp=document.getElementById('mg-inp');
-  var txt=inp.value.trim();if(!txt)return;
-  inp.value='';addMsg(txt,'user');showTyping();
-  fetch(APIURL,{method:'POST',headers:{'Authorization':'Bearer '+KEY,'Content-Type':'application/json'},body: JSON.stringify({
-  inputs: {},
-  query: userName ? `[שם:${userName}] ${txt}` : txt,
-  response_mode: 'blocking',
-  user: 'moshe_user'
-})
-}).then(function(r){return r.json();}).then(function(d){
-  rmTyping();
-  if(d.answer){
-    cid=d.conversation_id;
-    addMsg(d.answer,'bot');
-  } else {
-    addMsg('מצטער, נסה שוב.','bot');
-  }
-}).catch(function(){
-  rmTyping();
-  addMsg('בעיית חיבור.','bot');
-});
+}window.mgSend = function(){
+  var inp = document.getElementById('mg-inp');
+  var txt = inp.value.trim(); if(!txt) return;
+  inp.value = ''; addMsg(txt, 'user'); showTyping();
 
-if(userName)opener();
+  fetch(APIURL, {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + KEY,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      inputs: {},
+      query: userName ? `[שם:${userName}] ${txt}` : txt,
+      response_mode: 'blocking',
+      user: 'moshe_user'
+    })
+  }).then(function(r){ return r.json(); }).then(function(d){
+    rmTyping();
+    if(d.answer){
+      cid = d.conversation_id;
+      addMsg(d.answer, 'bot');
+    } else {
+      addMsg('מצטער, נסה שוב.', 'bot');
+    }
+  }).catch(function(){
+    rmTyping();
+    addMsg('בעיית חיבור.', 'bot');
+  });
+};
+
+if(userName) opener();
+
 })();
 </script>
 
