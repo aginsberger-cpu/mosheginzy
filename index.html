@@ -312,7 +312,7 @@ function opener(){}
 window.mgSend = function(){
   var inp = document.getElementById('mg-inp');
   var txt = inp.value.trim(); if(!txt) return;
-  inp.value = ''; addMsg(txt, 'user'); showTyping();
+  inp.value = ''; addMsg(txt, 'user'); showTyping(); saveToSheet(txt);
 
   fetch(APIURL, {
     method: 'POST',
