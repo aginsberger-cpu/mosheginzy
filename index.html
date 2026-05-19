@@ -308,7 +308,7 @@ function showTyping(){
 }
 function rmTyping(){var t=document.getElementById('mg-typ');if(t)t.remove();}
 function opener(){
- window.mgSend = function(){
+window.mgSend = function(){
   var inp = document.getElementById('mg-inp');
   var txt = inp.value.trim(); if(!txt) return;
   inp.value = ''; addMsg(txt, 'user'); showTyping();
@@ -340,6 +340,7 @@ function opener(){
 };
 
 if(userName) opener();
+
 
 
 })();
