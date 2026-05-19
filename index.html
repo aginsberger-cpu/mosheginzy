@@ -314,7 +314,7 @@ window.mgSend=function(){
   var inp=document.getElementById('mg-inp');
   var txt=inp.value.trim();if(!txt)return;
   inp.value='';addMsg(txt,'user');showTyping();
-  fetch(APIURL,{method:'POST',headers:{'Authorization':'Bearer '+KEY,'Content-Type':'application/json'},body:JSON.stringify({inputs:{},query:txt,response_mode:'blocking',conversation_id:cid,user:'v'})}).then(function(r){return r.json();}).then(function(d){rmTyping();if(d.answer){cid=d.conversation_id;addMsg(d.answer,'bot');}else addMsg('מצטער, נסה שוב.','bot');}).catch(function(){rmTyping();addMsg('בעיית חיבור.','bot');});
+  fetch(APIURL,{method:'POST',headers:{'Authorization':'Bearer '+KEY,'Content-Type':'application/json'},body:JSON.stringify({inputs:{},query:query:(userName?'[שם: '+userName+'] ':'')+txt,response_mode:'blocking',conversation_id:cid,user:'v'})}).then(function(r){return r.json();}).then(function(d){rmTyping();if(d.answer){cid=d.conversation_id;addMsg(d.answer,'bot');}else addMsg('מצטער, נסה שוב.','bot');}).catch(function(){rmTyping();addMsg('בעיית חיבור.','bot');});
 };
 if(userName)opener();
 })();
