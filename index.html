@@ -306,8 +306,9 @@ function showTyping(){
   var t=document.createElement('div');t.style.cssText='display:flex;gap:5px;padding:12px 16px;background:#1a1209;border:1px solid rgba(201,149,42,0.4);border-radius:18px;border-bottom-right-radius:4px;';t.innerHTML='<span style="width:6px;height:6px;border-radius:50%;background:#c9952a;animation:mgbounce 1.2s infinite;display:block;"></span><span style="width:6px;height:6px;border-radius:50%;background:#c9952a;animation:mgbounce 1.2s .2s infinite;display:block;"></span><span style="width:6px;height:6px;border-radius:50%;background:#c9952a;animation:mgbounce 1.2s .4s infinite;display:block;"></span>';
   d.appendChild(av);d.appendChild(t);w.appendChild(d);w.scrollTop=w.scrollHeight;
 }
-function rmTyping(){var t=document.getElementById('mg-typ');if(t)t.remove();}
-function opener(){
+function rmTyping(){ var t=document.getElementById('mg-typ');if(t)t.remove();}
+function opener(){}
+
 window.mgSend = function(){
   var inp = document.getElementById('mg-inp');
   var txt = inp.value.trim(); if(!txt) return;
@@ -340,6 +341,7 @@ window.mgSend = function(){
 };
 
 if(userName) opener();
+
 
 
 
