@@ -352,7 +352,7 @@ var SHEET_URL='https://script.google.com/macros/s/AKfycbwUEypI5myQNxeLygjRulfidJ
  var userID=localStorage.getItem('mg-user-id')||'';
   var userName=localStorage.getItem('mg-user-name')||'';
 if(!userID){userID=Math.random().toString(36).substr(2,9);localStorage.setItem('mg-user-id',userID);}
-function saveToSheet(question, answer){var img=new Image();img.src=SHEET_URL+'?id='+encodeURIComponent(userID)+'&name='+encodeURIComponent("משה")+'&question='+encodeURIComponent(question)+'&answer='+encodeURIComponent(answer);}
+function saveToSheet(question, answer){var img=new Image();img.src=SHEET_URL+'?id='+encodeURIComponent(userID)+'&name='+encodeURIComponent(userName)+'&question='+encodeURIComponent(question)+'&answer='+encodeURIComponent(answer);}
 if(userName)opener();
 
 
