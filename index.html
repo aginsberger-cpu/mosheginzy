@@ -344,8 +344,10 @@ window.mgSend = function(){
 var SHEET_URL='https://script.google.com/macros/s/AKfycbwUEypI5myQNxeLygjRulfidJHaqfz7DHG3MFkfu0C5mhLfODY0xW-N46FLEzI1LTNb9A/exec';
 var userID=localStorage.getItem('mg-user-id')||'';
 if(!userID){userID=Math.random().toString(36).substr(2,9);localStorage.setItem('mg-user-id',userID);}
-function saveToSheet(question,answer){fetch(SHEET_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:userID,name:userName,question:question,answer:answer||''})}).catch(function(){});}if(userName)opener();
-if(userName)opener();
+function saveToSheet(question,answer){
+  var img=new Image();
+  img.src=SHEET_URL+'?id='+encodeURIComponent(userID)+'&name='+encodeURIComponent(userName)+'&question='+encodeURIComponent(question)+'&answer='+encodeURIComponent(answer||'');
+}if(userName)opener();
 
 
 
