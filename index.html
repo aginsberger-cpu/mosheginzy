@@ -330,6 +330,7 @@ window.mgSend = function(){
     rmTyping();
     if(d.answer){
       cid = d.conversation_id;
+      saveToSheet(txt, d.answer);
       addMsg(d.answer, 'bot');
     } else {
       addMsg('מצטער, נסה שוב.', 'bot');
