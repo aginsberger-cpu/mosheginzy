@@ -356,6 +356,27 @@ window.mgSend = function(txt) {
     }
 };
 
+    .then(function(response) { return response.json(); })
+    .then(function(data) {
+        rmTyping();
+        if (data && data.answer) {
+            addMsg(data.answer, 'bot');
+            saveToSheet(txt, data.answer);
+        } else {
+            addMsg('בעיה בקבלת תשובה.', 'bot');
+        }
+    })
+    .catch(function() {
+        rmTyping();
+        addMsg('בעיית חיבור.', 'bot');
+    });
+
+    function saveToSheet(question, answer) {
+        var img = new Image();
+        img.src = SHEET_URL + '?id=' + encodeURIComponent(userID) + '&name=' + encodeURIComponent(userName) + '&question=' + encodeURIComponent(question) + '&answer=' + encodeURIComponent(answer);
+    }
+};
+
 
   }).then(function(r){ return r.json(); }).then(function(d){
     rmTyping();
