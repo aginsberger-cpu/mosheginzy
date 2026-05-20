@@ -320,19 +320,17 @@ window.mgSend = function(){
     headers: {
       'Authorization': 'Bearer ' + KEY,
       'Content-Type': 'application/json'
-    },
-           body: JSON.stringify({
+    },body: JSON.stringify({
       inputs: {
-        "name": "משה",
-        "username": "משה",
-        "userName": "משה",
-        "user_name": "משה"
+        "name": userName || "אורח",
+        "username": userName || "אורח",
+        "userName": userName || "אורח",
+        "user_name": userName || "אורח"
       },
       query: txt,
       response_mode: 'blocking',
       user: 'moshe_user'
     })
-)
 
   }).then(function(r){ return r.json(); }).then(function(d){
     rmTyping();
