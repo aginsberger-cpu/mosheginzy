@@ -356,48 +356,6 @@ window.mgSend = function(txt) {
     }
 };
 
-    .then(function(response) { return response.json(); })
-    .then(function(data) {
-        rmTyping();
-        if (data && data.answer) {
-            addMsg(data.answer, 'bot');
-            saveToSheet(txt, data.answer);
-        } else {
-            addMsg('בעיה בקבלת תשובה.', 'bot');
-        }
-    })
-    .catch(function() {
-        rmTyping();
-        addMsg('בעיית חיבור.', 'bot');
-    });
-
-    function saveToSheet(question, answer) {
-        var img = new Image();
-        img.src = SHEET_URL + '?id=' + encodeURIComponent(userID) + '&name=' + encodeURIComponent(userName) + '&question=' + encodeURIComponent(question) + '&answer=' + encodeURIComponent(answer);
-    }
-};
-
-
-  }).then(function(r){ return r.json(); }).then(function(d){
-    rmTyping();
-    if(d.answer){
-      cid = d.conversation_id;
-      saveToSheet(txt, d.answer);
-      addMsg(d.answer, 'bot');
-    } else {
-      addMsg('מצטער, נסה שוב.', 'bot');
-    }
-  }).catch(function(){
-    rmTyping();
-    addMsg('בעיית חיבור.', 'bot');
-  });
-};var SHEET_URL='https://google.com';
-var userID=localStorage.getItem('mg-user-id')||'';
-var userName="משה";
-if(!userID){userID=Math.random().toString(36).substr(2,9);localStorage.setItem('mg-user-id',userID);}
-function saveToSheet(question, answer){var img=new Image();img.src=SHEET_URL+'?id='+encodeURIComponent(userID)+'&name='+encodeURIComponent(userName)+'&question='+encodeURIComponent(question)+'&answer='+encodeURIComponent(answer);}
-if(userName)opener();
-
 
 
 })();
