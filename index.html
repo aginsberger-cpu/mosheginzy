@@ -308,30 +308,54 @@ function showTyping(){
 }
 function rmTyping(){ var t=document.getElementById('mg-typ');if(t)t.remove();}
 function opener(){}
+window.mgSend = function(txt) {
+    if (!txt) return;
+    addMsg(txt, 'user');
+    addMsg('...', 'bot', true);
+    
+    var SHEET_URL = 'https://google.com';
+    var userID = localStorage.getItem('mg-user-id') || '';
+    var userName = "משה";
+    
+    if (!userID) {
+        userID = Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('mg-user-id', userID);
+    }
 
-window.mgSend = function(){
-  var inp = document.getElementById('mg-inp');
-  var txt = inp.value.trim(); if(!txt) return;
-  inp.value = ''; addMsg(txt, 'user'); showTyping(); 
-
-  fetch(APIURL, {
-    method: 'POST',
-    headers: {
-      'Authorization': 'Bearer ' + KEY,
-      'Content-Type': 'application/json'
-    },
-           body: JSON.stringify({
-      inputs: {
-        "name": "משה",
-        "username": "משה",
-        "userName": "משה",
-        "user_name": "משה"
-      },
-      query: txt,
-      response_mode: 'blocking',
-      user: 'moshe_user'
+    fetch('https://dify.ai', {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer app-V4AAnObeX3M8Xp4v9GvB2XeE',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            inputs: {},
+            query: txt,
+            response_mode: 'blocking',
+            user: 'moshe_user'
+        })
     })
-)
+    .then(function(response) { return response.json(); })
+    .then(function(data) {
+        rmTyping();
+        if (data && data.answer) {
+            addMsg(data.answer, 'bot');
+            saveToSheet(txt, data.answer);
+        } else {
+            addMsg('בעיה בקבלת תשובה.', 'bot');
+        }
+    })
+    .catch(function() {
+        rmTyping();
+        addMsg('בעיית חיבור.', 'bot');
+    });
+
+    function saveToSheet(question, answer) {
+        var img = new Image();
+        img.src = SHEET_URL + '?id=' + encodeURIComponent(userID) + '&name=' + encodeURIComponent(userName) + '&question=' + encodeURIComponent(question) + '&answer=' + encodeURIComponent(answer);
+    }
+};
+
 
   }).then(function(r){ return r.json(); }).then(function(d){
     rmTyping();
