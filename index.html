@@ -281,7 +281,9 @@ footer{background:#060607;padding:3rem 5vw 2rem;border-top:1px solid var(--b)}
 </section>
 <script>
 (function(){
-var KEY='app-VFD9vOFBd83JQC3BvLwuX5Q4',APIURL='https://api.dify.ai/v1/chat-messages',cid='';
+  var userID = localStorage.getItem('mg-user-id') || '';
+  var userName = localStorage.getItem('mg-user-name') || '';
+  var KEY='app-VFD9vOFBd83JQC3BvLwuX5Q4',APIURL='https://api.dify.ai/v1/chat-messages',cid='';
 
 if(userName){var ns=document.getElementById('mg-name-screen');if(ns)ns.style.display='none';}
 window.mgSaveName=function(){
