@@ -281,7 +281,7 @@ footer{background:#060607;padding:3rem 5vw 2rem;border-top:1px solid var(--b)}
 <script>
 (function(){
 var KEY='app-VFD9vOFBd83JQC3BvLwuX5Q4',APIURL='https://api.dify.ai/v1/chat-messages',cid='';
-var userName=localStorage.getItem('mg-user-name')||'';
+
 if(userName){var ns=document.getElementById('mg-name-screen');if(ns)ns.style.display='none';}
 window.mgSaveName=function(){
   var inp=document.getElementById('mg-name-input');
@@ -342,7 +342,8 @@ window.mgSend = function(){
 };
 
 var SHEET_URL='https://script.google.com/macros/s/AKfycbwUEypI5myQNxeLygjRulfidJHaqfz7DHG3MFkfu0C5mhLfODY0xW-N46FLEzI1LTNb9A/exec';
-var userID=localStorage.getItem('mg-user-id')||'';
+ var userID=localStorage.getItem('mg-user-id')||'';
+  var userName=localStorage.getItem('mg-user-name')||'';
 if(!userID){userID=Math.random().toString(36).substr(2,9);localStorage.setItem('mg-user-id',userID);}
 function saveToSheet(question,answer){var img=new Image();img.src=SHEET_URL+'?id='+encodeURIComponent(userID)+'&name='+encodeURIComponent(userName)+'&question='+encodeURIComponent(question)+'&answer='+encodeURIComponent(answer||'');}
 if(userName)opener();
