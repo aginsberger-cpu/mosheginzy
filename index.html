@@ -312,12 +312,8 @@ function showTyping(){
 function rmTyping(){ var t=document.getElementById('mg-typ');if(t)t.remove();}
 function opener(){}
 
-inputs: {
-        "name": localStorage.getItem('mg-user-name') || 'אנונימי',
-        "username": localStorage.getItem('mg-user-name') || 'אנונימי',
-        "userName": localStorage.getItem('mg-user-name') || 'אנונימי',
-        "user_name": localStorage.getItem('mg-user-name') || 'אנונימי'
-     
+        inputs: {
+        "name": localStorage.getItem('mg-user-name') || 'אנונימי'
       },
       query: txt,
       response_mode: 'blocking',
