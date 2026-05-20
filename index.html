@@ -312,22 +312,12 @@ function showTyping(){
 function rmTyping(){ var t=document.getElementById('mg-typ');if(t)t.remove();}
 function opener(){}
 
-window.mgSend = function(){
-  var inp = document.getElementById('mg-inp');
-  var txt = inp.value.trim(); if(!txt) return;
-  inp.value = ''; addMsg(txt, 'user'); showTyping(); 
-
-  fetch(APIURL, {
-    method: 'POST',
-    headers: {
-      'Authorization': 'Bearer ' + KEY,
-      'Content-Type': 'application/json'
-    },body: JSON.stringify({
-      inputs: {
-        "name": userName || "אורח",
-        "username": userName || "אורח",
-        "userName": userName || "אורח",
-        "user_name": userName || "אורח"
+inputs: {
+        "name": localStorage.getItem('mg-user-name') || 'אנונימי',
+        "username": localStorage.getItem('mg-user-name') || 'אנונימי',
+        "userName": localStorage.getItem('mg-user-name') || 'אנונימי',
+        "user_name": localStorage.getItem('mg-user-name') || 'אנונימי'
+     
       },
       query: txt,
       response_mode: 'blocking',
