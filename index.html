@@ -320,12 +320,15 @@ window.mgSend = function(){
       'Authorization': 'Bearer ' + KEY,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({
-      inputs: {},
-      query: userName ? `[שם:${userName}] ${txt}` : txt,
+        body: JSON.stringify({
+      inputs: {
+        "userName": "משה"
+      },
+      query: txt,
       response_mode: 'blocking',
       user: 'moshe_user'
     })
+
   }).then(function(r){ return r.json(); }).then(function(d){
     rmTyping();
     if(d.answer){
