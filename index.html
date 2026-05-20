@@ -285,7 +285,13 @@ footer{background:#060607;padding:3rem 5vw 2rem;border-top:1px solid var(--b)}
   var userName = localStorage.getItem('mg-user-name') || '';
   var KEY='app-VFD9vOFBd83JQC3BvLwuX5Q4',APIURL='https://api.dify.ai/v1/chat-messages',cid='';
 
-if(userName){var ns=document.getElementById('mg-name-screen');if(ns)ns.style.display='none';}
+if(userName){
+  var ns=document.getElementById('mg-name-screen');
+  if(ns)ns.style.display='none';
+} else {
+  document.getElementById('mg-inp').disabled=true;
+  document.querySelector('[onclick="mgSend()"]').disabled=true;
+}
 window.mgSaveName=function(){
   var inp=document.getElementById('mg-name-input');
   var name=inp.value.trim();
