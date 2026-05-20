@@ -285,67 +285,72 @@ footer{background:#060607;padding:3rem 5vw 2rem;border-top:1px solid var(--b)}
   var userName = localStorage.getItem('mg-user-name') || '';
   var KEY='app-VFD9vOFBd83JQC3BvLwuX5Q4',APIURL='https://api.dify.ai/v1/chat-messages',cid='';
 
-if(userName){var ns=document.getElementById('mg-name-screen');if(ns)ns.style.display='none';}
-window.mgSaveName=function(){
-  var inp=document.getElementById('mg-name-input');
-  var name=inp.value.trim();
-  if(!name)return;
-  localStorage.setItem('mg-user-name',name);
-  userName=name;
-  document.getElementById('mg-name-screen').style.display='none';
-  opener();
-};
-function addMsg(txt,who){
-  var w=document.getElementById('mg-msgs');
-  var d=document.createElement('div');d.style.cssText='display:flex;gap:10px;align-items:flex-end;'+(who==='user'?'flex-direction:row-reverse;':'');
-  var av=document.createElement('div');av.style.cssText='width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;'+(who==='user'?'background:rgba(26,18,9,0.7);color:#e8b84b;border:1px solid rgba(201,149,42,0.5);':'background:#1a1209;color:#c9952a;border:1px solid #c9952a;');av.textContent=who==='user'?'☺':'MG';
-  var b=document.createElement('div');b.style.cssText='max-width:75%;padding:13px 17px;border-radius:18px;font-size:14px;line-height:1.75;'+(who==='user'?'border-bottom-left-radius:4px;background:rgba(26,18,9,0.82);color:#f5e6c0;border:1px solid rgba(26,18,9,0.5);':'border-bottom-right-radius:4px;background:#1a1209;color:#e8c56a;border:1px solid rgba(201,149,42,0.4);');b.textContent=txt;
-  d.appendChild(av);d.appendChild(b);w.appendChild(d);w.scrollTop=w.scrollHeight;
-}
-function showTyping(){
-  var w=document.getElementById('mg-msgs');
-  var d=document.createElement('div');d.className='msg bot';d.id='mg-typ';d.style.cssText='display:flex;gap:10px;align-items:flex-end;';
-  var av=document.createElement('div');av.style.cssText='width:34px;height:34px;border-radius:50%;background:#1a1209;color:#c9952a;border:1px solid #c9952a;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;';av.textContent='MG';
-  var t=document.createElement('div');t.style.cssText='display:flex;gap:5px;padding:12px 16px;background:#1a1209;border:1px solid rgba(201,149,42,0.4);border-radius:18px;border-bottom-right-radius:4px;';t.innerHTML='<span style="width:6px;height:6px;border-radius:50%;background:#c9952a;animation:mgbounce 1.2s infinite;display:block;"></span><span style="width:6px;height:6px;border-radius:50%;background:#c9952a;animation:mgbounce 1.2s .2s infinite;display:block;"></span><span style="width:6px;height:6px;border-radius:50%;background:#c9952a;animation:mgbounce 1.2s .4s infinite;display:block;"></span>';
-  d.appendChild(av);d.appendChild(t);w.appendChild(d);w.scrollTop=w.scrollHeight;
-}
-function rmTyping(){ var t=document.getElementById('mg-typ');if(t)t.remove();}
-function opener(){}
-body: JSON.stringify({
-        inputs: {
-        "name": localStorage.getItem('mg-user-name') || 'אנונימי'
-      },
-      query: txt,
-      response_mode: 'blocking',
-      user: 'moshe_user'
-    })
+  if(!userID){userID=Math.random().toString(36).substr(2,9);localStorage.setItem('mg-user-id',userID);}
+  if(userName){var ns=document.getElementById('mg-name-screen');if(ns)ns.style.display='none';}
 
-  }).then(function(r){ return r.json(); }).then(function(d){
-    rmTyping();
-    if(d.answer){
-      cid = d.conversation_id;
-      saveToSheet(txt, d.answer);
-      addMsg(d.answer, 'bot');
-    } else {
-      addMsg('מצטער, נסה שוב.', 'bot');
-    }
-  }).catch(function(){
-    rmTyping();
-    addMsg('בעיית חיבור.', 'bot');
-  });
-};
+  window.mgSaveName=function(){
+    var inp=document.getElementById('mg-name-input');
+    var name=inp.value.trim();
+    if(!name)return;
+    localStorage.setItem('mg-user-name',name);
+    userName=name;
+    document.getElementById('mg-name-screen').style.display='none';
+  };
 
-var SHEET_URL='https://script.google.com/macros/s/AKfycbwUEypI5myQNxeLygjRulfidJHaqfz7DHG3MFkfu0C5mhLfODY0xW-N46FLEzI1LTNb9A/exec';
- var userID=localStorage.getItem('mg-user-id')||'';
-  var userName=localStorage.getItem('mg-user-name')||'';
-if(!userID){userID=Math.random().toString(36).substr(2,9);localStorage.setItem('mg-user-id',userID);}
-function saveToSheet(question,answer){
-var currentName = userName || localStorage.getItem('mg-user-name') || 'אנונימי';
-  var img=new Image();
-  img.src=SHEET_URL+'?id='+encodeURIComponent(userID)+'&name='+encodeURIComponent(currentName)+'&question='+encodeURIComponent(question)+'&answer='+encodeURIComponent(answer||'');
-}if(userName)opener();
+  function addMsg(txt,who){
+    var w=document.getElementById('mg-msgs');
+    var d=document.createElement('div');d.style.cssText='display:flex;gap:10px;align-items:flex-end;'+(who==='user'?'flex-direction:row-reverse;':'');
+    var av=document.createElement('div');av.style.cssText='width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;'+(who==='user'?'background:rgba(26,18,9,0.7);color:#e8b84b;border:1px solid rgba(201,149,42,0.5);':'background:#1a1209;color:#c9952a;border:1px solid #c9952a;');av.textContent=who==='user'?'☺':'MG';
+    var b=document.createElement('div');b.style.cssText='max-width:75%;padding:13px 17px;border-radius:18px;font-size:14px;line-height:1.75;'+(who==='user'?'border-bottom-left-radius:4px;background:rgba(26,18,9,0.82);color:#f5e6c0;border:1px solid rgba(26,18,9,0.5);':'border-bottom-right-radius:4px;background:#1a1209;color:#e8c56a;border:1px solid rgba(201,149,42,0.4);');b.textContent=txt;
+    d.appendChild(av);d.appendChild(b);w.appendChild(d);w.scrollTop=w.scrollHeight;
+  }
 
+  function showTyping(){
+    var w=document.getElementById('mg-msgs');
+    var d=document.createElement('div');d.className='msg bot';d.id='mg-typ';d.style.cssText='display:flex;gap:10px;align-items:flex-end;';
+    var av=document.createElement('div');av.style.cssText='width:34px;height:34px;border-radius:50%;background:#1a1209;color:#c9952a;border:1px solid #c9952a;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;';av.textContent='MG';
+    var t=document.createElement('div');t.style.cssText='display:flex;gap:5px;padding:12px 16px;background:#1a1209;border:1px solid rgba(201,149,42,0.4);border-radius:18px;border-bottom-right-radius:4px;';t.innerHTML='<span style="width:6px;height:6px;border-radius:50%;background:#c9952a;animation:mgbounce 1.2s infinite;display:block;"></span><span style="width:6px;height:6px;border-radius:50%;background:#c9952a;animation:mgbounce 1.2s .2s infinite;display:block;"></span><span style="width:6px;height:6px;border-radius:50%;background:#c9952a;animation:mgbounce 1.2s .4s infinite;display:block;"></span>';
+    d.appendChild(av);d.appendChild(t);w.appendChild(d);w.scrollTop=w.scrollHeight;
+  }
 
+  function rmTyping(){ var t=document.getElementById('mg-typ');if(t)t.remove();}
+
+  var SHEET_URL='https://script.google.com/macros/s/AKfycbwUEypI5myQNxeLygjRulfidJHaqfz7DHG3MFkfu0C5mhLfODY0xW-N46FLEzI1LTNb9A/exec';
+
+  function saveToSheet(question,answer){
+    var currentName = localStorage.getItem('mg-user-name') || 'אנונימי';
+    var img=new Image();
+    img.src=SHEET_URL+'?id='+encodeURIComponent(userID)+'&name='+encodeURIComponent(currentName)+'&question='+encodeURIComponent(question)+'&answer='+encodeURIComponent(answer||'');
+  }
+
+  window.mgSend=function(){
+    var inp=document.getElementById('mg-inp');
+    var txt=inp.value.trim();if(!txt)return;
+    inp.value='';addMsg(txt,'user');showTyping();
+    fetch(APIURL,{
+      method:'POST',
+      headers:{'Authorization':'Bearer '+KEY,'Content-Type':'application/json'},
+      body:JSON.stringify({
+        inputs:{"name": localStorage.getItem('mg-user-name') || 'אנונימי'},
+        query:txt,
+        response_mode:'blocking',
+        conversation_id:cid||undefined,
+        user:'moshe_user'
+      })
+    }).then(function(r){return r.json();}).then(function(d){
+      rmTyping();
+      if(d.answer){
+        cid=d.conversation_id;
+        saveToSheet(txt,d.answer);
+        addMsg(d.answer,'bot');
+      } else {
+        addMsg('מצטער, נסה שוב.','bot');
+      }
+    }).catch(function(){
+      rmTyping();
+      addMsg('בעיית חיבור.','bot');
+    });
+  };
 
 })();
 </script>
