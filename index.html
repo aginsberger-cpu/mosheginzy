@@ -322,7 +322,7 @@ window.mgSend = function(txt) {
         localStorage.setItem('mg-user-id', userID);
     }
 
-    fetch('https://dify.ai', {
+   fetch('https://api.dify.ai/v1/chat-messages',
         method: 'POST',
         headers: {
             'Authorization': 'Bearer app-V4AAnObeX3M8Xp4v9GvB2XeE',
