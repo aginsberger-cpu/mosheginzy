@@ -299,7 +299,13 @@ window.mgSaveName=function(){
   userName=name;
   document.getElementById('mg-name-screen').style.display='none';
 };
-
+window.mgSetGender=function(gender){
+  localStorage.setItem('mg-user-gender',gender);
+  document.getElementById('btn-female').style.background=gender==='נקבה'?'#c9952a':'transparent';
+  document.getElementById('btn-male').style.background=gender==='זכר'?'#c9952a':'transparent';
+  document.getElementById('btn-female').style.color=gender==='נקבה'?'#1a1209':'#c9952a';
+  document.getElementById('btn-male').style.color=gender==='זכר'?'#1a1209':'#c9952a';
+};
   function addMsg(txt,who){
     var w=document.getElementById('mg-msgs');
     var d=document.createElement('div');d.style.cssText='display:flex;gap:10px;align-items:flex-end;'+(who==='user'?'flex-direction:row-reverse;':'');
