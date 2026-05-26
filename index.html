@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>משה גינזי — חכמה לחיים</title>
+<meta name="description" content="משה גינזי — מנחה חברותא. לימוד יהודי חינמי, ללא לחץ דתי, לכל אחד.">
+<meta name="keywords" content="משה גינזי, חברותא, לימוד יהודי, חכמה יהודית">
+<meta property="og:title" content="משה גינזי — חברותא">
+<meta property="og:description" content="לימוד יהודי חינמי ללא לחץ דתי. משה גינזי מחבר אותך לחברותא מתאימה.">
+<meta property="og:url" content="https://mosheginzy.com">
+<meta name="robots" content="index, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<!-- Google Tag -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-944658564"></script>
+<script>
+  window.dataLayer=window.dataLayer||[];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js',new Date());
+  gtag('config','AW-944658564');
+  gtag('config','G-4RW51LT65M');
+</script>
+
+<!-- Facebook Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','3171269369843152');fbq('track','PageView');
+</script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#06060a;
+  --bg2:#0a0a0f;
+  --card:#0f0f16;
+  --border:rgba(180,145,60,0.18);
+  --gold:#c9a84c;
+  --gold2:#e8c870;
+  --gold3:#f5e4b0;
+  --cream:#f0ece0;
+  --txt:#ccc4b0;
+  --muted:#7a7060;
+  --green:#2d6a4f;
+  --font-display:'Cormorant Garamond',serif;
+  --font-body:'Rubik',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:var(--font-body);line-height:1.7;font-size:16px;overflow-x:hidden}
+
+/* ─── NAV ─────────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:999;
+  background:rgba(6,6,10,0.96);
+  border-bottom:1px solid var(--border);
+  padding:0 5vw;height:68px;
+  display:flex;align-items:center;justify-content:space-between;
+  backdrop-filter:blur(12px);
+}
+.nav-brand{display:flex;flex-direction:column;gap:2px}
+.nav-name{font-family:var(--font-display);font-size:1.4rem;font-weight:600;color:var(--gold2);letter-spacing:.06em}
+.nav-sub{font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+.nav-cta{
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:#06060a;padding:.55rem 1.4rem;
+  font-size:.72rem;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;text-decoration:none;
+  border:none;cursor:pointer;
+  font-family:var(--font-body);
+  transition:opacity .2s;
+}
+.nav-cta:hover{opacity:.85}
+
+/* ─── DIVIDER ─────────────────────────────────── */
+.gd{height:1px;background:linear-gradient(to right,transparent,rgba(180,145,60,.2),transparent)}
+
+/* ─── HERO ────────────────────────────────────── */
+.hero{
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:52% 48%;
+  margin-top:68px;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 80% 50%,rgba(180,145,60,.06) 0%,transparent 70%);
+  pointer-events:none;z-index:1;
+}
+.hero-img{overflow:hidden;position:relative}
+.hero-img img{
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:top center;
+  display:block;
+  filter:brightness(.75) contrast(1.05);
+}
+.hero-img::after{
+  content:'';position:absolute;inset:0;
+  background:
+    linear-gradient(to right,var(--bg) 0%,rgba(6,6,10,.3) 25%,transparent 50%),
+    linear-gradient(to top,var(--bg) 0%,transparent 25%);
+}
+.hero-text{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:5rem 5vw 5rem 2vw;
+  position:relative;z-index:2;
+}
+.hero-eyebrow{
+  display:flex;align-items:center;gap:10px;
+  font-size:.58rem;letter-spacing:.4em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:2rem;
+}
+.hero-eyebrow::before,.hero-eyebrow::after{
+  content:'';display:block;width:28px;height:1px;
+  background:var(--gold);opacity:.5;
+}
+.hero-name{
+  font-family:var(--font-display);
+  font-size:clamp(4rem,7vw,7.5rem);
+  font-weight:300;
+  color:var(--gold2);
+  line-height:.95;
+  letter-spacing:.02em;
+}
+.hero-name-i{
+  font-family:var(--font-display);
+  font-size:clamp(4rem,7vw,7.5rem);
+  font-style:italic;font-weight:300;
+  color:var(--gold2);
+  line-height:.95;
+  margin-bottom:2rem;
+}
+.hero-tagline{
+  font-family:var(--font-display);
+  font-style:italic;font-size:1.25rem;
+  color:var(--muted);margin-bottom:.3rem;
+}
+.hero-tagline2{
+  font-size:.78rem;color:var(--gold);
+  opacity:.55;margin-bottom:2.5rem;
+  letter-spacing:.1em;
+}
+.hero-desc{
+  font-size:.92rem;color:var(--muted);
+  max-width:420px;line-height:2;margin-bottom:3rem;
+  border-right:2px solid rgba(180,145,60,.3);
+  padding-right:1.2rem;
+}
+.hero-desc strong{color:var(--cream);font-weight:400}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-gold{
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:#06060a;padding:.9rem 2.2rem;
+  font-size:.78rem;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;
+  text-decoration:none;border:none;cursor:pointer;
+  display:inline-block;transition:opacity .2s;
+  font-family:var(--font-body);
+}
+.btn-gold:hover{opacity:.85}
+.btn-out{
+  background:transparent;color:var(--gold);
+  padding:.9rem 2.2rem;font-size:.78rem;
+  letter-spacing:.14em;text-transform:uppercase;
+  text-decoration:none;
+  border:1px solid rgba(180,145,60,.4);
+  display:inline-block;cursor:pointer;
+  transition:all .2s;font-family:var(--font-body);
+}
+.btn-out:hover{background:rgba(180,145,60,.08)}
+.btn-teal{
+  background:transparent;color:#5ecac0;
+  padding:.9rem 2.2rem;font-size:.78rem;
+  letter-spacing:.14em;text-transform:uppercase;
+  text-decoration:none;
+  border:1px solid rgba(94,202,192,.4);
+  display:inline-block;cursor:pointer;
+  transition:all .2s;font-family:var(--font-body);
+}
+.btn-teal:hover{background:rgba(94,202,192,.08)}
+
+/* ─── BOT SECTION ─────────────────────────────── */
+.bot-section{background:var(--bg);padding:0}
+.bot-header{
+  text-align:center;
+  padding:5rem 5vw 2.5rem;
+  position:relative;
+}
+.bot-header::before{
+  content:'';position:absolute;
+  top:0;left:50%;transform:translateX(-50%);
+  width:1px;height:4rem;
+  background:linear-gradient(to bottom,transparent,var(--gold));
+}
+.bot-eyebrow{
+  font-size:.58rem;letter-spacing:.4em;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:1.2rem;
+}
+.bot-title{
+  font-family:var(--font-display);
+  font-size:clamp(1.8rem,3.5vw,3rem);
+  font-weight:300;color:var(--cream);
+  line-height:1.3;margin-bottom:2rem;
+}
+.bot-title em{font-style:italic;color:var(--gold2)}
+.bot-intro{
+  max-width:660px;margin:0 auto 3rem;
+  color:var(--muted);font-size:.93rem;
+  line-height:2;
+}
+.bot-intro strong{color:var(--txt);font-weight:400}
+
+/* ─── CHAT BOT ────────────────────────────────── */
+#mg-bot{
+  max-width:740px;margin:0 auto;
+  font-family:var(--font-body);direction:rtl;
+  border-radius:16px;overflow:hidden;
+  border:1px solid var(--border);
+  display:flex;flex-direction:column;
+  height:580px;
+  box-shadow:0 0 60px rgba(0,0,0,.6),0 0 0 1px rgba(180,145,60,.08);
+}
+.mg-chat-header{
+  background:var(--card);
+  padding:16px 22px;
+  display:flex;align-items:center;gap:14px;
+  border-bottom:1px solid var(--border);
+  flex-shrink:0;
+}
+.mg-avatar-lg{
+  width:52px;height:52px;border-radius:50%;
+  overflow:hidden;flex-shrink:0;
+  border:2px solid var(--gold);
+}
+.mg-avatar-lg img{width:100%;height:100%;object-fit:cover;object-position:top}
+.mg-header-info{flex:1}
+.mg-header-name{
+  font-size:1rem;font-weight:600;
+  color:var(--gold2);font-family:var(--font-display);
+}
+.mg-header-sub{font-size:.7rem;color:var(--muted);margin-top:2px}
+.mg-lang-wrap{display:flex;gap:6px;align-items:center;margin-right:auto}
+.mg-lang-btn{
+  background:transparent;
+  border:1px solid rgba(180,145,60,.35);
+  color:var(--gold);padding:3px 10px;
+  border-radius:20px;font-size:.68rem;
+  cursor:pointer;font-family:var(--font-body);
+  transition:all .2s;
+}
+.mg-lang-btn.active{background:var(--gold);color:#06060a;font-weight:600}
+#mg-msgs{
+  flex:1;overflow-y:auto;
+  padding:20px 16px;
+  display:flex;flex-direction:column;gap:14px;
+  background:var(--bg2);
+}
+#mg-msgs::-webkit-scrollbar{width:4px}
+#mg-msgs::-webkit-scrollbar-track{background:transparent}
+#mg-msgs::-webkit-scrollbar-thumb{background:rgba(180,145,60,.2);border-radius:2px}
+.mg-welcome{
+  text-align:center;
+  padding:20px 16px;
+}
+.mg-welcome-title{
+  font-family:var(--font-display);
+  font-size:1.4rem;font-weight:400;
+  color:var(--cream);margin-bottom:.6rem;
+}
+.mg-welcome-sub{
+  font-size:.85rem;color:var(--muted);
+  line-height:1.9;margin-bottom:1.2rem;
+}
+.mg-name-screen{
+  background:rgba(180,145,60,.06);
+  border:1px solid var(--border);
+  border-radius:12px;padding:1.5rem;
+  margin-bottom:1rem;
+}
+.mg-name-screen input{
+  width:100%;max-width:260px;
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--border);
+  border-radius:24px;padding:10px 18px;
+  color:var(--cream);font-size:.85rem;
+  font-family:var(--font-body);
+  outline:none;direction:rtl;text-align:center;
+  margin-bottom:10px;
+  transition:border-color .2s;
+}
+.mg-name-screen input:focus{border-color:var(--gold)}
+.mg-gender-btns{display:flex;gap:8px;justify-content:center;margin-bottom:10px}
+.mg-gender-btn{
+  flex:1;max-width:110px;
+  background:transparent;color:var(--gold);
+  border:1px solid rgba(180,145,60,.4);
+  border-radius:20px;padding:8px;
+  font-size:.78rem;cursor:pointer;
+  font-family:var(--font-body);transition:all .2s;
+}
+.mg-gender-btn.selected{background:var(--gold);color:#06060a}
+.mg-start-btn{
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:#06060a;border:none;
+  border-radius:24px;padding:10px 24px;
+  font-size:.82rem;font-weight:700;
+  cursor:pointer;font-family:var(--font-body);
+  transition:opacity .2s;
+}
+.mg-start-btn:hover{opacity:.85}
+.mg-msg-row{display:flex;gap:10px;align-items:flex-end}
+.mg-msg-row.user{flex-direction:row-reverse}
+.mg-avatar-sm{
+  width:32px;height:32px;border-radius:50%;
+  overflow:hidden;flex-shrink:0;
+  border:1px solid var(--border);
+}
+.mg-avatar-sm img{width:100%;height:100%;object-fit:cover;object-position:top}
+.mg-avatar-user{
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(180,145,60,.15);
+  border:1px solid rgba(180,145,60,.3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.75rem;color:var(--gold);flex-shrink:0;
+}
+.mg-bubble{
+  max-width:72%;padding:12px 16px;
+  border-radius:16px;font-size:.87rem;
+  line-height:1.8;
+}
+.mg-bubble.bot{
+  background:var(--card);
+  color:var(--cream);
+  border:1px solid var(--border);
+  border-bottom-right-radius:4px;
+}
+.mg-bubble.user{
+  background:rgba(180,145,60,.12);
+  color:var(--cream);
+  border:1px solid rgba(180,145,60,.2);
+  border-bottom-left-radius:4px;
+}
+.mg-typing{
+  display:flex;gap:5px;padding:14px 16px;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:16px;border-bottom-right-radius:4px;
+}
+@keyframes mgbounce{
+  0%,60%,100%{transform:translateY(0);opacity:1}
+  30%{transform:translateY(-6px);opacity:.6}
+}
+.mg-typing span{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--gold);display:block;
+}
+.mg-typing span:nth-child(1){animation:mgbounce 1.2s infinite}
+.mg-typing span:nth-child(2){animation:mgbounce 1.2s .2s infinite}
+.mg-typing span:nth-child(3){animation:mgbounce 1.2s .4s infinite}
+.mg-input-row{
+  background:var(--card);
+  border-top:1px solid var(--border);
+  padding:12px 16px;
+  display:flex;gap:10px;align-items:center;
+  flex-shrink:0;
+}
+#mg-inp{
+  flex:1;background:rgba(255,255,255,.04);
+  border:1px solid var(--border);
+  border-radius:24px;padding:10px 18px;
+  color:var(--cream);font-size:.87rem;
+  font-family:var(--font-body);
+  outline:none;direction:rtl;
+  transition:border-color .2s;
+}
+#mg-inp:focus{border-color:var(--gold)}
+#mg-inp::placeholder{color:var(--muted)}
+.mg-send-btn{
+  width:40px;height:40px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:opacity .2s;
+}
+.mg-send-btn:hover{opacity:.85}
+@keyframes mgpulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(180,145,60,.4)}
+  50%{box-shadow:0 0 0 8px rgba(180,145,60,0)}
+}
+#mg-mic-btn{
+  width:40px;height:40px;border-radius:50%;
+  background:transparent;
+  border:1px solid rgba(180,145,60,.35);
+  cursor:pointer;display:flex;align-items:center;
+  justify-content:center;flex-shrink:0;transition:all .2s;
+}
+#mg-mic-btn:hover{background:rgba(180,145,60,.1)}
+#mg-mic-btn.listening{background:rgba(180,145,60,.2);border-color:var(--gold);animation:mgpulse 1s infinite}
+
+/* ─── ABOUT ───────────────────────────────────── */
+.about{
+  padding:7rem 5vw;background:var(--bg2);
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:6rem;align-items:center;
+}
+.about-eyebrow{
+  font-size:.58rem;letter-spacing:.4em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:1rem;
+}
+.about h2{
+  font-family:var(--font-display);
+  font-size:2.4rem;font-weight:300;
+  color:var(--cream);margin-bottom:1.5rem;line-height:1.3;
+}
+.about h2 em{font-style:italic;color:var(--gold2)}
+.about p{color:var(--muted);line-height:2;margin-bottom:1rem;font-size:.93rem}
+.about p strong{color:var(--txt);font-weight:400}
+.quote-block{
+  border-right:2px solid var(--gold);
+  padding-right:1.5rem;margin:2rem 0;
+  font-family:var(--font-display);
+  font-style:italic;font-size:1.2rem;
+  color:var(--cream);line-height:1.7;
+  opacity:.85;
+}
+.verse-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  padding:2.5rem;text-align:center;
+  position:relative;
+}
+.verse-card::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:1px;
+  background:linear-gradient(to right,transparent,var(--gold),transparent);
+}
+.verse-big{
+  font-family:var(--font-display);
+  font-size:5rem;color:var(--gold);
+  opacity:.1;line-height:1;
+}
+.verse-text{
+  font-family:var(--font-display);
+  font-size:1.4rem;color:var(--cream);
+  line-height:1.5;margin:.5rem 0 1rem;
+}
+.verse-src{
+  font-size:.6rem;letter-spacing:.25em;
+  text-transform:uppercase;color:var(--gold);
+}
+.verse-line{height:1px;background:var(--border);margin:1.5rem 0}
+.verse-q{
+  font-family:var(--font-display);
+  font-style:italic;color:var(--txt);
+  font-size:.95rem;line-height:1.8;
+}
+.verse-by{font-size:.65rem;color:var(--muted);margin-top:.3rem}
+
+/* ─── VIDEOS ──────────────────────────────────── */
+.videos{padding:7rem 5vw;background:var(--bg)}
+.sec-eyebrow{
+  font-size:.58rem;letter-spacing:.4em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;
+}
+.sec-title{
+  font-family:var(--font-display);
+  font-size:2.4rem;font-weight:300;
+  color:var(--cream);margin-bottom:3rem;line-height:1.3;
+}
+.sec-title em{font-style:italic;color:var(--gold2)}
+.vgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.vcard{
+  background:var(--card);border:1px solid var(--border);
+  overflow:hidden;transition:border-color .3s,transform .3s;
+}
+.vcard:hover{border-color:rgba(180,145,60,.45);transform:translateY(-3px)}
+.vthumb{aspect-ratio:9/16;position:relative;background:#08080f}
+.vthumb iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+.vmeta{padding:1rem 1.2rem}
+.vtag{
+  font-size:.58rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:.3rem;
+}
+.vtitle{font-size:.88rem;color:var(--cream)}
+.more-videos{
+  display:flex;align-items:center;justify-content:center;
+  min-height:200px;cursor:pointer;
+  border:1px dashed rgba(180,145,60,.2);
+  background:transparent;transition:all .3s;
+}
+.more-videos:hover{border-color:rgba(180,145,60,.45);background:rgba(180,145,60,.03)}
+
+/* ─── FORM SECTION ────────────────────────────── */
+.form-section{
+  padding:7rem 5vw;
+  background:linear-gradient(135deg,rgba(180,145,60,.07),rgba(180,145,60,.02));
+  border-top:1px solid var(--border);
+}
+.form-inner{max-width:560px;margin:0 auto;text-align:center}
+.form-inner h2{
+  font-family:var(--font-display);
+  font-size:2.4rem;font-weight:300;
+  color:var(--cream);margin-bottom:1rem;line-height:1.3;
+}
+.form-inner h2 em{font-style:italic;color:var(--gold2)}
+.form-inner p{
+  color:var(--muted);font-size:.92rem;
+  line-height:1.9;margin-bottom:2.5rem;
+}
+.form-card{
+  background:var(--card);border:1px solid var(--border);
+  padding:2.5rem;text-align:right;position:relative;
+}
+.form-card::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:1px;
+  background:linear-gradient(to right,transparent,var(--gold),transparent);
+}
+.field{margin-bottom:1.2rem}
+.field label{
+  display:block;font-size:.6rem;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:.5rem;
+}
+.field input{
+  width:100%;
+  background:rgba(255,255,255,.03);
+  border:1px solid var(--border);
+  color:var(--cream);padding:.85rem 1rem;
+  font-family:var(--font-body);font-size:.87rem;
+  outline:none;transition:border-color .2s;
+}
+.field input:focus{border-color:var(--gold)}
+.field input::placeholder{color:var(--muted)}
+.submit-btn{
+  width:100%;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:#06060a;border:none;padding:1.1rem;
+  font-family:var(--font-body);font-size:.85rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  cursor:pointer;font-weight:700;margin-top:.5rem;
+  transition:opacity .2s;
+}
+.submit-btn:hover{opacity:.88}
+.privacy{font-size:.68rem;color:var(--muted);text-align:center;margin-top:.8rem}
+
+/* ─── FOOTER ──────────────────────────────────── */
+footer{
+  background:#040408;
+  padding:3rem 5vw 2rem;
+  border-top:1px solid var(--border);
+}
+.footer-inner{
+  display:flex;justify-content:space-between;
+  align-items:center;flex-wrap:wrap;
+  gap:1rem;margin-bottom:2rem;
+}
+.footer-brand .fn{
+  font-family:var(--font-display);
+  font-size:1.4rem;font-weight:400;color:var(--gold2);
+}
+.footer-brand .fs{
+  font-size:.5rem;letter-spacing:.28em;
+  text-transform:uppercase;color:var(--muted);display:block;
+}
+.footer-links{display:flex;gap:2rem;list-style:none}
+.footer-links a{color:var(--muted);text-decoration:none;font-size:.8rem;transition:color .2s}
+.footer-links a:hover{color:var(--gold)}
+.footer-bottom{
+  border-top:1px solid var(--border);
+  padding-top:1.5rem;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.fcopy{font-size:.65rem;color:var(--muted)}
+
+/* ─── THANK YOU ───────────────────────────────── */
+.ty-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(6,6,10,.97);z-index:9999;
+  align-items:center;justify-content:center;
+}
+.ty-overlay.show{display:flex}
+.ty-box{
+  background:var(--card);
+  border:1px solid rgba(180,145,60,.3);
+  padding:3.5rem;max-width:520px;width:90%;
+  text-align:center;position:relative;
+}
+.ty-box::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(to right,transparent,var(--gold),transparent);
+}
+.ty-logo{
+  width:72px;height:72px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 1.5rem;
+  font-family:var(--font-display);
+  font-size:1.3rem;font-weight:600;color:#06060a;
+  box-shadow:0 0 30px rgba(180,145,60,.3);
+  overflow:hidden;
+}
+.ty-logo img{width:100%;height:100%;object-fit:cover;object-position:top}
+.ty-title{
+  font-family:var(--font-display);
+  font-size:2rem;font-weight:300;
+  color:var(--cream);margin-bottom:.8rem;
+}
+.ty-title em{font-style:italic;color:var(--gold2)}
+.ty-text{
+  font-size:.92rem;color:var(--muted);
+  line-height:1.9;margin-bottom:2rem;
+  max-width:380px;margin-left:auto;margin-right:auto;
+}
+.ty-text strong{color:var(--txt);font-weight:400}
+.ty-divider{height:1px;background:linear-gradient(to right,transparent,rgba(180,145,60,.2),transparent);margin:1.5rem 0}
+.ty-netivot{
+  background:rgba(180,145,60,.05);
+  border:1px solid rgba(180,145,60,.18);
+  padding:1.5rem;margin-bottom:2rem;
+}
+.ty-netivot p{font-size:.85rem;color:var(--muted);line-height:1.8;margin-bottom:1rem}
+.ty-netivot a{
+  display:inline-block;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:#06060a;padding:.7rem 1.8rem;
+  font-size:.78rem;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;text-decoration:none;
+}
+.ty-close{
+  background:transparent;
+  border:1px solid rgba(180,145,60,.3);
+  color:var(--gold);padding:.7rem 2rem;
+  font-size:.78rem;letter-spacing:.14em;
+  text-transform:uppercase;cursor:pointer;
+  font-family:var(--font-body);transition:all .2s;
+}
+.ty-close:hover{background:rgba(180,145,60,.06)}
+
+/* ─── RESPONSIVE ──────────────────────────────── */
+@media(max-width:860px){
+  .hero{grid-template-columns:1fr}
+  .hero-img{height:60vw}
+  .hero-text{padding:3rem 5vw}
+  .about{grid-template-columns:1fr;gap:3rem;padding:4rem 5vw}
+  .vgrid{grid-template-columns:1fr}
+  .videos,.form-section{padding:4rem 5vw}
+  #mg-bot{height:520px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <span class="nav-name">משה גינזי</span>
+    <span class="nav-sub">מחשבה במסלול מחדש</span>
+  </div>
+  <a href="#chavruta" class="nav-cta">הצטרף לחברותא ←</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-img">
+    <img id="moshe-photo" src="#" alt="משה גינזי">
+  </div>
+  <div class="hero-text">
+    <div class="hero-eyebrow">חכמה לחיים</div>
+    <div class="hero-name">משה</div>
+    <div class="hero-name-i">גינזי</div>
+    <p class="hero-tagline">מחשבה במסלול מחדש</p>
+    <p class="hero-tagline2">— הקוד של החיים —</p>
+    <p class="hero-desc">מחפשים תשובות עמוקות לשאלות של החיים? <strong>הגעתם הביתה.</strong> המקום שלכם להתחבר לשורשים, לשאול הכל ולמצוא שקט בתוך השגרה.</p>
+    <div class="hero-btns">
+      <a href="#chavruta" class="btn-gold">הצטרף לחברותא</a>
+      <a href="#videos" class="btn-out">צפה בשיעורים</a>
+      <a href="#bot-section" class="btn-teal">שאלות / שיח</a>
+    </div>
+  </div>
+</div>
+
+<div class="gd"></div>
+
+<!-- BOT SECTION -->
+<div id="bot-section" class="bot-section">
+  <div class="bot-header">
+    <div class="bot-eyebrow">שאל את משה</div>
+    <h2 class="bot-title">לכל שאלה שיש לכם בלב –<br><em>משה כאן בשבילכם</em> 👇</h2>
+    <p class="bot-intro">מרגישים לפעמים שמשהו חסר? יש לכם שאלה עמוקה על החיים, על המסורת שלנו, או על משמעות היותנו יהודים בעולם המודרני? <strong>אתם לא לבד.</strong> כאן אתם יכולים לשאול כל שאלה בענייני יהדות ולקבל תשובה חמה, מחברת ובגובה העיניים.</p>
+  </div>
+
+  <div style="padding:0 5vw 5rem;max-width:800px;margin:0 auto">
+    <div id="mg-bot">
+      <!-- HEADER -->
+      <div class="mg-chat-header">
+        <div class="mg-avatar-lg">
+          <img src="#" alt="משה גינזי">
+        </div>
+        <div class="mg-header-info">
+          <div class="mg-header-name">משה גינזי</div>
+          <div class="mg-header-sub">מנחה חברותא • חינם • ללא לחץ דתי</div>
+        </div>
+        <div class="mg-lang-wrap">
+          <button class="mg-lang-btn active" onclick="mgSetLang('he')">🇮🇱 עברית</button>
+          <button class="mg-lang-btn" onclick="mgSetLang('en')">🇺🇸 English</button>
+        </div>
+      </div>
+
+      <!-- MESSAGES -->
+      <div id="mg-msgs">
+        <div class="mg-welcome">
+          <!-- שם + מגדר -->
+          <div id="mg-name-screen" class="mg-name-screen">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--cream);margin-bottom:.5rem">שלום! 👋</div>
+            <div style="font-size:.82rem;color:var(--muted);margin-bottom:1rem">לפני שמתחילים — מה שמך?</div>
+            <input id="mg-name-input" placeholder="כתוב שמך כאן..." />
+            <div class="mg-gender-btns">
+              <button class="mg-gender-btn" onclick="mgSetGender('נקבה')" id="btn-female">אני אישה</button>
+              <button class="mg-gender-btn" onclick="mgSetGender('זכר')" id="btn-male">אני גבר</button>
+            </div>
+            <button class="mg-start-btn" onclick="mgSaveName()">בואו נתחיל ←</button>
+          </div>
+          <div class="mg-welcome-title">אין שאלה קטנה מדי,<br>ואין שאלה גדולה מדי.</div>
+          <div class="mg-welcome-sub">תרגישו חופשי לשאול אותי הכל —<br>על יהדות, חיים, משמעות, ועוד.</div>
+        </div>
+      </div>
+
+      <!-- INPUT -->
+      <div class="mg-input-row">
+        <button class="mg-send-btn" onclick="mgSend()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#06060a"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
+        </button>
+        <button id="mg-mic-btn" title="דבר במקום לכתוב">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+        </button>
+        <input id="mg-inp" onkeydown="if(event.key==='Enter')mgSend()" placeholder="כתוב שאלה..." />
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="gd"></div>
+
+<!-- ABOUT -->
+<section class="about">
+  <div>
+    <div class="about-eyebrow">אודות</div>
+    <h2>מי הוא<br><em>משה גינזי?</em></h2>
+    <p>משה גינזי הוא מרצה ומחנך שמדבר אל הלב — לא אל הכיפה. הוא מאמין שחכמת אלפי שנות יהדות שייכת לכל אדם.</p>
+    <p>האתר הזה נולד מתוך שאלות אמיתיות שאנשים שואלים: <strong>מה המשמעות של כל זה? למה רע לאנשים טובים? מה קורה אחרי?</strong></p>
+    <p>בלי כפייה, בלי סיסמאות — רק עין טובה וחכמה יהודית שפוגשת את האקטואליה של המאה ה-21.</p>
+    <div class="quote-block">לא כדי לחזור בתשובה — אלא כדי לחזור אל עצמך.</div>
+  </div>
+  <div class="verse-card">
+    <div class="verse-big">״</div>
+    <div class="verse-text">חכמה היא לא מה שיש לך — היא מה שאתה עושה עם מה שיש לך.</div>
+    <div class="verse-src">חכמת ישראל</div>
+    <div class="verse-line"></div>
+    <div class="verse-q">כל אדם הוא עולם שלם</div>
+    <div class="verse-by">— משנה סנהדרין</div>
+  </div>
+</section>
+
+<div class="gd"></div>
+
+<!-- VIDEOS -->
+<section class="videos" id="videos">
+  <div class="sec-eyebrow">שיעורים</div>
+  <div class="sec-title">צפה ו<em>התחבר</em></div>
+  <div class="vgrid">
+    <div class="vcard">
+      <div class="vthumb"><iframe src="https://www.youtube.com/embed/62t1C2qZOJk" allowfullscreen loading="lazy"></iframe></div>
+      <div class="vmeta"><div class="vtag">אמונה • בחירה</div><div class="vtitle">מי מנהל את האירוע?</div></div>
+    </div>
+    <div class="vcard">
+      <div class="vthumb"><iframe src="https://www.youtube.com/embed/tti5WUy7kDo" allowfullscreen loading="lazy"></iframe></div>
+      <div class="vmeta"><div class="vtag">הצלחה • מטרה</div><div class="vtitle">כסף והצלחה</div></div>
+    </div>
+    <div class="vcard">
+      <div class="vthumb"><iframe src="https://www.youtube.com/embed/zvTXEa1CkZc" allowfullscreen loading="lazy"></iframe></div>
+      <div class="vmeta"><div class="vtag">משמעות • חיים</div><div class="vtitle">משמעות החיים</div></div>
+    </div>
+    <div class="vcard">
+      <div class="vthumb"><iframe src="https://www.youtube.com/embed/qNqf6BgdSDs" allowfullscreen loading="lazy"></iframe></div>
+      <div class="vmeta"><div class="vtag">משפחה • חינוך</div><div class="vtitle">הילדים שלנו</div></div>
+    </div>
+    <div class="vcard">
+      <div class="vthumb"><iframe src="https://www.youtube.com/embed/eYJzCv7qyPU" allowfullscreen loading="lazy"></iframe></div>
+      <div class="vmeta"><div class="vtag">פלא • יהדות</div><div class="vtitle">מתמטיקה של הפלא</div></div>
+    </div>
+    <div class="more-videos" onclick="window.open('https://www.youtube.com/@MosheGinzy','_blank')">
+      <div style="text-align:center">
+        <div style="width:48px;height:48px;border:1px solid rgba(180,145,60,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto .8rem;color:var(--gold);font-size:1.1rem">▶</div>
+        <div style="font-size:.75rem;color:var(--muted)">עוד שיעורים בערוץ</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gd"></div>
+
+<!-- FORM -->
+<section class="form-section" id="chavruta">
+  <div class="form-inner">
+    <div class="sec-eyebrow" style="display:flex;justify-content:center">הצטרף עכשיו</div>
+    <h2>הצעד הבא —<br><em>לא לבד.</em></h2>
+    <p>אם משהו כאן נגע בך — בוא נמשיך את השיחה. לא צריך ידע מוקדם. לא צריך רקע דתי. צריך רק סקרנות אמיתית.</p>
+    <form class="form-card" action="https://formspree.io/f/xnjwdeyd" method="POST">
+      <div class="field"><label>שם מלא *</label><input type="text" name="name" placeholder="השם שלך" required></div>
+      <div class="field"><label>טלפון *</label><input type="tel" name="phone" placeholder="050-0000000" required></div>
+      <div class="field"><label>מייל</label><input type="email" name="email" placeholder="your@email.com"></div>
+      <div class="field"><label>עיר מגורים</label><input type="text" name="city" placeholder="העיר שלך"></div>
+      <button type="submit" class="submit-btn">שלח — אני רוצה להצטרף ←</button>
+      <div class="privacy">הפרטים שלך נשמרים בצנעה ולא יועברו לאף גורם</div>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="fn">משה גינזי</span>
+      <span class="fs">מחשבה במסלול מחדש</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="#chavruta">חברותא</a></li>
+      <li><a href="#videos">שיעורים</a></li>
+      <li><a href="#bot-section">שאל את משה</a></li>
+      <li><a href="https://www.youtube.com/@MosheGinzy" target="_blank">YouTube</a></li>
+    </ul>
+  </div>
+  <div class="footer-bottom">
+    <span class="fcopy">© 2026 משה גינזי — כל הזכויות שמורות</span>
+    <span class="fcopy">mosheginzy.com</span>
+  </div>
+</footer>
+
+<!-- THANK YOU -->
+<div class="ty-overlay" id="thankYou">
+  <div class="ty-box">
+    <div class="ty-logo"><img src="#" alt="משה גינזי"></div>
+    <h2 class="ty-title">תודה <em>שנרשמת!</em></h2>
+    <p class="ty-text">קיבלנו את פרטיך. <strong>משה גינזי יחזור אליך תוך 24 שעות</strong> לתיאום החברותא הראשונה שלך.</p>
+    <div class="ty-divider"></div>
+    <div class="ty-netivot">
+      <p>אבני תקווה — קהילה שמאמינה שכל אדם יכול לצמוח, להתחבר ולמצוא את דרכו.</p>
+      <a href="https://tikva.netivotny.org" target="_blank">היכנס לאתר אבני תקווה ←</a>
+    </div>
+    <button class="ty-close" onclick="document.getElementById('thankYou').classList.remove('show')">חזור לאתר</button>
+  </div>
+</div>
+
+<script>
+// ─── BOT ───────────────────────────────────────────────────────────────────
+(function(){
+  var EL_KEY='sk_0a386a44903ba282d03e112390d1e87774ce751bf08a4749';
+  var EL_VOICE='jSyAO1W1N4S7u904a6Z3';
+  var DIFY_KEY='app-VFD9vOFBd83JQC3BvLwuX5Q4';
+  var DIFY_URL='https://api.dify.ai/v1/chat-messages';
+  var SHEET_URL='https://script.google.com/macros/s/AKfycbwUEypI5myQNxeLygjRulfidJHaqfz7DHG3MFkfu0C5mhLfODY0xW-N46FLEzI1LTNb9A/exec';
+
+  var userID=localStorage.getItem('mg-user-id')||'';
+  if(!userID){userID=Math.random().toString(36).substr(2,9);localStorage.setItem('mg-user-id',userID);}
+  var userName=localStorage.getItem('mg-user-name')||'';
+  var cid='';
+  var currentAudio=null;
+
+  if(userName){
+    var ns=document.getElementById('mg-name-screen');
+    if(ns)ns.style.display='none';
+  }
+
+  // שמור שם
+  window.mgSaveName=function(){
+    var v=document.getElementById('mg-name-input').value.trim();
+    if(!v)return;
+    localStorage.setItem('mg-user-name',v);
+    userName=v;
+    document.getElementById('mg-name-screen').style.display='none';
+  };
+
+  // מגדר
+  window.mgSetGender=function(g){
+    localStorage.setItem('mg-user-gender',g);
+    document.getElementById('btn-female').classList.toggle('selected',g==='נקבה');
+    document.getElementById('btn-male').classList.toggle('selected',g==='זכר');
+  };
+
+  // שפה
+  window.mgSetLang=function(lang){
+    document.querySelectorAll('.mg-lang-btn').forEach(function(b){b.classList.remove('active');});
+    event.target.classList.add('active');
+    var inp=document.getElementById('mg-inp');
+    if(inp)inp.placeholder=lang==='he'?'כתוב שאלה...':'Type your question...';
+    localStorage.setItem('mg-lang',lang);
+  };
+
+  // הוסף הודעה
+  function addMsg(txt,who){
+    var w=document.getElementById('mg-msgs');
+    var row=document.createElement('div');
+    row.className='mg-msg-row '+(who==='user'?'user':'');
+    var av;
+    if(who==='bot'){
+      av=document.createElement('div');
+      av.className='mg-avatar-sm';
+      var photo=document.getElementById('moshe-photo');
+      if(photo){var img=document.createElement('img');img.src=photo.src;img.alt='משה';av.appendChild(img);}
+    } else {
+      av=document.createElement('div');
+      av.className='mg-avatar-user';
+      av.textContent='☺';
+    }
+    var bubble=document.createElement('div');
+    bubble.className='mg-bubble '+(who==='bot'?'bot':'user');
+    bubble.textContent=txt;
+    row.appendChild(av);
+    row.appendChild(bubble);
+    w.appendChild(row);
+    w.scrollTop=w.scrollHeight;
+  }
+
+  // typing
+  function showTyping(){
+    var w=document.getElementById('mg-msgs');
+    var row=document.createElement('div');
+    row.className='mg-msg-row';
+    row.id='mg-typ';
+    var av=document.createElement('div');
+    av.className='mg-avatar-sm';
+    var photo=document.getElementById('moshe-photo');
+    if(photo){var img=document.createElement('img');img.src=photo.src;img.alt='משה';av.appendChild(img);}
+    var t=document.createElement('div');
+    t.className='mg-typing';
+    t.innerHTML='<span></span><span></span><span></span>';
+    row.appendChild(av);row.appendChild(t);
+    w.appendChild(row);w.scrollTop=w.scrollHeight;
+  }
+  function rmTyping(){var t=document.getElementById('mg-typ');if(t)t.remove();}
+
+  // שמור ל-Sheet
+  function saveToSheet(q,a){
+    var n=localStorage.getItem('mg-user-name')||'אנונימי';
+    new Image().src=SHEET_URL+'?id='+encodeURIComponent(userID)+'&name='+encodeURIComponent(n)+'&question='+encodeURIComponent(q)+'&answer='+encodeURIComponent(a||'');
+  }
+
+  // ElevenLabs TTS
+  function speakText(txt){
+    if(currentAudio){currentAudio.pause();currentAudio=null;}
+    fetch('https://api.elevenlabs.io/v1/text-to-speech/'+EL_VOICE,{
+      method:'POST',
+      headers:{'xi-api-key':EL_KEY,'Content-Type':'application/json'},
+      body:JSON.stringify({text:txt,model_id:'eleven_multilingual_v2',voice_settings:{stability:.5,similarity_boost:.75}})
+    }).then(function(r){return r.blob();}).then(function(b){
+      var url=URL.createObjectURL(b);
+      currentAudio=new Audio(url);
+      currentAudio.play();
+    }).catch(function(){});
+  }
+
+  // שלח הודעה
+  window.mgSend=function(){
+    var inp=document.getElementById('mg-inp');
+    var txt=inp.value.trim();if(!txt)return;
+    inp.value='';addMsg(txt,'user');showTyping();
+    fetch(DIFY_URL,{
+      method:'POST',
+      headers:{'Authorization':'Bearer '+DIFY_KEY,'Content-Type':'application/json'},
+      body:JSON.stringify({
+        inputs:{name:localStorage.getItem('mg-user-name')||'אנונימי'},
+        query:txt,response_mode:'blocking',
+        conversation_id:cid||undefined,user:'moshe_user'
+      })
+    }).then(function(r){return r.json();}).then(function(d){
+      rmTyping();
+      if(d.answer){
+        cid=d.conversation_id;
+        saveToSheet(txt,d.answer);
+        addMsg(d.answer,'bot');
+        speakText(d.answer);
+      } else {addMsg('מצטער, נסה שוב.','bot');}
+    }).catch(function(){rmTyping();addMsg('בעיית חיבור.','bot');});
+  };
+
+  // מיקרופון
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(SR){
+    var rec=new SR();
+    rec.continuous=false;rec.interimResults=true;
+    var listening=false;
+    var micBtn=document.getElementById('mg-mic-btn');
+    rec.onresult=function(e){
+      var t='';for(var i=e.resultIndex;i<e.results.length;i++)t+=e.results[i][0].transcript;
+      document.getElementById('mg-inp').value=t;
+    };
+    rec.onend=function(){
+      listening=false;micBtn.classList.remove('listening');
+      var inp=document.getElementById('mg-inp');
+      inp.placeholder=localStorage.getItem('mg-lang')==='en'?'Type your question...':'כתוב שאלה...';
+      if(inp.value.trim())window.mgSend();
+    };
+    rec.onerror=function(){listening=false;micBtn.classList.remove('listening');};
+    micBtn.addEventListener('click',function(){
+      if(listening){rec.stop();}
+      else{
+        listening=true;micBtn.classList.add('listening');
+        document.getElementById('mg-inp').value='';
+        document.getElementById('mg-inp').placeholder='🎤 מקשיב...';
+        rec.lang=localStorage.getItem('mg-lang')==='en'?'en-US':'he-IL';
+        rec.start();
+      }
+    });
+  }
+
+})();
+
+// ─── FORM ──────────────────────────────────────────────────────────────────
+document.querySelectorAll('form').forEach(function(form){
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var data=new FormData(form);
+    fetch(form.action,{method:'POST',body:data,headers:{'Accept':'application/json'}})
+    .then(function(r){
+      if(r.ok){window.location.href='thanks.html';}
+      else{alert('שגיאה בשליחה, נסה שוב');}
+    }).catch(function(){alert('שגיאה בשליחה, נסה שוב');});
+  });
+});
+</script>
+
+<script>
+// Load Moshe photo from source
+(function(){
+  var req = new XMLHttpRequest();
+  req.open('GET', 'https://raw.githubusercontent.com/aginsberger-cpu/mosheginzy/main/index.html', true);
+  req.onload = function(){
+    var match = req.responseText.match(/src="(data:image\/jpeg;base64,[^"]+)"/);
+    if(match){
+      var src = match[1];
+      document.querySelectorAll('#moshe-photo, .mg-avatar-lg img, .ty-logo img').forEach(function(el){
+        el.src = src;
+      });
+    }
+  };
+  req.send();
+})();
+</script>
+
+</body>
+</html>
