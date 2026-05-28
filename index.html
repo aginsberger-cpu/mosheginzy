@@ -1037,11 +1037,13 @@ footer{
       };
       rec.onend=function(){
         if(!listening)return;
-        listening=false;
-        micBtn.classList.remove('listening');
-        inp.placeholder='כתוב שאלה...';
-        var val=(finalText||inp.value).trim();
-        if(val){inp.value=val;window.mgSend();}
+        setTimeout(function(){
+          listening=false;
+          micBtn.classList.remove('listening');
+          inp.placeholder='כתוב שאלה...';
+          var val=(finalText||inp.value).trim();
+          if(val){inp.value=val;window.mgSend();}
+        }, 2000);
       };
       rec.onerror=function(err){
         listening=false;
