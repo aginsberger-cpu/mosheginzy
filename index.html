@@ -1096,31 +1096,7 @@ document.querySelectorAll('form').forEach(function(form){
 </script>
 
 
-<script>
-// Auto-load Moshe photo from current GitHub source
-(function(){
-  var cachedSrc = sessionStorage.getItem('moshe-photo-src');
-  function applyPhoto(src){
-    document.querySelectorAll('.needs-photo').forEach(function(el){
-      el.src = src;
-    });
-  }
-  if(cachedSrc){ applyPhoto(cachedSrc); return; }
-  var req = new XMLHttpRequest();
-  req.open('GET', 'https://aginsberger-cpu.github.io/mosheginzy/index.html', true);
-  req.onload = function(){
-    if(req.status === 200){
-      var match = req.responseText.match(/id="moshe-photo"[^>]+src="([^"]+)"/);
-      if(!match) match = req.responseText.match(/src="(data:image\/jpeg[^"]+)"/);
-      if(match && match[1]){
-        sessionStorage.setItem('moshe-photo-src', match[1]);
-        applyPhoto(match[1]);
-      }
-    }
-  };
-  req.send();
-})();
-</script>
+
 
 </body>
 </html>
