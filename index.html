@@ -1098,5 +1098,345 @@ document.querySelectorAll('form').forEach(function(form){
 
 
 
+<!-- LANGUAGE SWITCHER - הוסיפי את זה לפני </body> -->
+
+<style>
+#lang-switcher {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: linear-gradient(135deg, #1a1505, #0f0d02);
+  border-bottom: 2px solid rgba(201,168,76,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 20px;
+  direction: ltr;
+}
+#lang-switcher .lang-label {
+  color: rgba(201,168,76,0.7);
+  font-size: .75rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  font-family: 'Rubik', sans-serif;
+}
+#lang-switcher .lang-btn {
+  background: transparent;
+  border: 2px solid rgba(201,168,76,0.5);
+  color: #c9a84c;
+  font-family: 'Rubik', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  padding: 8px 28px;
+  cursor: pointer;
+  transition: all .2s;
+  text-transform: uppercase;
+}
+#lang-switcher .lang-btn:hover {
+  background: rgba(201,168,76,0.15);
+  border-color: #c9a84c;
+}
+#lang-switcher .lang-btn.active {
+  background: linear-gradient(135deg, #c9a84c, #e8c870);
+  color: #06060a;
+  border-color: transparent;
+}
+body { padding-top: 52px; }
+nav { top: 52px !important; }
+</style>
+
+<div id="lang-switcher">
+  <span class="lang-label">🌐 Language / שפה:</span>
+  <button class="lang-btn active" onclick="setLang('he')" id="btn-lang-he">🇮🇱 עברית</button>
+  <button class="lang-btn" onclick="setLang('en')" id="btn-lang-en">🇺🇸 English</button>
+</div>
+
+<script>
+var TEXTS = {
+  he: {
+    'nav-name': 'משה גינזי',
+    'nav-sub': 'מחשבה במסלול מחדש',
+    'nav-cta': 'הצטרף לחברותא ←',
+    'hero-eyebrow': 'חכמה לחיים',
+    'hero-name': 'משה',
+    'hero-name-i': 'גינזי',
+    'hero-tagline': 'מחשבה במסלול מחדש',
+    'hero-tagline2': '— הקוד של החיים —',
+    'hero-desc': 'מחפשים תשובות עמוקות לשאלות של החיים? <strong>הגעתם הביתה.</strong> המקום שלכם להתחבר לשורשים, לשאול הכל ולמצוא שקט בתוך השגרה.',
+    'btn-gold': 'הצטרף לחברותא',
+    'btn-out': 'צפה בשיעורים',
+    'btn-teal': 'שאלות / שיח',
+    'bot-eyebrow': 'שאל את משה',
+    'bot-title': 'לכל שאלה שיש לכם בלב –<br><em>משה כאן בשבילכם</em> 👇',
+    'bot-intro': 'מרגישים לפעמים שמשהו חסר? יש לכם שאלה עמוקה על החיים, על המסורת שלנו, או על משמעות היותנו יהודים בעולם המודרני? <strong>אתם לא לבד.</strong> כאן אתם יכולים לשאול כל שאלה בענייני יהדות ולקבל תשובה חמה, מחברת ובגובה העיניים.',
+    'mg-header-name': 'משה גינזי',
+    'mg-header-sub': 'מנחה חברותא • חינם • ללא לחץ דתי',
+    'mg-inp-placeholder': 'כתוב שאלה...',
+    'about-eyebrow': 'אודות',
+    'about-h2': 'מי הוא<br><em>משה גינזי?</em>',
+    'about-p1': 'משה גינזי הוא מרצה ומחנך שמדבר אל הלב — לא אל הכיפה. הוא מאמין שחכמת אלפי שנות יהדות שייכת לכל אדם.',
+    'about-p2': 'האתר הזה נולד מתוך שאלות אמיתיות שאנשים שואלים: <strong>מה המשמעות של כל זה? למה רע לאנשים טובים? מה קורה אחרי?</strong>',
+    'about-p3': 'בלי כפייה, בלי סיסמאות — רק עין טובה וחכמה יהודית שפוגשת את האקטואליה של המאה ה-21.',
+    'about-quote': 'לא כדי לחזור בתשובה — אלא כדי לחזור אל עצמך.',
+    'verse-text': 'חכמה היא לא מה שיש לך — היא מה שאתה עושה עם מה שיש לך.',
+    'verse-src': 'חכמת ישראל',
+    'verse-q': 'כל אדם הוא עולם שלם',
+    'verse-by': '— משנה סנהדרין',
+    'videos-eyebrow': 'שיעורים',
+    'videos-title': 'צפה ו<em>התחבר</em>',
+    'form-eyebrow': 'הצטרף עכשיו',
+    'form-h2': 'הצעד הבא —<br><em>לא לבד.</em>',
+    'form-p': 'אם משהו כאן נגע בך — בוא נמשיך את השיחה. לא צריך ידע מוקדם. לא צריך רקע דתי. צריך רק סקרנות אמיתית.',
+    'label-name': 'שם מלא *',
+    'label-phone': 'טלפון *',
+    'label-email': 'מייל',
+    'label-city': 'עיר מגורים',
+    'ph-name': 'השם שלך',
+    'ph-phone': '050-0000000',
+    'ph-email': 'your@email.com',
+    'ph-city': 'העיר שלך',
+    'submit-btn': 'שלח — אני רוצה להצטרף ←',
+    'privacy': 'הפרטים שלך נשמרים בצנעה ולא יועברו לאף גורם',
+    'footer-name': 'משה גינזי',
+    'footer-sub': 'מחשבה במסלול מחדש',
+    'footer-link1': 'חברותא',
+    'footer-link2': 'שיעורים',
+    'footer-link3': 'שאל את משה',
+    'footer-copy': '© 2026 משה גינזי — כל הזכויות שמורות',
+    'doc-dir': 'rtl',
+    'doc-lang': 'he',
+    'vcard1-tag': 'אמונה • בחירה',
+    'vcard1-title': 'מי מנהל את האירוע?',
+    'vcard2-tag': 'הצלחה • מטרה',
+    'vcard2-title': 'כסף והצלחה',
+    'vcard3-tag': 'משמעות • חיים',
+    'vcard3-title': 'משמעות החיים',
+    'vcard4-tag': 'משפחה • חינוך',
+    'vcard4-title': 'הילדים שלנו',
+    'vcard5-tag': 'פלא • יהדות',
+    'vcard5-title': 'מתמטיקה של הפלא',
+    'more-videos': 'עוד שיעורים בערוץ',
+    'welcome-title': 'אין שאלה קטנה מדי,<br>ואין שאלה גדולה מדי.',
+    'welcome-sub': 'תרגישו חופשי לשאול אותי הכל —<br>על יהדות, חיים, משמעות, ועוד.',
+    'name-screen-title': 'שלום! 👋',
+    'name-screen-sub': 'לפני שמתחילים — מה שמך?',
+    'name-placeholder': 'כתוב שמך כאן...',
+    'btn-female': 'אני אישה',
+    'btn-male': 'אני גבר',
+    'btn-start': 'בואו נתחיל ←',
+    'ty-title': 'תודה <em>שנרשמת!</em>',
+    'ty-text': 'קיבלנו את פרטיך. <strong>משה גינזי יחזור אליך תוך 24 שעות</strong> לתיאום החברותא הראשונה שלך.',
+    'ty-netivot-p': 'אבני תקווה — קהילה שמאמינה שכל אדם יכול לצמוח, להתחבר ולמצוא את דרכו.',
+    'ty-netivot-a': 'היכנס לאתר אבני תקווה ←',
+    'ty-close': 'חזור לאתר'
+  },
+  en: {
+    'nav-name': 'Moshe Ginzy',
+    'nav-sub': 'Rethinking the Path',
+    'nav-cta': 'Join Chavruta →',
+    'hero-eyebrow': 'Wisdom for Life',
+    'hero-name': 'Moshe',
+    'hero-name-i': 'Ginzy',
+    'hero-tagline': 'Rethinking the Path',
+    'hero-tagline2': '— The Code of Life —',
+    'hero-desc': 'Looking for deep answers to life\'s questions? <strong>You\'ve come home.</strong> This is your place to reconnect with your roots, ask everything, and find peace within your daily life.',
+    'btn-gold': 'Join Chavruta',
+    'btn-out': 'Watch Lessons',
+    'btn-teal': 'Questions / Chat',
+    'bot-eyebrow': 'Ask Moshe',
+    'bot-title': 'Whatever question is in your heart —<br><em>Moshe is here for you</em> 👇',
+    'bot-intro': 'Do you sometimes feel something is missing? Do you have a deep question about life, our tradition, or what it means to be Jewish in the modern world? <strong>You are not alone.</strong> Here you can ask any question about Judaism and receive a warm, grounded, eye-level answer.',
+    'mg-header-name': 'Moshe Ginzy',
+    'mg-header-sub': 'Chavruta Guide • Free • No Religious Pressure',
+    'mg-inp-placeholder': 'Type your question...',
+    'about-eyebrow': 'About',
+    'about-h2': 'Who is<br><em>Moshe Ginzy?</em>',
+    'about-p1': 'Moshe Ginzy is a lecturer and educator who speaks to the heart — not to the kippah. He believes the wisdom of thousands of years of Judaism belongs to every person.',
+    'about-p2': 'This site was born from real questions people ask: <strong>What does it all mean? Why do bad things happen to good people? What happens next?</strong>',
+    'about-p3': 'No coercion, no slogans — just good eyes and Jewish wisdom meeting the realities of the 21st century.',
+    'about-quote': 'Not to repent — but to return to yourself.',
+    'verse-text': 'Wisdom is not what you have — it\'s what you do with what you have.',
+    'verse-src': 'Jewish Wisdom',
+    'verse-q': 'Every person is an entire world',
+    'verse-by': '— Mishnah Sanhedrin',
+    'videos-eyebrow': 'Lessons',
+    'videos-title': 'Watch and <em>Connect</em>',
+    'form-eyebrow': 'Join Now',
+    'form-h2': 'The next step —<br><em>not alone.</em>',
+    'form-p': 'If something here touched you — let\'s continue the conversation. No prior knowledge needed. No religious background required. Just genuine curiosity.',
+    'label-name': 'Full Name *',
+    'label-phone': 'Phone *',
+    'label-email': 'Email',
+    'label-city': 'City',
+    'ph-name': 'Your name',
+    'ph-phone': '+1-000-000-0000',
+    'ph-email': 'your@email.com',
+    'ph-city': 'Your city',
+    'submit-btn': 'Send — I want to join →',
+    'privacy': 'Your details are kept private and will not be shared',
+    'footer-name': 'Moshe Ginzy',
+    'footer-sub': 'Rethinking the Path',
+    'footer-link1': 'Chavruta',
+    'footer-link2': 'Lessons',
+    'footer-link3': 'Ask Moshe',
+    'footer-copy': '© 2026 Moshe Ginzy — All Rights Reserved',
+    'doc-dir': 'ltr',
+    'doc-lang': 'en',
+    'vcard1-tag': 'Faith • Choice',
+    'vcard1-title': 'Who Runs the Show?',
+    'vcard2-tag': 'Success • Purpose',
+    'vcard2-title': 'Money and Success',
+    'vcard3-tag': 'Meaning • Life',
+    'vcard3-title': 'The Meaning of Life',
+    'vcard4-tag': 'Family • Education',
+    'vcard4-title': 'Our Children',
+    'vcard5-tag': 'Wonder • Judaism',
+    'vcard5-title': 'The Mathematics of Wonder',
+    'more-videos': 'More lessons on the channel',
+    'welcome-title': 'No question is too small,<br>and no question is too big.',
+    'welcome-sub': 'Feel free to ask me anything —<br>about Judaism, life, meaning, and more.',
+    'name-screen-title': 'Hello! 👋',
+    'name-screen-sub': 'Before we begin — what is your name?',
+    'name-placeholder': 'Write your name here...',
+    'btn-female': 'I am a woman',
+    'btn-male': 'I am a man',
+    'btn-start': 'Let\'s begin →',
+    'ty-title': 'Thank you <em>for registering!</em>',
+    'ty-text': 'We received your details. <strong>Moshe Ginzy will get back to you within 24 hours</strong> to schedule your first Chavruta session.',
+    'ty-netivot-p': 'Avnei Tikva — a community that believes every person can grow, connect, and find their path.',
+    'ty-netivot-a': 'Visit Avnei Tikva →',
+    'ty-close': 'Back to site'
+  }
+};
+
+function setLang(lang) {
+  var t = TEXTS[lang];
+  document.documentElement.lang = t['doc-lang'];
+  document.documentElement.dir = t['doc-dir'];
+
+  document.getElementById('btn-lang-he').classList.toggle('active', lang === 'he');
+  document.getElementById('btn-lang-en').classList.toggle('active', lang === 'en');
+
+  localStorage.setItem('mg-site-lang', lang);
+
+  function setText(sel, val) {
+    var el = document.querySelector(sel);
+    if (el) el.innerHTML = val;
+  }
+  function setAttr(sel, attr, val) {
+    var el = document.querySelector(sel);
+    if (el) el[attr] = val;
+  }
+  function setAll(sel, val) {
+    document.querySelectorAll(sel).forEach(function(el) { el.innerHTML = val; });
+  }
+
+  setText('.nav-name', t['nav-name']);
+  setText('.nav-sub', t['nav-sub']);
+  setText('.nav-cta', t['nav-cta']);
+  setText('.hero-eyebrow', t['hero-eyebrow']);
+  setText('.hero-name', t['hero-name']);
+  setText('.hero-name-i', t['hero-name-i']);
+  setText('.hero-tagline', t['hero-tagline']);
+  setText('.hero-tagline2', t['hero-tagline2']);
+  setText('.hero-desc', t['hero-desc']);
+
+  var btns = document.querySelectorAll('.hero-btns a');
+  if (btns[0]) btns[0].innerHTML = t['btn-gold'];
+  if (btns[1]) btns[1].innerHTML = t['btn-out'];
+  if (btns[2]) btns[2].innerHTML = t['btn-teal'];
+
+  setText('.bot-eyebrow', t['bot-eyebrow']);
+  setText('.bot-title', t['bot-title']);
+  setText('.bot-intro', t['bot-intro']);
+  setText('.mg-header-name', t['mg-header-name']);
+  setText('.mg-header-sub', t['mg-header-sub']);
+  setAttr('#mg-inp', 'placeholder', t['mg-inp-placeholder']);
+
+  setText('.about-eyebrow', t['about-eyebrow']);
+  var aboutH2 = document.querySelector('.about h2');
+  if (aboutH2) aboutH2.innerHTML = t['about-h2'];
+  var aboutPs = document.querySelectorAll('.about p');
+  if (aboutPs[0]) aboutPs[0].innerHTML = t['about-p1'];
+  if (aboutPs[1]) aboutPs[1].innerHTML = t['about-p2'];
+  if (aboutPs[2]) aboutPs[2].innerHTML = t['about-p3'];
+  setText('.quote-block', t['about-quote']);
+  setText('.verse-text', t['verse-text']);
+  setText('.verse-src', t['verse-src']);
+  setText('.verse-q', t['verse-q']);
+  setText('.verse-by', t['verse-by']);
+
+  setText('.videos .sec-eyebrow', t['videos-eyebrow']);
+  setText('.videos .sec-title', t['videos-title']);
+
+  var vcards = document.querySelectorAll('.vcard');
+  var tags = ['vcard1-tag','vcard2-tag','vcard3-tag','vcard4-tag','vcard5-tag'];
+  var titles = ['vcard1-title','vcard2-title','vcard3-title','vcard4-title','vcard5-title'];
+  vcards.forEach(function(vc, i) {
+    var tag = vc.querySelector('.vtag');
+    var title = vc.querySelector('.vtitle');
+    if (tag && t[tags[i]]) tag.innerHTML = t[tags[i]];
+    if (title && t[titles[i]]) title.innerHTML = t[titles[i]];
+  });
+  var moreVid = document.querySelector('.more-videos div div:last-child');
+  if (moreVid) moreVid.innerHTML = t['more-videos'];
+
+  var secEyebrows = document.querySelectorAll('.form-section .sec-eyebrow, .form-inner .sec-eyebrow');
+  secEyebrows.forEach(function(el) { el.innerHTML = t['form-eyebrow']; });
+  var formH2 = document.querySelector('.form-inner h2');
+  if (formH2) formH2.innerHTML = t['form-h2'];
+  var formP = document.querySelector('.form-inner > p');
+  if (formP) formP.innerHTML = t['form-p'];
+
+  var labels = document.querySelectorAll('.field label');
+  var labelKeys = ['label-name','label-phone','label-email','label-city'];
+  labels.forEach(function(lb, i) { if (t[labelKeys[i]]) lb.innerHTML = t[labelKeys[i]]; });
+
+  var inputs = document.querySelectorAll('.field input');
+  var phKeys = ['ph-name','ph-phone','ph-email','ph-city'];
+  inputs.forEach(function(inp, i) { if (t[phKeys[i]]) inp.placeholder = t[phKeys[i]]; });
+
+  setText('.submit-btn', t['submit-btn']);
+  setText('.privacy', t['privacy']);
+
+  setText('.footer-brand .fn', t['footer-name']);
+  setText('.footer-brand .fs', t['footer-sub']);
+  var footerLinks = document.querySelectorAll('.footer-links a');
+  if (footerLinks[0]) footerLinks[0].innerHTML = t['footer-link1'];
+  if (footerLinks[1]) footerLinks[1].innerHTML = t['footer-link2'];
+  if (footerLinks[2]) footerLinks[2].innerHTML = t['footer-link3'];
+  setText('.fcopy', t['footer-copy']);
+
+  setText('.mg-welcome-title', t['welcome-title']);
+  setText('.mg-welcome-sub', t['welcome-sub']);
+
+  var nameTitle = document.querySelector('#mg-name-screen div:first-child');
+  if (nameTitle) nameTitle.innerHTML = t['name-screen-title'];
+  var nameSub = document.querySelector('#mg-name-screen div:nth-child(2)');
+  if (nameSub) nameSub.innerHTML = t['name-screen-sub'];
+  setAttr('#mg-name-input', 'placeholder', t['name-placeholder']);
+  setText('#btn-female', t['btn-female']);
+  setText('#btn-male', t['btn-male']);
+  setText('.mg-start-btn', t['btn-start']);
+
+  setText('.ty-title', t['ty-title']);
+  setText('.ty-text', t['ty-text']);
+  var tyP = document.querySelector('.ty-netivot p');
+  if (tyP) tyP.innerHTML = t['ty-netivot-p'];
+  var tyA = document.querySelector('.ty-netivot a');
+  if (tyA) tyA.innerHTML = t['ty-netivot-a'];
+  setText('.ty-close', t['ty-close']);
+
+  localStorage.setItem('mg-lang', lang);
+}
+
+var savedLang = localStorage.getItem('mg-site-lang') || 'he';
+setLang(savedLang);
+</script>
+
 </body>
 </html>
