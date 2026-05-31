@@ -1004,9 +1004,10 @@ function shareToWhatsApp(questionText, answerText) {
     var shortAnswer = answerText.length > 150 ? answerText.substring(0, 150) + '...' : answerText;
     var message = 'יווו שאלתי את הבוט של משה גינזי: "' + questionText + '"\n\nוקבלו מה הוא ענה לי:\n"' + shortAnswer + '"\n\nכנסו גם אתם לשאול אותו בחינם: https://mosheginzy.com';
     
-    var part1 = 'https://api.';
-    var part2 = '://whatsapp.com';
-    var part3 = 'send?text=';
+     var part1 = 'https://api.';
+  var part2 = '://whatsapp.com';
+  var part3 = 'send?text=';
+
     
     var whatsappUrl = part1 + part2 + part3 + encodeURIComponent(message);
     window.open(whatsappUrl, '_blank');
