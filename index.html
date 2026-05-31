@@ -995,7 +995,7 @@ footer{
  
 
         addMsg(d.answer,'bot');
-         shareToWhatsApp(txt, d.answer);
+            shareToWhatsApp(txt, d.answer);
         generateStory(txt, d.answer);
     }
 }).catch(function(){rmTyping();addMsg('בעיית חיבור. נסה שוב.','bot');});
@@ -1044,6 +1044,7 @@ function generateStory(questionText, answerText) {
     });
   }, 200);
 }
+
 
 
     var listening=false;
