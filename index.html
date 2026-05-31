@@ -973,7 +973,6 @@ footer{
       currentAudio.play();
     }).catch(function(){});
   }
-
 // שלח הודעה
 window.mgSend=function(){
     var inp=document.getElementById('mg-inp');
@@ -1004,10 +1003,10 @@ function shareToWhatsApp(questionText, answerText) {
     var shortAnswer = answerText.length > 150 ? answerText.substring(0, 150) + '...' : answerText;
     var message = 'יווו שאלתי את הבוט של משה גינזי: "' + questionText + '"\n\nוקבלו מה הוא ענה לי:\n"' + shortAnswer + '"\n\nכנסו גם אתם לשאול אותו בחינם: https://mosheginzy.com';
     
-     var part1 = 'https://api.';
-  var part2 = '://whatsapp.com';
-  var part3 = 'send?text=';
-
+    // תיקון סופי ומדויק לעקיפת תוכנות ההורדה והכתובת המשובשת
+    var part1 = 'https://api.';
+    var part2 = '://whatsapp.com';
+    var part3 = 'send?text=';
     
     var whatsappUrl = part1 + part2 + part3 + encodeURIComponent(message);
     window.open(whatsappUrl, '_blank');
@@ -1074,9 +1073,9 @@ if (typeof SR !== 'undefined' && micBtn) {
             finalText='';
             for(var i=0;i<e.results.length;i++){
                 if(e.results[i].isFinal){
-                    finalText+=e.results[i][0].transcript;
+                    finalText+=e.results[i].transcript;
                 } else {
-                    interim+=e.results[i][0].transcript;
+                    interim+=e.results[i].transcript;
                 }
             }
             inp.value=finalText||interim;
@@ -1110,37 +1109,34 @@ if (typeof SR !== 'undefined' && micBtn) {
     micBtn.style.opacity='0.3';
 }
 // ─── FORM ─────────────────
-
-
-// ─── FORM ──────────────────────────────────────────────────────────────────
 document.querySelectorAll('form').forEach(function(form){
-  form.addEventListener('submit',function(e){
-    e.preventDefault();
-    var data=new FormData(form);
-    fetch(form.action,{method:'POST',body:data,headers:{'Accept':'application/json'}})
-    .then(function(r){
-      if(r.ok){window.location.href='thanks.html';}
-      else{alert('שגיאה בשליחה, נסה שוב');}
-    }).catch(function(){alert('שגיאה בשליחה, נסה שוב');});
-  });
+    form.addEventListener('submit',function(e){
+        e.preventDefault();
+        var data=new FormData(form);
+        fetch(form.action,{method:'POST',body:data,headers:{'Accept':'application/json'}})
+        .then(function(r){
+            if(r.ok){window.location.href='thanks.html';}
+            else{alert('שגיאה בשליחה, נסה שוב');}
+        }).catch(function(){alert('שגיאה בשליחה, נסה שוב');});
+    });
 });
 </script>
 
 <script>
 // Load Moshe photo from source
 (function(){
-  var req = new XMLHttpRequest();
-  req.open('GET', 'https://raw.githubusercontent.com/aginsberger-cpu/mosheginzy/main/index.html', true);
-  req.onload = function(){
-    var match = req.responseText.match(/src="(data:image\/jpeg;base64,[^"]+)"/);
-    if(match){
-      var src = match[1];
-      document.querySelectorAll('#moshe-photo, .mg-avatar-lg img, .ty-logo img').forEach(function(el){
-        el.src = src;
-      });
-    }
-  };
-  req.send();
+    var req = new XMLHttpRequest();
+    req.open('GET', 'https://raw.githubusercontent.com/aginsberger-cpu/mosheginzy/main/index.html', true);
+    req.onload = function(){
+        var match = req.responseText.match(/src="(data:image\/jpeg;base64,[^"]+)"/);
+        if(match){
+            var src = match[1];
+            document.querySelectorAll('#moshe-photo, .mg-avatar-lg img, .ty-logo img').forEach(function(el){
+                el.src = src;
+            });
+        }
+    };
+    req.send();
 })();
 </script>
 
