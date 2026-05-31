@@ -1043,7 +1043,7 @@ footer{
           micBtn.classList.remove('listening');
           inp.placeholder='כתוב שאלה...';
           var val=(finalText||inp.value).trim();
-          if(val){inp.value=val;window.mgSend();}
+         if(val){inp.value=val;window.mgSend();inp.value='';inp.placeholder='כתוב שאלה...';}
         }, 2000);
       };
       rec.onerror=function(err){
