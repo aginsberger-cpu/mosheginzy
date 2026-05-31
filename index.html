@@ -995,9 +995,11 @@ footer{
  
 
         addMsg(d.answer,'bot');
-     shareToWhatsApp(txt, d.answer);  
-     
-    }).catch(function(){rmTyping();addMsg('בעיית חיבור.','bot');});
+         shareToWhatsApp(txt, d.answer);
+        generateStory(txt, d.answer);
+    }
+}).catch(function(){rmTyping();addMsg('בעיית חיבור. נסה שוב.','bot');});
+
 function shareToWhatsApp(questionText, answerText) {
   var shortAnswer = answerText.length > 150 ? answerText.substring(0, 150) + '...' : answerText;
   var message = 'יווו שאלתי את הבוט של משה גינזי: "' + questionText + '"\n\nוקבלו מה הוא ענה לי:\n"' + shortAnswer + '"\n\nכנסו גם אתם לשאול אותו בחינם: https://mosheginzy.com';
@@ -1010,13 +1012,40 @@ function shareToWhatsApp(questionText, answerText) {
   window.open(whatsappUrl, '_blank');
 }
 
+function generateStory(questionText, answerText) {
+  var storyQuestion = document.getElementById('story-question-text');
+  var storyAnswer = document.getElementById('story-answer-text');
+  var template = document.getElementById('story-template');
+  
+  if (!storyQuestion || !storyAnswer || !template) {
+    console.error('אלמנטים של תבנית הסטורי לא נמצאו בדף');
+    return;
+  }
+  
+  storyQuestion.innerText = questionText;
+  storyAnswer.innerText = answerText;
+  
+  setTimeout(function() {
+    html2canvas(template, {
+      scale: 2,
+      useCORS: true,
+      logging: false,
+      backgroundColor: '#0d0d0d'
+    }).then(function(canvas) {
+      var imageData = canvas.toDataURL('image/jpeg', 0.9);
+      var downloadLink = document.createElement('a');
+      downloadLink.download = 'moshe-ginzy-story-' + Date.now() + '.jpg';
+      downloadLink.href = imageData;
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+    }).catch(function(err) {
+      console.error('שגיאה ביצירת התמונה לסטורי:', err);
+    });
+  }, 200);
+}
 
 
-
-  // מיקרופון - מציג טקסט בזמן אמת
-  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  var micBtn=document.getElementById('mg-mic-btn');
-  if(SR && micBtn){
     var listening=false;
     var currentRec=null;
     micBtn.addEventListener('click',function(){
@@ -1451,6 +1480,42 @@ function setLang(lang) {
 var savedLang = localStorage.getItem('mg-site-lang') || 'he';
 setLang(savedLang);
 </script>
+<!-- תבנית מוסתרת ליצירת תמונת סטורי - מעוצבת בצבעי האתר היוקרתיים -->
+<div id="story-template" style="position: absolute; left: -9999px; top: -9999px; width: 1080px; height: 1920px; background-color: #0d0d0d; display: flex; flex-direction: column; justify-content: space-between; padding: 120px 80px; box-sizing: border-box; font-family: 'Assistant', 'Segoe UI', sans-serif; direction: rtl;">
+  
+  <!-- חלק עליון: מיתוג וכותרת -->
+  <div style="text-align: center; margin-bottom: 40px;">
+    <div style="color: #e5c158; font-size: 32px; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px;">הבוט של משה גינזי</div>
+    <div style="color: #888888; font-size: 22px;">בינה מלאכותית בשאלות ותשובות ביהדות</div>
+    <div style="width: 150px; height: 2px; background: linear-gradient(90deg, transparent, #e5c158, transparent); margin: 25px auto 0 auto;"></div>
+  </div>
 
+  <!-- חלק מרכזי: השאלה והתשובה -->
+  <div style="display: flex; flex-direction: column; gap: 60px; flex-grow: 1; justify-content: center;">
+    
+    <!-- בועת השאלה של המשתמש -->
+    <div style="align-self: flex-start; max-width: 85%; background-color: #1a1a1a; border: 1px solid #e5c158; border-radius: 30px 30px 0px 30px; padding: 40px 50px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+      <div style="color: #888888; font-size: 20px; margin-bottom: 10px; font-weight: bold;">השאלה שלי:</div>
+      <div id="story-question-text" style="color: #ffffff; font-size: 38px; font-weight: 600; line-height: 1.4;">כאן תופיע השאלה מהאתר</div>
+    </div>
+
+    <!-- בועת התשובה של הבוט -->
+    <div style="align-self: flex-end; max-width: 90%; background: linear-gradient(145deg, #151515, #1e1e1e); border-radius: 30px 30px 30px 0px; padding: 50px; box-shadow: 0 15px 40px rgba(0,0,0,0.6); position: relative;">
+      <div style="color: #e5c158; font-size: 22px; margin-bottom: 15px; font-weight: bold;">תשובת הבוט של משה:</div>
+      <div id="story-answer-text" style="color: #f5f5f5; font-size: 34px; line-height: 1.6; white-space: pre-wrap;">כאן תופיע התשובה מהאתר</div>
+    </div>
+
+  </div>
+
+  <!-- חלק תחתון: הנעה לפעולה וכתובת האתר -->
+  <div style="text-align: center; border-top: 1px solid #222222; padding-top: 40px;">
+    <div style="color: #888888; font-size: 22px; margin-bottom: 15px;">רוצים לשאול גם אתם בחינם ובדיסקרטיות?</div>
+    <div style="display: inline-block; background-color: #e5c158; color: #000000; font-size: 36px; font-weight: bold; padding: 20px 60px; border-radius: 50px; box-shadow: 0 8px 25px rgba(229,193,88,0.3);">
+      mosheginzy.com
+    </div>
+  </div>
+
+</div>
+S
 </body>
 </html>
