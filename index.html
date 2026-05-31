@@ -973,31 +973,48 @@ footer{
       currentAudio.play();
     }).catch(function(){});
   }
-// שלח הודעה
-window.mgSend=function(){
-    var inp=document.getElementById('mg-inp');
-    var txt=inp.value.trim();if(!txt)return;
-    inp.value='';addMsg(txt,'user');showTyping();
-    fetch(DIFY_URL,{
-        method:'POST',
-        headers:{'Authorization':'Bearer '+DIFY_KEY,'Content-Type':'application/json'},
-        body:JSON.stringify({
-            inputs:{name:localStorage.getItem('mg-user-name')||'אנונימי'},
-            query:txt,
-            response_mode:'blocking',
-            conversation_id:cid||undefined,
-            user:'moshe_user'
-        })
-    }).then(function(r){return r.json();}).then(function(d){
+// שלח הודעה 
+window.mgSend = function() { 
+    var inp = document.getElementById('mg-inp'); 
+    var txt = inp.value.trim();
+    if (!txt) return; 
+    
+    inp.value = '';
+    addMsg(txt, 'user');
+    showTyping(); 
+    
+    fetch(DIFY_URL, { 
+        method: 'POST', 
+        headers: {
+            'Authorization': 'Bearer ' + DIFY_KEY,
+            'Content-Type': 'application/json'
+        }, 
+        body: JSON.stringify({ 
+            inputs: {name: localStorage.getItem('mg-user-name') || 'אנונימי'}, 
+            query: txt, 
+            response_mode: 'blocking', 
+            conversation_id: cid || undefined, 
+            user: 'moshe_user' 
+        }) 
+    })
+    .then(function(r) {
+        return r.json();
+    })
+    .then(function(d) { 
+        rmTyping(); 
+        if (d.answer) { 
+            cid = d.conversation_id; 
+            addMsg(d.answer, 'bot'); 
+            // shareToWhatsApp(txt, d.answer); 
+            // generateStory(txt, d.answer); 
+        } 
+    })
+    .catch(function() {
         rmTyping();
-            if(d.answer){
-        cid=d.conversation_id;
-        addMsg(d.answer,'bot');
-        // shareToWhatsApp(txt, d.answer);
-        // generateStory(txt, d.answer);
-    }
-}).catch(function(){rmTyping();addMsg('בעיית חיבור. נסה שוב.','bot');});
-}
+        addMsg('בעיית חיבור. נסה שוב.', 'bot');
+    }); 
+};
+
 
 
 
