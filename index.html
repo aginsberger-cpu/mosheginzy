@@ -965,15 +965,16 @@ footer{
         text:shortTxt,
         model_id:'eleven_v3',
         voice_settings:{stability:.65,similarity_boost:.85},
-        language_code:'he'
-      })
+      language_code:'he'
+        })
     }).then(function(r){return r.blob();}).then(function(b){
-      var url=URL.createObjectURL(b);
-      currentAudio=new Audio(url);
-      currentAudio.play();
+        var url=URL.createObjectURL(b);
+        currentAudio=new Audio(url);
+        currentAudio.play();
     }).catch(function(){});
-  }
-// שלח הודעה 
+}
+
+// שלח הודעה
 window.mgSend = function() {
     var inp = document.getElementById('mg-inp');
     var txt = inp.value.trim();
@@ -1012,6 +1013,7 @@ window.mgSend = function() {
         addMsg('בעיית חיבור. נסה שוב.', 'bot');
     });
 };
+</script>
 
 
 
