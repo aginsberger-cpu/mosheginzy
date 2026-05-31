@@ -990,14 +990,14 @@ window.mgSend=function(){
         })
     }).then(function(r){return r.json();}).then(function(d){
         rmTyping();
-        if(d.answer){
-            cid=d.conversation_id;
-            addMsg(d.answer,'bot');
-            shareToWhatsApp(txt, d.answer);
-            generateStory(txt, d.answer);
-        }
-    }).catch(function(){rmTyping();addMsg('בעיית חיבור. נסה שוב.','bot');});
-}
+            if(d.answer){
+        cid=d.conversation_id;
+        addMsg(d.answer,'bot');
+        // shareToWhatsApp(txt, d.answer);
+        // generateStory(txt, d.answer);
+    }
+}).catch(function(){rmTyping();addMsg('בעיית חיבור. נסה שוב.','bot');});
+
 
 function shareToWhatsApp(questionText, answerText) {
   var shortAnswer = answerText.length > 150 ? answerText.substring(0, 150) + '...' : answerText;
