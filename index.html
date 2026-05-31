@@ -1137,11 +1137,10 @@ document.querySelectorAll('form').forEach(function(form){
         fetch(form.action,{method:'POST',body:data,headers:{'Accept':'application/json'}})
         .then(function(r){
             if(r.ok){window.location.href='thanks.html';}
-            else{alert('שגיאה בשליחה, נסה שוב');}
-        }).catch(function(){alert('שגיאה בשליחה, נסה שוב');});
-    });
-});
-</script>
+            }).catch(function(){alert('שגיאה בשליחה, נסה שוב');
+
+ 
+ </script>
 
 <script>
 // Load Moshe photo from source
@@ -1160,7 +1159,7 @@ document.querySelectorAll('form').forEach(function(form){
     req.send();
 })();
 </script>
-}
+
 
 
 
