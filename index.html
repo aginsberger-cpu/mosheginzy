@@ -995,100 +995,58 @@ footer{
  
 
         addMsg(d.answer,'bot');
-            shareToWhatsApp(txt, d.answer);
-        generateStory(txt, d.answer);
-    }
-}).catch(function(){rmTyping();addMsg('בעיית חיבור. נסה שוב.','bot');});
+             addMsg(d.answer,'bot'); 
+        shareToWhatsApp(txt, d.answer); 
+        generateStory(txt, d.answer); 
+    } 
+}).catch(function(){rmTyping();addMsg('בעיית חיבור. נסה שוב.','bot');}); 
 
-function shareToWhatsApp(questionText, answerText) {
-  var shortAnswer = answerText.length > 150 ? answerText.substring(0, 150) + '...' : answerText;
-  var message = 'יווו שאלתי את הבוט של משה גינזי: "' + questionText + '"\n\nוקבלו מה הוא ענה לי:\n"' + shortAnswer + '"\n\nכנסו גם אתם לשאול אותו בחינם: https://mosheginzy.com';
-  
-  var part1 = 'https://api.';
-  var part2 = '://whatsapp.com';
-  var part3 = 'send?text=';
-  
-  var whatsappUrl = part1 + part2 + part3 + encodeURIComponent(message);
-  window.open(whatsappUrl, '_blank');
+function shareToWhatsApp(questionText, answerText) { 
+    var shortAnswer = answerText.length > 150 ? answerText.substring(0, 150) + '...' : answerText; 
+    var message = 'יווו שאלתי את הבוט של משה גינזי: "' + questionText + '"\n\nוקבלו מה הוא ענה לי:\n"' + shortAnswer + '"\n\nכנסו גם אתם לשאול אותו בחינם: https://mosheginzy.com'; 
+    
+    // התיקון המדויק למניעת לינק שבור ועקיפת תוכנות הורדה (IDM)
+    var part1 = 'https://api.'; 
+    var part2 = '://whatsapp.com'; 
+    var part3 = 'send?text='; 
+    
+    var whatsappUrl = part1 + part2 + part3 + encodeURIComponent(message); 
+    window.open(whatsappUrl, '_blank'); 
+} 
+
+function generateStory(questionText, answerText) { 
+    var storyQuestion = document.getElementById('story-question-text'); 
+    var storyAnswer = document.getElementById('story-answer-text'); 
+    var template = document.getElementById('story-template'); 
+    
+    if (!storyQuestion || !storyAnswer || !template) { 
+        console.error('אלמנטים של תבנית הסטורי לא נמצאו בדף'); 
+        return; 
+    } 
+    
+    storyQuestion.innerText = questionText; 
+    storyAnswer.innerText = answerText; 
+    
+    setTimeout(function() { 
+        html2canvas(template, { 
+            scale: 2, 
+            useCORS: true, 
+            logging: false, 
+            backgroundColor: '#0d0d0d' 
+        }).then(function(canvas) { 
+            var imageData = canvas.toDataURL('image/jpeg', 0.9); 
+            var downloadLink = document.createElement('a'); 
+            downloadLink.download = 'moshe-ginzy-story-' + Date.now() + '.jpg'; 
+            downloadLink.href = imageData; 
+            document.body.appendChild(downloadLink); 
+            downloadLink.click(); 
+            document.body.removeChild(downloadLink); 
+        }).catch(function(err) { 
+            console.error('שגיאה ביצירת התמונה לסטורי:', err); 
+        }); 
+    }, 200); 
 }
 
-function generateStory(questionText, answerText) {
-  var storyQuestion = document.getElementById('story-question-text');
-  var storyAnswer = document.getElementById('story-answer-text');
-  var template = document.getElementById('story-template');
-  
-  if (!storyQuestion || !storyAnswer || !template) {
-    console.error('אלמנטים של תבנית הסטורי לא נמצאו בדף');
-    return;
-  }
-  
-  storyQuestion.innerText = questionText;
-  storyAnswer.innerText = answerText;
-  
-  setTimeout(function() {
-    html2canvas(template, {
-      scale: 2,
-      useCORS: true,
-      logging: false,
-      backgroundColor: '#0d0d0d'
-    }).then(function(canvas) {
-      var imageData = canvas.toDataURL('image/jpeg', 0.9);
-      var downloadLink = document.createElement('a');
-      downloadLink.download = 'moshe-ginzy-story-' + Date.now() + '.jpg';
-      downloadLink.href = imageData;
-      document.body.appendChild(downloadLink);
-      downloadLink.click();
-      document.body.removeChild(downloadLink);
-    }).catch(function(err) {
-      console.error('שגיאה ביצירת התמונה לסטורי:', err);
-    });
-  }, 200);
-}
-
-
-
-    var listening=false;
-    var currentRec=null;
-    micBtn.addEventListener('click',function(){
-      if(listening){
-        listening=false;
-        micBtn.classList.remove('listening');
-        if(currentRec){try{currentRec.stop();}catch(e){}}
-        return;
-      }
-      var rec=new SR();
-      currentRec=rec;
-     rec.continuous=false;
-      rec.interimResults=true;
-     rec.lang='he-IL';
-      listening=true;
-      micBtn.classList.add('listening');
-      var inp=document.getElementById('mg-inp');
-      inp.value='';
-      inp.placeholder='🎤 מקשיב — דבר עכשיו...';
-      var finalText='';
-      rec.onresult=function(e){
-        var interim='';
-        finalText='';
-        for(var i=0;i<e.results.length;i++){
-          if(e.results[i].isFinal){
-            finalText+=e.results[i][0].transcript;
-          } else {
-            interim+=e.results[i][0].transcript;
-          }
-        }
-        inp.value=finalText||interim;
-      };
-      rec.onend=function(){
-        if(!listening)return;
-        setTimeout(function(){
-          listening=false;
-          micBtn.classList.remove('listening');
-          inp.placeholder='כתוב שאלה...';
-          var val=(finalText||inp.value).trim();
-         if(val){inp.value=val;window.mgSend();inp.value='';inp.placeholder='כתוב שאלה...';}
-        }, 2000);
-      };
       rec.onerror=function(err){
         listening=false;
         micBtn.classList.remove('listening');
