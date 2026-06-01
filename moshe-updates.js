@@ -308,7 +308,7 @@
               var divs=msgs[i].querySelectorAll('div');
              var allText='';
 for(var j=0;j<divs.length;j++){
-  if(divs[j].style&&divs[j].style.borderBottomRightRadius==='4px'&&divs[j].textContent.trim()){
+if(divs[j].classList&&divs[j].classList.contains('bot')&&divs[j].textContent.trim()){
     allText+=divs[j].textContent.trim()+' ';
   }
 }
