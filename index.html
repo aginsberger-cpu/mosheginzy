@@ -1137,13 +1137,14 @@ document.querySelectorAll('form').forEach(function(form){
         fetch(form.action,{method:'POST',body:data,headers:{'Accept':'application/json'}})
         .then(function(r){
             if(r.ok){window.location.href='thanks.html';}
-           }).catch(function(){alert('שגיאה בשליחה, נסה שוב'); }); }); });
+             }).catch(function(){alert('שגיאה בשליחה, נסה שוב');});
+
 
 
  
 
 
-<script>
+
 // Load Moshe photo from source
 (function(){
     var req = new XMLHttpRequest();
