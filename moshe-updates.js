@@ -303,7 +303,9 @@
         if(!typing||tries>40){
           clearInterval(timer);
           if(!typing){
-            var msgs=document.querySelectorAll('#mg-msgs > div');
+          var botBubble=document.querySelector('#mg-msgs .mg-bubble.bot:last-of-type');
+if(botBubble){speakText(botBubble.textContent.trim());return;}
+var msgs=document.querySelectorAll('#mg-msgs > div');
             for(var i=msgs.length-1;i>=0;i--){
               var divs=msgs[i].querySelectorAll('div');
              var allText='';
