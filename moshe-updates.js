@@ -303,7 +303,8 @@
         if(!typing||tries>40){
           clearInterval(timer);
           if(!typing){
-          var botBubble=document.querySelector('#mg-msgs .mg-bubble.bot:last-of-type');
+        var bubbles=document.querySelectorAll('#mg-msgs .mg-bubble.bot');
+var botBubble=bubbles.length?bubbles[bubbles.length-1]:null;
 if(botBubble){speakText(botBubble.textContent.trim());return;}
 var msgs=document.querySelectorAll('#mg-msgs > div');
             for(var i=msgs.length-1;i>=0;i--){
