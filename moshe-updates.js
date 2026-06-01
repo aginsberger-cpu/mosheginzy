@@ -97,6 +97,7 @@
   // ─── ELEVENLABS TTS ────────────────────────────────────────────────────────
   var currentAudio=null;
   function speakText(text){
+    return;
     if(currentAudio){currentAudio.pause();currentAudio=null;}
     fetch('https://api.elevenlabs.io/v1/text-to-speech/'+EL_VOICE_ID,{
       method:'POST',
