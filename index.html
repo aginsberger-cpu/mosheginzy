@@ -652,8 +652,7 @@ footer{
   .about{grid-template-columns:1fr;gap:3rem;padding:4rem 5vw}
   .vgrid{grid-template-columns:1fr}
   .videos,.form-section{padding:4rem 5vw}
- #mg-bot{height:520px}
-.hero-img img{object-position:center 35%;margin-top:0}
+  #mg-bot{height:520px}
 }
 </style>
 </head>
@@ -709,7 +708,10 @@ footer{
           <div class="mg-header-name">משה גינזי</div>
           <div class="mg-header-sub">מנחה חברותא • חינם • ללא לחץ דתי</div>
         </div>
-        
+        <div class="mg-lang-wrap">
+          <button class="mg-lang-btn active" onclick="mgSetLang('he')">🇮🇱 עברית</button>
+          <button class="mg-lang-btn" onclick="mgSetLang('en')">🇺🇸 English</button>
+        </div>
       </div>
 
       <!-- MESSAGES -->
@@ -940,225 +942,157 @@ footer{
     var t=document.createElement('div');
     t.className='mg-typing';
     t.innerHTML='<span></span><span></span><span></span>';
-    row.appendChild(av); row.appendChild(t); 
-    w.appendChild(row); w.scrollTop = w.scrollHeight; 
-} 
+    row.appendChild(av);row.appendChild(t);
+    w.appendChild(row);w.scrollTop=w.scrollHeight;
+  }
+  function rmTyping(){var t=document.getElementById('mg-typ');if(t)t.remove();}
 
-function rmTyping() {
-    var t = document.getElementById('mg-typ');
-    if (t) t.remove();
-} 
+  // שמור ל-Sheet
+  function saveToSheet(q,a){
+    var n=localStorage.getItem('mg-user-name')||'אנונימי';
+    new Image().src=SHEET_URL+'?id='+encodeURIComponent(userID)+'&name='+encodeURIComponent(n)+'&question='+encodeURIComponent(q)+'&answer='+encodeURIComponent(a||'');
+  }
 
-// שמור ל-Sheet 
-function saveToSheet(q, a) { 
-    var n = localStorage.getItem('mg-user-name') || 'אנונימי'; 
-    new Image().src = SHEET_URL + '?id=' + encodeURIComponent(userID) + '&name=' + encodeURIComponent(n) + '&question=' + encodeURIComponent(q) + '&answer=' + encodeURIComponent(a || ''); 
-} 
+  // ElevenLabs TTS
+  function speakText(txt){
+    if(currentAudio){currentAudio.pause();currentAudio=null;}
+    // חתוך ל-1 משפט ראשון בלבד לתגובה מהירה
+    var sentences=txt.match(/[^.!?؟]+[.!?؟]+/g)||[txt];
+    var shortTxt=sentences[0].trim();
+    if(!shortTxt||shortTxt.length<5)shortTxt=txt.substring(0,120);
+    fetch('https://api.elevenlabs.io/v1/text-to-speech/'+EL_VOICE,{
+      method:'POST',
+      headers:{'xi-api-key':EL_KEY,'Content-Type':'application/json'},
+      body:JSON.stringify({
+        text:shortTxt,
+        model_id:'eleven_v3',
+        voice_settings:{stability:.65,similarity_boost:.85},
+        language_code:'he'
+      })
+    }).then(function(r){return r.blob();}).then(function(b){
+      var url=URL.createObjectURL(b);
+      currentAudio=new Audio(url);
+      currentAudio.play();
+    }).catch(function(){});
+  }
 
-// ElevenLabs TTS 
-function speakText(txt) { 
-    if (currentAudio) { currentAudio.pause(); currentAudio = null; } 
-    // חתוך ל-1 משפט ראשון בלבד לתגובה מהירה 
-    var sentences = txt.match(/[^.!?؟]+[.!?؟]+/g) || [txt]; 
-    var shortTxt = sentences[0].trim(); // תוקן חזרה ל-sentences[0]
-    if (!shortTxt || shortTxt.length < 5) shortTxt = txt.substring(0, 120); 
-    
-    fetch('https://api.elevenlabs.io/v1/text-to-speech/' + EL_VOICE, { 
-        method: 'POST', 
-        headers: { 'xi-api-key': EL_KEY, 'Content-Type': 'application/json' }, 
-        body: JSON.stringify({ 
-            text: shortTxt, 
-            model_id: 'eleven_v3', 
-            voice_settings: { stability: .65, similarity_boost: .85 }, 
-            language_code: 'he' 
-        }) 
-    }).then(function(r) { return r.blob(); }).then(function(b) { 
-        var url = URL.createObjectURL(b); 
-        currentAudio = new Audio(url); 
-        currentAudio.play(); 
-    }).catch(function() {}); 
-} 
+  // שלח הודעה
+  window.mgSend=function(){
+    var inp=document.getElementById('mg-inp');
+    var txt=inp.value.trim();if(!txt)return;
+    inp.value='';addMsg(txt,'user');showTyping();
+    fetch(DIFY_URL,{
+      method:'POST',
+      headers:{'Authorization':'Bearer '+DIFY_KEY,'Content-Type':'application/json'},
+      body:JSON.stringify({
+        inputs:{name:localStorage.getItem('mg-user-name')||'אנונימי'},
+        query:txt,response_mode:'blocking',
+        conversation_id:cid||undefined,user:'moshe_user'
+      })
+    }).then(function(r){return r.json();}).then(function(d){
+      rmTyping();
+      if(d.answer){
+        cid=d.conversation_id;
+        saveToSheet(txt,d.answer);
+        addMsg(d.answer,'bot');
+        speakText(d.answer);
+      } else {addMsg('מצטער, נסה שוב.','bot');}
+    }).catch(function(){rmTyping();addMsg('בעיית חיבור.','bot');});
+  };
 
-// שלח הודעה 
-window.mgSend = function() { 
-    var inp = document.getElementById('mg-inp'); 
-    var txt = inp.value.trim(); 
-    if (!txt) return; 
-    
-    inp.value = ''; 
-    addMsg(txt, 'user'); 
-    showTyping(); 
-    
-    fetch(DIFY_URL, { 
-        method: 'POST', 
-        headers: { 
-            'Authorization': 'Bearer ' + DIFY_KEY, 
-            'Content-Type': 'application/json' 
-        }, 
-        body: JSON.stringify({ 
-            inputs: {name: localStorage.getItem('mg-user-name') || 'אנונימי'}, 
-            query: txt, 
-            response_mode: 'blocking', 
-            conversation_id: cid || undefined, 
-            user: 'moshe_user' 
-        }) 
-    }) 
-    .then(function(r) { 
-        return r.json(); 
-    }) 
-    .then(function(d) { 
-        rmTyping(); 
-        if (d.answer) { 
-            cid = d.conversation_id; 
-            addMsg(d.answer, 'bot'); 
-        } 
-    }) 
-    .catch(function() { 
-        rmTyping(); 
-        addMsg('בעיית חיבור. נסה שוב.', 'bot'); 
-    }); 
-};
- function shareToWhatsApp(questionText, answerText) {
-
-  var shortAnswer = answerText.length > 150 ? answerText.substring(0, 150) + '...' : answerText;
-  var message = 'יווו שאלתי את הבוט של משה גינזי: "' + questionText + '"\n\nוקבלו מה הוא ענה לי:\n"' + shortAnswer + '"\n\nכנסו גם אתם לשאול אותו בחינם: https://mosheginzy.com';
-  
-  // חלוקה חכמה שעוקפת את תוכנת ה-IDM והשיבושים אוטומטית
-  var wDomain = 'https://api.';
-  var wLink = 'whatsapp';
-  var wSuffix = '.com/send?text=';
-  
-  var whatsappUrl = wDomain + wLink + wSuffix + encodeURIComponent(message);
-  window.open(whatsappUrl, '_blank');
-}
-
-
-function generateStory(questionText, answerText) {
-    var storyQuestion = document.getElementById('story-question-text');
-    var storyAnswer = document.getElementById('story-answer-text');
-    var template = document.getElementById('story-template');
-    
-    if (!storyQuestion || !storyAnswer || !template) {
-        console.error('אלמנטים של תבנית הסטורי לא נמצאו בדף');
-        return;
-    }
-    
-    storyQuestion.innerText = questionText;
-    storyAnswer.innerText = answerText;
-    
-    setTimeout(function() {
-        html2canvas(template, {
-            scale: 2,
-            useCORS: true,
-            logging: false,
-            backgroundColor: '#0d0d0d'
-        }).then(function(canvas) {
-            var imageData = canvas.toDataURL('image/jpeg', 0.9);
-            var downloadLink = document.createElement('a');
-            downloadLink.download = 'moshe-ginzy-story-' + Date.now() + '.jpg';
-            downloadLink.href = imageData;
-            document.body.appendChild(downloadLink);
-            downloadLink.click();
-            document.body.removeChild(downloadLink);
-        }).catch(function(err) {
-            console.error('שגיאה ביצירת התמונה לסטורי:', err);
-        });
-    }, 200);
-}
-
-// ─── מנגנון המיקרופון המתוקן והשלם ───
-var listening=false;
-var currentRec=null;
-if (typeof SR !== 'undefined' && micBtn) {
+  // מיקרופון - מציג טקסט בזמן אמת
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  var micBtn=document.getElementById('mg-mic-btn');
+  if(SR && micBtn){
+    var listening=false;
+    var currentRec=null;
     micBtn.addEventListener('click',function(){
-        if(listening){
-            listening=false;
-            micBtn.classList.remove('listening');
-            if(currentRec){try{currentRec.stop();}catch(e){}}
-            return;
+      if(listening){
+        listening=false;
+        micBtn.classList.remove('listening');
+        if(currentRec){try{currentRec.stop();}catch(e){}}
+        return;
+      }
+      var rec=new SR();
+      currentRec=rec;
+     rec.continuous=false;
+      rec.interimResults=true;
+     rec.lang='he-IL';
+      listening=true;
+      micBtn.classList.add('listening');
+      var inp=document.getElementById('mg-inp');
+      inp.value='';
+      inp.placeholder='🎤 מקשיב — דבר עכשיו...';
+      var finalText='';
+      rec.onresult=function(e){
+        var interim='';
+        finalText='';
+        for(var i=0;i<e.results.length;i++){
+          if(e.results[i].isFinal){
+            finalText+=e.results[i][0].transcript;
+          } else {
+            interim+=e.results[i][0].transcript;
+          }
         }
-        var rec=new SR();
-        currentRec=rec;
-        rec.continuous=false;
-        rec.interimResults=true;
-        rec.lang='he-IL';
-        listening=true;
-        micBtn.classList.add('listening');
-        var inp=document.getElementById('mg-inp');
-        inp.value='';
-        inp.placeholder='🎤 מקשיב — דבר עכשיו...';
-        var finalText='';
-        
-        rec.onresult=function(e){
-            var interim='';
-            finalText='';
-            for(var i=0;i<e.results.length;i++){
-                if(e.results[i].isFinal){
-                    finalText+=e.results[i].transcript;
-                } else {
-                    interim+=e.results[i].transcript;
-                }
-            }
-            inp.value=finalText||interim;
-        };
-        
-        rec.onend=function(){
-            if(!listening)return;
-            setTimeout(function(){
-                listening=false;
-                micBtn.classList.remove('listening');
-                inp.placeholder='כתוב שאלה...';
-                var val=(finalText||inp.value).trim();
-                if(val){inp.value=val;window.mgSend();inp.value='';inp.placeholder='כתוב שאלה...';}
-            }, 2000);
-        };
-        
-        rec.onerror=function(err){
-            listening=false;
-            micBtn.classList.remove('listening');
-            inp.placeholder='כתוב שאלה...';
-            if(err.error==='not-allowed'){inp.placeholder='🚫 אפשר גישה למיקרופון בדפדפן';}
-        };
-        
-        try{rec.start();}catch(e){
-            listening=false;
-            micBtn.classList.remove('listening');
-        }
+        inp.value=finalText||interim;
+      };
+      rec.onend=function(){
+        if(!listening)return;
+        setTimeout(function(){
+          listening=false;
+          micBtn.classList.remove('listening');
+          inp.placeholder='כתוב שאלה...';
+          var val=(finalText||inp.value).trim();
+         if(val){inp.value=val;window.mgSend();inp.value='';inp.placeholder='כתוב שאלה...';}
+        }, 2000);
+      };
+      rec.onerror=function(err){
+        listening=false;
+        micBtn.classList.remove('listening');
+        inp.placeholder='כתוב שאלה...';
+        if(err.error==='not-allowed'){inp.placeholder='🚫 אפשר גישה למיקרופון בדפדפן';}
+      };
+      try{rec.start();}catch(e){
+        listening=false;
+        micBtn.classList.remove('listening');
+      }
     });
-} else if(micBtn){
+  } else if(micBtn){
     micBtn.title='הדפדפן שלך לא תומך במיקרופון';
     micBtn.style.opacity='0.3';
-}
-// ─── FORM ─────────────────
+  }
+
+})();
+
+// ─── FORM ──────────────────────────────────────────────────────────────────
 document.querySelectorAll('form').forEach(function(form){
-    form.addEventListener('submit',function(e){
-        e.preventDefault();
-        var data=new FormData(form);
-        fetch(form.action,{method:'POST',body:data,headers:{'Accept':'application/json'}})
-        .then(function(r){
-            if(r.ok){window.location.href='thanks.html';}
-             }).catch(function(){alert('שגיאה בשליחה, נסה שוב');});
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var data=new FormData(form);
+    fetch(form.action,{method:'POST',body:data,headers:{'Accept':'application/json'}})
+    .then(function(r){
+      if(r.ok){window.location.href='thanks.html';}
+      else{alert('שגיאה בשליחה, נסה שוב');}
+    }).catch(function(){alert('שגיאה בשליחה, נסה שוב');});
+  });
+});
+</script>
 
-
-
- 
-
-
-
+<script>
 // Load Moshe photo from source
 (function(){
-    var req = new XMLHttpRequest();
-    req.open('GET', 'https://raw.githubusercontent.com/aginsberger-cpu/mosheginzy/main/index.html', true);
-    req.onload = function(){
-        var match = req.responseText.match(/src="(data:image\/jpeg;base64,[^"]+)"/);
-        if(match){
-            var src = match[1];
-            document.querySelectorAll('#moshe-photo, .mg-avatar-lg img, .ty-logo img').forEach(function(el){
-                el.src = src;
-            });
-        }
-    };
-    req.send();
+  var req = new XMLHttpRequest();
+  req.open('GET', 'https://raw.githubusercontent.com/aginsberger-cpu/mosheginzy/main/index.html', true);
+  req.onload = function(){
+    var match = req.responseText.match(/src="(data:image\/jpeg;base64,[^"]+)"/);
+    if(match){
+      var src = match[1];
+      document.querySelectorAll('#moshe-photo, .mg-avatar-lg img, .ty-logo img').forEach(function(el){
+        el.src = src;
+      });
+    }
+  };
+  req.send();
 })();
 </script>
 
@@ -1504,42 +1438,6 @@ function setLang(lang) {
 var savedLang = localStorage.getItem('mg-site-lang') || 'he';
 setLang(savedLang);
 </script>
-<!-- תבנית מוסתרת ליצירת תמונת סטורי - מעוצבת בצבעי האתר היוקרתיים -->
-<div id="story-template" style="position: absolute; left: -9999px; top: -9999px; width: 1080px; height: 1920px; background-color: #0d0d0d; display: flex; flex-direction: column; justify-content: space-between; padding: 120px 80px; box-sizing: border-box; font-family: 'Assistant', 'Segoe UI', sans-serif; direction: rtl;">
-  
-  <!-- חלק עליון: מיתוג וכותרת -->
-  <div style="text-align: center; margin-bottom: 40px;">
-    <div style="color: #e5c158; font-size: 32px; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px;">הבוט של משה גינזי</div>
-    <div style="color: #888888; font-size: 22px;">בינה מלאכותית בשאלות ותשובות ביהדות</div>
-    <div style="width: 150px; height: 2px; background: linear-gradient(90deg, transparent, #e5c158, transparent); margin: 25px auto 0 auto;"></div>
-  </div>
 
-  <!-- חלק מרכזי: השאלה והתשובה -->
-  <div style="display: flex; flex-direction: column; gap: 60px; flex-grow: 1; justify-content: center;">
-    
-    <!-- בועת השאלה של המשתמש -->
-    <div style="align-self: flex-start; max-width: 85%; background-color: #1a1a1a; border: 1px solid #e5c158; border-radius: 30px 30px 0px 30px; padding: 40px 50px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-      <div style="color: #888888; font-size: 20px; margin-bottom: 10px; font-weight: bold;">השאלה שלי:</div>
-      <div id="story-question-text" style="color: #ffffff; font-size: 38px; font-weight: 600; line-height: 1.4;">כאן תופיע השאלה מהאתר</div>
-    </div>
-
-    <!-- בועת התשובה של הבוט -->
-    <div style="align-self: flex-end; max-width: 90%; background: linear-gradient(145deg, #151515, #1e1e1e); border-radius: 30px 30px 30px 0px; padding: 50px; box-shadow: 0 15px 40px rgba(0,0,0,0.6); position: relative;">
-      <div style="color: #e5c158; font-size: 22px; margin-bottom: 15px; font-weight: bold;">תשובת הבוט של משה:</div>
-      <div id="story-answer-text" style="color: #f5f5f5; font-size: 34px; line-height: 1.6; white-space: pre-wrap;">כאן תופיע התשובה מהאתר</div>
-    </div>
-
-  </div>
-
-  <!-- חלק תחתון: הנעה לפעולה וכתובת האתר -->
-  <div style="text-align: center; border-top: 1px solid #222222; padding-top: 40px;">
-    <div style="color: #888888; font-size: 22px; margin-bottom: 15px;">רוצים לשאול גם אתם בחינם ובדיסקרטיות?</div>
-    <div style="display: inline-block; background-color: #e5c158; color: #000000; font-size: 36px; font-weight: bold; padding: 20px 60px; border-radius: 50px; box-shadow: 0 8px 25px rgba(229,193,88,0.3);">
-      mosheginzy.com
-    </div>
-  </div>
-
-</div>
-S
 </body>
 </html>
