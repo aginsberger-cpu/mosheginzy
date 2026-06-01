@@ -308,7 +308,7 @@
               var divs=msgs[i].querySelectorAll('div');
               for(var j=0;j<divs.length;j++){
                 if(divs[j].style&&divs[j].style.borderBottomRightRadius==='4px'&&divs[j].textContent.trim()){
-                  speakText(divs[j].textContent.trim());
+                  speakText(msgs[i].textContent.trim());
                   return;
                 }
               }
