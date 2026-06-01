@@ -960,7 +960,6 @@ footer{
     // חתוך ל-1 משפט ראשון בלבד לתגובה מהירה
    var shortTxt=txt;
    
-    if(!shortTxt||shortTxt.length<5)shortTxt=txt.substring(0,120);
     fetch('https://api.elevenlabs.io/v1/text-to-speech/'+EL_VOICE,{
       method:'POST',
       headers:{'xi-api-key':EL_KEY,'Content-Type':'application/json'},
