@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>משה גינזי — שאלות על החיים שאתה שואל בלילה</title>
+<meta name="description" content="מחפש משמעות? שואל שאלות שאין עליהן תשובות פשוטות? משה גינזי מציע שיחה פתוחה — בלי דת, בלי לחץ, בלי שיפוט.">
+<meta name="keywords" content="משמעות החיים, שאלות קיומיות, רוחניות מודרנית, יהדות בלי לחץ, חיפוש עצמי, שאלות על אמונה, מה אני עושה פה">
+<meta property="og:title" content="משה גינזי — שיחה פתוחה על החיים">
+<meta property="og:description" content="מחפש משמעות? שואל שאלות שאין עליהן תשובות פשוטות? בוא נדבר — בלי דת, בלי לחץ.">
+<meta property="og:url" content="https://mosheginzy.com">
+<meta name="robots" content="index, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-944658564"></script>
+<script>
+  window.dataLayer=window.dataLayer||[];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js',new Date());
+  gtag('config','AW-944658564');
+  gtag('config','G-4RW51LT65M');
+</script>
+
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','3171269369843152');fbq('track','PageView');
+</script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#06060a;
+  --bg2:#0a0a0f;
+  --card:#0f0f16;
+  --border:rgba(180,145,60,0.18);
+  --gold:#c9a84c;
+  --gold2:#e8c870;
+  --gold3:#f5e4b0;
+  --cream:#f0ece0;
+  --txt:#ccc4b0;
+  --muted:#7a7060;
+  --green:#2d6a4f;
+  --font-display:'Cormorant Garamond',serif;
+  --font-body:'Rubik',sans-serif;
+  --pearl:#f5efe0;
+  --pearl2:#ede3cc;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:var(--font-body);line-height:1.7;font-size:16px;overflow-x:hidden}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:999;
+  background:rgba(6,6,10,0.96);
+  border-bottom:1px solid var(--border);
+  padding:0 5vw;height:68px;
+  display:flex;align-items:center;justify-content:space-between;
+  backdrop-filter:blur(12px);
+}
+.nav-brand{display:flex;flex-direction:column;gap:2px}
+.nav-name{font-family:var(--font-display);font-size:1.4rem;font-weight:600;color:var(--gold2);letter-spacing:.06em}
+.nav-sub{font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+.nav-cta{
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:#06060a;padding:.55rem 1.4rem;
+  font-size:.72rem;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;text-decoration:none;
+  border:none;cursor:pointer;
+  font-family:var(--font-body);
+  transition:opacity .2s;
+}
+.nav-cta:hover{opacity:.85}
+.lang-btn-fancy{
+  background:transparent;
+  border:1.5px solid rgba(180,145,60,.45);
+  color:var(--gold);
+  font-family:var(--font-body);
+  font-size:.72rem;font-weight:600;
+  letter-spacing:.08em;
+  padding:.45rem 1.1rem;
+  cursor:pointer;
+  transition:all .2s;
+  border-radius:2px;
+}
+.lang-btn-fancy:hover{background:rgba(180,145,60,.1);border-color:var(--gold)}
+.lang-btn-fancy.active{
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:#06060a;border-color:transparent;
+}
+.lang-btn{display:none !important;}
+
+/* DIVIDER */
+.gd{height:1px;background:linear-gradient(to right,transparent,rgba(180,145,60,.2),transparent)}
+
+/* HERO - תמונה קטנה יותר ומורמת */
+.hero{
+  min-height:65vh;
+  display:grid;
+  grid-template-columns:36% 64%;
+  margin-top:68px;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 80% 50%,rgba(180,145,60,.06) 0%,transparent 70%);
+  pointer-events:none;z-index:1;
+}
+.hero-img{overflow:hidden;position:relative}
+.hero-img img{
+  width:85%;
+  height:auto;
+  max-height:90%;
+  object-fit:cover;
+  object-position:center 8%;
+  display:block;
+  filter:brightness(.78) contrast(1.05);
+  position:absolute;
+  top:0;
+  right:0;
+}
+.hero-img::after{
+  content:'';position:absolute;inset:0;
+  background:
+    linear-gradient(to right,var(--bg) 0%,rgba(6,6,10,.3) 20%,transparent 45%),
+    linear-gradient(to top,var(--bg) 0%,transparent 20%);
+}
+.hero-text{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:3rem 5vw 3rem 2vw;
+  position:relative;z-index:2;
+}
+.hero-eyebrow{
+  display:flex;align-items:center;gap:10px;
+  font-size:.58rem;letter-spacing:.4em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:2rem;
+}
+.hero-eyebrow::before,.hero-eyebrow::after{
+  content:'';display:block;width:28px;height:1px;
+  background:var(--gold);opacity:.5;
+}
+.hero-name{font-family:var(--font-display);font-size:clamp(4rem,7vw,7.5rem);font-weight:300;color:var(--gold2);line-height:.95;letter-spacing:.02em}
+.hero-name-i{font-family:var(--font-display);font-size:clamp(4rem,7vw,7.5rem);font-style:italic;font-weight:300;color:var(--gold2);line-height:.95;margin-bottom:2rem}
+.hero-tagline{font-family:var(--font-display);font-style:italic;font-size:1.25rem;color:var(--muted);margin-bottom:.3rem}
+.hero-tagline2{font-size:.78rem;color:var(--gold);opacity:.55;margin-bottom:2.5rem;letter-spacing:.1em}
+.hero-desc{
+  font-size:.92rem;color:var(--muted);
+  max-width:420px;line-height:2;margin-bottom:3rem;
+  border-right:2px solid rgba(180,145,60,.3);
+  padding-right:1.2rem;
+}
+.hero-desc strong{color:var(--cream);font-weight:400}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-gold{
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:#06060a;padding:.9rem 2.2rem;
+  font-size:.78rem;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;
+  text-decoration:none;border:none;cursor:pointer;
+  display:inline-block;transition:opacity .2s;
+  font-family:var(--font-body);
+}
+.btn-gold:hover{opacity:.85}
+.btn-out{
+  background:linear-gradient(135deg,var(--pearl),var(--pearl2));
+  color:#1a1200;
+  padding:.9rem 2.2rem;font-size:.78rem;
+  letter-spacing:.14em;text-transform:uppercase;
+  text-decoration:none;
+  border:1px solid rgba(180,145,60,.4);
+  display:inline-block;cursor:pointer;
+  transition:all .2s;font-family:var(--font-body);
+}
+.btn-out:hover{opacity:.88}
+
+/* BOT SECTION */
+.bot-section{background:var(--bg);padding:0}
+.bot-header{text-align:center;padding:5rem 5vw 2.5rem;position:relative;}
+.bot-header::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:1px;height:4rem;background:linear-gradient(to bottom,transparent,var(--gold));}
+.bot-eyebrow{font-size:.58rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;}
+.bot-title{font-family:var(--font-display);font-size:clamp(1.8rem,3.5vw,3rem);font-weight:300;color:var(--cream);line-height:1.3;margin-bottom:2rem;}
+.bot-title em{font-style:italic;color:var(--gold2)}
+.bot-intro{max-width:660px;margin:0 auto 3rem;color:var(--muted);font-size:.93rem;line-height:2;}
+.bot-intro strong{color:var(--txt);font-weight:400}
+
+/* CHAT BOT */
+#mg-bot{
+  max-width:740px;margin:0 auto;
+  font-family:var(--font-body);direction:rtl;
+  border-radius:16px;overflow:hidden;
+  border:1px solid rgba(201,168,76,0.4);
+  background:linear-gradient(180deg,rgba(20,17,8,0.98) 0%,rgba(12,11,6,0.99) 100%);
+  display:flex;flex-direction:column;
+  height:580px;
+  box-shadow:0 0 60px rgba(0,0,0,.6),0 0 0 1px rgba(180,145,60,.08);
+}
+.mg-chat-header{
+  background:linear-gradient(135deg,rgba(22,18,8,1),rgba(30,24,8,1));
+  padding:16px 22px;
+  display:flex;align-items:center;gap:14px;
+  border-bottom:2px solid rgba(201,168,76,0.45);
+  flex-shrink:0;
+}
+.mg-avatar-lg{width:52px;height:52px;border-radius:50%;overflow:hidden;flex-shrink:0;border:2px solid var(--gold);}
+.mg-avatar-lg img{width:100%;height:100%;object-fit:cover;object-position:top}
+.mg-header-info{flex:1}
+.mg-header-name{font-size:1rem;font-weight:600;color:var(--gold2);font-family:var(--font-display);}
+.mg-header-sub{font-size:.7rem;color:var(--muted);margin-top:2px}
+#mg-msgs{flex:1;overflow-y:auto;padding:20px 16px;display:flex;flex-direction:column;gap:14px;background:rgba(13,11,5,0.99);}
+#mg-msgs::-webkit-scrollbar{width:4px}
+#mg-msgs::-webkit-scrollbar-track{background:transparent}
+#mg-msgs::-webkit-scrollbar-thumb{background:rgba(180,145,60,.2);border-radius:2px}
+.mg-welcome{text-align:center;padding:20px 16px;}
+.mg-welcome-title{font-family:var(--font-display);font-size:1.4rem;font-weight:400;color:var(--cream);margin-bottom:.6rem;}
+.mg-welcome-sub{font-size:.85rem;color:var(--muted);line-height:1.9;margin-bottom:1.2rem;}
+.mg-name-screen{background:rgba(180,145,60,.06);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-bottom:1rem;}
+.mg-name-screen input{width:100%;max-width:260px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:24px;padding:10px 18px;color:var(--cream);font-size:.85rem;font-family:var(--font-body);outline:none;direction:rtl;text-align:center;margin-bottom:10px;transition:border-color .2s;}
+.mg-name-screen input:focus{border-color:var(--gold)}
+.mg-gender-btns{display:flex;gap:8px;justify-content:center;margin-bottom:10px}
+.mg-gender-btn{flex:1;max-width:110px;background:transparent;color:var(--gold);border:1px solid rgba(180,145,60,.4);border-radius:20px;padding:8px;font-size:.78rem;cursor:pointer;font-family:var(--font-body);transition:all .2s;}
+.mg-gender-btn.selected{background:var(--gold);color:#06060a}
+.mg-start-btn{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#06060a;border:none;border-radius:24px;padding:10px 24px;font-size:.82rem;font-weight:700;cursor:pointer;font-family:var(--font-body);transition:opacity .2s;}
+.mg-start-btn:hover{opacity:.85}
+.mg-msg-row{display:flex;gap:10px;align-items:flex-end}
+.mg-msg-row.user{flex-direction:row-reverse}
+.mg-avatar-sm{width:32px;height:32px;border-radius:50%;overflow:hidden;flex-shrink:0;border:1px solid var(--border);}
+.mg-avatar-sm img{width:100%;height:100%;object-fit:cover;object-position:top}
+.mg-avatar-user{width:32px;height:32px;border-radius:50%;background:rgba(180,145,60,.15);border:1px solid rgba(180,145,60,.3);display:flex;align-items:center;justify-content:center;font-size:.75rem;color:var(--gold);flex-shrink:0;}
+.mg-bubble{max-width:72%;padding:12px 16px;border-radius:16px;font-size:.87rem;line-height:1.8;}
+.mg-bubble.bot{background:var(--card);color:var(--cream);border:1px solid var(--border);border-bottom-right-radius:4px;}
+.mg-bubble.user{background:rgba(180,145,60,.12);color:var(--cream);border:1px solid rgba(180,145,60,.2);border-bottom-left-radius:4px;}
+.mg-typing{display:flex;gap:5px;padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:16px;border-bottom-right-radius:4px;}
+@keyframes mgbounce{0%,60%,100%{transform:translateY(0);opacity:1}30%{transform:translateY(-6px);opacity:.6}}
+.mg-typing span{width:6px;height:6px;border-radius:50%;background:var(--gold);display:block;}
+.mg-typing span:nth-child(1){animation:mgbounce 1.2s infinite}
+.mg-typing span:nth-child(2){animation:mgbounce 1.2s .2s infinite}
+.mg-typing span:nth-child(3){animation:mgbounce 1.2s .4s infinite}
+.mg-input-row{
+  background:linear-gradient(135deg,rgba(20,16,6,1),rgba(15,12,4,1));
+  border-top:1px solid rgba(201,168,76,0.4);
+  padding:12px 16px;
+  display:flex;gap:10px;align-items:center;
+  flex-shrink:0;
+}
+#mg-inp{flex:1;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:24px;padding:10px 18px;color:var(--cream);font-size:.87rem;font-family:var(--font-body);outline:none;direction:rtl;transition:border-color .2s;}
+#mg-inp:focus{border-color:var(--gold)}
+#mg-inp::placeholder{color:var(--muted)}
+.mg-send-btn{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:opacity .2s;}
+.mg-send-btn:hover{opacity:.85}
+@keyframes mgpulse{0%,100%{box-shadow:0 0 0 0 rgba(180,145,60,.4)}50%{box-shadow:0 0 0 8px rgba(180,145,60,0)}}
+@media(max-width:600px){#mg-mic-btn{display:none}}
+#mg-mic-btn{width:40px;height:40px;border-radius:50%;background:transparent;border:1px solid rgba(180,145,60,.35);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;}
+#mg-mic-btn:hover{background:rgba(180,145,60,.1)}
+#mg-mic-btn.listening{background:rgba(180,145,60,.2);border-color:var(--gold);animation:mgpulse 1s infinite}
+
+/* ABOUT */
+.about{padding:7rem 5vw;background:var(--bg2);display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;}
+.about-eyebrow{font-size:.58rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
+.about h2{font-family:var(--font-display);font-size:2.4rem;font-weight:300;color:var(--cream);margin-bottom:1.5rem;line-height:1.3;}
+.about h2 em{font-style:italic;color:var(--gold2)}
+.about p{color:var(--muted);line-height:2;margin-bottom:1rem;font-size:.93rem}
+.about p strong{color:var(--txt);font-weight:400}
+.quote-block{border-right:2px solid var(--gold);padding-right:1.5rem;margin:2rem 0;font-family:var(--font-display);font-style:italic;font-size:1.2rem;color:var(--cream);line-height:1.7;opacity:.85;}
+.verse-card{background:var(--card);border:1px solid var(--border);padding:2.5rem;text-align:center;position:relative;}
+.verse-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);}
+.verse-big{font-family:var(--font-display);font-size:5rem;color:var(--gold);opacity:.1;line-height:1;}
+.verse-text{font-family:var(--font-display);font-size:1.4rem;color:var(--cream);line-height:1.5;margin:.5rem 0 1rem;}
+.verse-src{font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);}
+.verse-line{height:1px;background:var(--border);margin:1.5rem 0}
+.verse-q{font-family:var(--font-display);font-style:italic;color:var(--txt);font-size:.95rem;line-height:1.8;}
+.verse-by{font-size:.65rem;color:var(--muted);margin-top:.3rem}
+
+/* VIDEOS */
+.videos{padding:7rem 5vw;background:var(--bg)}
+.sec-eyebrow{font-size:.58rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;}
+.sec-title{font-family:var(--font-display);font-size:2.4rem;font-weight:300;color:var(--cream);margin-bottom:3rem;line-height:1.3;}
+.sec-title em{font-style:italic;color:var(--gold2)}
+
+/* VIDEO CARDS */
+.vcards-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;}
+@media(max-width:900px){.vcards-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:560px){.vcards-grid{grid-template-columns:repeat(2,1fr)}}
+.vcard2{cursor:pointer;border:1px solid var(--border);background:var(--card);transition:transform .25s,border-color .25s;border-radius:4px;overflow:hidden;}
+.vcard2:hover{transform:translateY(-5px);border-color:rgba(180,145,60,.5);}
+.vcard2-thumb{position:relative;aspect-ratio:9/16;overflow:hidden;background:#08080f;}
+.vcard2-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .3s;}
+.vcard2:hover .vcard2-thumb img{transform:scale(1.04)}
+.vcard2-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:2rem;color:rgba(255,255,255,.85);background:rgba(0,0,0,.25);opacity:0;transition:opacity .2s;}
+.vcard2:hover .vcard2-play{opacity:1}
+.vcard2-meta{padding:.75rem .9rem}
+.vcard2-tag{font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.3rem;}
+.vcard2-title{font-family:var(--font-display);font-size:1rem;color:var(--cream);line-height:1.3;}
+
+/* VIDEO POPUP */
+#video-popup{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.88);align-items:center;justify-content:center;padding:1rem;}
+#video-popup.open{display:flex}
+.vpop-inner{position:relative;width:100%;max-width:780px;}
+.vpop-close{position:absolute;top:-44px;left:0;background:transparent;border:none;color:#fff;font-size:1.5rem;cursor:pointer;opacity:.7;transition:opacity .2s;font-family:var(--font-body);}
+.vpop-close:hover{opacity:1}
+.vpop-frame{position:relative;padding-bottom:56.25%;background:#000;border:1px solid var(--border);}
+.vpop-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:none;}
+
+/* FORM */
+.form-section{padding:7rem 5vw;background:linear-gradient(135deg,rgba(180,145,60,.07),rgba(180,145,60,.02));border-top:1px solid var(--border);}
+.form-inner{max-width:560px;margin:0 auto;text-align:center}
+.form-inner h2{font-family:var(--font-display);font-size:2.4rem;font-weight:300;color:var(--cream);margin-bottom:1rem;line-height:1.3;}
+.form-inner h2 em{font-style:italic;color:var(--gold2)}
+.form-inner p{color:var(--muted);font-size:.92rem;line-height:1.9;margin-bottom:2.5rem;}
+.form-card{background:var(--card);border:1px solid var(--border);padding:2.5rem;text-align:right;position:relative;}
+.form-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);}
+.field{margin-bottom:1.2rem}
+.field label{display:block;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem;}
+.field input{width:100%;background:rgba(255,255,255,.03);border:1px solid var(--border);color:var(--cream);padding:.85rem 1rem;font-family:var(--font-body);font-size:.87rem;outline:none;transition:border-color .2s;}
+.field input:focus{border-color:var(--gold)}
+.field input::placeholder{color:var(--muted)}
+.submit-btn{width:100%;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#06060a;border:none;padding:1.1rem;font-family:var(--font-body);font-size:.85rem;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;font-weight:700;margin-top:.5rem;transition:opacity .2s;}
+.submit-btn:hover{opacity:.88}
+.privacy{font-size:.68rem;color:var(--muted);text-align:center;margin-top:.8rem}
+
+/* FOOTER */
+footer{background:#040408;padding:3rem 5vw 2rem;border-top:1px solid var(--border);}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-bottom:2rem;}
+.footer-brand .fn{font-family:var(--font-display);font-size:1.4rem;font-weight:400;color:var(--gold2);}
+.footer-brand .fs{font-size:.5rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);display:block;}
+.footer-links{display:flex;gap:2rem;list-style:none}
+.footer-links a{color:#a09880;text-decoration:none;font-size:.8rem;transition:color .2s}
+.footer-links a:hover{color:var(--gold)}
+.footer-bottom{border-top:1px solid var(--border);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;}
+.fcopy{font-size:.65rem;color:#a09880}
+
+/* THANK YOU */
+.ty-overlay{display:none;position:fixed;inset:0;background:rgba(6,6,10,.97);z-index:9999;align-items:center;justify-content:center;}
+.ty-overlay.show{display:flex}
+.ty-box{background:var(--card);border:1px solid rgba(180,145,60,.3);padding:3.5rem;max-width:520px;width:90%;text-align:center;position:relative;}
+.ty-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,transparent,var(--gold),transparent);}
+.ty-logo{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-family:var(--font-display);font-size:1.3rem;font-weight:600;color:#06060a;box-shadow:0 0 30px rgba(180,145,60,.3);overflow:hidden;}
+.ty-logo img{width:100%;height:100%;object-fit:cover;object-position:top}
+.ty-title{font-family:var(--font-display);font-size:2rem;font-weight:300;color:var(--cream);margin-bottom:.8rem;}
+.ty-title em{font-style:italic;color:var(--gold2)}
+.ty-text{font-size:.92rem;color:var(--muted);line-height:1.9;margin-bottom:2rem;max-width:380px;margin-left:auto;margin-right:auto;}
+.ty-text strong{color:var(--txt);font-weight:400}
+.ty-divider{height:1px;background:linear-gradient(to right,transparent,rgba(180,145,60,.2),transparent);margin:1.5rem 0}
+.ty-netivot{background:rgba(180,145,60,.05);border:1px solid rgba(180,145,60,.18);padding:1.5rem;margin-bottom:2rem;}
+.ty-netivot p{font-size:.85rem;color:var(--muted);line-height:1.8;margin-bottom:1rem}
+.ty-netivot a{display:inline-block;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#06060a;padding:.7rem 1.8rem;font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;}
+.ty-close{background:transparent;border:1px solid rgba(180,145,60,.3);color:var(--gold);padding:.7rem 2rem;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;font-family:var(--font-body);transition:all .2s;}
+.ty-close:hover{background:rgba(180,145,60,.06)}
+
+/* RESPONSIVE */
+@media(max-width:860px){
+  .hero{grid-template-columns:1fr}
+  .hero-img{height:55vw}
+  .hero-img img{width:100%;height:100%;position:relative;top:auto;right:auto;}
+  .hero-text{padding:3rem 5vw}
+  .about{grid-template-columns:1fr;gap:3rem;padding:4rem 5vw}
+  .videos,.form-section{padding:4rem 5vw}
+  #mg-bot{height:520px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <span class="nav-name">משה גינזי</span>
+    <span class="nav-sub">מחשבה במסלול מחדש</span>
+  </div>
+  <div id="nav-lang" style="display:flex;align-items:center;gap:8px;direction:ltr">
+    <!-- ללא דגלים -->
+    <button class="lang-btn-fancy active" onclick="setLang('he')" id="btn-lang-he">עברית</button>
+    <button class="lang-btn-fancy" onclick="setLang('en')" id="btn-lang-en">English</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-img">
+    <img id="moshe-photo" src="" alt="משה גינזי" class="needs-photo">
+  </div>
+  <div class="hero-text">
+    <div class="hero-eyebrow">בלי דת · בלי לחץ · בלי שיפוט</div>
+    <p class="hero-tagline" style="font-size:1.6rem;font-weight:300;color:var(--cream);margin-bottom:.3rem">יש לך שאלות.<br>מגיע לך תשובות.</p>
+    <p class="hero-tagline2">— משה גינזי · שיחה פתוחה על החיים —</p>
+    <p class="hero-desc">אחרי הצבא, בתוך השגרה, בלילות שקשה להירדם — מגיעות שאלות שאף אחד לא לימד אותך לשאול. <strong>על משמעות. על זהות. על מה באמת חשוב.</strong> כאן יש מקום לשאול הכל, בלי לחץ להיות מישהו אחר.</p>
+    <div class="hero-btns">
+      <a href="#bot-section" class="btn-gold">התחל שיחה ←</a>
+      <a href="#chavruta" class="btn-out">קבע לימוד חינמי</a>
+    </div>
+  </div>
+</div>
+
+<div class="gd"></div>
+
+<!-- BOT SECTION -->
+<div id="bot-section" class="bot-section">
+  <div class="bot-header">
+    <div class="bot-eyebrow">שאל את משה</div>
+    <h2 class="bot-title">השאלות שאתה שואל בלב —<br><em>אפשר לשאול אותן בקול</em> 👇</h2>
+    <p class="bot-intro">למה לי לחיות בצורה מסוימת? מה אני חייב לעולם? האם יש טעם לכל זה? אלה לא שאלות של "דתיים" — אלה השאלות שכל אדם שואל את עצמו. <strong>כאן אפשר לשאול הכל</strong>, בלי לחשוש, בלי לחץ, ולקבל תשובה אמיתית ובגובה העיניים.</p>
+  </div>
+
+  <div style="padding:0 5vw 5rem;max-width:800px;margin:0 auto">
+    <div id="mg-bot">
+      <div class="mg-chat-header">
+        <div class="mg-avatar-lg">
+          <img src="" alt="משה גינזי" class="needs-photo">
+        </div>
+        <div class="mg-header-info">
+          <div class="mg-header-name">משה גינזי</div>
+          <div class="mg-header-sub">מנחה חברותא • חינם • ללא לחץ דתי</div>
+        </div>
+      </div>
+
+      <div id="mg-msgs">
+        <div class="mg-welcome">
+          <div id="mg-name-screen" class="mg-name-screen">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--cream);margin-bottom:.5rem">שלום! 👋</div>
+            <div style="font-size:.82rem;color:var(--muted);margin-bottom:1rem">לפני שמתחילים — מה שמך?</div>
+            <input id="mg-name-input" placeholder="כתוב שמך כאן..." />
+            <div class="mg-gender-btns">
+              <button class="mg-gender-btn" onclick="mgSetGender('נקבה')" id="btn-female">אני אישה</button>
+              <button class="mg-gender-btn" onclick="mgSetGender('זכר')" id="btn-male">אני גבר</button>
+            </div>
+            <button class="mg-start-btn" onclick="mgSaveName()">בואו נתחיל ←</button>
+          </div>
+          <div class="mg-welcome-title">אין שאלה קטנה מדי,<br>ואין שאלה גדולה מדי.</div>
+          <div class="mg-welcome-sub">תרגישו חופשי לשאול אותי הכל —<br>על יהדות, חיים, משמעות, ועוד.</div>
+        </div>
+      </div>
+
+      <div class="mg-input-row">
+        <button class="mg-send-btn" onclick="mgSend()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#06060a"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
+        </button>
+        <button id="mg-mic-btn" title="דבר במקום לכתוב">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+        </button>
+        <input id="mg-inp" onkeydown="if(event.key==='Enter')mgSend()" placeholder="כתוב שאלה..." />
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="gd"></div>
+
+<!-- ABOUT -->
+<section class="about">
+  <div>
+    <div class="about-eyebrow">אודות</div>
+    <h2>מי הוא<br><em>משה גינזי?</em></h2>
+    <p>משה גינזי הוא לא רב, לא מטיף, ולא כאן כדי להחזיר אותך בתשובה. הוא אדם שמאמין שלכל אחד מגיע לחיות חיים עם משמעות — ושחכמת אלפי שנות יהדות שייכת גם לך, בדיוק כמו שאתה.</p>
+    <p>הוא פגש אלפי אנשים שחיפשו: <strong>מה אני עושה פה? למה החיים מרגישים ריקים? איך מוצאים שקט פנימי בעולם שלא מפסיק?</strong> ולכולם הוא נתן מקום לשאול.</p>
+    <p>בלי כפייה, בלי שיפוט, בלי "תעשה כך ותהיה דתי" — רק שיחה אמיתית, חמה, שפוגשת אותך בדיוק איפה שאתה.</p>
+    <div class="quote-block">לא כדי להיות מישהו אחר — אלא כדי להבין טוב יותר מי אתה.</div>
+  </div>
+  <div class="verse-card">
+    <div class="verse-big">״</div>
+    <div class="verse-text">חכמה היא לא מה שיש לך — היא מה שאתה עושה עם מה שיש לך.</div>
+    <div class="verse-src">חכמת ישראל</div>
+    <div class="verse-line"></div>
+    <div class="verse-q">כל אדם הוא עולם שלם</div>
+    <div class="verse-by">— משנה סנהדרין</div>
+  </div>
+</section>
+
+<div class="gd"></div>
+
+<!-- VIDEOS -->
+<section class="videos" id="videos">
+  <div class="sec-eyebrow">שיעורים</div>
+  <div class="sec-title" style="color:var(--gold2)">צפה ו<em style="color:var(--gold3)">התחבר</em></div>
+
+  <div class="vcards-grid">
+    <div class="vcard2" onclick="openVideo('62t1C2qZOJk')">
+      <div class="vcard2-thumb">
+        <img src="https://img.youtube.com/vi/62t1C2qZOJk/maxresdefault.jpg" alt="מי מנהל את האירוע" onerror="this.src='https://img.youtube.com/vi/62t1C2qZOJk/hqdefault.jpg'">
+        <div class="vcard2-play">▶</div>
+      </div>
+      <div class="vcard2-meta">
+        <div class="vcard2-tag">אמונה · בחירה</div>
+        <div class="vcard2-title">מי מנהל את האירוע?</div>
+      </div>
+    </div>
+
+    <div class="vcard2" onclick="openVideo('tti5WUy7kDo')">
+      <div class="vcard2-thumb">
+        <img src="https://img.youtube.com/vi/tti5WUy7kDo/maxresdefault.jpg" alt="כסף והצלחה" onerror="this.src='https://img.youtube.com/vi/tti5WUy7kDo/hqdefault.jpg'">
+        <div class="vcard2-play">▶</div>
+      </div>
+      <div class="vcard2-meta">
+        <div class="vcard2-tag">הצלחה · מטרה</div>
+        <div class="vcard2-title">כסף והצלחה</div>
+      </div>
+    </div>
+
+    <div class="vcard2" onclick="openVideo('zvTXEa1CkZc')">
+      <div class="vcard2-thumb">
+        <img src="https://img.youtube.com/vi/zvTXEa1CkZc/maxresdefault.jpg" alt="משמעות החיים" onerror="this.src='https://img.youtube.com/vi/zvTXEa1CkZc/hqdefault.jpg'">
+        <div class="vcard2-play">▶</div>
+      </div>
+      <div class="vcard2-meta">
+        <div class="vcard2-tag">משמעות · חיים</div>
+        <div class="vcard2-title">משמעות החיים</div>
+      </div>
+    </div>
+
+    <div class="vcard2" onclick="openVideo('qNqf6BgdSDs')">
+      <div class="vcard2-thumb">
+        <img src="https://img.youtube.com/vi/qNqf6BgdSDs/maxresdefault.jpg" alt="הילדים שלנו" onerror="this.src='https://img.youtube.com/vi/qNqf6BgdSDs/hqdefault.jpg'">
+        <div class="vcard2-play">▶</div>
+      </div>
+      <div class="vcard2-meta">
+        <div class="vcard2-tag">משפחה · חינוך</div>
+        <div class="vcard2-title">הילדים שלנו</div>
+      </div>
+    </div>
+
+    <div class="vcard2" onclick="openVideo('eYJzCv7qyPU')">
+      <div class="vcard2-thumb">
+        <img src="https://img.youtube.com/vi/eYJzCv7qyPU/maxresdefault.jpg" alt="מתמטיקה של הפלא" onerror="this.src='https://img.youtube.com/vi/eYJzCv7qyPU/hqdefault.jpg'">
+        <div class="vcard2-play">▶</div>
+      </div>
+      <div class="vcard2-meta">
+        <div class="vcard2-tag">פלא · יהדות</div>
+        <div class="vcard2-title">מתמטיקה של הפלא</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- כפתור לעוד סרטים -->
+  <div style="text-align:center;margin-top:2.5rem">
+    <a href="https://www.youtube.com/@MosheGinzy" target="_blank" class="btn-out">לעוד סרטים ביוטיוב ←</a>
+  </div>
+</section>
+
+<!-- VIDEO POPUP -->
+<div id="video-popup" onclick="closeVideo(event)">
+  <div class="vpop-inner">
+    <button class="vpop-close" onclick="closeVideo()">✕</button>
+    <div class="vpop-frame">
+      <iframe id="vpop-iframe" src="" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+
+<div class="gd"></div>
+
+<!-- FORM -->
+<section class="form-section" id="chavruta">
+  <div class="form-inner">
+    <div class="sec-eyebrow" style="display:flex;justify-content:center">הצטרף עכשיו</div>
+    <h2>לימוד אישי —<br><em>חינמי ובלי מחויבות.</em></h2>
+    <p>אם משהו כאן דיבר אליך — השאר פרטים ומשה יחזור אליך לקבוע פגישת לימוד אישית, חינמית, ובלי שום מחויבות.</p>
+    <form class="form-card" action="https://formspree.io/f/xnjwdeyd" method="POST">
+      <div class="field"><label>שם מלא *</label><input type="text" name="name" placeholder="השם שלך" required></div>
+      <div class="field"><label>טלפון *</label><input type="tel" name="phone" placeholder="050-0000000" required></div>
+      <div class="field"><label>מייל</label><input type="email" name="email" placeholder="האימייל שלך"></div>
+      <div class="field"><label>עיר מגורים</label><input type="text" name="city" placeholder="העיר שלך"></div>
+      <button type="submit" class="submit-btn">קבע לימוד חינמי ←</button>
+      <div class="privacy">הפרטים שלך נשמרים בצנעה ולא יועברו לאף גורם</div>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="fn">משה גינזי</span>
+      <span class="fs">מחשבה במסלול מחדש</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="#chavruta">חברותא</a></li>
+      <li><a href="#videos">שיעורים</a></li>
+      <li><a href="#bot-section">שאל את משה</a></li>
+      <li><a href="https://www.youtube.com/@MosheGinzy" target="_blank">YouTube</a></li>
+      <li><a href="privacy.html">מדיניות פרטיות</a></li>
+    </ul>
+  </div>
+  <div class="footer-bottom">
+    <span class="fcopy">© 2026 משה גינזי — כל הזכויות שמורות</span>
+    <span class="fcopy">mosheginzy.com</span>
+  </div>
+</footer>
+
+<!-- THANK YOU -->
+<div class="ty-overlay" id="thankYou">
+  <div class="ty-box">
+    <div class="ty-logo"><img src="" alt="משה גינזי" class="needs-photo"></div>
+    <h2 class="ty-title">תודה <em>שנרשמת!</em></h2>
+    <p class="ty-text">קיבלנו את פרטיך. <strong>משה גינזי יחזור אליך תוך 24 שעות</strong> לתיאום החברותא הראשונה שלך.</p>
+    <div class="ty-divider"></div>
+    <div class="ty-netivot">
+      <p>אבני תקווה — קהילה שמאמינה שכל אדם יכול לצמוח, להתחבר ולמצוא את דרכו.</p>
+      <a href="https://tikva.netivotny.org" target="_blank">היכנס לאתר אבני תקווה ←</a>
+    </div>
+    <button class="ty-close" onclick="document.getElementById('thankYou').classList.remove('show')">חזור לאתר</button>
+  </div>
+</div>
+
+<script>
+// ─── VIDEO ─────────────────────────────────────────────────────────────────
+function openVideo(id){
+  document.getElementById('vpop-iframe').src='https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0&modestbranding=1';
+  document.getElementById('video-popup').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeVideo(e){
+  if(e && e.target!==document.getElementById('video-popup') && !e.target.classList.contains('vpop-close')) return;
+  document.getElementById('vpop-iframe').src='';
+  document.getElementById('video-popup').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+// ─── BOT ───────────────────────────────────────────────────────────────────
+(function(){
+  var EL_KEY='sk_0a386a44903ba282d03e112390d1e87774ce751bf08a4749';
+  var EL_VOICE='jSyAO1W1N4S7u904a6Z3';
+  var DIFY_KEY='app-VFD9vOFBd83JQC3BvLwuX5Q4';
+  var DIFY_URL='https://api.dify.ai/v1/chat-messages';
+  var SHEET_URL='https://script.google.com/macros/s/AKfycbwUEypI5myQNxeLygjRulfidJHaqfz7DHG3MFkfu0C5mhLfODY0xW-N46FLEzI1LTNb9A/exec';
+
+  var userID=localStorage.getItem('mg-user-id')||'';
+  if(!userID){userID=Math.random().toString(36).substr(2,9);localStorage.setItem('mg-user-id',userID);}
+  var userName=localStorage.getItem('mg-user-name')||'';
+  var cid='';
+  var currentAudio=null;
+  var isSending=false;
+
+  if(userName){
+    var ns=document.getElementById('mg-name-screen');
+    if(ns)ns.style.display='none';
+  }
+
+  window.mgSaveName=function(){
+    var v=document.getElementById('mg-name-input').value.trim();
+    if(!v)return;
+    localStorage.setItem('mg-user-name',v);
+    userName=v;
+    document.getElementById('mg-name-screen').style.display='none';
+  };
+
+  window.mgSetGender=function(g){
+    localStorage.setItem('mg-user-gender',g);
+    document.getElementById('btn-female').classList.toggle('selected',g==='נקבה');
+    document.getElementById('btn-male').classList.toggle('selected',g==='זכר');
+  };
+
+  function addMsg(txt,who){
+    var w=document.getElementById('mg-msgs');
+    var row=document.createElement('div');
+    row.className='mg-msg-row '+(who==='user'?'user':'');
+    var av;
+    if(who==='bot'){
+      av=document.createElement('div');av.className='mg-avatar-sm';
+      var photo=document.querySelector('.mg-avatar-lg img');
+      if(photo&&photo.src){var img=document.createElement('img');img.src=photo.src;img.alt='משה';av.appendChild(img);}
+    } else {
+      av=document.createElement('div');av.className='mg-avatar-user';av.textContent='☺';
+    }
+    var bubble=document.createElement('div');
+    bubble.className='mg-bubble '+(who==='bot'?'bot':'user');
+    bubble.textContent=txt;
+    row.appendChild(av);row.appendChild(bubble);
+    w.appendChild(row);w.scrollTop=w.scrollHeight;
+  }
+
+  function showTyping(){
+    var w=document.getElementById('mg-msgs');
+    var row=document.createElement('div');row.className='mg-msg-row';row.id='mg-typ';
+    var av=document.createElement('div');av.className='mg-avatar-sm';
+    var photo=document.querySelector('.mg-avatar-lg img');
+    if(photo&&photo.src){var img=document.createElement('img');img.src=photo.src;img.alt='משה';av.appendChild(img);}
+    var t=document.createElement('div');t.className='mg-typing';t.innerHTML='<span></span><span></span><span></span>';
+    row.appendChild(av);row.appendChild(t);w.appendChild(row);w.scrollTop=w.scrollHeight;
+  }
+
+  function rmTyping(){var t=document.getElementById('mg-typ');if(t)t.remove();}
+
+  function saveToSheet(q,a){
+    var n=localStorage.getItem('mg-user-name')||'אנונימי';
+    new Image().src=SHEET_URL+'?id='+encodeURIComponent(userID)+'&name='+encodeURIComponent(n)+'&question='+encodeURIComponent(q)+'&answer='+encodeURIComponent(a||'');
+  }
+
+  function speakText(txt){
+    if(currentAudio){currentAudio.pause();currentAudio=null;}
+    var sentences=txt.match(/[^.!?؟]+[.!?؟]+/g)||[txt];
+    var shortTxt=sentences[0].trim();
+    if(!shortTxt||shortTxt.length<5)shortTxt=txt.substring(0,120);
+    fetch('https://api.elevenlabs.io/v1/text-to-speech/'+EL_VOICE,{
+      method:'POST',
+      headers:{'xi-api-key':EL_KEY,'Content-Type':'application/json'},
+      body:JSON.stringify({text:shortTxt,model_id:'eleven_v3',voice_settings:{stability:.65,similarity_boost:.85},language_code:'he'})
+    }).then(function(r){return r.blob();}).then(function(b){
+      var url=URL.createObjectURL(b);currentAudio=new Audio(url);currentAudio.play();
+    }).catch(function(){});
+  }
+
+  // פונקציית שליחה מרכזית
+  function sendQuery(txt){
+    if(!txt||isSending)return;
+    isSending=true;
+    addMsg(txt,'user');
+    showTyping();
+
+    var controller=new AbortController();
+    var timeoutId=setTimeout(function(){controller.abort();},30000);
+
+    fetch(DIFY_URL,{
+      method:'POST',
+      signal:controller.signal,
+      headers:{'Authorization':'Bearer '+DIFY_KEY,'Content-Type':'application/json'},
+      body:JSON.stringify({
+        inputs:{name:localStorage.getItem('mg-user-name')||'אנונימי'},
+        query:txt,
+        response_mode:'blocking',
+        conversation_id:cid||undefined,
+        user:'moshe_user'
+      })
+    }).then(function(r){
+      clearTimeout(timeoutId);
+      return r.json();
+    }).then(function(d){
+      rmTyping();
+      isSending=false;
+      if(d.answer){
+        cid=d.conversation_id||cid;
+        saveToSheet(txt,d.answer);
+        addMsg(d.answer,'bot');
+        speakText(d.answer);
+      } else {
+        cid='';
+        addMsg('משה לא הצליח לענות — נסה שוב 🙏','bot');
+      }
+    }).catch(function(e){
+      clearTimeout(timeoutId);
+      rmTyping();
+      isSending=false;
+      cid='';
+      addMsg('משה לא הצליח לענות — נסה שוב 🙏','bot');
+    });
+  }
+
+  // שליחה מהכפתור / Enter
+  window.mgSend=function(){
+    var inp=document.getElementById('mg-inp');
+    var txt=inp.value.trim();
+    if(!txt||isSending)return;
+    inp.value='';
+    sendQuery(txt);
+  };
+
+  // ─── מיקרופון מתוקן ──────────────────────────────────────────────────────
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  var micBtn=document.getElementById('mg-mic-btn');
+
+  if(SR && micBtn){
+    var listening=false;
+    var currentRec=null;
+    var silenceTimer=null;
+
+    micBtn.addEventListener('click',function(){
+      // אם כבר מקשיב — עצור
+      if(listening){
+        listening=false;
+        micBtn.classList.remove('listening');
+        clearTimeout(silenceTimer);
+        if(currentRec){try{currentRec.stop();}catch(e){}}
+        document.getElementById('mg-inp').placeholder='כתוב שאלה...';
+        return;
+      }
+
+      var rec=new SR();
+      currentRec=rec;
+      rec.continuous=true;
+      rec.interimResults=true;
+      rec.lang=localStorage.getItem('mg-lang')==='en'?'en-US':'he-IL';
+
+      listening=true;
+      micBtn.classList.add('listening');
+
+      var inp=document.getElementById('mg-inp');
+      inp.value='';
+      inp.placeholder='🎤 מקשיב — דבר עכשיו...';
+
+      var finalText='';
+
+      rec.onresult=function(e){
+        // איפוס טיימר שתיקה בכל פעם שיש קלט
+        clearTimeout(silenceTimer);
+
+        var interim='';
+        finalText='';
+        for(var i=0;i<e.results.length;i++){
+          if(e.results[i].isFinal){
+            finalText+=e.results[i][0].transcript;
+          } else {
+            interim+=e.results[i][0].transcript;
+          }
+        }
+        inp.value=finalText||interim;
+
+        // סגור אחרי 2 שניות של שקט
+        silenceTimer=setTimeout(function(){
+          if(listening){
+            listening=false;
+            micBtn.classList.remove('listening');
+            try{rec.stop();}catch(e){}
+          }
+        },2000);
+      };
+
+      rec.onend=function(){
+        listening=false;
+        micBtn.classList.remove('listening');
+        clearTimeout(silenceTimer);
+        inp.placeholder='כתוב שאלה...';
+
+        var val=(finalText||inp.value).trim();
+        if(val){
+          inp.value=''; // נקה את השדה
+          sendQuery(val); // שלח את ההודעה
+        }
+      };
+
+      rec.onerror=function(err){
+        listening=false;
+        micBtn.classList.remove('listening');
+        clearTimeout(silenceTimer);
+        inp.placeholder='כתוב שאלה...';
+        inp.value='';
+        if(err.error==='not-allowed'){
+          inp.placeholder='🚫 אפשר גישה למיקרופון בדפדפן';
+        }
+      };
+
+      try{rec.start();}catch(e){
+        listening=false;
+        micBtn.classList.remove('listening');
+      }
+    });
+
+  } else if(micBtn){
+    micBtn.title='הדפדפן שלך לא תומך במיקרופון';
+    micBtn.style.opacity='0.3';
+  }
+
+})();
+
+// ─── FORM ──────────────────────────────────────────────────────────────────
+var SHEET_FORM_URL='https://script.google.com/macros/s/AKfycbwL7Ezboysip0pPmZJsR_jVbvPJrLCmP8r6PqdRDoSMHNywuqO_Io6HaZyqy6Ot7AQn/exec';
+
+document.querySelectorAll('form').forEach(function(form){
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var data=new FormData(form);
+    var obj={};
+    data.forEach(function(v,k){obj[k]=v;});
+    fetch(SHEET_FORM_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(obj),mode:'no-cors'});
+    fetch(form.action,{method:'POST',body:data,headers:{'Accept':'application/json'}})
+    .then(function(r){
+      if(r.ok){window.location.href='thanks.html';}
+      else{alert('שגיאה בשליחה, נסה שוב');}
+    }).catch(function(){alert('שגיאה בשליחה, נסה שוב');});
+  });
+});
+
+// ─── PHOTO LOADER ──────────────────────────────────────────────────────────
+(function(){
+  var cached=sessionStorage.getItem('moshe-photo-src');
+  function applyPhoto(src){
+    document.querySelectorAll('.needs-photo').forEach(function(el){el.src=src;});
+  }
+  if(cached){applyPhoto(cached);return;}
+  var req=new XMLHttpRequest();
+  req.open('GET','https://aginsberger-cpu.github.io/mosheginzy/index.html',true);
+  req.onload=function(){
+    if(req.status===200){
+      var match=req.responseText.match(/id="moshe-photo"[^>]+src="([^"]+)"/);
+      if(!match)match=req.responseText.match(/src="(data:image\/jpeg[^"]+)"/);
+      if(match&&match[1]){sessionStorage.setItem('moshe-photo-src',match[1]);applyPhoto(match[1]);}
+    }
+  };
+  req.send();
+})();
+
+// ─── LANGUAGE SWITCHER ─────────────────────────────────────────────────────
+var TEXTS={
+  he:{
+    'nav-name':'משה גינזי','nav-sub':'מחשבה במסלול מחדש',
+    'hero-eyebrow':'בלי דת · בלי לחץ · בלי שיפוט',
+    'hero-tagline':'יש לך שאלות.<br>מגיע לך תשובות.',
+    'hero-tagline2':'— משה גינזי · שיחה פתוחה על החיים —',
+    'hero-desc':'אחרי הצבא, בתוך השגרה, בלילות שקשה להירדם — מגיעות שאלות שאף אחד לא לימד אותך לשאול. <strong>על משמעות. על זהות. על מה באמת חשוב.</strong> כאן יש מקום לשאול הכל, בלי לחץ להיות מישהו אחר.',
+    'btn-gold':'התחל שיחה ←','btn-out-hero':'קבע לימוד חינמי',
+    'bot-eyebrow':'שאל את משה',
+    'bot-title':'השאלות שאתה שואל בלב —<br><em>אפשר לשאול אותן בקול</em> 👇',
+    'bot-intro':'למה לי לחיות בצורה מסוימת? מה אני חייב לעולם? האם יש טעם לכל זה? אלה לא שאלות של "דתיים" — אלה השאלות שכל אדם שואל את עצמו. <strong>כאן אפשר לשאול הכל</strong>, בלי לחשוש, בלי לחץ.',
+    'mg-inp-placeholder':'כתוב שאלה...',
+    'about-eyebrow':'אודות','about-h2':'מי הוא<br><em>משה גינזי?</em>',
+    'videos-eyebrow':'שיעורים','videos-title':'צפה ו<em>התחבר</em>',
+    'form-eyebrow':'הצטרף עכשיו','form-h2':'לימוד אישי —<br><em>חינמי ובלי מחויבות.</em>',
+    'submit-btn':'קבע לימוד חינמי ←',
+    'footer-name':'משה גינזי','footer-sub':'מחשבה במסלול מחדש',
+    'footer-copy':'© 2026 משה גינזי — כל הזכויות שמורות',
+    'doc-dir':'rtl','doc-lang':'he'
+  },
+  en:{
+    'nav-name':'Moshe Ginzy','nav-sub':'Rethinking the Path',
+    'hero-eyebrow':'No religion · No pressure · No judgment',
+    'hero-tagline':'You have questions.<br>You deserve answers.',
+    'hero-tagline2':'— Moshe Ginzy · An open conversation about life —',
+    'hero-desc':'After the army, in the daily grind, in the nights when sleep doesn\'t come — questions arise that nobody taught you to ask. <strong>About meaning. About identity. About what really matters.</strong> Here you can ask everything, without pressure.',
+    'btn-gold':'Start a conversation →','btn-out-hero':'Schedule a free session',
+    'bot-eyebrow':'Ask Moshe',
+    'bot-title':'Whatever question is in your heart —<br><em>you can ask it out loud</em> 👇',
+    'bot-intro':'Why should I live a certain way? What do I owe the world? Is there any meaning to all this? These aren\'t "religious" questions — they\'re the questions every person asks themselves. <strong>Here you can ask anything</strong>, without fear.',
+    'mg-inp-placeholder':'Type your question...',
+    'about-eyebrow':'About','about-h2':'Who is<br><em>Moshe Ginzy?</em>',
+    'videos-eyebrow':'Lessons','videos-title':'Watch and <em>Connect</em>',
+    'form-eyebrow':'Join Now','form-h2':'Personal learning —<br><em>free and no commitment.</em>',
+    'submit-btn':'Schedule free learning →',
+    'footer-name':'Moshe Ginzy','footer-sub':'Rethinking the Path',
+    'footer-copy':'© 2026 Moshe Ginzy — All Rights Reserved',
+    'doc-dir':'ltr','doc-lang':'en'
+  }
+};
+
+function setLang(lang){
+  var t=TEXTS[lang];
+  document.documentElement.lang=t['doc-lang'];
+  document.documentElement.dir=t['doc-dir'];
+  document.querySelectorAll('[id^="btn-lang-"]').forEach(function(b){b.classList.remove('active');});
+  var ab=document.getElementById('btn-lang-'+lang);if(ab)ab.classList.add('active');
+  localStorage.setItem('mg-site-lang',lang);
+  function setText(sel,val){var el=document.querySelector(sel);if(el)el.innerHTML=val;}
+  setText('.nav-name',t['nav-name']);setText('.nav-sub',t['nav-sub']);
+  setText('.hero-eyebrow',t['hero-eyebrow']);
+  var ht=document.querySelector('.hero-tagline');if(ht)ht.innerHTML=t['hero-tagline'];
+  setText('.hero-tagline2',t['hero-tagline2']);setText('.hero-desc',t['hero-desc']);
+  var hb=document.querySelectorAll('.hero-btns a');
+  if(hb[0])hb[0].innerHTML=t['btn-gold'];if(hb[1])hb[1].innerHTML=t['btn-out-hero'];
+  setText('.bot-eyebrow',t['bot-eyebrow']);setText('.bot-title',t['bot-title']);setText('.bot-intro',t['bot-intro']);
+  var inp=document.getElementById('mg-inp');if(inp)inp.placeholder=t['mg-inp-placeholder'];
+  setText('.about-eyebrow',t['about-eyebrow']);
+  var ah=document.querySelector('.about h2');if(ah)ah.innerHTML=t['about-h2'];
+  setText('.videos .sec-eyebrow',t['videos-eyebrow']);setText('.videos .sec-title',t['videos-title']);
+  document.querySelectorAll('.form-inner .sec-eyebrow').forEach(function(el){el.innerHTML=t['form-eyebrow'];});
+  var fh=document.querySelector('.form-inner h2');if(fh)fh.innerHTML=t['form-h2'];
+  setText('.submit-btn',t['submit-btn']);setText('.footer-brand .fn',t['footer-name']);setText('.footer-brand .fs',t['footer-sub']);
+  var fc=document.querySelectorAll('.fcopy');if(fc[0])fc[0].innerHTML=t['footer-copy'];
+}
+
+var savedLang=localStorage.getItem('mg-site-lang')||'he';
+document.addEventListener('DOMContentLoaded',function(){setLang(savedLang);});
+</script>
+</body>
+</html>
