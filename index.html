@@ -408,6 +408,13 @@ footer{background:#2C3E50;padding:3rem 5vw 2rem;border-top:1px solid var(--borde
 }
 
 </style>
+  <link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#1a3a2a">
+<script>
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.register('/sw.js');
+  }
+</script>
 </head>
 <body>
 
