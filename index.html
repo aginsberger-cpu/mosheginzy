@@ -1051,6 +1051,13 @@ document.addEventListener('DOMContentLoaded',function(){
   var heroBtn=document.querySelector('.hero-new-btn');
   if(heroBtn)heroBtn.innerHTML=t['hero-btn'];
 });
+  // הוספת שורת נתיבות לפוטר
+var netivotLine = document.createElement('p');
+netivotLine.style.cssText = 'text-align:center;font-size:13px;color:#888;margin-top:10px;';
+netivotLine.innerHTML = savedLang === 'he' 
+  ? 'אתר זה מופעל ומנוהל על ידי ארגון נתיבות (ע"ר) במסגרת פעילות המרכז | <a href="https://netivotny.org" target="_blank" style="color:#888;">netivotny.org</a>'
+  : 'This site is operated by Netivot (NGO) | <a href="https://netivotny.org" target="_blank" style="color:#888;">netivotny.org</a>';
+document.body.appendChild(netivotLine);
 </script>
 </body>
 </html>
