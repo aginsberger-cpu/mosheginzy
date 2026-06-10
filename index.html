@@ -636,10 +636,50 @@ function playVideo(){
   <!-- סרטונים נוספים — כשמוסיפים סרטון שביעי ומעלה, מעתיקים לכאן כרטיסייה ומחזירים את הכפתור למטה -->
   <div id="extra-videos" style="display:none;margin-top:1rem">
     <div class="vcards-grid">
+    <div class="vcard2" onclick="openVideoLocal(this,'butterfly.mp4')">
+      <div class="vcard2-thumb">
+        <img src="butterfly.jpg" alt="אפקט הפרפר 🦋">
+        <div class="vcard2-play">▶</div>
+      </div>
+      <div class="vcard2-meta">
+        <div class="vcard2-tag">השגחה · מעשים קטנים</div>
+        <div class="vcard2-title">אפקט הפרפר 🦋</div>
+      </div>
+    </div>
+    <div class="vcard2" onclick="openVideoLocal(this,'jerusalem.mp4')">
+      <div class="vcard2-thumb">
+        <img src="jerusalem.jpg" alt="דירה בירושלים 🏠">
+        <div class="vcard2-play">▶</div>
+      </div>
+      <div class="vcard2-meta">
+        <div class="vcard2-tag">משל · תכלית</div>
+        <div class="vcard2-title">דירה בירושלים 🏠</div>
+      </div>
+    </div>
+    <div class="vcard2" onclick="openVideoLocal(this,'history.mp4')">
+      <div class="vcard2-thumb">
+        <img src="history.jpg" alt="האירוע החשוב בהיסטוריה 📜">
+        <div class="vcard2-play">▶</div>
+      </div>
+      <div class="vcard2-meta">
+        <div class="vcard2-tag">אמונה · מסורת</div>
+        <div class="vcard2-title">האירוע החשוב בהיסטוריה 📜</div>
+      </div>
+    </div>
+    <div class="vcard2" onclick="openVideoLocal(this,'waiter.mp4')">
+      <div class="vcard2-thumb">
+        <img src="waiter.jpg" alt="המלצר והחשבון 🍽️">
+        <div class="vcard2-play">▶</div>
+      </div>
+      <div class="vcard2-meta">
+        <div class="vcard2-tag">משל · חשבון נפש</div>
+        <div class="vcard2-title">המלצר והחשבון 🍽️</div>
+      </div>
+    </div>
     </div>
   </div>
   <div style="text-align:center;margin-top:2.5rem">
-    <button id="more-videos-btn" onclick="toggleExtraVideos()" class="btn-out" style="display:none;border:none;cursor:pointer;font-family:var(--font-body)">לעוד שיעורים ←</button>
+    <button id="more-videos-btn" onclick="toggleExtraVideos()" class="btn-out" style="border:none;cursor:pointer;font-family:var(--font-body)">לעוד שיעורים ←</button>
   </div>
 </section>
 
@@ -752,10 +792,10 @@ function toggleExtraVideos() {
   if (!extra || !btn) return;
   if (extra.style.display === 'none' || extra.style.display === '') {
     extra.style.display = 'block';
-    btn.textContent = 'הסתר שיעורים ↑';
+    btn.textContent = (document.documentElement.lang === 'en') ? 'Hide lessons ↑' : 'הסתר שיעורים ↑';
   } else {
     extra.style.display = 'none';
-    btn.textContent = 'לעוד שיעורים ←';
+    btn.textContent = (document.documentElement.lang === 'en') ? 'More lessons →' : 'לעוד שיעורים ←';
   }
 }
 
@@ -1033,8 +1073,8 @@ document.querySelectorAll('form').forEach(function(form){
 // ─── LANGUAGE SWITCHER ─────────────────────────────────────────────────────
 var TEXTS={
   he:{
-    'vtags':['אמונה · ביטחון','השגחה · חיים','משמעות · אמת','שבת · שקט','כסף · שליטה','מודעות · יומיום'],
-    'vtitles':['למה אתם מנסים לנהל את הטייס? ✈️','אמא פולניה על פרק כף היד שלי','החיים הם לא פלסטיק','הנוסחה הדיגיטלית והשקט של שבת','המנהל הסמוי של הכיס שלנו','איפה המפתחות שלי'],
+    'vtags':['אמונה · ביטחון','השגחה · חיים','משמעות · אמת','שבת · שקט','כסף · שליטה','מודעות · יומיום','השגחה · מעשים קטנים','משל · תכלית','אמונה · מסורת','משל · חשבון נפש'],
+    'vtitles':['למה אתם מנסים לנהל את הטייס? ✈️','אמא פולניה על פרק כף היד שלי','החיים הם לא פלסטיק','הנוסחה הדיגיטלית והשקט של שבת','המנהל הסמוי של הכיס שלנו','איפה המפתחות שלי','אפקט הפרפר 🦋','דירה בירושלים 🏠','האירוע החשוב בהיסטוריה 📜','המלצר והחשבון 🍽️'],
     'more-videos':'לעוד שיעורים ←',
     'form-intro':'אם משהו כאן דיבר אליך — השאר פרטים ומשה יחזור אליך לקבוע פגישת לימוד אישית, חינמית, ובלי שום מחויבות.',
     'f-name':'שם מלא *','f-name-ph':'השם שלך','f-phone':'טלפון *','f-phone-ph':'050-0000000','f-email':'מייל','f-email-ph':'האימייל שלך','f-city':'עיר מגורים','f-city-ph':'העיר שלך',
@@ -1076,8 +1116,8 @@ var TEXTS={
     'doc-dir':'rtl','doc-lang':'he'
   },
   en:{
-    'vtags':['Faith · Trust','Providence · Life','Meaning · Truth','Shabbat · Stillness','Money · Control','Awareness · Daily Life'],
-    'vtitles':['Why Are You Trying to Fly the Plane? ✈️','A Jewish Mother on My Wrist','Life Isn\'t Plastic','The Digital Formula and the Quiet of Shabbat','The Hidden Manager of Our Wallet','Where Are My Keys?'],
+    'vtags':['Faith · Trust','Providence · Life','Meaning · Truth','Shabbat · Stillness','Money · Control','Awareness · Daily Life','Providence · Small Acts','Parable · Purpose','Faith · Tradition','Parable · Reflection'],
+    'vtitles':['Why Are You Trying to Fly the Plane? ✈️','A Jewish Mother on My Wrist','Life Isn\'t Plastic','The Digital Formula and the Quiet of Shabbat','The Hidden Manager of Our Wallet','Where Are My Keys?','The Butterfly Effect 🦋','An Apartment in Jerusalem 🏠','The Most Important Event in History 📜','The Waiter and the Bill 🍽️'],
     'more-videos':'More lessons →',
     'form-intro':'If something here spoke to you — leave your details and Moshe will get back to you to schedule a personal learning session, free and with no obligation.',
     'f-name':'Full Name *','f-name-ph':'Your name','f-phone':'Phone *','f-phone-ph':'Your phone number','f-email':'Email','f-email-ph':'Your email','f-city':'City','f-city-ph':'Your city',
