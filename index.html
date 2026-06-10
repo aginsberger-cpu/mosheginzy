@@ -509,8 +509,8 @@ function playVideo(){
       <div id="mg-msgs">
         <div class="mg-welcome">
           <div id="mg-name-screen" class="mg-name-screen">
-            <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--cream);margin-bottom:.5rem">שלום! 👋</div>
-            <div style="font-size:.82rem;color:var(--muted);margin-bottom:1rem">לפני שמתחילים — מה שמך?</div>
+            <div id="mg-hello" style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--cream);margin-bottom:.5rem">שלום! 👋</div>
+            <div id="mg-askname" style="font-size:.82rem;color:var(--muted);margin-bottom:1rem">לפני שמתחילים — מה שמך?</div>
             <input id="mg-name-input" placeholder="כתוב שמך כאן..." />
             <div class="mg-gender-btns">
               <button class="mg-gender-btn" onclick="mgSetGender('נקבה')" id="btn-female">אני אישה</button>
@@ -1033,6 +1033,17 @@ document.querySelectorAll('form').forEach(function(form){
 // ─── LANGUAGE SWITCHER ─────────────────────────────────────────────────────
 var TEXTS={
   he:{
+    'vtags':['אמונה · ביטחון','השגחה · חיים','משמעות · אמת','שבת · שקט','כסף · שליטה','מודעות · יומיום'],
+    'vtitles':['למה אתם מנסים לנהל את הטייס? ✈️','אמא פולניה על פרק כף היד שלי','החיים הם לא פלסטיק','הנוסחה הדיגיטלית והשקט של שבת','המנהל הסמוי של הכיס שלנו','איפה המפתחות שלי'],
+    'more-videos':'לעוד שיעורים ←',
+    'form-intro':'אם משהו כאן דיבר אליך — השאר פרטים ומשה יחזור אליך לקבוע פגישת לימוד אישית, חינמית, ובלי שום מחויבות.',
+    'f-name':'שם מלא *','f-name-ph':'השם שלך','f-phone':'טלפון *','f-phone-ph':'050-0000000','f-email':'מייל','f-email-ph':'האימייל שלך','f-city':'עיר מגורים','f-city-ph':'העיר שלך',
+    'privacy-line':'הפרטים שלך נשמרים בצנעה ולא יועברו לאף גורם',
+    'flink-chavruta':'חברותא','flink-videos':'שיעורים','flink-bot':'שאל את משה','flink-privacy':'מדיניות פרטיות',
+    'mg-hello':'שלום! 👋','mg-askname':'לפני שמתחילים — מה שמך?','mg-name-ph':'כתוב שמך כאן...',
+    'mg-female':'אני אישה','mg-male':'אני גבר','mg-start':'בואו נתחיל ←',
+    'mg-welcome-title':'אין שאלה קטנה מדי,<br>ואין שאלה גדולה מדי.','mg-welcome-sub':'תרגישו חופשי לשאול אותי הכל —<br>על יהדות, חיים, משמעות, ועוד.',
+    'ty-title':'תודה <em>שנרשמת!</em>','ty-text':'קיבלנו את פרטיך. <strong>משה גינזי יחזור אליך תוך 24 שעות</strong> לתיאום החברותא הראשונה שלך.','ty-close':'חזור לאתר',
     'nav-name':'משה גינזי','nav-sub':'מחשבה במסלול מחדש',
     'hero-h1':'מגלים את היהדות בקצב שלך.<br>בלי פילטרים, בלי כפייה.',
     'hero-sub':'רוצה להכיר את השורשים, לשאול את השאלות הקשות או פשוט לנהל שיחה פתוחה על משמעות החיים? אנחנו נתאים לך שותף אישי לשיחה טלפונית שבועית ומרתקת – בגובה העיניים, בזמן שלך וללא כל עלות.',
@@ -1065,6 +1076,17 @@ var TEXTS={
     'doc-dir':'rtl','doc-lang':'he'
   },
   en:{
+    'vtags':['Faith · Trust','Providence · Life','Meaning · Truth','Shabbat · Stillness','Money · Control','Awareness · Daily Life'],
+    'vtitles':['Why Are You Trying to Fly the Plane? ✈️','A Jewish Mother on My Wrist','Life Isn\'t Plastic','The Digital Formula and the Quiet of Shabbat','The Hidden Manager of Our Wallet','Where Are My Keys?'],
+    'more-videos':'More lessons →',
+    'form-intro':'If something here spoke to you — leave your details and Moshe will get back to you to schedule a personal learning session, free and with no obligation.',
+    'f-name':'Full Name *','f-name-ph':'Your name','f-phone':'Phone *','f-phone-ph':'Your phone number','f-email':'Email','f-email-ph':'Your email','f-city':'City','f-city-ph':'Your city',
+    'privacy-line':'Your details are kept private and will never be shared',
+    'flink-chavruta':'Chavruta','flink-videos':'Lessons','flink-bot':'Ask Moshe','flink-privacy':'Privacy Policy',
+    'mg-hello':'Hello! 👋','mg-askname':'Before we begin — what\'s your name?','mg-name-ph':'Type your name here...',
+    'mg-female':'I\'m a woman','mg-male':'I\'m a man','mg-start':'Let\'s begin →',
+    'mg-welcome-title':'No question is too small,<br>and none is too big.','mg-welcome-sub':'Feel free to ask me anything —<br>about Judaism, life, meaning, and more.',
+    'ty-title':'Thank you <em>for signing up!</em>','ty-text':'We received your details. <strong>Moshe Ginzy will get back to you within 24 hours</strong> to schedule your first chavruta.','ty-close':'Back to site',
     'nav-name':'Moshe Ginzy','nav-sub':'Rethinking the Path',
     'hero-h1':'Discover Judaism at your own pace.<br>No filters, no coercion.',
     'hero-sub':'Want to explore your roots, ask the hard questions, or simply have an open conversation about the meaning of life? We will match you with a personal partner for a weekly, engaging phone conversation – at your level, on your schedule, at no cost.',
@@ -1133,6 +1155,32 @@ function setLang(lang){
   var fh=document.querySelector('.form-inner h2');if(fh)fh.innerHTML=t['form-h2'];
   setText('.submit-btn',t['submit-btn']);setText('.footer-brand .fn',t['footer-name']);setText('.footer-brand .fs',t['footer-sub']);
   var fc=document.querySelectorAll('.fcopy');if(fc[0])fc[0].innerHTML=t['footer-copy'];
+  // video cards
+  var vtags=document.querySelectorAll('.vcard2-tag');var vtitles=document.querySelectorAll('.vcard2-title');
+  vtags.forEach(function(el,i){if(t['vtags'][i])el.innerHTML=t['vtags'][i];});
+  vtitles.forEach(function(el,i){if(t['vtitles'][i])el.innerHTML=t['vtitles'][i];});
+  var mvb=document.getElementById('more-videos-btn');if(mvb)mvb.innerHTML=t['more-videos'];
+  // form
+  var fp=document.querySelector('.form-inner p');if(fp)fp.innerHTML=t['form-intro'];
+  function setField(n,lbl,ph){var inp=document.querySelector('.form-inner input[name="'+n+'"]');if(inp){inp.placeholder=ph;var l=inp.closest('.field').querySelector('label');if(l)l.innerHTML=lbl;}}
+  setField('name',t['f-name'],t['f-name-ph']);setField('phone',t['f-phone'],t['f-phone-ph']);
+  setField('email',t['f-email'],t['f-email-ph']);setField('city',t['f-city'],t['f-city-ph']);
+  var pv=document.querySelector('.privacy');if(pv)pv.innerHTML=t['privacy-line'];
+  // footer links
+  function setLink(href,val){var a=document.querySelector('.footer-links a[href="'+href+'"], footer a[href="'+href+'"]');if(a)a.innerHTML=val;}
+  setLink('#chavruta',t['flink-chavruta']);setLink('#videos',t['flink-videos']);setLink('#bot-section',t['flink-bot']);setLink('privacy.html',t['flink-privacy']);
+  // chat welcome
+  function byId(id,val){var el=document.getElementById(id);if(el)el.innerHTML=val;}
+  byId('mg-hello',t['mg-hello']);byId('mg-askname',t['mg-askname']);
+  var ni=document.getElementById('mg-name-input');if(ni)ni.placeholder=t['mg-name-ph'];
+  byId('btn-female',t['mg-female']);byId('btn-male',t['mg-male']);
+  var sb=document.querySelector('.mg-start-btn');if(sb)sb.innerHTML=t['mg-start'];
+  var wt=document.querySelector('.mg-welcome-title');if(wt)wt.innerHTML=t['mg-welcome-title'];
+  var ws=document.querySelector('.mg-welcome-sub');if(ws)ws.innerHTML=t['mg-welcome-sub'];
+  // thank-you modal
+  var tt=document.querySelector('.ty-title');if(tt)tt.innerHTML=t['ty-title'];
+  var tx=document.querySelector('.ty-text');if(tx)tx.innerHTML=t['ty-text'];
+  var tc=document.querySelector('.ty-close');if(tc)tc.innerHTML=t['ty-close'];
 }
 
 var savedLang=localStorage.getItem('mg-site-lang')||'he';
