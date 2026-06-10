@@ -279,7 +279,7 @@ nav{
 .sec-title em{font-style:italic;color:var(--gold2)}
 
 /* VIDEO CARDS */
-.vcards-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;}
+.vcards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;max-width:900px;margin:0 auto;}
 @media(max-width:900px){.vcards-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:560px){.vcards-grid{grid-template-columns:repeat(2,1fr)}}
 .vcard2{cursor:pointer;border:1px solid var(--border);background:#FFFFFF;box-shadow:0 8px 32px rgba(0,0,0,.12),0 2px 8px rgba(0,0,0,.06);border-radius:16px !important;transform:translateY(-2px);transition:transform .3s,box-shadow .3s;transition:transform .25s,border-color .25s;border-radius:4px;overflow:hidden;}
@@ -550,89 +550,80 @@ function playVideo(){
   <div class="sec-title" style="color:var(--gold2)">צפה ו<em style="color:var(--gold3)">התחבר</em></div>
 
   <div class="vcards-grid">
-    <div class="vcard2" onclick="openVideoInline(this,'62t1C2qZOJk')">
+    <div class="vcard2" onclick="openVideoLocal(this,'pilot.mp4')">
       <div class="vcard2-thumb">
-        <img src="https://img.youtube.com/vi/62t1C2qZOJk/maxresdefault.jpg" alt="מי מנהל את האירוע" onerror="this.src='https://img.youtube.com/vi/62t1C2qZOJk/hqdefault.jpg'">
+        <img src="pilot.jpg" alt="למה אתם מנסים לנהל את הטייס? ✈️">
         <div class="vcard2-play">▶</div>
       </div>
       <div class="vcard2-meta">
-        <div class="vcard2-tag">אמונה · בחירה</div>
-        <div class="vcard2-title">מי מנהל את האירוע?</div>
+        <div class="vcard2-tag">אמונה · ביטחון</div>
+        <div class="vcard2-title">למה אתם מנסים לנהל את הטייס? ✈️</div>
       </div>
     </div>
 
-    <div class="vcard2" onclick="openVideoInline(this,'tti5WUy7kDo')">
+    <div class="vcard2" onclick="openVideoLocal(this,'mom.mp4')">
       <div class="vcard2-thumb">
-        <img src="https://img.youtube.com/vi/tti5WUy7kDo/maxresdefault.jpg" alt="כסף והצלחה" onerror="this.src='https://img.youtube.com/vi/tti5WUy7kDo/hqdefault.jpg'">
+        <img src="mom.jpg" alt="אמא פולניה על פרק כף היד שלי">
         <div class="vcard2-play">▶</div>
       </div>
       <div class="vcard2-meta">
-        <div class="vcard2-tag">הצלחה · מטרה</div>
-        <div class="vcard2-title">כסף והצלחה</div>
+        <div class="vcard2-tag">השגחה · חיים</div>
+        <div class="vcard2-title">אמא פולניה על פרק כף היד שלי</div>
       </div>
     </div>
 
-    <div class="vcard2" onclick="openVideoInline(this,'zvTXEa1CkZc')">
+    <div class="vcard2" onclick="openVideoLocal(this,'plastic.mp4')">
       <div class="vcard2-thumb">
-        <img src="https://img.youtube.com/vi/zvTXEa1CkZc/maxresdefault.jpg" alt="משמעות החיים" onerror="this.src='https://img.youtube.com/vi/zvTXEa1CkZc/hqdefault.jpg'">
+        <img src="plastic.jpg" alt="החיים הם לא פלסטיק">
         <div class="vcard2-play">▶</div>
       </div>
       <div class="vcard2-meta">
-        <div class="vcard2-tag">משמעות · חיים</div>
-        <div class="vcard2-title">משמעות החיים</div>
+        <div class="vcard2-tag">משמעות · אמת</div>
+        <div class="vcard2-title">החיים הם לא פלסטיק</div>
       </div>
     </div>
 
-    <div class="vcard2" onclick="openVideoInline(this,'qNqf6BgdSDs')">
+    <div class="vcard2" onclick="openVideoLocal(this,'shabbat.mp4')">
       <div class="vcard2-thumb">
-        <img src="https://img.youtube.com/vi/qNqf6BgdSDs/maxresdefault.jpg" alt="הילדים שלנו" onerror="this.src='https://img.youtube.com/vi/qNqf6BgdSDs/hqdefault.jpg'">
+        <img src="shabbat.jpg" alt="הנוסחה הדיגיטלית והשקט של שבת">
         <div class="vcard2-play">▶</div>
       </div>
       <div class="vcard2-meta">
-        <div class="vcard2-tag">משפחה · חינוך</div>
-        <div class="vcard2-title">הילדים שלנו</div>
+        <div class="vcard2-tag">שבת · שקט</div>
+        <div class="vcard2-title">הנוסחה הדיגיטלית והשקט של שבת</div>
       </div>
     </div>
 
-    <div class="vcard2" onclick="openVideoInline(this,'eYJzCv7qyPU')">
+    <div class="vcard2" onclick="openVideoLocal(this,'money.mp4')">
       <div class="vcard2-thumb">
-        <img src="https://img.youtube.com/vi/eYJzCv7qyPU/maxresdefault.jpg" alt="מתמטיקה של הפלא" onerror="this.src='https://img.youtube.com/vi/eYJzCv7qyPU/hqdefault.jpg'">
+        <img src="money.jpg" alt="המנהל הסמוי של הכיס שלנו">
         <div class="vcard2-play">▶</div>
       </div>
       <div class="vcard2-meta">
-        <div class="vcard2-tag">פלא · יהדות</div>
-        <div class="vcard2-title">מתמטיקה של הפלא</div>
+        <div class="vcard2-tag">כסף · שליטה</div>
+        <div class="vcard2-title">המנהל הסמוי של הכיס שלנו</div>
+      </div>
+    </div>
+
+    <div class="vcard2" onclick="openVideoLocal(this,'keys.mp4')">
+      <div class="vcard2-thumb">
+        <img src="keys.jpg" alt="איפה המפתחות שלי">
+        <div class="vcard2-play">▶</div>
+      </div>
+      <div class="vcard2-meta">
+        <div class="vcard2-tag">מודעות · יומיום</div>
+        <div class="vcard2-title">איפה המפתחות שלי</div>
       </div>
     </div>
   </div>
 
-  <!-- סרטונים נוספים -->
+  <!-- סרטונים נוספים — כשמוסיפים סרטון שביעי ומעלה, מעתיקים לכאן כרטיסייה ומחזירים את הכפתור למטה -->
   <div id="extra-videos" style="display:none;margin-top:1rem">
     <div class="vcards-grid">
-      <div class="vcard2" onclick="openVideoInline(this,'XH3QpNmFkgA')">
-        <div class="vcard2-thumb"><img src="https://img.youtube.com/vi/XH3QpNmFkgA/maxresdefault.jpg" alt="זהות יהודית" onerror="this.src='https://img.youtube.com/vi/XH3QpNmFkgA/hqdefault.jpg'"><div class="vcard2-play">▶</div></div>
-        <div class="vcard2-meta"><div class="vcard2-tag">זהות · שורשים</div><div class="vcard2-title">זהות יהודית</div></div>
-      </div>
-      <div class="vcard2" onclick="openVideoInline(this,'7Yb7GGVw4OI')">
-        <div class="vcard2-thumb"><img src="https://img.youtube.com/vi/7Yb7GGVw4OI/maxresdefault.jpg" alt="אושר אמיתי" onerror="this.src='https://img.youtube.com/vi/7Yb7GGVw4OI/hqdefault.jpg'"><div class="vcard2-play">▶</div></div>
-        <div class="vcard2-meta"><div class="vcard2-tag">אושר · פנימיות</div><div class="vcard2-title">אושר אמיתי</div></div>
-      </div>
-      <div class="vcard2" onclick="openVideoInline(this,'nV0H_8dPHbI')">
-        <div class="vcard2-thumb"><img src="https://img.youtube.com/vi/nV0H_8dPHbI/maxresdefault.jpg" alt="כוח הבחירה" onerror="this.src='https://img.youtube.com/vi/nV0H_8dPHbI/hqdefault.jpg'"><div class="vcard2-play">▶</div></div>
-        <div class="vcard2-meta"><div class="vcard2-tag">בחירה · חופש</div><div class="vcard2-title">כוח הבחירה</div></div>
-      </div>
-      <div class="vcard2" onclick="openVideoInline(this,'wgpItgHEbIY')">
-        <div class="vcard2-thumb"><img src="https://img.youtube.com/vi/wgpItgHEbIY/maxresdefault.jpg" alt="זוגיות ואהבה" onerror="this.src='https://img.youtube.com/vi/wgpItgHEbIY/hqdefault.jpg'"><div class="vcard2-play">▶</div></div>
-        <div class="vcard2-meta"><div class="vcard2-tag">זוגיות · אהבה</div><div class="vcard2-title">זוגיות ואהבה</div></div>
-      </div>
-      <div class="vcard2" onclick="openVideoInline(this,'YoMHhpwPwb8')">
-        <div class="vcard2-thumb"><img src="https://img.youtube.com/vi/YoMHhpwPwb8/maxresdefault.jpg" alt="שבת ומנוחה" onerror="this.src='https://img.youtube.com/vi/YoMHhpwPwb8/hqdefault.jpg'"><div class="vcard2-play">▶</div></div>
-        <div class="vcard2-meta"><div class="vcard2-tag">שבת · מנוחה</div><div class="vcard2-title">שבת ומנוחה</div></div>
-      </div>
     </div>
   </div>
   <div style="text-align:center;margin-top:2.5rem">
-    <button id="more-videos-btn" onclick="toggleExtraVideos()" class="btn-out" style="border:none;cursor:pointer;font-family:var(--font-body)">לעוד שיעורים ←</button>
+    <button id="more-videos-btn" onclick="toggleExtraVideos()" class="btn-out" style="display:none;border:none;cursor:pointer;font-family:var(--font-body)">לעוד שיעורים ←</button>
   </div>
 </section>
 
@@ -706,23 +697,19 @@ function playVideo(){
 
 <script>
 // ─── VIDEO INLINE ──────────────────────────────────────────────────────────
-function openVideoInline(card, id) {
+function openVideoLocal(card, file) {
   document.querySelectorAll('.vcard2.playing').forEach(function(c) {
     if (c !== card) closeVideoInline(c);
   });
   var player = card.querySelector('.vcard2-player');
-  if (player && player.style.display === 'block') {
-    closeVideoInline(card); return;
-  }
+  if (player) { closeVideoInline(card); return; }
   var thumb = card.querySelector('.vcard2-thumb');
   if (thumb) thumb.style.display = 'none';
-  if (!player) {
-    player = document.createElement('div');
-    player.className = 'vcard2-player';
-    player.style.cssText = 'position:relative;padding-bottom:56.25%;background:#000;border-radius:12px 12px 0 0;overflow:hidden;';
-    player.innerHTML = '<button onclick="event.stopPropagation();closeVideoInline(this.closest(\'.vcard2\'))" style="position:absolute;top:10px;left:12px;z-index:10;background:rgba(0,0,0,0.6);color:#fff;border:none;border-radius:50%;width:36px;height:36px;font-size:1.1rem;cursor:pointer;line-height:1;">✕</button><iframe src="https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0&modestbranding=1" allow="autoplay; fullscreen" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:none;"></iframe>';
-    card.insertBefore(player, card.querySelector('.vcard2-meta'));
-  }
+  player = document.createElement('div');
+  player.className = 'vcard2-player';
+  player.style.cssText = 'position:relative;aspect-ratio:9/16;background:#000;border-radius:16px 16px 0 0;overflow:hidden;';
+  player.innerHTML = '<button onclick="event.stopPropagation();closeVideoInline(this.closest(\'.vcard2\'))" style="position:absolute;top:10px;left:12px;z-index:10;background:rgba(0,0,0,0.6);color:#fff;border:none;border-radius:50%;width:36px;height:36px;font-size:1.1rem;cursor:pointer;line-height:1;">✕</button><video src="'+file+'" controls autoplay playsinline onclick="event.stopPropagation()" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000;"></video>';
+  card.insertBefore(player, card.querySelector('.vcard2-meta'));
   player.style.display = 'block';
   card.classList.add('playing');
   card.style.borderColor = '#C5A059';
@@ -731,6 +718,8 @@ function openVideoInline(card, id) {
 function closeVideoInline(card) {
   var player = card.querySelector('.vcard2-player');
   if (player) {
+    var v = player.querySelector('video');
+    if (v) { v.pause(); v.removeAttribute('src'); v.load(); }
     var iframe = player.querySelector('iframe');
     if (iframe) iframe.src = '';
     player.remove();
