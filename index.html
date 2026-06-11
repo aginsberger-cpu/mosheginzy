@@ -279,7 +279,8 @@ nav{
   display:flex;gap:10px;align-items:center;
   flex-shrink:0;
 }
-#mg-inp{flex:1;background:#FFFFFF;border:1px solid var(--border);border-radius:24px;padding:10px 18px;color:#2C3E50;font-size:16px;font-family:var(--font-body);outline:none;direction:rtl;text-align:right;unicode-bidi:plaintext;-webkit-appearance:none;transition:border-color .2s;}
+#mg-inp{flex:1;background:#FFFFFF;border:1px solid var(--border);border-radius:18px;padding:10px 18px;color:#2C3E50;font-size:16px;font-family:var(--font-body);outline:none;direction:rtl;text-align:right;unicode-bidi:plaintext;-webkit-appearance:none;transition:border-color .2s;resize:none;min-height:58px;max-height:120px;line-height:1.45;overflow-y:auto;}
+.mg-input-row{align-items:flex-end;}
 #mg-inp:focus{border-color:var(--gold)}
 #mg-inp::placeholder{color:var(--muted)}
 .mg-send-btn{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:opacity .2s;}
@@ -498,7 +499,9 @@ footer{background:#2C3E50;padding:3rem 5vw 2rem;border-top:1px solid var(--borde
 }
 @media(max-width:768px){
   #hero-video-wrap iframe, #hero-video-wrap button { display:none !important; }
-  #hero-video-wrap { background:url('תמונה מצוינת משה גינזי.png') center/cover no-repeat; }
+  #hero-video-wrap { background:url('תמונה מצוינת משה גינזי.png') center/cover no-repeat;
+    width:min(380px,86vw)!important;aspect-ratio:1/1!important;height:auto!important; }
+  .hero-new-video{width:auto;max-width:none;aspect-ratio:auto;height:auto;}
 }
 </style>
   <link rel="manifest" href="/manifest.json">
@@ -609,7 +612,7 @@ function playVideo(){
         <button id="mg-mic-btn" title="דבר במקום לכתוב">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
         </button>
-        <input id="mg-inp" onkeydown="if(event.key==='Enter')mgSend()" placeholder="כתוב שאלה..." />
+        <textarea id="mg-inp" rows="2" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();mgSend();}" oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,120)+'px';" placeholder="כתוב שאלה..."></textarea>
       </div>
     </div>
   </div>
