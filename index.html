@@ -382,6 +382,35 @@ footer{background:#2C3E50;padding:3rem 5vw 2rem;border-top:1px solid var(--borde
   cursor:pointer;text-decoration:none;transition:opacity .2s;align-self:flex-start;
 }
 .hero-new-btn:hover{opacity:.88}
+.hero-clear{
+  display:inline-flex;align-items:center;gap:.5rem;align-self:flex-start;
+  background:linear-gradient(135deg,#1A3A2A,#2A5240);color:#F5E6C8;
+  font-family:'Heebo','Rubik',sans-serif;font-weight:800;
+  font-size:clamp(.95rem,1.3vw,1.15rem);
+  padding:10px 22px;border-radius:50px;margin:14px 0 18px;
+  box-shadow:0 6px 20px rgba(26,58,42,.35);
+  border:1.5px solid #C5A059;
+}
+.hero-steps{display:flex;gap:12px;margin-top:22px;}
+.hero-step{
+  flex:1;background:#fff;border-radius:14px;padding:14px 12px;
+  border-top:4px solid #C5A059;text-align:center;
+  box-shadow:0 8px 24px rgba(26,58,42,.10);
+  transition:transform .2s, box-shadow .2s;position:relative;
+}
+.hero-step:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(26,58,42,.18);}
+.hero-step .hs-num{
+  position:absolute;top:-14px;right:50%;transform:translateX(50%);
+  width:26px;height:26px;border-radius:50%;background:#1A3A2A;color:#F5E6C8;
+  font-weight:800;font-size:.85rem;display:flex;align-items:center;justify-content:center;
+  border:2px solid #C5A059;
+}
+.hero-step .hs-icon{font-size:1.7rem;display:block;margin:6px 0 6px;}
+.hero-step .hs-text{font-family:'Heebo','Rubik',sans-serif;font-size:.82rem;font-weight:600;color:#1A3A2A;line-height:1.45;}
+@media (max-width:760px){
+  .hero-steps{flex-direction:column;gap:18px;}
+  .hero-clear{align-self:center;text-align:center;font-size:.9rem;}
+}
 .hero-new-video{
   flex-shrink:0;width:520px;height:340px;
   border-radius:18px;overflow:hidden;
@@ -454,8 +483,14 @@ footer{background:#2C3E50;padding:3rem 5vw 2rem;border-top:1px solid var(--borde
 <div class="hero-new">
   <div class="hero-new-text">
     <h1>מגלים את היהדות בקצב שלך.<br>בלי פילטרים, בלי כפייה.</h1>
+    <div class="hero-clear">📖 לימוד אישי אחד-על-אחד &nbsp;·&nbsp; בטלפון &nbsp;·&nbsp; חינם</div>
     <p class="hero-new-sub">רוצה להכיר את השורשים, לשאול את השאלות הקשות או פשוט לנהל שיחה פתוחה על משמעות החיים? אנחנו נתאים לך שותף אישי לשיחה טלפונית שבועית ומרתקת – בגובה העיניים, בזמן שלך וללא כל עלות.</p>
-    <a href="#chavruta" class="hero-new-btn">רוצה שותף לשיחה פתוחה? לחץ כאן להרשמה</a>
+    <a href="#chavruta" class="hero-new-btn">אני רוצה לימוד אישי חינם ←</a>
+    <div class="hero-steps">
+      <div class="hero-step"><div class="hs-num">1</div><span class="hs-icon">📝</span><div class="hs-text">נרשמים בטופס קצר</div></div>
+      <div class="hero-step"><div class="hs-num">2</div><span class="hs-icon">🤝</span><div class="hs-text">מתאימים לך מלווה אישי לפי תחומי העניין שלך</div></div>
+      <div class="hero-step"><div class="hs-num">3</div><span class="hs-icon">📞</span><div class="hs-text">שיחת לימוד שבועית בטלפון, בזמן שנוח לך</div></div>
+    </div>
   </div>
 <div class="hero-video-frame"><div class="hero-new-video" id="hero-video-wrap" style="position:relative;width:520px;height:340px;border-radius:14px;overflow:hidden;">
     <div style="position:absolute;inset:0;z-index:2;background:transparent;cursor:default;" onclick="return false;" ondragstart="return false;"></div>
@@ -1147,7 +1182,9 @@ var TEXTS={
     'nav-name':'משה גינזי','nav-sub':'מחשבה במסלול מחדש',
     'hero-h1':'מגלים את היהדות בקצב שלך.<br>בלי פילטרים, בלי כפייה.',
     'hero-sub':'רוצה להכיר את השורשים, לשאול את השאלות הקשות או פשוט לנהל שיחה פתוחה על משמעות החיים? אנחנו נתאים לך שותף אישי לשיחה טלפונית שבועית ומרתקת – בגובה העיניים, בזמן שלך וללא כל עלות.',
-    'hero-btn':'רוצה שותף לשיחה פתוחה? לחץ כאן להרשמה',
+    'hero-btn':'אני רוצה לימוד אישי חינם ←',
+    'hero-clear':'📖 לימוד אישי אחד-על-אחד &nbsp;·&nbsp; בטלפון &nbsp;·&nbsp; חינם',
+    'step1':'נרשמים בטופס קצר','step2':'מתאימים לך מלווה אישי לפי תחומי העניין שלך','step3':'שיחת לימוד שבועית בטלפון, בזמן שנוח לך',
     'hero-eyebrow':'בלי דת · בלי לחץ · בלי שיפוט',
     'hero-tagline':'יש לך שאלות.<br>מגיע לך תשובות.',
     'hero-tagline2':'— משה גינזי · שיחה פתוחה על החיים —',
@@ -1190,7 +1227,9 @@ var TEXTS={
     'nav-name':'Moshe Ginzy','nav-sub':'Rethinking the Path',
     'hero-h1':'Discover Judaism at your own pace.<br>No filters, no coercion.',
     'hero-sub':'Want to explore your roots, ask the hard questions, or simply have an open conversation about the meaning of life? We will match you with a personal partner for a weekly, engaging phone conversation – at your level, on your schedule, at no cost.',
-    'hero-btn':'Want a partner for an open conversation? Click here to register',
+    'hero-btn':'I want free one-on-one learning →',
+    'hero-clear':'📖 Personal one-on-one learning &nbsp;·&nbsp; By phone &nbsp;·&nbsp; Free',
+    'step1':'Sign up with a short form','step2':'We match you with a personal guide based on your interests','step3':'A weekly phone study session, whenever suits you',
     'hero-eyebrow':'No religion · No pressure · No judgment',
     'hero-tagline':'You have questions.<br>You deserve answers.',
     'hero-tagline2':'— Moshe Ginzy · An open conversation about life —',
@@ -1232,6 +1271,9 @@ function setLang(lang){
   var heroH1=document.querySelector('.hero-new h1');if(heroH1)heroH1.innerHTML=t['hero-h1'];
   var heroSub=document.querySelector('.hero-new-sub');if(heroSub)heroSub.innerHTML=t['hero-sub'];
   var heroBtn=document.querySelector('.hero-new-btn');if(heroBtn)heroBtn.innerHTML=t['hero-btn'];
+  var heroClear=document.querySelector('.hero-clear');if(heroClear)heroClear.innerHTML=t['hero-clear'];
+  var hsteps=document.querySelectorAll('.hero-step .hs-text');
+  if(hsteps.length===3){hsteps[0].innerHTML=t['step1'];hsteps[1].innerHTML=t['step2'];hsteps[2].innerHTML=t['step3'];}
   setText('.hero-eyebrow',t['hero-eyebrow']);
   var ht=document.querySelector('.hero-tagline');if(ht)ht.innerHTML=t['hero-tagline'];
   setText('.hero-tagline2',t['hero-tagline2']);setText('.hero-desc',t['hero-desc']);
@@ -1307,6 +1349,10 @@ document.addEventListener('DOMContentLoaded',function(){
   if(heroSub)heroSub.innerHTML=t['hero-sub'];
   var heroBtn=document.querySelector('.hero-new-btn');
   if(heroBtn)heroBtn.innerHTML=t['hero-btn'];
+  var heroClear=document.querySelector('.hero-clear');
+  if(heroClear)heroClear.innerHTML=t['hero-clear'];
+  var hsteps=document.querySelectorAll('.hero-step .hs-text');
+  if(hsteps.length===3){hsteps[0].innerHTML=t['step1'];hsteps[1].innerHTML=t['step2'];hsteps[2].innerHTML=t['step3'];}
 });
   // הוספת שורת נתיבות לפוטר
 var netivotLine = document.createElement('p');
