@@ -29,25 +29,13 @@ html,body{height:100%;background:var(--bg);color:var(--txt);font-family:var(--fo
 body{overflow:hidden;}
 
 /* TOP BAR */
-.top-bar{
-  position:fixed;top:0;left:0;right:0;z-index:300;
-  height:var(--top-bar);
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 14px;
-  background:rgba(18,15,10,0.98);
-  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--border);
-}
-body.light .top-bar{background:rgba(245,240,232,0.97);}
+.top-bar{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--top-bar);display:flex;align-items:center;justify-content:space-between;padding:0 16px;background:linear-gradient(135deg,rgba(20,16,10,0.99),rgba(25,20,12,0.99));backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(212,168,67,0.3);box-shadow:0 2px 20px rgba(0,0,0,0.5);}
+body.light .top-bar{background:linear-gradient(135deg,rgba(250,246,235,0.99),rgba(255,252,240,0.99));}
 html[lang="en"] .top-bar{flex-direction:row-reverse;}
 
-.top-bar-title{font-family:var(--font-display);font-size:1.1rem;color:#E8C040;font-weight:400;letter-spacing:.02em;text-shadow:0 0 20px rgba(232,192,64,0.4);}.top-bar-right{display:flex;align-items:center;gap:8px;}
+.top-bar-title{font-family:var(--font-display);font-size:1.25rem;color:#E8C040;font-weight:400;letter-spacing:.06em;text-shadow:0 0 25px rgba(232,192,64,0.5),0 2px 4px rgba(0,0,0,0.3);}.top-bar-right{display:flex;align-items:center;gap:8px;}
 
-.lang-toggle{
-  display:flex;align-items:center;
-  background:var(--card2);border:1px solid var(--border2);
-  border-radius:20px;overflow:hidden;padding:2px;gap:2px;
-}
+.lang-toggle{display:flex;align-items:center;background:rgba(255,255,255,0.06);border:1px solid rgba(212,168,67,0.4);border-radius:20px;overflow:hidden;padding:2px;gap:2px;box-shadow:0 2px 8px rgba(0,0,0,0.3);}
 .lang-btn{
   padding:6px 14px;font-size:.72rem;font-weight:700;
   font-family:var(--font);letter-spacing:.06em;
@@ -135,26 +123,12 @@ html[lang="en"] .top-bar{flex-direction:row-reverse;}
 .cta-main:active{transform:scale(.98);}
 .cta-main svg{width:20px;height:20px;flex-shrink:0;}
 
-.cta-wa{
-  display:flex;align-items:center;justify-content:center;gap:10px;
-  width:100%;background:rgba(37,211,102,0.08);
-  border:1.5px solid rgba(37,211,102,0.5);color:#25D366;
-  border-radius:16px;padding:15px 20px;
-  font-size:.95rem;font-weight:700;font-family:var(--font);
-  cursor:pointer;text-decoration:none;transition:background .2s;
-}
-.cta-wa:active{background:rgba(37,211,102,0.15);}
+.cta-wa{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:linear-gradient(135deg,rgba(37,211,102,0.15),rgba(37,211,102,0.08));border:1.5px solid rgba(37,211,102,0.6);color:#2ecc71;border-radius:16px;padding:15px 20px;font-size:.95rem;font-weight:700;font-family:var(--font);cursor:pointer;text-decoration:none;transition:all .2s;box-shadow:0 4px 15px rgba(37,211,102,0.15);}
+.cta-wa:active{background:rgba(37,211,102,0.25);}
 .cta-wa svg{width:22px;height:22px;flex-shrink:0;}
 
-.cta-chavruta{
-  display:flex;align-items:center;justify-content:center;gap:10px;
-  width:100%;background:rgba(197,160,89,0.07);
-  border:1.5px solid rgba(197,160,89,0.4);color:var(--gold);
-  border-radius:16px;padding:15px 20px;
-  font-size:.95rem;font-weight:700;font-family:var(--font);cursor:pointer;
-  transition:background .2s;
-}
-.cta-chavruta:active{background:rgba(197,160,89,0.14);}
+.cta-chavruta{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:linear-gradient(135deg,rgba(212,168,67,0.15),rgba(212,168,67,0.07));border:1.5px solid rgba(212,168,67,0.5);color:var(--gold3);border-radius:16px;padding:15px 20px;font-size:.95rem;font-weight:700;font-family:var(--font);cursor:pointer;transition:all .2s;box-shadow:0 4px 15px rgba(212,168,67,0.12);}
+.cta-chavruta:active{background:rgba(212,168,67,0.22);}
 .cta-chavruta svg{flex-shrink:0;}
 
 /* ══ CHAT ══ */
@@ -338,7 +312,7 @@ html[lang="en"] .msg-row:not(.user){flex-direction:row-reverse;}
 <!-- HOME -->
 <div class="screen active" id="screen-home">
   <div class="home-photo-wrap">
-    <img src="https://mosheginzy.com/moshe-photo.jpg" alt="משה גינזי"
+    <img src="https://aginsberger-cpu.github.io/mosheginzy/%D7%AA%D7%9E%D7%95%D7%A0%D7%94%20%D7%9E%D7%A6%D7%95%D7%99%D7%A0%D7%AA%20%D7%9E%D7%A9%D7%94%20%D7%92%D7%99%D7%A0%D7%96%D7%99.png" alt="משה גינזי"
       onerror="this.style.display='none'" />
     <div class="home-photo-overlay"></div>
   </div>
@@ -391,7 +365,7 @@ html[lang="en"] .msg-row:not(.user){flex-direction:row-reverse;}
     <div class="chat-avatar-wrap">
       <div class="chat-avatar-ring">
         <div class="chat-avatar-inner">
-          <img src="https://mosheginzy.com/moshe-photo.jpg" alt="משה גינזי"
+          <img src="https://aginsberger-cpu.github.io/mosheginzy/%D7%AA%D7%9E%D7%95%D7%A0%D7%94%20%D7%9E%D7%A6%D7%95%D7%99%D7%A0%D7%AA%20%D7%9E%D7%A9%D7%94%20%D7%92%D7%99%D7%A0%D7%96%D7%99.png" alt="משה גינזי"
             onerror="this.parentElement.innerHTML='<div class=\'chat-avatar-fallback\'>מ</div>'" />
         </div>
       </div>
@@ -501,7 +475,7 @@ html[lang="en"] .msg-row:not(.user){flex-direction:row-reverse;}
   </div>
   <div class="about-hero">
     <div class="about-avatar">
-      <img src="https://mosheginzy.com/moshe-photo.jpg" alt="משה גינזי"
+      <img src="https://aginsberger-cpu.github.io/mosheginzy/%D7%AA%D7%9E%D7%95%D7%A0%D7%94%20%D7%9E%D7%A6%D7%95%D7%99%D7%A0%D7%AA%20%D7%9E%D7%A9%D7%94%20%D7%92%D7%99%D7%A0%D7%96%D7%99.png" alt="משה גינזי"
         onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,var(--gold),var(--gold2))'" />
     </div>
     <div class="about-name">משה גינזי</div>
