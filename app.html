@@ -17,7 +17,7 @@
   --border:rgba(197,160,89,0.2);--border2:rgba(197,160,89,0.35);
   --txt:#e8e0d0;--muted:#8a7a6a;
   --font:'Heebo',sans-serif;--font-display:'Cormorant Garamond',serif;
-  --nav-h:64px;--top-bar:44px;
+  --nav-h:64px;--top-bar:50px;
 }
 html,body{height:100%;background:var(--bg);color:var(--txt);font-family:var(--font);}
 body{overflow:hidden;}
@@ -28,7 +28,7 @@ body{overflow:hidden;}
   height:var(--top-bar);
   display:flex;align-items:center;justify-content:flex-end;
   padding:0 14px;
-  background:rgba(15,15,15,0.92);
+  background:rgba(15,15,15,0.98);
   backdrop-filter:blur(12px);
   -webkit-backdrop-filter:blur(12px);
   border-bottom:1px solid var(--border);
@@ -43,7 +43,7 @@ html[lang="en"] .top-bar{justify-content:flex-start;}
   padding:2px;gap:2px;
 }
 .lang-btn{
-  padding:5px 14px;font-size:.7rem;font-weight:700;
+  padding:7px 16px;font-size:.75rem;font-weight:700;
   font-family:var(--font);letter-spacing:.06em;
   border:none;background:transparent;color:var(--muted);
   cursor:pointer;transition:all .25s;border-radius:16px;
@@ -166,17 +166,17 @@ html[lang="en"] .top-bar{justify-content:flex-start;}
 #screen-chat{padding-bottom:calc(var(--nav-h) + 72px);}
 .chat-hero{
   display:flex;flex-direction:column;align-items:center;
-  padding:1.6rem 1.5rem 1.2rem;
+  padding:1rem 1.5rem 1rem;
   border-bottom:1px solid var(--border);text-align:center;
   background:radial-gradient(ellipse at 50% 0%,rgba(197,160,89,0.1) 0%,transparent 70%);
 }
-.chat-avatar-wrap{position:relative;margin-bottom:1rem;display:flex;justify-content:center;align-items:center;}
+.chat-avatar-wrap{position:relative;margin-bottom:.8rem;display:flex;justify-content:center;align-items:center;width:100%;}
 .chat-avatar-ring{
-  width:188px;height:188px;border-radius:50%;
+  width:120px;height:120px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
   background:conic-gradient(var(--gold3),var(--gold2),var(--gold),var(--gold3));
   padding:3px;
-  box-shadow:0 0 30px rgba(197,160,89,0.3),0 0 60px rgba(197,160,89,0.12);
+  box-shadow:0 0 20px rgba(197,160,89,0.3),0 0 40px rgba(197,160,89,0.1);
   flex-shrink:0;
 }
 .chat-avatar-inner{
