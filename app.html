@@ -645,7 +645,7 @@ function sendMsg(){
   var micBtn=document.getElementById('mic-btn');
   if(!SR){if(micBtn)micBtn.style.display='none';return;}
   var listening=false;var rec=null;
-  function stopMic(){
+  window.stopMic=function stopMic(){
     listening=false;micBtn.classList.remove('listening');
     if(rec){try{rec.abort();}catch(e){}}rec=null;
   }
