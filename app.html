@@ -626,10 +626,8 @@ function showTyping(){
 }
 function rmTyping(){var t=document.getElementById('typing-row');if(t)t.remove();}
 function sendMsg(){
-  // Stop mic if listening
-  if(typeof stopMic==='function'){}
+  if(window.stopMic)window.stopMic();
   var micB=document.getElementById('mic-btn');
-  if(micB&&micB.classList.contains('listening')){micB.click();}
   var inp=document.getElementById('chat-input');
   var txt=inp.value.trim();if(!txt||isSending)return;
   inp.value='';isSending=true;addMsg(txt,'user');showTyping();
