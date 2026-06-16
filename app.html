@@ -57,7 +57,7 @@ html[lang="en"] .top-bar{flex-direction:row-reverse;}
 .screen{
   position:fixed;inset:0;display:none;flex-direction:column;
   background:var(--bg);z-index:1;overflow-y:auto;
-  padding-top:var(--top-bar);padding-bottom:var(--nav-h);
+  padding-top:calc(var(--top-bar) + var(--safe-top));padding-bottom:var(--nav-h);
   -webkit-overflow-scrolling:touch;
 }
 .screen.active{display:flex;z-index:2;}
