@@ -1038,7 +1038,7 @@ function toggleExtraVideos() {
     fetch('https://api.elevenlabs.io/v1/text-to-speech/'+EL_VOICE,{
       method:'POST',
       headers:{'xi-api-key':EL_KEY,'Content-Type':'application/json'},
-      body:JSON.stringify({text:shortTxt,model_id:'eleven_v3',voice_settings:{similarity_boost:.85},language_code:'he'}
+      body:JSON.stringify({text:shortTxt,model_id:'eleven_v3',voice_settings:{stability:.65,similarity_boost:.85}
     }).then(function(r){return r.blob();}).then(function(b){
       var url=URL.createObjectURL(b);currentAudio=new Audio(url);currentAudio.play();
     }).catch(function(){});
