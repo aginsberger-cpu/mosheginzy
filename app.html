@@ -615,8 +615,7 @@ function addMsg(txt,who){
   var row=document.createElement('div');row.className='msg-row '+(who==='user'?'user':'');
   var av=document.createElement('div');av.className='msg-av';av.textContent=who==='bot'?'מ':'☺';
   var bubble=document.createElement('div');bubble.className='msg-bubble '+(who==='bot'?'bot':'user');bubble.textContent=txt;
-  row.appendChild(av);row.appendChild(bubble);w.appendChild(row);
-  w.scrollTop=w.scrollHeight;document.getElementById('screen-chat').scrollTop=99999;
+row.appendChild(av);row.appendChild(bubble);if(who==='bot'){var sb=document.createElement('button');sb.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>';sb.style.cssText='background:none;border:none;color:var(--gold);cursor:pointer;padding:4px 8px;flex-shrink:0;';sb.onclick=function(){shareAnswer(txt);};row.appendChild(sb);}w.appendChild(row);  w.scrollTop=w.scrollHeight;document.getElementById('screen-chat').scrollTop=99999;
 }
 function showTyping(){
   var w=document.getElementById('chat-msgs');
