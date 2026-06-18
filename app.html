@@ -524,6 +524,7 @@ html[lang="en"] .msg-row:not(.user){flex-direction:row-reverse;}
 </div>
 
 <script>
+  function shareApp(){if(navigator.share){navigator.share({title:'משה גינזי',text:'הורד את האפליקציה של משה גינזי 👇',url:'https://mosheginzy.com/getapp'});}else{window.open('https://mosheginzy.com/getapp','_blank');}}
 var DIFY_KEY='app-VFD9vOFBd83JQC3BvLwuX5Q4';
 var DIFY_URL='https://api.dify.ai/v1/chat-messages';
 var cid='';var isSending=false;
