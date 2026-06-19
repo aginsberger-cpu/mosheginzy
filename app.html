@@ -403,7 +403,7 @@ html[lang="en"] .msg-row:not(.user){flex-direction:row-reverse;}
         <line x1="8" y1="23" x2="16" y2="23"/>
       </svg>
     </button>
-    <input class="ci" id="chat-input" placeholder="כתוב שאלה..." onkeydown="if(event.key==='Enter')sendMsg()" />
+   <textarea class="ci" id="chat-input" rows="1" placeholder="כתוב שאלה..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg();}" oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,120)+'px';"></textarea>
   </div>
 </div>
 
