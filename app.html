@@ -663,8 +663,8 @@ function sendMsg(){
           if(e.results[i].isFinal)ft+=e.results[i][0].transcript;
           else it+=e.results[i][0].transcript;
         }
-        if(ft){inp.value=ft;finalTxt=ft;stopMic();}
-        else if(it){inp.value=it;}
+    if(ft){inp.value=ft;finalTxt=ft;inp.style.height='auto';inp.style.height=Math.min(inp.scrollHeight,120)+'px';stopMic();}
+        else if(it){inp.value=it;inp.style.height='auto';inp.style.height=Math.min(inp.scrollHeight,120)+'px';}
       };
       rec.onend=function(){
         listening=false;micBtn.classList.remove('listening');rec=null;
