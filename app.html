@@ -597,7 +597,8 @@ function startApp(){
   userName=n;localStorage.setItem('mg-app-name',n);localStorage.setItem('mg-app-gender',userGender);showChatMode();
 }
 function showChatMode(){
-  if(!cid)cid=localStorage.getItem('mg-cid-'+userName)||'';
+ if(!cid)cid=localStorage.getItem('mg-cid-'+userName)||'';
+fetch(SHEET_URL+'?action=getHistory&name='+encodeURIComponent(userName),{mode:'cors'}).then(function(r){return r.json();}).then(function(d){if(d.history)localStorage.setItem('mg-history-'+userName,d.history);}).catch(function(){});
   document.getElementById('name-panel').style.display='none';
   document.getElementById('chat-input-bar').classList.remove('hidden');
   if(document.getElementById('chat-msgs').children.length===0){
