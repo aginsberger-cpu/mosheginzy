@@ -630,7 +630,7 @@ function sendMsg(){
   var inp=document.getElementById('chat-input');
   var txt=inp.value.trim();if(!txt||isSending)return;
   inp.value='';isSending=true;addMsg(txt,'user');showTyping();
-fetch(DIFY_URL,{method:'POST',headers:{'Authorization':'Bearer '+DIFY_KEY,'Content-Type':'application/json'},body:JSON.stringify({inputs:{name:userName,today:new Date().toLocaleDateString('he-IL',{weekday:'long',year:'numeric',month:'long',day:'numeric'})},query:txt,response_mode:'blocking',conversation_id:cid||undefined,user:'mg-app-user'})})  .then(function(r){return r.json();})
+fetch(DIFY_URL,{method:'POST',headers:{'Authorization':'Bearer '+DIFY_KEY,'Content-Type':'application/json'},body:JSON.stringify({inputs:{name:userName,today:new Date().toLocaleDateString('he-IL',{weekday:'long',year:'numeric',month:'long',day:'numeric'})},query:txt,response_mode:'blocking',conversation_id:cid||undefined,user:userName})})  .then(function(r){return r.json();})
   .then(function(d){rmTyping();isSending=false;if(d.answer){cid=d.conversation_id||cid;addMsg(d.answer,'bot');}else{addMsg(currentLang==='en'?'Moshe could not respond — please try again 🙏':'משה לא הצליח לענות — נסה שוב 🙏','bot');}})
   .catch(function(){rmTyping();isSending=false;addMsg(currentLang==='en'?'Moshe could not respond — please try again 🙏':'משה לא הצליח לענות — נסה שוב 🙏','bot');});
 }
