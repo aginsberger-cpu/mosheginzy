@@ -598,8 +598,7 @@ function startApp(){
 }
 function showChatMode(){
  if(!cid)cid=localStorage.getItem('mg-cid-'+userName)||'';
-fetch(SHEET_URL+'?action=getHistory&name='+encodeURIComponent(userName),{mode:'no-cors'}).then(function(r){return r.json();}).then(function(d){if(d.history)localStorage.setItem('mg-history-'+userName,d.history);}).catch(function(){});
-  document.getElementById('name-panel').style.display='none';
+window.onHistory=function(d){if(d&&d.history)localStorage.setItem('mg-history-'+userName,d.history);};var s=document.createElement('script');s.src=SHEET_URL+'?action=getHistory&name='+encodeURIComponent(userName)+'&callback=onHistory';document.head.appendChild(s);  document.getElementById('name-panel').style.display='none';
   document.getElementById('chat-input-bar').classList.remove('hidden');
   if(document.getElementById('chat-msgs').children.length===0){
     var g;
