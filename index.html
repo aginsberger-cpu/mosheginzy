@@ -1072,8 +1072,7 @@ inputs:{name:localStorage.getItem('mg-user-name')||'אנונימי',today:new Da
       isSending=false;
       if(d.answer){
         cid=d.conversation_id||cid;
-        var userName=localStorage.getItem('mg-user-name')||'אנונימי';var h=localStorage.getItem('mg-history-'+userName)||'';var newH=h+(h?'\n':'')+d.answer.substring(0,200);localStorage.setItem('mg-history-'+userName,newH);
-        saveToSheet(txt,d.answer);
+var userName=localStorage.getItem('mg-user-name')||'אנונימי';var h=localStorage.getItem('mg-history-'+userName)||'';var newH=h+(h?'\n':'')+d.answer.substring(0,200);localStorage.setItem('mg-history-'+userName,newH);fetch(SHEET_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({action:'saveHistory',name:userName,history:newH}),mode:'no-cors'});        saveToSheet(txt,d.answer);
         addMsg(d.answer,'bot');
         speakText(d.answer);
       } else {
