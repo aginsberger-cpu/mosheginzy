@@ -1058,8 +1058,7 @@ body:JSON.stringify({text:shortTxt,model_id:'eleven_v3',voice_settings:{stabilit
       signal:controller.signal,
       headers:{'Authorization':'Bearer '+DIFY_KEY,'Content-Type':'application/json'},
       body:JSON.stringify({
-     inputs:{name:localStorage.getItem('mg-user-name')||'אנונימי',today:new Date().toLocaleDateString('he-IL',{weekday:'long',year:'numeric',month:'long',day:'numeric'})+' / '+new Date().toLocaleDateString('he-IL',{weekday:'long',year:'numeric',month:'long',day:'numeric',calendar:'hebrew'})},
-        query:txt,
+inputs:{name:localStorage.getItem('mg-user-name')||'אנונימי',today:new Date().toLocaleDateString('he-IL',{weekday:'long',year:'numeric',month:'long',day:'numeric'})+' / '+new Date().toLocaleDateString('he-IL',{weekday:'long',year:'numeric',month:'long',day:'numeric',calendar:'hebrew'}),history:(localStorage.getItem('mg-history-'+(localStorage.getItem('mg-user-name')||'אנונימי'))||'').slice(-500)},        query:txt,
         response_mode:'blocking',
         conversation_id:cid||undefined,
         user:'moshe_user'
