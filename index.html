@@ -977,7 +977,7 @@ if(userName){
     var ns=document.getElementById('mg-name-screen');
     if(ns)ns.style.display='none';
     var s=document.createElement('script');
-    s.src=SHEET_URL+'?action=getHistory&name='+encodeURIComponent(userName)+'&callback=onHistory';
+   s.src=SHEET_URL+'?action=getHistory&name='+encodeURIComponent(userName)+'&callback=onHistory&sheetName=HistoryWeb';
     document.head.appendChild(s);
     window.onHistory=function(d){if(d&&d.history){localStorage.setItem('mg-history-'+userName,d.history);}};
   }
