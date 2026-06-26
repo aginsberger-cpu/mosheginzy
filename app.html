@@ -568,7 +568,7 @@ function setLang(lang){
     var val=el.getAttribute('data-'+lang);
     if(!val)return;
     if(el.tagName==='INPUT'){el.placeholder=val;return;}
-    el.innerHTML=val;
+   el.textContent=val;
   });
   document.querySelectorAll('.back-arrow').forEach(function(a){a.textContent=lang==='he'?'→':'←';});
   renderLessons();
