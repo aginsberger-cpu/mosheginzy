@@ -1323,17 +1323,17 @@ var TEXTS={
     'doc-dir':'ltr','doc-lang':'en'
   }
 };
-
+tById('btn-lang-'+lang);if(ab)ab.classList.add('active');
+  localStorage.setItem('mg-site-lang',lang);
+  function setText(sel,val){var el=document.querySelector(sel);if(el)el.textContent=val;
+  setText('.nav-name',t['nav-name']);setText('.nav-sub',t['nav-sub']);
+  var heroH1=document.querySelector('
 function setLang(lang){
   var t=TEXTS[lang];
   document.documentElement.lang=t['doc-lang'];
   document.documentElement.dir=t['doc-dir'];
   document.querySelectorAll('[id^="btn-lang-"]').forEach(function(b){b.classList.remove('active');});
-  var ab=document.getElementById('btn-lang-'+lang);if(ab)ab.classList.add('active');
-  localStorage.setItem('mg-site-lang',lang);
-  function setText(sel,val){var el=document.querySelector(sel);if(el)el.innerHTML=val;}
-  setText('.nav-name',t['nav-name']);setText('.nav-sub',t['nav-sub']);
-  var heroH1=document.querySelector('.hero-new h1');if(heroH1)heroH1.innerHTML=t['hero-h1'];
+  var ab=document.getElemen.hero-new h1');if(heroH1)heroH1.innerHTML=t['hero-h1'];
   var heroSub=document.querySelector('.hero-new-sub');if(heroSub)heroSub.innerHTML=t['hero-sub'];
   var heroBtn=document.querySelector('.hero-new-btn');if(heroBtn)heroBtn.innerHTML=t['hero-btn'];
   var heroClear=document.querySelector('.hero-clear');if(heroClear)heroClear.innerHTML=t['hero-clear'];
