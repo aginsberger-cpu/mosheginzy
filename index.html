@@ -1401,6 +1401,9 @@ function setLang(lang){
   var tt=document.querySelector('.ty-title');if(tt)tt.innerHTML=t['ty-title'];
   var tx=document.querySelector('.ty-text');if(tx)tx.innerHTML=t['ty-text'];
   var tc=document.querySelector('.ty-close');if(tc)tc.innerHTML=t['ty-close'];
+var bc=document.getElementById('hero-btn-chavruta');if(bc)bc.innerHTML=lang==='en'?'👥 Join Chavruta — Free Personal Study':'👥 הצטרף לחברותא — לימוד אישי חינמי';
+var bw=document.getElementById('hero-btn-wa');if(bw)bw.innerHTML=lang==='en'?'💬 Message on WhatsApp':'💬 שלח הודעה בוואטסאפ';
+var bb=document.getElementById('hero-btn-bot');if(bb)bb.innerHTML=lang==='en'?'📖 Ask a Question — Talk with Moshe':'📖 שאל שאלה — דבר עם משה';
 }
 
 var savedLang=localStorage.getItem('mg-site-lang')||'he';
