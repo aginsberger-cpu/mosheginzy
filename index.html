@@ -1409,18 +1409,7 @@ var bb=document.getElementById('hero-btn-bot');if(bb)bb.innerHTML=lang==='en'?'�
 var savedLang=localStorage.getItem('mg-site-lang')||'he';
 document.addEventListener('DOMContentLoaded',function(){
   setLang(savedLang);
-  // עדכן ירו בנפרד אחרי שה-DOM מוכן
-  var t=TEXTS[savedLang];
-  var heroH1=document.querySelector('.hero-new h1');
-  if(heroH1)heroH1.innerHTML=t['hero-h1'];
-  var heroSub=document.querySelector('.hero-new-sub');
-  if(heroSub)heroSub.innerHTML=t['hero-sub'];
-  var heroBtn=document.querySelector('.hero-new-btn');
-  if(heroBtn)heroBtn.innerHTML=t['hero-btn'];
-  var heroClear=document.querySelector('.hero-clear');
-  if(heroClear)heroClear.innerHTML=t['hero-clear'];
-  var hsteps=document.querySelectorAll('.hero-step .hs-text');
-  if(hsteps.length===3){hsteps[0].innerHTML=t['step1'];hsteps[1].innerHTML=t['step2'];hsteps[2].innerHTML=t['step3'];}
+
 });
   // הוספת שורת נתיבות לפוטר
 var netivotLine = document.createElement('p');
