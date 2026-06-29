@@ -707,8 +707,7 @@ function submitForm(){
   if(!name||!phone){alert(currentLang==='en'?'Please fill in name and phone.':'נא למלא שם וטלפון');return;}
   var SHEET='https://script.google.com/macros/s/AKfycbwL7Ezboysip0pPmZJsR_jVbvPJrLCmP8r6PqdRDoSMHNywuqO_Io6HaZyqy6Ot7AQn/exec';
   var data={name:name,phone:phone,email:document.getElementById('f-email').value,city:document.getElementById('f-city').value};
-  fetch(SHEET,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data),mode:'no-cors'});
-  fetch('https://formspree.io/f/xnjwdeyd',{method:'POST',body:JSON.stringify(data),headers:{'Content-Type':'application/json','Accept':'application/json'}});
+fetch(SHEET_URL+'?action=saveHistory&name='+encodeURIComponent(userName)+'&history='+encodeURIComponent(newH.slice(-300)),{mode:'no-cors'});  fetch('https://formspree.io/f/xnjwdeyd',{method:'POST',body:JSON.stringify(data),headers:{'Content-Type':'application/json','Accept':'application/json'}});
   document.getElementById('f-name').value='';document.getElementById('f-phone').value='';document.getElementById('f-email').value='';document.getElementById('f-city').value='';
   goScreen('thanks');
 }
