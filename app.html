@@ -576,6 +576,7 @@ function setLang(lang){
   document.getElementById('chat-input').placeholder=lang==='he'?'כתוב שאלה...':'Type your question...';
   var fn=document.getElementById('f-name');if(fn)fn.placeholder=lang==='he'?'השם שלך':'Your name';
   var fc=document.getElementById('f-city');if(fc)fc.placeholder=lang==='he'?'העיר שלך':'Your city';
+  var lt=document.getElementById('link-tikva');if(lt)lt.href=lang==='en'?'https://tikva.netivotny.org/en/':'https://tikva.netivotny.org';
 }
 
 // NAV
