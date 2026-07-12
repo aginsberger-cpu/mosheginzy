@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+3333#3<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
@@ -659,12 +659,27 @@ fetch(DIFY_URL,{method:'POST',headers:{'Authorization':'Bearer '+DIFY_KEY,'Conte
 }
 function speakText(txt){if(currentAudio){try{currentAudio.stop();}catch(e){}currentAudio=null;}var sentences=txt.match(/[^.!?؟]+[.!?؟]+/g)||[txt];var shortTxt=sentences[0].trim();if(!shortTxt||shortTxt.length<5)shortTxt=txt.substring(0,120);if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();fetch('https://api.elevenlabs.io/v1/text-to-speech/'+EL_VOICE,{method:'POST',headers:{'xi-api-key':EL_KEY,'Content-Type':'application/json'},body:JSON.stringify({text:shortTxt,model_id:'eleven_v3',voice_settings:{stability:.65,similarity_boost:.85}})}).then(function(r){if(!r.ok)throw new Error('EL status '+r.status);return r.arrayBuffer();}).then(function(buf){return audioCtx.decodeAudioData(buf);}).then(function(decoded){var src=audioCtx.createBufferSource();src.buffer=decoded;src.connect(audioCtx.destination);src.start(0);currentAudio=src;}).catch(function(e){console.warn('speakText error:',e);});}
 
-
 // MIC
 (function(){
-  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
   var micBtn=document.getElementById('mic-btn');
-  if(!SR){if(micBtn)micBtn.style.display='none';return;}
+  if(!micBtn) return;
+
+  // iOS native app — use Swift mic handler
+  var isIOSNative=window.webkit&&window.webkit.messageHandlers&&window.webkit.messageHandlers.iosMic;
+  if(isIOSNative){
+    var iosListening=false;
+    window.iosMicStarted=function(){iosListening=true;micBtn.classList.add('listening');};
+    window.iosMicResult=function(text){var inp=document.getElementById('chat-input');inp.value=text;inp.style.height='auto';inp.style.height=Math.min(inp.scrollHeight,120)+'px';};
+    window.iosMicStopped=function(){iosListening=false;micBtn.classList.remove('listening');var inp=document.getElementById('chat-input');var v=inp.value.trim();if(v){setTimeout(function(){sendMsg();},300);}};
+    window.iosMicError=function(err){iosListening=false;micBtn.classList.remove('listening');if(err==='not-allowed'){alert(currentLang==='en'?'Please allow microphone and speech recognition in Settings.':'אנא אפשר גישה למיקרופון וזיהוי דיבור בהגדרות.');}};
+    window.stopMic=function(){if(iosListening){window.webkit.messageHandlers.iosMic.postMessage('stop');}};
+    micBtn.addEventListener('click',function(e){e.preventDefault();if(iosListening){window.webkit.messageHandlers.iosMic.postMessage('stop');}else{window.webkit.messageHandlers.iosMic.postMessage('start:'+currentLang);}});
+    return;
+  }
+
+  // Android / desktop — Web Speech API (unchanged)
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){micBtn.style.display='none';return;}
   var listening=false;var rec=null;
   window.stopMic=function stopMic(){
     listening=false;micBtn.classList.remove('listening');
@@ -703,8 +718,6 @@ function speakText(txt){if(currentAudio){try{currentAudio.stop();}catch(e){}curr
     }catch(e){stopMic();}
   });
 })();
-
-// FORM
 function submitForm(){
   var name=document.getElementById('f-name').value.trim();
   var phone=document.getElementById('f-phone').value.trim();
