@@ -297,6 +297,17 @@ html[lang="en"] .msg-row.user{flex-direction:row;}
 html[lang="en"] .msg-row:not(.user){flex-direction:row-reverse;}
 </style>
 </head>
+  <!-- Facebook Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','2233613250771990');
+var platform='web';
+if(window.webkit&&window.webkit.messageHandlers&&window.webkit.messageHandlers.iosMic)platform='ios';
+else if(window.Android)platform='android';
+fbq('track','PageView',{content_category:platform});
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2233613250771990&ev=PageView&noscript=1"/></noscript>
+<!-- End Facebook Pixel -->
 <body>
 
 <!-- TOP BAR -->
