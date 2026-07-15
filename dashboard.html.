@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>משה גינזי — דשבורד ניהול</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg:#0A0A0A;--card:#141414;--card2:#1A1A1A;--border:#252525;
+--gold:#C9A84C;--gold-light:#E8D48B;--gold-dim:rgba(201,168,76,0.15);
+--text:#F0EDE6;--text2:#8A8A8A;
+--green:#5CB85C;--orange:#E8A838;--red:#D9534F;--blue:#6B8ECC;
+}
+body{font-family:'Segoe UI','Arial',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+a{color:var(--gold);text-decoration:none}
+
+/* Header */
+.header{background:var(--card);border-bottom:1px solid var(--border);padding:16px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.logo{display:flex;align-items:center;gap:14}
+.logo-icon{width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,var(--gold),var(--gold-light));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;color:var(--bg)}
+.logo-text{font-size:18px;font-weight:700}
+.logo-sub{font-size:12px;color:var(--text2)}
+.header-date{font-size:13px;color:var(--text2)}
+
+/* Tabs */
+.tabs{display:flex;gap:4px;padding:12px 28px;border-bottom:1px solid var(--border);background:var(--card);overflow-x:auto}
+.tab{display:flex;align-items:center;gap:8px;padding:10px 20px;border-radius:8px;border:none;background:transparent;color:var(--text2);font-size:14px;cursor:pointer;white-space:nowrap;font-family:inherit}
+.tab.active{background:var(--gold-dim);color:var(--gold);font-weight:600}
+.tab:hover{background:var(--gold-dim)}
+
+/* Main */
+.main{padding:24px 28px;max-width:1200px;margin:0 auto}
+
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:28px}
+.stat-card{background:var(--card);border-radius:12px;padding:20px 24px;border:1px solid var(--border)}
+.stat-icon{width:40px;height:40px;border-radius:10px;background:var(--gold-dim);display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:20px}
+.stat-value{font-size:28px;font-weight:700;margin-bottom:2px}
+.stat-label{font-size:13px;color:var(--text2)}
+.stat-sub{font-size:12px;color:var(--green);margin-top:6px}
+
+/* Charts row */
+.charts-row{display:grid;grid-template-columns:2fr 1fr;gap:20px;margin-bottom:28px}
+@media(max-width:768px){.charts-row{grid-template-columns:1fr}}
+.chart-card{background:var(--card);border-radius:12px;border:1px solid var(--border);padding:24px}
+.chart-title{font-size:16px;font-weight:600;margin-bottom:20px}
+
+/* Table */
+.table-card{background:var(--card);border-radius:12px;border:1px solid var(--border);overflow:hidden;margin-bottom:28px}
+.table-header{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.table-header h3{font-size:16px;font-weight:600}
+.table-row{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;border-bottom:1px solid var(--border);gap:12px;flex-wrap:wrap}
+.table-row:last-child{border-bottom:none}
+.table-row:hover{background:var(--card2)}
+
+/* User avatar */
+.avatar{width:40px;height:40px;border-radius:50%;background:var(--gold-dim);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;color:var(--gold);flex-shrink:0}
+.avatar.sm{width:36px;height:36px;font-size:14px}
+
+/* Tags */
+.tag{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;white-space:nowrap}
+.tag-halacha{background:rgba(107,142,204,0.13);color:#6B8ECC;border:1px solid rgba(107,142,204,0.27)}
+.tag-zogiyut{background:rgba(232,139,62,0.13);color:#E88B3E;border:1px solid rgba(232,139,62,0.27)}
+.tag-emuna{background:rgba(201,168,76,0.13);color:#C9A84C;border:1px solid rgba(201,168,76,0.27)}
+.tag-shabbat{background:rgba(196,123,160,0.13);color:#C47BA0;border:1px solid rgba(196,123,160,0.27)}
+.tag-tefila{background:rgba(123,196,127,0.13);color:#7BC47F;border:1px solid rgba(123,196,127,0.27)}
+.tag-other{background:rgba(136,136,136,0.13);color:#888;border:1px solid rgba(136,136,136,0.27)}
+
+/* Engagement dot */
+.eng{display:flex;align-items:center;gap:6px;font-size:11px}
+.eng-dot{width:8px;height:8px;border-radius:50%}
+.eng-high .eng-dot{background:var(--green)}.eng-high{color:var(--green)}
+.eng-med .eng-dot{background:var(--orange)}.eng-med{color:var(--orange)}
+.eng-low .eng-dot{background:var(--text2)}.eng-low{color:var(--text2)}
+
+/* Priority */
+.priority{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px}
+.priority-high{background:rgba(217,83,79,0.13);color:var(--red);border:1px solid rgba(217,83,79,0.27)}
+.priority-med{background:rgba(232,168,56,0.13);color:var(--orange);border:1px solid rgba(232,168,56,0.27)}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;border:none;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;white-space:nowrap}
+.btn-gold{background:var(--gold-dim);color:var(--gold)}
+.btn-blue{background:rgba(107,142,204,0.13);color:#6B8ECC}
+.btn-orange{background:rgba(232,139,62,0.13);color:#E88B3E}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text2)}
+.btn-primary{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--bg);font-weight:600;padding:10px 24px}
+.btn:hover{opacity:0.85}
+
+/* Video form */
+.video-form{background:var(--card);border-radius:12px;border:1px solid rgba(201,168,76,0.27);padding:24px;margin-bottom:24px}
+.video-form h3{font-size:16px;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.form-row{display:flex;gap:12px;flex-wrap:wrap}
+.form-input{flex:1;min-width:200px;padding:10px 16px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;font-family:inherit;outline:none}
+.form-input:focus{border-color:var(--gold)}
+.form-note{font-size:12px;color:var(--text2);margin-top:10px}
+
+/* Video icon */
+.video-icon{width:44px;height:44px;border-radius:8px;background:var(--gold-dim);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+/* Loading */
+.loading{text-align:center;padding:60px;color:var(--text2);font-size:15px}
+.loading-spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Link button */
+.link-btn{background:none;border:none;color:var(--gold);font-size:13px;cursor:pointer;display:flex;align-items:center;gap:4px;font-family:inherit}
+
+/* Flex helpers */
+.flex{display:flex}.gap-8{gap:8px}.gap-10{gap:10px}.gap-12{gap:12px}.gap-14{gap:14px}.gap-16{gap:16px}
+.items-center{align-items:center}.justify-between{justify-content:space-between}
+.flex-1{flex:1}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}
+
+/* Hide sections */
+.section{display:none}
+.section.active{display:block}
+
+/* Canvas chart */
+canvas{max-width:100%;height:200px!important}
+
+/* Responsive */
+@media(max-width:600px){
+  .header{padding:12px 16px}
+  .tabs{padding:8px 16px}
+  .main{padding:16px}
+  .stat-value{font-size:22px}
+  .table-row{padding:12px 16px}
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="logo">
+    <div class="logo-icon">MG</div>
+    <div>
+      <div class="logo-text">משה גינזי</div>
+      <div class="logo-sub">דשבורד ניהול</div>
+    </div>
+  </div>
+  <div class="header-date" id="headerDate"></div>
+</div>
+
+<!-- Tabs -->
+<div class="tabs">
+  <button class="tab active" data-tab="overview">📊 סקירה כללית</button>
+  <button class="tab" data-tab="conversations">💬 שיחות</button>
+  <button class="tab" data-tab="followup">👥 מעקב</button>
+  <button class="tab" data-tab="videos">🎬 סרטונים</button>
+</div>
+
+<div class="main">
+
+<!-- ====== OVERVIEW ====== -->
+<div class="section active" id="overview">
+  <div class="stats" id="statsGrid">
+    <div class="stat-card">
+      <div class="stat-icon">💬</div>
+      <div class="stat-value" id="totalConversations">—</div>
+      <div class="stat-label">סה״כ שיחות</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">👥</div>
+      <div class="stat-value" id="totalUsers">—</div>
+      <div class="stat-label">משתמשים פעילים</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">⭐</div>
+      <div class="stat-value" id="chavruta">—</div>
+      <div class="stat-label">מתעניינים בחברותא</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">📞</div>
+      <div class="stat-value" id="halachaRef">—</div>
+      <div class="stat-label">הפניות לקו הלכה</div>
+    </div>
+  </div>
+
+  <div class="charts-row">
+    <div class="chart-card">
+      <div class="chart-title">פעילות שבועית</div>
+      <canvas id="weeklyChart"></canvas>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">נושאים פופולריים</div>
+      <canvas id="topicsChart"></canvas>
+      <div id="topicsLegend" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px"></div>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <div class="table-header">
+      <h3>דורשים מעקב</h3>
+      <button class="link-btn" onclick="switchTab('followup')">הצג הכל ◀</button>
+    </div>
+    <div id="quickFollowup"></div>
+  </div>
+</div>
+
+<!-- ====== CONVERSATIONS ====== -->
+<div class="section" id="conversations">
+  <div class="table-card">
+    <div class="table-header">
+      <h3>שיחות אחרונות</h3>
+      <div class="logo-sub" id="convCount"></div>
+    </div>
+    <div id="conversationsList">
+      <div class="loading"><div class="loading-spinner"></div>טוען שיחות...</div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== FOLLOW-UP ====== -->
+<div class="section" id="followup">
+  <div style="margin-bottom:20px">
+    <h3 style="font-size:16px;font-weight:600;margin-bottom:6px">מעקב והפניות</h3>
+    <p class="logo-sub">משתמשים שמגלים עניין עמוק — מומלץ ליצור קשר</p>
+  </div>
+  <div id="followupList" class="flex flex-col gap-12"></div>
+</div>
+
+<!-- ====== VIDEOS ====== -->
+<div class="section" id="videos">
+  <div class="video-form">
+    <h3>➕ הוסף סרטון חדש</h3>
+    <div class="form-row">
+      <input class="form-input" id="videoTitle" placeholder="שם הסרטון" />
+      <input class="form-input" id="videoUrl" placeholder="לינק מיוטיוב או טיקטוק" dir="ltr" style="flex:2;min-width:280px" />
+      <button class="btn btn-primary" onclick="addVideo()">📤 שלח התראה + הוסף</button>
+    </div>
+    <div class="form-note">הסרטון יתווסף לאפליקציה ותישלח התראה לכל המשתמשים</div>
+  </div>
+  <div class="table-card">
+    <div class="table-header"><h3>סרטונים קיימים</h3></div>
+    <div id="videosList"></div>
+  </div>
+</div>
+
+</div>
+
+<!-- Chart.js CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+<script>
+// ============ CONFIG ============
+// שימי כאן את ה-URL של Google Apps Script אחרי שתפרסי אותו:
+var PROXY_URL = '';
+
+// ============ DATA ============
+var allConversations = [];
+var topicCounts = { 'אמונה':0, 'זוגיות':0, 'הלכה':0, 'תפילה':0, 'שבת':0, 'אחר':0 };
+var topicColors = { 'אמונה':'#C9A84C', 'זוגיות':'#E88B3E', 'הלכה':'#6B8ECC', 'תפילה':'#7BC47F', 'שבת':'#C47BA0', 'אחר':'#888' };
+var weeklyData = [0,0,0,0,0,0,0];
+var dayNames = ['ראשון','שני','שלישי','רביעי','חמישי','שישי','שבת'];
+
+// ============ INIT ============
+document.addEventListener('DOMContentLoaded', function() {
+  setDate();
+  setupTabs();
+  loadData();
+});
+
+function setDate() {
+  var now = new Date();
+  var opts = { year:'numeric', month:'long', day:'numeric', weekday:'long' };
+  document.getElementById('headerDate').textContent = now.toLocaleDateString('he-IL', opts);
+}
+
+function setupTabs() {
+  document.querySelectorAll('.tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      switchTab(this.dataset.tab);
+    });
+  });
+}
+
+function switchTab(tabId) {
+  document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
+  document.querySelector('[data-tab="'+tabId+'"]').classList.add('active');
+  document.getElementById(tabId).classList.add('active');
+}
+
+// ============ LOAD DATA ============
+function loadData() {
+  if (!PROXY_URL) {
+    // Demo data when proxy not connected
+    loadDemoData();
+    return;
+  }
+  
+  fetch(PROXY_URL + '?action=logs')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.success && data.data) {
+        processSheetData(data.data);
+      } else {
+        loadDemoData();
+      }
+    })
+    .catch(function() { loadDemoData(); });
+}
+
+function processSheetData(rows) {
+  // Process real data from Google Sheets
+  allConversations = rows.map(function(row, i) {
+    var q = row.question || row.Query || row.message || '';
+    var a = row.answer || row.Answer || row.response || '';
+    var name = row.name || row.Name || row.user || 'אורח';
+    var date = row.date || row.Date || row.timestamp || '';
+    var topic = detectTopic(q + ' ' + a);
+    
+    return {
+      id: i,
+      name: name,
+      question: q,
+      answer: a,
+      topic: topic,
+      date: date,
+      engagement: q.length > 50 ? 'high' : q.length > 20 ? 'medium' : 'low'
+    };
+  }).filter(function(c) { return c.question; });
+  
+  // Count topics
+  allConversations.forEach(function(c) {
+    if (topicCounts[c.topic] !== undefined) topicCounts[c.topic]++;
+  });
+  
+  updateDashboard();
+}
+
+function detectTopic(text) {
+  text = text.toLowerCase();
+  if (/הלכה|מותר|אסור|כשר|שבת.*מותר|ברכ|נידה|טהר/.test(text)) return 'הלכה';
+  if (/זוגיות|נישואין|שלום.בית|בעל|אשת|זוג|חתונה/.test(text)) return 'זוגיות';
+  if (/שבת|קידוש|הבדלה|מוצאי/.test(text)) return 'שבת';
+  if (/תפילה|מתפלל|עמידה|שמונה.עשרה|סידור/.test(text)) return 'תפילה';
+  if (/אמונה|אלוקים|השם|בורא|אלהים|למה.יש|טעם|משמעות|נשמה/.test(text)) return 'אמונה';
+  return 'אחר';
+}
+
+// ============ DEMO DATA ============
+function loadDemoData() {
+  allConversations = [
+    { id:1, name:'דוד כ.', topic:'הלכה', question:'האם מותר להדליק נר ביום טוב?', date:'15/07/2026 14:22', engagement:'high', questions:12 },
+    { id:2, name:'שרה מ.', topic:'זוגיות', question:'איך לשפר תקשורת עם בן הזוג?', date:'15/07/2026 14:00', engagement:'high', questions:8 },
+    { id:3, name:'יוסי ב.', topic:'אמונה', question:'למה יש סבל בעולם?', date:'15/07/2026 13:37', engagement:'medium', questions:5 },
+    { id:4, name:'מיכל ר.', topic:'שבת', question:'מה ההבדל בין שבת ליום טוב?', date:'15/07/2026 13:10', engagement:'high', questions:15 },
+    { id:5, name:'אבי ל.', topic:'תפילה', question:'למה מתפללים שלוש פעמים?', date:'15/07/2026 12:30', engagement:'low', questions:3 },
+    { id:6, name:'רונית ש.', topic:'אמונה', question:'איך להתמודד עם ספקות?', date:'15/07/2026 11:45', engagement:'medium', questions:9 },
+    { id:7, name:'משה א.', topic:'הלכה', question:'מה הדין של בישול בשבת?', date:'15/07/2026 10:20', engagement:'high', questions:11 },
+    { id:8, name:'לאה ג.', topic:'זוגיות', question:'מה עושים כשיש מריבות?', date:'15/07/2026 09:55', engagement:'medium', questions:6 },
+    { id:9, name:'יעקב ד.', topic:'אמונה', question:'מה הקשר בין מדע ואמונה?', date:'14/07/2026 22:30', engagement:'high', questions:14 },
+    { id:10, name:'נעמי ה.', topic:'שבת', question:'איך עושים קידוש?', date:'14/07/2026 21:15', engagement:'low', questions:2 },
+  ];
+  
+  topicCounts = { 'אמונה':342, 'זוגיות':218, 'הלכה':187, 'תפילה':156, 'שבת':134, 'אחר':98 };
+  weeklyData = [45, 62, 38, 55, 71, 28, 15];
+  
+  updateDashboard();
+}
+
+// ============ UPDATE UI ============
+function updateDashboard() {
+  // Stats
+  var total = Object.values(topicCounts).reduce(function(a,b){return a+b},0);
+  document.getElementById('totalConversations').textContent = total.toLocaleString();
+  document.getElementById('totalUsers').textContent = Math.round(total * 0.25).toLocaleString();
+  
+  var highEng = allConversations.filter(function(c){return c.engagement==='high'});
+  document.getElementById('chavruta').textContent = highEng.length;
+  document.getElementById('halachaRef').textContent = topicCounts['הלכה'] || 0;
+  
+  // Charts
+  renderWeeklyChart();
+  renderTopicsChart();
+  
+  // Conversations list
+  renderConversations();
+  
+  // Follow-up
+  renderFollowup();
+  
+  // Quick follow-up on overview
+  renderQuickFollowup();
+  
+  // Videos
+  renderVideos();
+}
+
+// ============ CHARTS ============
+function renderWeeklyChart() {
+  var ctx = document.getElementById('weeklyChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: dayNames,
+      datasets: [{
+        data: weeklyData,
+        backgroundColor: '#C9A84C',
+        borderRadius: 6,
+        borderSkipped: false,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { color: '#8A8A8A', font: { size: 12 } }, grid: { display: false }, border: { display: false } },
+        y: { ticks: { color: '#8A8A8A', font: { size: 12 } }, grid: { color: '#252525' }, border: { display: false } }
+      }
+    }
+  });
+}
+
+function renderTopicsChart() {
+  var labels = Object.keys(topicCounts);
+  var data = Object.values(topicCounts);
+  var colors = labels.map(function(l) { return topicColors[l] || '#888'; });
+  
+  var ctx = document.getElementById('topicsChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: labels,
+      datasets: [{ data: data, backgroundColor: colors, borderWidth: 0, spacing: 3 }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      cutout: '60%',
+      plugins: { legend: { display: false } }
+    }
+  });
+  
+  var legend = document.getElementById('topicsLegend');
+  legend.innerHTML = labels.map(function(l, i) {
+    return '<div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#8A8A8A">'+
+      '<div style="width:10px;height:10px;border-radius:3px;background:'+colors[i]+'"></div>'+l+'</div>';
+  }).join('');
+}
+
+// ============ CONVERSATIONS LIST ============
+function renderConversations() {
+  var html = '';
+  allConversations.forEach(function(c) {
+    var tagClass = 'tag-' + (c.topic==='הלכה'?'halacha':c.topic==='זוגיות'?'zogiyut':c.topic==='אמונה'?'emuna':c.topic==='שבת'?'shabbat':c.topic==='תפילה'?'tefila':'other');
+    var engClass = c.engagement==='high'?'eng-high':c.engagement==='medium'?'eng-med':'eng-low';
+    var engLabel = c.engagement==='high'?'גבוה':c.engagement==='medium'?'בינוני':'נמוך';
+    var qCount = c.questions || 1;
+    
+    html += '<div class="table-row">'+
+      '<div class="flex items-center gap-14" style="flex:1">'+
+        '<div class="avatar">'+c.name[0]+'</div>'+
+        '<div style="flex:1">'+
+          '<div class="flex items-center gap-10" style="margin-bottom:4px;flex-wrap:wrap">'+
+            '<span style="font-size:14px;font-weight:600">'+c.name+'</span>'+
+            '<span class="tag '+tagClass+'">'+c.topic+'</span>'+
+            '<span style="font-size:12px;color:#8A8A8A">'+qCount+' שאלות</span>'+
+          '</div>'+
+          '<div style="font-size:13px;color:#8A8A8A">שאלה אחרונה: ״'+c.question+'״</div>'+
+        '</div>'+
+      '</div>'+
+      '<div class="flex items-center gap-16">'+
+        '<div class="eng '+engClass+'"><div class="eng-dot"></div>'+engLabel+'</div>'+
+        '<div style="font-size:12px;color:#8A8A8A">'+c.date+'</div>'+
+      '</div>'+
+    '</div>';
+  });
+  
+  document.getElementById('conversationsList').innerHTML = html || '<div class="loading">אין שיחות עדיין</div>';
+  document.getElementById('convCount').textContent = allConversations.length + ' שיחות';
+}
+
+// ============ FOLLOW-UP ============
+function renderFollowup() {
+  var highEng = allConversations.filter(function(c) { return c.engagement === 'high'; });
+  var html = '';
+  
+  highEng.forEach(function(c) {
+    var tagClass = 'tag-' + (c.topic==='הלכה'?'halacha':c.topic==='זוגיות'?'zogiyut':c.topic==='אמונה'?'emuna':c.topic==='שבת'?'shabbat':c.topic==='תפילה'?'tefila':'other');
+    var reason = c.topic==='הלכה'?'שאלות הלכתיות מפורטות':c.topic==='זוגיות'?'מתעניין/ת בזוגיות לעומק':'שואל/ת שאלות עמוקות — מוכן/ה לחברותא';
+    var actionBtn = '';
+    
+    if (c.topic === 'הלכה') {
+      actionBtn = '<button class="btn btn-blue">📞 הפנה לקו הלכה</button>';
+    } else if (c.topic === 'זוגיות') {
+      actionBtn = '<button class="btn btn-orange">💑 הפנה לייעוץ</button>';
+    } else {
+      actionBtn = '<button class="btn btn-gold">📖 קבע חברותא</button>';
+    }
+    
+    html += '<div style="background:#141414;border-radius:12px;border:1px solid #252525;padding:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">'+
+      '<div class="flex items-center gap-14">'+
+        '<div class="avatar" style="width:48px;height:48px;font-size:18px">'+c.name[0]+'</div>'+
+        '<div>'+
+          '<div class="flex items-center gap-8" style="margin-bottom:4px">'+
+            '<span style="font-size:16px;font-weight:600">'+c.name+'</span>'+
+            '<span class="priority priority-high">דחוף</span>'+
+          '</div>'+
+          '<div style="font-size:13px;color:#8A8A8A">'+reason+'</div>'+
+          '<div class="flex items-center gap-8" style="margin-top:6px">'+
+            '<span class="tag '+tagClass+'">'+c.topic+'</span>'+
+            '<span style="font-size:12px;color:#8A8A8A">'+(c.questions||1)+' שאלות</span>'+
+          '</div>'+
+        '</div>'+
+      '</div>'+
+      '<div class="flex gap-8">'+actionBtn+
+        '<button class="btn btn-outline">📨 שלח הודעה</button>'+
+      '</div>'+
+    '</div>';
+  });
+  
+  document.getElementById('followupList').innerHTML = html || '<div class="loading">אין משתמשים לטיפול כרגע</div>';
+}
+
+function renderQuickFollowup() {
+  var highEng = allConversations.filter(function(c) { return c.engagement === 'high'; }).slice(0, 3);
+  var html = '';
+  
+  highEng.forEach(function(c) {
+    var tagClass = 'tag-' + (c.topic==='הלכה'?'halacha':c.topic==='זוגיות'?'zogiyut':c.topic==='אמונה'?'emuna':c.topic==='שבת'?'shabbat':c.topic==='תפילה'?'tefila':'other');
+    var reason = c.topic==='הלכה'?'שאלות הלכתיות מפורטות':c.topic==='זוגיות'?'מתעניין/ת בזוגיות לעומק':'שואל/ת שאלות עמוקות';
+    
+    html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#1A1A1A;border-radius:8px;border:1px solid #252525;margin-bottom:8px">'+
+      '<div class="flex items-center gap-12">'+
+        '<div class="avatar sm">'+c.name[0]+'</div>'+
+        '<div>'+
+          '<div style="font-size:14px;font-weight:500">'+c.name+'</div>'+
+          '<div style="font-size:12px;color:#8A8A8A">'+reason+'</div>'+
+        '</div>'+
+      '</div>'+
+      '<div class="flex items-center gap-10">'+
+        '<span class="tag '+tagClass+'">'+c.topic+'</span>'+
+        '<span class="priority priority-high">דחוף</span>'+
+      '</div>'+
+    '</div>';
+  });
+  
+  document.getElementById('quickFollowup').innerHTML = html;
+}
+
+// ============ VIDEOS ============
+var videoList = [
+  { title:'למה דווקא שבת?', views:1243, date:'12/07/2026', platform:'YouTube' },
+  { title:'5 טיפים לזוגיות טובה', views:892, date:'08/07/2026', platform:'TikTok' },
+  { title:'מה זה בעצם חברותא?', views:2105, date:'01/07/2026', platform:'YouTube' },
+];
+
+function renderVideos() {
+  var html = '';
+  videoList.forEach(function(v) {
+    html += '<div class="table-row">'+
+      '<div class="flex items-center gap-14">'+
+        '<div class="video-icon">🎬</div>'+
+        '<div>'+
+          '<div style="font-size:14px;font-weight:500">'+v.title+'</div>'+
+          '<div style="font-size:12px;color:#8A8A8A">'+v.platform+' • '+v.date+'</div>'+
+        '</div>'+
+      '</div>'+
+      '<div class="flex items-center gap-16">'+
+        '<span style="font-size:13px;color:#8A8A8A">'+v.views.toLocaleString()+' צפיות</span>'+
+        '<button class="btn btn-outline" style="font-size:12px;padding:6px 12px">🔗 פתח</button>'+
+      '</div>'+
+    '</div>';
+  });
+  document.getElementById('videosList').innerHTML = html;
+}
+
+function addVideo() {
+  var title = document.getElementById('videoTitle').value.trim();
+  var url = document.getElementById('videoUrl').value.trim();
+  
+  if (!title || !url) {
+    alert('יש למלא שם סרטון ולינק');
+    return;
+  }
+  
+  var platform = url.includes('tiktok') ? 'TikTok' : 'YouTube';
+  videoList.unshift({ title: title, views: 0, date: new Date().toLocaleDateString('he-IL'), platform: platform, url: url });
+  renderVideos();
+  
+  document.getElementById('videoTitle').value = '';
+  document.getElementById('videoUrl').value = '';
+  
+  // Send to proxy if available
+  if (PROXY_URL) {
+    fetch(PROXY_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'addVideo', title: title, url: url, platform: platform })
+    });
+  }
+  
+  alert('✅ הסרטון נוסף בהצלחה!');
+}
+</script>
+</body>
+</html>
