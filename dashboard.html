@@ -306,10 +306,10 @@ function loadData() {
 function processSheetData(rows) {
   // Process real data from Google Sheets
   allConversations = rows.map(function(row, i) {
-    var q = row.question || row.Query || row.message || '';
-    var a = row.answer || row.Answer || row.response || '';
-    var name = row.name || row.Name || row.user || 'אורח';
-    var date = row.date || row.Date || row.timestamp || '';
+    var q = row['שאלה אחרונה'] || row.question || '';
+   var a = row['תשובה'] || row.answer || '';
+  var name = row['שם'] || row.name || 'אורח';
+   var date = row['תאריך אחרון'] || row.date || '';
     var topic = detectTopic(q + ' ' + a);
     
     return {
