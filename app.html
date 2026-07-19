@@ -533,8 +533,7 @@ fbq('track','PageView',{content_category:platform});
 <div id="video-popup">
   <div class="vpop-inner">
     <div class="vpop-topbar">
-      <button class="vpop-close" onclick="closeVideo()">✕ <span data-he="סגור" data-en="Close">סגור</span></button>
-      <div class="vpop-title" id="vpop-title"></div>
+<button class="vpop-close" onclick="closeVideo()" style="position:fixed;top:16px;right:16px;z-index:10000;background:rgba(0,0,0,0.7);color:#fff;border:2px solid #fff;border-radius:50%;width:48px;height:48px;font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>      <div class="vpop-title" id="vpop-title"></div>
     </div>
     <div class="vpop-frame"><iframe id="vpop-iframe" src="" allowfullscreen allow="autoplay"></iframe></div>
   </div>
