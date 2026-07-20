@@ -559,8 +559,7 @@ var currentAudio=null;
 var audioCtx=null;
 var userName='';var userGender='';
 var currentLang='he';
-var SHEET_URL='https://script.google.com/macros/s/AKfycbwPxXBa8YPujJMtY8zIs5c8PfMmbi9CwBjm1i25Ps0gcKlXA0Fnb-PySaDwVYZ4CDCX/exec';// THEME
-function toggleTheme(){
+var SHEET_URL='https://script.google.com/macros/s/AKfycbxyB1W8mxmy9paWNbgCTYbZCAJzwufgRUabhA1N2G2XLNUsuk9HxR9ZD7J8fQfvPacMXw/exec';function toggleTheme(){
   var isLight=document.body.classList.toggle('light');
   localStorage.setItem('mg-theme',isLight?'light':'dark');
   document.getElementById('theme-btn').textContent=isLight?'🌙':'☀️';
