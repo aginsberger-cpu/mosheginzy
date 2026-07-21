@@ -672,7 +672,7 @@ fetch(DIFY_URL,{method:'POST',headers:{'Authorization':'Bearer '+DIFY_KEY,'Conte
 })
 .catch(function(e){
   console.log('SHEET ERROR:',e);
-});;addMsg(d.answer,'bot');speakText(d.answer);}else{addMsg(currentLang==='en'?'Moshe could not respond — please try again 🙏':'משה לא הצליח לענות — נסה שוב 🙏','bot');}}).catch(function(){rmTyping();isSending=false;addMsg(currentLang==='en'?'Moshe could not respond — please try again 🙏':'משה לא הצליח לענות — נסה שוב 🙏','bot');});
+});addMsg(d.answer,'bot');speakText(d.answer);}else{addMsg(currentLang==='en'?'Moshe could not respond — please try again 🙏':'משה לא הצליח לענות — נסה שוב 🙏','bot');}}).catch(function(){rmTyping();isSending=false;addMsg(currentLang==='en'?'Moshe could not respond — please try again 🙏':'משה לא הצליח לענות — נסה שוב 🙏','bot');});
 }
 function speakText(txt){if(currentAudio){try{currentAudio.stop();}catch(e){}currentAudio=null;}var sentences=txt.match(/[^.!?؟]+[.!?؟]+/g)||[txt];var shortTxt=sentences[0].trim();if(!shortTxt||shortTxt.length<5)shortTxt=txt.substring(0,120);if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();fetch('https://api.elevenlabs.io/v1/text-to-speech/'+EL_VOICE,{method:'POST',headers:{'xi-api-key':EL_KEY,'Content-Type':'application/json'},body:JSON.stringify({text:shortTxt,model_id:'eleven_v3',voice_settings:{stability:.65,similarity_boost:.85}})}).then(function(r){if(!r.ok)throw new Error('EL status '+r.status);return r.arrayBuffer();}).then(function(buf){return audioCtx.decodeAudioData(buf);}).then(function(decoded){var src=audioCtx.createBufferSource();src.buffer=decoded;src.connect(audioCtx.destination);src.start(0);currentAudio=src;}).catch(function(e){console.warn('speakText error:',e);});}
 
