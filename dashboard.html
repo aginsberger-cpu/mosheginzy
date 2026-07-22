@@ -14,51 +14,35 @@
 }
 body{font-family:'Segoe UI','Arial',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
 a{color:var(--gold);text-decoration:none}
-
-/* Header */
 .header{background:var(--card);border-bottom:1px solid var(--border);padding:16px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
 .logo{display:flex;align-items:center;gap:14}
 .logo-icon{width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,var(--gold),var(--gold-light));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;color:var(--bg)}
 .logo-text{font-size:18px;font-weight:700}
 .logo-sub{font-size:12px;color:var(--text2)}
 .header-date{font-size:13px;color:var(--text2)}
-
-/* Tabs */
 .tabs{display:flex;gap:4px;padding:12px 28px;border-bottom:1px solid var(--border);background:var(--card);overflow-x:auto}
 .tab{display:flex;align-items:center;gap:8px;padding:10px 20px;border-radius:8px;border:none;background:transparent;color:var(--text2);font-size:14px;cursor:pointer;white-space:nowrap;font-family:inherit}
 .tab.active{background:var(--gold-dim);color:var(--gold);font-weight:600}
 .tab:hover{background:var(--gold-dim)}
-
-/* Main */
 .main{padding:24px 28px;max-width:1200px;margin:0 auto}
-
-/* Stats */
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:28px}
 .stat-card{background:var(--card);border-radius:12px;padding:20px 24px;border:1px solid var(--border)}
 .stat-icon{width:40px;height:40px;border-radius:10px;background:var(--gold-dim);display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:20px}
 .stat-value{font-size:28px;font-weight:700;margin-bottom:2px}
 .stat-label{font-size:13px;color:var(--text2)}
 .stat-sub{font-size:12px;color:var(--green);margin-top:6px}
-
-/* Charts row */
 .charts-row{display:grid;grid-template-columns:2fr 1fr;gap:20px;margin-bottom:28px}
 @media(max-width:768px){.charts-row{grid-template-columns:1fr}}
 .chart-card{background:var(--card);border-radius:12px;border:1px solid var(--border);padding:24px}
 .chart-title{font-size:16px;font-weight:600;margin-bottom:20px}
-
-/* Table */
 .table-card{background:var(--card);border-radius:12px;border:1px solid var(--border);overflow:hidden;margin-bottom:28px}
-.table-header{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.table-header{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
 .table-header h3{font-size:16px;font-weight:600}
 .table-row{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;border-bottom:1px solid var(--border);gap:12px;flex-wrap:wrap}
 .table-row:last-child{border-bottom:none}
 .table-row:hover{background:var(--card2)}
-
-/* User avatar */
 .avatar{width:40px;height:40px;border-radius:50%;background:var(--gold-dim);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;color:var(--gold);flex-shrink:0}
 .avatar.sm{width:36px;height:36px;font-size:14px}
-
-/* Tags */
 .tag{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;white-space:nowrap}
 .tag-halacha{background:rgba(107,142,204,0.13);color:#6B8ECC;border:1px solid rgba(107,142,204,0.27)}
 .tag-zogiyut{background:rgba(232,139,62,0.13);color:#E88B3E;border:1px solid rgba(232,139,62,0.27)}
@@ -68,20 +52,13 @@ a{color:var(--gold);text-decoration:none}
 .tag-other{background:rgba(136,136,136,0.13);color:#888;border:1px solid rgba(136,136,136,0.27)}
 .tag-he{background:rgba(107,142,204,0.13);color:#6B8ECC;border:1px solid rgba(107,142,204,0.27)}
 .tag-en{background:rgba(92,184,92,0.13);color:#5CB85C;border:1px solid rgba(92,184,92,0.27)}
-
-/* Engagement dot */
 .eng{display:flex;align-items:center;gap:6px;font-size:11px}
 .eng-dot{width:8px;height:8px;border-radius:50%}
 .eng-high .eng-dot{background:var(--green)}.eng-high{color:var(--green)}
 .eng-med .eng-dot{background:var(--orange)}.eng-med{color:var(--orange)}
 .eng-low .eng-dot{background:var(--text2)}.eng-low{color:var(--text2)}
-
-/* Priority */
 .priority{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px}
 .priority-high{background:rgba(217,83,79,0.13);color:var(--red);border:1px solid rgba(217,83,79,0.27)}
-.priority-med{background:rgba(232,168,56,0.13);color:var(--orange);border:1px solid rgba(232,168,56,0.27)}
-
-/* Buttons */
 .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;border:none;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;white-space:nowrap}
 .btn-gold{background:var(--gold-dim);color:var(--gold)}
 .btn-blue{background:rgba(107,142,204,0.13);color:#6B8ECC}
@@ -90,8 +67,6 @@ a{color:var(--gold);text-decoration:none}
 .btn-primary{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--bg);font-weight:600;padding:10px 24px}
 .btn-red{background:rgba(217,83,79,0.13);color:var(--red);border:1px solid rgba(217,83,79,0.27)}
 .btn:hover{opacity:0.85}
-
-/* Video form */
 .video-form{background:var(--card);border-radius:12px;border:1px solid rgba(201,168,76,0.27);padding:24px;margin-bottom:24px}
 .video-form h3{font-size:16px;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px}
 .form-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px}
@@ -102,16 +77,10 @@ a{color:var(--gold);text-decoration:none}
 .form-check{display:flex;align-items:center;gap:8px;margin:12px 0}
 .form-check input[type="checkbox"]{width:18px;height:18px;accent-color:var(--gold);cursor:pointer}
 .form-check label{font-size:13px;color:var(--text2);cursor:pointer}
-
-/* Video icon */
 .video-icon{width:44px;height:44px;border-radius:8px;background:var(--gold-dim);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-
-/* Lang filter tabs */
 .lang-filter{display:flex;gap:0;margin-bottom:16px;border:1px solid var(--border);border-radius:8px;overflow:hidden}
 .lang-filter-btn{flex:1;padding:8px 16px;text-align:center;cursor:pointer;font-size:13px;font-weight:600;background:var(--card2);color:var(--text2);border:none;font-family:inherit;transition:all .2s}
 .lang-filter-btn.active{background:var(--gold);color:var(--bg)}
-
-/* Video grid */
 .video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
 .video-card{background:var(--card2);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:all .2s}
 .video-card:hover{border-color:var(--gold)}
@@ -121,39 +90,26 @@ a{color:var(--gold);text-decoration:none}
 .video-title{font-size:14px;font-weight:600;margin-bottom:6px}
 .video-meta{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
 .video-actions{display:flex;gap:8px}
-
-/* Notif form */
 .notif-form{background:var(--card);border-radius:12px;border:1px solid rgba(201,168,76,0.27);padding:24px;margin-bottom:24px}
 .notif-form h3{font-size:16px;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px}
 .form-textarea{width:100%;min-width:0;padding:10px 16px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;font-family:inherit;outline:none;resize:vertical}
 .form-textarea:focus{border-color:var(--gold)}
 .form-label{font-size:13px;color:var(--text2);margin-bottom:6px;display:block}
-
-/* Loading */
 .loading{text-align:center;padding:60px;color:var(--text2);font-size:15px}
 .loading-spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* Toast */
 .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;padding:12px 24px;border-radius:8px;font-size:14px;font-weight:600;z-index:9999;display:none;animation:toastIn .3s}
 @keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
-
-/* Link button */
 .link-btn{background:none;border:none;color:var(--gold);font-size:13px;cursor:pointer;display:flex;align-items:center;gap:4px;font-family:inherit}
-
-/* Flex helpers */
+.search-box{width:100%;padding:10px 16px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;font-family:inherit;outline:none;margin-bottom:16px}
+.search-box:focus{border-color:var(--gold)}
+.search-box::placeholder{color:#4a4030}
 .flex{display:flex}.gap-8{gap:8px}.gap-10{gap:10px}.gap-12{gap:12px}.gap-14{gap:14px}.gap-16{gap:16px}
 .items-center{align-items:center}.justify-between{justify-content:space-between}
 .flex-1{flex:1}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}
-
-/* Hide sections */
 .section{display:none}
 .section.active{display:block}
-
-/* Canvas chart */
 canvas{max-width:100%;height:200px!important}
-
-/* Responsive */
 @media(max-width:600px){
   .header{padding:12px 16px}
   .tabs{padding:8px 16px}
@@ -166,7 +122,6 @@ canvas{max-width:100%;height:200px!important}
 </head>
 <body>
 
-<!-- Header -->
 <div class="header">
   <div class="logo">
     <div class="logo-icon">MG</div>
@@ -175,10 +130,12 @@ canvas{max-width:100%;height:200px!important}
       <div class="logo-sub">דשבורד ניהול</div>
     </div>
   </div>
-  <div class="header-date" id="headerDate"></div>
+  <div class="flex items-center gap-12">
+    <button class="btn btn-gold" onclick="loadData()">🔄 רענן</button>
+    <div class="header-date" id="headerDate"></div>
+  </div>
 </div>
 
-<!-- Tabs -->
 <div class="tabs">
   <button class="tab active" data-tab="overview">📊 סקירה כללית</button>
   <button class="tab" data-tab="conversations">💬 שיחות</button>
@@ -189,465 +146,329 @@ canvas{max-width:100%;height:200px!important}
 
 <div class="main">
 
-<!-- ====== OVERVIEW ====== -->
+<!-- OVERVIEW -->
 <div class="section active" id="overview">
   <div class="stats" id="statsGrid">
-    <div class="stat-card">
-      <div class="stat-icon">💬</div>
-      <div class="stat-value" id="totalConversations">—</div>
-      <div class="stat-label">סה״כ שיחות</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-icon">👥</div>
-      <div class="stat-value" id="totalUsers">—</div>
-      <div class="stat-label">משתמשים פעילים</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-icon">⭐</div>
-      <div class="stat-value" id="chavruta">—</div>
-      <div class="stat-label">מתעניינים בחברותא</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-icon">📞</div>
-      <div class="stat-value" id="halachaRef">—</div>
-      <div class="stat-label">הפניות לקו הלכה</div>
-    </div>
+    <div class="stat-card"><div class="stat-icon">💬</div><div class="stat-value" id="totalConversations">—</div><div class="stat-label">סה״כ שיחות</div></div>
+    <div class="stat-card"><div class="stat-icon">❓</div><div class="stat-value" id="totalQuestions">—</div><div class="stat-label">שאלות</div></div>
+    <div class="stat-card"><div class="stat-icon">👥</div><div class="stat-value" id="totalUsers">—</div><div class="stat-label">משתמשים</div></div>
+    <div class="stat-card"><div class="stat-icon">📅</div><div class="stat-value" id="todayCount">—</div><div class="stat-label">שיחות היום</div></div>
   </div>
-
   <div class="charts-row">
-    <div class="chart-card">
-      <div class="chart-title">פעילות שבועית</div>
-      <canvas id="weeklyChart"></canvas>
-    </div>
-    <div class="chart-card">
-      <div class="chart-title">נושאים פופולריים</div>
-      <canvas id="topicsChart"></canvas>
-      <div id="topicsLegend" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px"></div>
-    </div>
+    <div class="chart-card"><div class="chart-title">📈 שיחות לפי יום</div><canvas id="dailyChart"></canvas></div>
+    <div class="chart-card"><div class="chart-title">👥 לפי משתמש</div><canvas id="usersChart"></canvas><div id="usersLegend" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px"></div></div>
   </div>
-
   <div class="table-card">
-    <div class="table-header">
-      <h3>דורשים מעקב</h3>
-      <button class="link-btn" onclick="switchTab('followup')">הצג הכל ◀</button>
-    </div>
-    <div id="quickFollowup"></div>
+    <div class="table-header"><h3>שיחות אחרונות</h3><button class="link-btn" onclick="switchTab('conversations')">הצג הכל ◀</button></div>
+    <div id="quickConversations"></div>
   </div>
 </div>
 
-<!-- ====== CONVERSATIONS ====== -->
+<!-- CONVERSATIONS -->
 <div class="section" id="conversations">
   <div class="table-card">
-    <div class="table-header">
-      <h3>שיחות אחרונות</h3>
-      <div class="logo-sub" id="convCount"></div>
+    <div class="table-header"><h3>כל השיחות</h3><div class="logo-sub" id="convCount"></div></div>
+    <div style="padding:0 24px">
+      <input type="text" class="search-box" id="searchBox" placeholder="🔍 חיפוש לפי שם, שאלה או תשובה..." oninput="filterConversations()">
     </div>
-    <div id="conversationsList">
-      <div class="loading"><div class="loading-spinner"></div>טוען שיחות...</div>
-    </div>
+    <div id="conversationsList"><div class="loading"><div class="loading-spinner"></div>טוען שיחות...</div></div>
   </div>
 </div>
 
-<!-- ====== FOLLOW-UP ====== -->
+<!-- FOLLOW-UP -->
 <div class="section" id="followup">
   <div style="margin-bottom:20px">
     <h3 style="font-size:16px;font-weight:600;margin-bottom:6px">מעקב והפניות</h3>
-    <p class="logo-sub">משתמשים שמגלים עניין עמוק — מומלץ ליצור קשר</p>
+    <p class="logo-sub">משתמשים ששאלו הרבה שאלות — מומלץ ליצור קשר</p>
   </div>
   <div id="followupList" class="flex flex-col gap-12"></div>
 </div>
 
-<!-- ====== VIDEOS ====== -->
+<!-- VIDEOS -->
 <div class="section" id="videos">
   <div class="video-form">
     <h3>➕ הוסף סרטון חדש</h3>
     <div class="form-row">
       <input class="form-input" id="videoTitle" placeholder="שם הסרטון" />
-      <input class="form-input" id="videoYtId" placeholder="YouTube ID (למשל: dQw4w9WgXcQ)" dir="ltr" />
+      <input class="form-input" id="videoYtId" placeholder="YouTube ID או לינק" dir="ltr" />
     </div>
     <div class="form-row">
-      <select class="form-select" id="videoLang">
-        <option value="he">🇮🇱 עברית</option>
-        <option value="en">🇺🇸 אנגלית</option>
-      </select>
-      <input class="form-input" id="videoTag" placeholder="קטגוריה (למשל: חכמה יומית)" />
+      <select class="form-select" id="videoLang"><option value="he">🇮🇱 עברית</option><option value="en">🇺🇸 אנגלית</option></select>
+      <input class="form-input" id="videoTag" placeholder="קטגוריה" />
     </div>
-    <div class="form-check">
-      <input type="checkbox" id="videoNotify" checked>
-      <label for="videoNotify">📤 שלח התראה למשתמשי האפליקציה</label>
-    </div>
+    <div class="form-check"><input type="checkbox" id="videoNotify" checked><label for="videoNotify">📤 שלח התראה למשתמשי האפליקציה</label></div>
     <button class="btn btn-primary" onclick="addVideo()">📤 שלח התראה + הוסף</button>
     <div class="form-note">הסרטון יתווסף לאפליקציה ותישלח התראה לכל המשתמשים</div>
-    <script>
-    document.getElementById('videoYtId').addEventListener('input',function(){
-      var val=this.value.trim();
-      var vid='';
-      if(val.indexOf('/shorts/')>-1) vid=val.split('/shorts/')[1].split('?')[0];
-      else if(val.indexOf('v=')>-1){var m=val.match(/v=([^&]+)/);if(m)vid=m[1];}
-      else if(val.indexOf('youtu.be/')>-1) vid=val.split('youtu.be/')[1].split('?')[0];
-      else vid=val;
-      if(vid&&vid.length>5){
-        fetch('https://noembed.com/embed?url=https://www.youtube.com/watch?v='+vid)
-          .then(function(r){return r.json();})
-          .then(function(d){
-            if(d.title&&!document.getElementById('videoTitle').value.trim()){
-              document.getElementById('videoTitle').value=d.title;
-            }
-          }).catch(function(){});
-      }
-    });
-    </script>
   </div>
-
   <div class="table-card">
-    <div class="table-header">
-      <h3>סרטונים קיימים</h3>
-    </div>
-    <div style="padding:16px 24px 0">
-      <div class="lang-filter">
-        <button class="lang-filter-btn active" onclick="filterVideos('all',this)">🎬 הכל</button>
-        <button class="lang-filter-btn" onclick="filterVideos('he',this)">🇮🇱 עברית</button>
-        <button class="lang-filter-btn" onclick="filterVideos('en',this)">🇺🇸 אנגלית</button>
-      </div>
-    </div>
-    <div style="padding:0 24px 24px">
-      <div class="video-grid" id="videosGrid">
-        <div class="loading"><div class="loading-spinner"></div>טוען סרטונים...</div>
-      </div>
-    </div>
+    <div class="table-header"><h3>סרטונים קיימים</h3></div>
+    <div style="padding:16px 24px 0"><div class="lang-filter"><button class="lang-filter-btn active" onclick="filterVideos('all',this)">🎬 הכל</button><button class="lang-filter-btn" onclick="filterVideos('he',this)">🇮🇱 עברית</button><button class="lang-filter-btn" onclick="filterVideos('en',this)">🇺🇸 אנגלית</button></div></div>
+    <div style="padding:0 24px 24px"><div class="video-grid" id="videosGrid"><div class="loading"><div class="loading-spinner"></div>טוען סרטונים...</div></div></div>
   </div>
 </div>
 
-<!-- ====== NOTIFICATIONS ====== -->
+<!-- NOTIFICATIONS -->
 <div class="section" id="notifications">
   <div class="notif-form">
     <h3>📤 שלח התראה ידנית</h3>
-    <div style="margin-bottom:12px">
-      <label class="form-label">כותרת</label>
-      <input class="form-input" id="notifTitle" placeholder="למשל: שיעור חדש!" style="min-width:0;width:100%">
-    </div>
-    <div style="margin-bottom:12px">
-      <label class="form-label">תוכן ההודעה</label>
-      <textarea class="form-textarea" id="notifMessage" rows="3" placeholder="הכנסי את תוכן ההתראה..."></textarea>
-    </div>
-    <div style="margin-bottom:16px">
-      <label class="form-label">שפה</label>
-      <select class="form-select" id="notifLang" style="min-width:0;width:100%">
-        <option value="he">🇮🇱 עברית</option>
-        <option value="en">🇺🇸 אנגלית</option>
-      </select>
-    </div>
+    <div style="margin-bottom:12px"><label class="form-label">כותרת</label><input class="form-input" id="notifTitle" placeholder="למשל: שיעור חדש!" style="min-width:0;width:100%"></div>
+    <div style="margin-bottom:12px"><label class="form-label">תוכן ההודעה</label><textarea class="form-textarea" id="notifMessage" rows="3" placeholder="הכנסי את תוכן ההתראה..."></textarea></div>
+    <div style="margin-bottom:16px"><label class="form-label">שפה</label><select class="form-select" id="notifLang" style="min-width:0;width:100%"><option value="he">🇮🇱 עברית</option><option value="en">🇺🇸 אנגלית</option></select></div>
     <button class="btn btn-primary" onclick="sendNotification()">📤 שלח התראה</button>
   </div>
-
-  <div class="table-card">
-    <div class="table-header"><h3>היסטוריית התראות</h3></div>
-    <div id="notifHistory">
-      <div class="loading"><div class="loading-spinner"></div>טוען התראות...</div>
-    </div>
-  </div>
+  <div class="table-card"><div class="table-header"><h3>היסטוריית התראות</h3></div><div id="notifHistory"><div class="loading"><div class="loading-spinner"></div>טוען התראות...</div></div></div>
 </div>
 
 </div>
-
 <div class="toast" id="toast"></div>
-
-<!-- Chart.js CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-
 <script>
 // ============ CONFIG ============
+// NEW: Dify data endpoint
+var DIFY_DATA_URL = 'https://script.google.com/macros/s/AKfycbwXAWaqBoGhrQ06k_t0lg5oNg15FCslGjTq2FGvAvcZn7o5A07E-5w8h9eqXv77AVc7Tg/exec';
+// OLD: Videos & notifications endpoint (keep existing)
 var PROXY_URL = 'https://script.google.com/macros/s/AKfycbx1IJHkaBhhmqmPIvyPEY8Xr_-OYRZf3KNrRRezqeDUgkJP3IkTLPGUt_y1Hx811avx/exec';
 
-// ============ DATA ============
 var allConversations = [];
+var filteredConvs = [];
 var allVideos = [];
-var topicCounts = { 'אמונה':0, 'זוגיות':0, 'הלכה':0, 'תפילה':0, 'שבת':0, 'אחר':0 };
-var topicColors = { 'אמונה':'#C9A84C', 'זוגיות':'#E88B3E', 'הלכה':'#6B8ECC', 'תפילה':'#7BC47F', 'שבת':'#C47BA0', 'אחר':'#888' };
-var weeklyData = [0,0,0,0,0,0,0];
-var dayNames = ['ראשון','שני','שלישי','רביעי','חמישי','שישי','שבת'];
+var dailyChart = null;
+var usersChart = null;
 
-// ============ TOAST ============
-function showToast(msg){
-  var t=document.getElementById('toast');
-  t.textContent=msg; t.style.display='block';
-  setTimeout(function(){t.style.display='none';},3000);
-}
+function showToast(msg){ var t=document.getElementById('toast'); t.textContent=msg; t.style.display='block'; setTimeout(function(){t.style.display='none';},3000); }
 
-// ============ INIT ============
-document.addEventListener('DOMContentLoaded', function() {
-  setDate();
-  setupTabs();
-  loadData();
-});
+document.addEventListener('DOMContentLoaded', function() { setDate(); setupTabs(); loadData(); });
 
-function setDate() {
-  var now = new Date();
-  var opts = { year:'numeric', month:'long', day:'numeric', weekday:'long' };
-  document.getElementById('headerDate').textContent = now.toLocaleDateString('he-IL', opts);
-}
+function setDate() { var now=new Date(); document.getElementById('headerDate').textContent=now.toLocaleDateString('he-IL',{year:'numeric',month:'long',day:'numeric',weekday:'long'}); }
 
-function setupTabs() {
-  document.querySelectorAll('.tab').forEach(function(tab) {
-    tab.addEventListener('click', function() {
-      switchTab(this.dataset.tab);
-    });
-  });
-}
+function setupTabs() { document.querySelectorAll('.tab').forEach(function(tab) { tab.addEventListener('click', function() { switchTab(this.dataset.tab); }); }); }
 
 function switchTab(tabId) {
-  document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
-  document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});
+  document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});
   document.querySelector('[data-tab="'+tabId+'"]').classList.add('active');
   document.getElementById(tabId).classList.add('active');
   if(tabId==='videos') loadVideos();
   if(tabId==='notifications') loadNotifHistory();
 }
 
-// ============ LOAD DATA ============
+// ============ LOAD REAL DATA FROM DIFY ============
 function loadData() {
-  if (!PROXY_URL) { loadDemoData(); return; }
-  fetch(PROXY_URL + '?action=logs')
+  document.getElementById('conversationsList').innerHTML = '<div class="loading"><div class="loading-spinner"></div>טוען שיחות...</div>';
+  fetch(DIFY_DATA_URL)
     .then(function(r) { return r.json(); })
     .then(function(data) {
-      if (data.success && data.data) { processSheetData(data.data); }
-      else { loadDemoData(); }
+      if (data.error) { showToast('שגיאה: ' + data.error); return; }
+      processData(data);
     })
-    .catch(function() { loadDemoData(); });
+    .catch(function(err) { showToast('שגיאת רשת: ' + err.message); });
 }
 
-function processSheetData(rows) {
-  allConversations = rows.map(function(row, i) {
-    var q = row['שאלה אחרונה'] || row.question || '';
-    var a = row['תשובה'] || row.answer || '';
-    var name = row['שם'] || row.name || 'אורח';
-    var date = row['תאריך אחרון'] || row.date || '';
-    var topic = detectTopic(q + ' ' + a);
+function processData(data) {
+  var raw = data.conversations || [];
+  
+  // Build conversations from raw messages
+  allConversations = raw.filter(function(r) { return r.query && r.query.toString().trim(); }).map(function(r, i) {
+    var topic = detectTopic((r.query||'') + ' ' + (r.answer||''));
     return {
-      id: i, name: name, question: q, answer: a, topic: topic, date: date,
-      engagement: q.length > 50 ? 'high' : q.length > 20 ? 'medium' : 'low'
+      id: r.conversation_id || i,
+      name: r.user || 'אורח',
+      question: r.query || '',
+      answer: r.answer || '',
+      topic: topic,
+      date: r.date ? formatDate(r.date) : '',
+      rawDate: r.date,
+      engagement: (r.query||'').length > 50 ? 'high' : (r.query||'').length > 20 ? 'medium' : 'low'
     };
-  }).filter(function(c) { return c.question; });
-  allConversations.forEach(function(c) {
-    if (topicCounts[c.topic] !== undefined) topicCounts[c.topic]++;
   });
-  updateDashboard();
+  
+  filteredConvs = allConversations.slice();
+  
+  // Stats
+  var uniqueConvs = {};
+  allConversations.forEach(function(c) { if(c.id) uniqueConvs[c.id] = true; });
+  
+  document.getElementById('totalConversations').textContent = Object.keys(uniqueConvs).length;
+  document.getElementById('totalQuestions').textContent = data.totalQuestions || allConversations.length;
+  document.getElementById('totalUsers').textContent = data.totalUsers || 0;
+  
+  // Today count
+  var today = new Date().toLocaleDateString('he-IL');
+  var todayCount = allConversations.filter(function(c) {
+    if (!c.rawDate) return false;
+    var d = new Date(c.rawDate);
+    return d.toLocaleDateString('he-IL') === today;
+  }).length;
+  document.getElementById('todayCount').textContent = todayCount;
+  
+  renderDailyChart();
+  renderUsersChart(data.users || {});
+  renderConversations();
+  renderQuickConversations();
+  renderFollowup();
+}
+
+function formatDate(d) {
+  try {
+    var date = new Date(d);
+    return date.toLocaleDateString('he-IL') + ' ' + date.toLocaleTimeString('he-IL', {hour:'2-digit', minute:'2-digit'});
+  } catch(e) { return d; }
 }
 
 function detectTopic(text) {
-  text = text.toLowerCase();
-  if (/הלכה|מותר|אסור|כשר|שבת.*מותר|ברכ|נידה|טהר/.test(text)) return 'הלכה';
+  text = (text||'').toLowerCase();
+  if (/הלכה|מותר|אסור|כשר|ברכ|נידה|טהר/.test(text)) return 'הלכה';
   if (/זוגיות|נישואין|שלום.בית|בעל|אשת|זוג|חתונה/.test(text)) return 'זוגיות';
   if (/שבת|קידוש|הבדלה|מוצאי/.test(text)) return 'שבת';
   if (/תפילה|מתפלל|עמידה|שמונה.עשרה|סידור/.test(text)) return 'תפילה';
-  if (/אמונה|אלוקים|השם|בורא|אלהים|למה.יש|טעם|משמעות|נשמה/.test(text)) return 'אמונה';
+  if (/אמונה|אלוקים|השם|בורא|אלהים|משמעות|נשמה/.test(text)) return 'אמונה';
+  if (/צום|תשעה|באב|תענית/.test(text)) return 'הלכה';
   return 'אחר';
 }
 
-// ============ DEMO DATA ============
-function loadDemoData() {
-  allConversations = [
-    { id:1, name:'דוד כ.', topic:'הלכה', question:'האם מותר להדליק נר ביום טוב?', date:'15/07/2026 14:22', engagement:'high', questions:12 },
-    { id:2, name:'שרה מ.', topic:'זוגיות', question:'איך לשפר תקשורת עם בן הזוג?', date:'15/07/2026 14:00', engagement:'high', questions:8 },
-    { id:3, name:'יוסי ב.', topic:'אמונה', question:'למה יש סבל בעולם?', date:'15/07/2026 13:37', engagement:'medium', questions:5 },
-    { id:4, name:'מיכל ר.', topic:'שבת', question:'מה ההבדל בין שבת ליום טוב?', date:'15/07/2026 13:10', engagement:'high', questions:15 },
-    { id:5, name:'אבי ל.', topic:'תפילה', question:'למה מתפללים שלוש פעמים?', date:'15/07/2026 12:30', engagement:'low', questions:3 },
-    { id:6, name:'רונית ש.', topic:'אמונה', question:'איך להתמודד עם ספקות?', date:'15/07/2026 11:45', engagement:'medium', questions:9 },
-    { id:7, name:'משה א.', topic:'הלכה', question:'מה הדין של בישול בשבת?', date:'15/07/2026 10:20', engagement:'high', questions:11 },
-    { id:8, name:'לאה ג.', topic:'זוגיות', question:'מה עושים כשיש מריבות?', date:'15/07/2026 09:55', engagement:'medium', questions:6 },
-    { id:9, name:'יעקב ד.', topic:'אמונה', question:'מה הקשר בין מדע ואמונה?', date:'14/07/2026 22:30', engagement:'high', questions:14 },
-    { id:10, name:'נעמי ה.', topic:'שבת', question:'איך עושים קידוש?', date:'14/07/2026 21:15', engagement:'low', questions:2 },
-  ];
-  topicCounts = { 'אמונה':342, 'זוגיות':218, 'הלכה':187, 'תפילה':156, 'שבת':134, 'אחר':98 };
-  weeklyData = [45, 62, 38, 55, 71, 28, 15];
-  updateDashboard();
-}
-
-// ============ UPDATE UI ============
-function updateDashboard() {
-  var total = Object.values(topicCounts).reduce(function(a,b){return a+b},0);
-  document.getElementById('totalConversations').textContent = total.toLocaleString();
-  document.getElementById('totalUsers').textContent = Math.round(total * 0.25).toLocaleString();
-  var highEng = allConversations.filter(function(c){return c.engagement==='high'});
-  document.getElementById('chavruta').textContent = highEng.length;
-  document.getElementById('halachaRef').textContent = topicCounts['הלכה'] || 0;
-  renderWeeklyChart();
-  renderTopicsChart();
-  renderConversations();
-  renderFollowup();
-  renderQuickFollowup();
-}
-
 // ============ CHARTS ============
-function renderWeeklyChart() {
-  var ctx = document.getElementById('weeklyChart').getContext('2d');
-  new Chart(ctx, {
-    type: 'bar',
-    data: { labels: dayNames, datasets: [{ data: weeklyData, backgroundColor: '#C9A84C', borderRadius: 6, borderSkipped: false }] },
-    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
-      scales: { x: { ticks: { color: '#8A8A8A', font: { size: 12 } }, grid: { display: false }, border: { display: false } },
-        y: { ticks: { color: '#8A8A8A', font: { size: 12 } }, grid: { color: '#252525' }, border: { display: false } } } }
+function renderDailyChart() {
+  var dailyCounts = {};
+  allConversations.forEach(function(c) {
+    if (!c.rawDate) return;
+    var d = new Date(c.rawDate);
+    var key = d.toLocaleDateString('he-IL');
+    dailyCounts[key] = (dailyCounts[key]||0) + 1;
+  });
+  var sortedDays = Object.keys(dailyCounts).sort(function(a,b) {
+    var da = a.split('/'); var db = b.split('/');
+    return new Date(da[2],da[1]-1,da[0]) - new Date(db[2],db[1]-1,db[0]);
+  });
+  var last14 = sortedDays.slice(-14);
+  if (dailyChart) dailyChart.destroy();
+  dailyChart = new Chart(document.getElementById('dailyChart'), {
+    type:'bar', data:{ labels:last14, datasets:[{ data:last14.map(function(d){return dailyCounts[d];}), backgroundColor:'#C9A84C', borderRadius:6 }] },
+    options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{ x:{ticks:{color:'#8A8A8A',font:{size:11},maxRotation:45},grid:{display:false},border:{display:false}}, y:{ticks:{color:'#8A8A8A'},grid:{color:'#252525'},border:{display:false}} } }
   });
 }
 
-function renderTopicsChart() {
-  var labels = Object.keys(topicCounts);
-  var data = Object.values(topicCounts);
-  var colors = labels.map(function(l) { return topicColors[l] || '#888'; });
-  var ctx = document.getElementById('topicsChart').getContext('2d');
-  new Chart(ctx, {
-    type: 'doughnut',
-    data: { labels: labels, datasets: [{ data: data, backgroundColor: colors, borderWidth: 0, spacing: 3 }] },
-    options: { responsive: true, maintainAspectRatio: false, cutout: '60%', plugins: { legend: { display: false } } }
+function renderUsersChart(users) {
+  var labels = Object.keys(users);
+  var values = Object.values(users);
+  var colors = ['#C9A84C','#E88B3E','#6B8ECC','#7BC47F','#C47BA0','#888','#E8D48B','#5CB85C'];
+  if (usersChart) usersChart.destroy();
+  usersChart = new Chart(document.getElementById('usersChart'), {
+    type:'doughnut', data:{ labels:labels, datasets:[{ data:values, backgroundColor:colors.slice(0,labels.length), borderWidth:0, spacing:3 }] },
+    options:{ responsive:true, maintainAspectRatio:false, cutout:'60%', plugins:{legend:{display:false}} }
   });
-  var legend = document.getElementById('topicsLegend');
-  legend.innerHTML = labels.map(function(l, i) {
-    return '<div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#8A8A8A"><div style="width:10px;height:10px;border-radius:3px;background:'+colors[i]+'"></div>'+l+'</div>';
+  document.getElementById('usersLegend').innerHTML = labels.map(function(l,i) {
+    return '<div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#8A8A8A"><div style="width:10px;height:10px;border-radius:3px;background:'+colors[i%colors.length]+'"></div>'+l+' ('+values[i]+')</div>';
   }).join('');
 }
 
-// ============ CONVERSATIONS LIST ============
+// ============ CONVERSATIONS ============
 function renderConversations() {
+  var list = filteredConvs.slice().reverse().slice(0, 50);
   var html = '';
-  allConversations.forEach(function(c) {
-    var tagClass = 'tag-' + (c.topic==='הלכה'?'halacha':c.topic==='זוגיות'?'zogiyut':c.topic==='אמונה'?'emuna':c.topic==='שבת'?'shabbat':c.topic==='תפילה'?'tefila':'other');
-    var engClass = c.engagement==='high'?'eng-high':c.engagement==='medium'?'eng-med':'eng-low';
-    var engLabel = c.engagement==='high'?'גבוה':c.engagement==='medium'?'בינוני':'נמוך';
-    var qCount = c.questions || 1;
-    html += '<div class="table-row"><div class="flex items-center gap-14" style="flex:1"><div class="avatar">'+c.name[0]+'</div><div style="flex:1"><div class="flex items-center gap-10" style="margin-bottom:4px;flex-wrap:wrap"><span style="font-size:14px;font-weight:600">'+c.name+'</span><span class="tag '+tagClass+'">'+c.topic+'</span><span style="font-size:12px;color:#8A8A8A">'+qCount+' שאלות</span></div><div style="font-size:13px;color:#8A8A8A">שאלה אחרונה: ״'+c.question+'״</div></div></div><div class="flex items-center gap-16"><div class="eng '+engClass+'"><div class="eng-dot"></div>'+engLabel+'</div><div style="font-size:12px;color:#8A8A8A">'+c.date+'</div></div></div>';
+  list.forEach(function(c) {
+    var tagClass = getTagClass(c.topic);
+    var answer = (c.answer||'').substring(0,100);
+    if ((c.answer||'').length > 100) answer += '...';
+    html += '<div class="table-row"><div class="flex items-center gap-14" style="flex:1"><div class="avatar">'+((c.name||'?')[0])+'</div><div style="flex:1"><div class="flex items-center gap-10" style="margin-bottom:4px;flex-wrap:wrap"><span style="font-size:14px;font-weight:600">'+c.name+'</span><span class="tag '+tagClass+'">'+c.topic+'</span></div><div style="font-size:13px;color:var(--text);margin-bottom:2px">❓ '+c.question+'</div><div style="font-size:12px;color:#8A8A8A;max-height:40px;overflow:hidden">💬 '+answer+'</div></div></div><div style="font-size:12px;color:#8A8A8A;white-space:nowrap">'+c.date+'</div></div>';
   });
   document.getElementById('conversationsList').innerHTML = html || '<div class="loading">אין שיחות עדיין</div>';
-  document.getElementById('convCount').textContent = allConversations.length + ' שיחות';
+  document.getElementById('convCount').textContent = filteredConvs.length + ' שיחות';
+}
+
+function renderQuickConversations() {
+  var recent = allConversations.slice().reverse().slice(0, 5);
+  var html = '';
+  recent.forEach(function(c) {
+    html += '<div class="table-row"><div class="flex items-center gap-14" style="flex:1"><div class="avatar sm">'+((c.name||'?')[0])+'</div><div><div style="font-size:14px;font-weight:500">'+c.name+'</div><div style="font-size:12px;color:#8A8A8A">'+c.question+'</div></div></div><div style="font-size:12px;color:#8A8A8A">'+c.date+'</div></div>';
+  });
+  document.getElementById('quickConversations').innerHTML = html;
+}
+
+function filterConversations() {
+  var search = document.getElementById('searchBox').value.toLowerCase();
+  if (!search) { filteredConvs = allConversations.slice(); }
+  else {
+    filteredConvs = allConversations.filter(function(c) {
+      return (c.name||'').toLowerCase().indexOf(search) > -1 || (c.question||'').toLowerCase().indexOf(search) > -1 || (c.answer||'').toLowerCase().indexOf(search) > -1;
+    });
+  }
+  renderConversations();
+}
+
+function getTagClass(topic) {
+  if (topic==='הלכה') return 'tag-halacha';
+  if (topic==='זוגיות') return 'tag-zogiyut';
+  if (topic==='אמונה') return 'tag-emuna';
+  if (topic==='שבת') return 'tag-shabbat';
+  if (topic==='תפילה') return 'tag-tefila';
+  return 'tag-other';
 }
 
 // ============ FOLLOW-UP ============
 function renderFollowup() {
-  var highEng = allConversations.filter(function(c) { return c.engagement === 'high'; });
-  var html = '';
-  highEng.forEach(function(c) {
-    var tagClass = 'tag-' + (c.topic==='הלכה'?'halacha':c.topic==='זוגיות'?'zogiyut':c.topic==='אמונה'?'emuna':c.topic==='שבת'?'shabbat':c.topic==='תפילה'?'tefila':'other');
-    var reason = c.topic==='הלכה'?'שאלות הלכתיות מפורטות':c.topic==='זוגיות'?'מתעניין/ת בזוגיות לעומק':'שואל/ת שאלות עמוקות — מוכן/ה לחברותא';
-    var actionBtn = c.topic==='הלכה'?'<button class="btn btn-blue">📞 הפנה לקו הלכה</button>':c.topic==='זוגיות'?'<button class="btn btn-orange">💑 הפנה לייעוץ</button>':'<button class="btn btn-gold">📖 קבע חברותא</button>';
-    html += '<div style="background:#141414;border-radius:12px;border:1px solid #252525;padding:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px"><div class="flex items-center gap-14"><div class="avatar" style="width:48px;height:48px;font-size:18px">'+c.name[0]+'</div><div><div class="flex items-center gap-8" style="margin-bottom:4px"><span style="font-size:16px;font-weight:600">'+c.name+'</span><span class="priority priority-high">דחוף</span></div><div style="font-size:13px;color:#8A8A8A">'+reason+'</div><div class="flex items-center gap-8" style="margin-top:6px"><span class="tag '+tagClass+'">'+c.topic+'</span><span style="font-size:12px;color:#8A8A8A">'+(c.questions||1)+' שאלות</span></div></div></div><div class="flex gap-8">'+actionBtn+'<button class="btn btn-outline">📨 שלח הודעה</button></div></div>';
+  var userCounts = {};
+  allConversations.forEach(function(c) {
+    if (!userCounts[c.name]) userCounts[c.name] = { name:c.name, count:0, lastQ:'', topic:'אחר' };
+    userCounts[c.name].count++;
+    userCounts[c.name].lastQ = c.question;
+    userCounts[c.name].topic = c.topic;
   });
-  document.getElementById('followupList').innerHTML = html || '<div class="loading">אין משתמשים לטיפול כרגע</div>';
+  var sorted = Object.values(userCounts).sort(function(a,b) { return b.count - a.count; });
+  var html = '';
+  sorted.forEach(function(u) {
+    var tagClass = getTagClass(u.topic);
+    html += '<div style="background:#141414;border-radius:12px;border:1px solid #252525;padding:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px"><div class="flex items-center gap-14"><div class="avatar" style="width:48px;height:48px;font-size:18px">'+u.name[0]+'</div><div><div class="flex items-center gap-8" style="margin-bottom:4px"><span style="font-size:16px;font-weight:600">'+u.name+'</span><span class="tag '+tagClass+'">'+u.topic+'</span></div><div style="font-size:13px;color:#8A8A8A">'+u.count+' שאלות — שאלה אחרונה: ״'+u.lastQ+'״</div></div></div><div style="font-size:14px;font-weight:700;color:var(--gold)">'+u.count+' שאלות</div></div>';
+  });
+  document.getElementById('followupList').innerHTML = html || '<div class="loading">אין משתמשים עדיין</div>';
 }
 
-function renderQuickFollowup() {
-  var highEng = allConversations.filter(function(c) { return c.engagement === 'high'; }).slice(0, 3);
-  var html = '';
-  highEng.forEach(function(c) {
-    var tagClass = 'tag-' + (c.topic==='הלכה'?'halacha':c.topic==='זוגיות'?'zogiyut':c.topic==='אמונה'?'emuna':c.topic==='שבת'?'shabbat':c.topic==='תפילה'?'tefila':'other');
-    var reason = c.topic==='הלכה'?'שאלות הלכתיות מפורטות':c.topic==='זוגיות'?'מתעניין/ת בזוגיות לעומק':'שואל/ת שאלות עמוקות';
-    html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#1A1A1A;border-radius:8px;border:1px solid #252525;margin-bottom:8px"><div class="flex items-center gap-12"><div class="avatar sm">'+c.name[0]+'</div><div><div style="font-size:14px;font-weight:500">'+c.name+'</div><div style="font-size:12px;color:#8A8A8A">'+reason+'</div></div></div><div class="flex items-center gap-10"><span class="tag '+tagClass+'">'+c.topic+'</span><span class="priority priority-high">דחוף</span></div></div>';
-  });
-  document.getElementById('quickFollowup').innerHTML = html;
-}
-
-// ============ VIDEOS ============
+// ============ VIDEOS (keep old proxy) ============
 function loadVideos(){
   fetch(PROXY_URL+'?action=getVideos')
     .then(function(r){return r.json();})
     .then(function(d){
-      if(d.success){
-        allVideos=(d.videos||[]).filter(function(v){return v.active==='yes';});
-        renderVideoCards(allVideos);
-      } else { renderVideoCards([]); }
-    })
-    .catch(function(){renderVideoCards([]);});
+      if(d.success){ allVideos=(d.videos||[]).filter(function(v){return v.active==='yes';}); renderVideoCards(allVideos); }
+      else { renderVideoCards([]); }
+    }).catch(function(){renderVideoCards([]);});
 }
-
 function renderVideoCards(list){
   var grid=document.getElementById('videosGrid');
-  if(list.length===0){
-    grid.innerHTML='<div style="text-align:center;padding:40px;color:var(--text2);grid-column:1/-1"><div style="font-size:48px;margin-bottom:12px">🎬</div>אין סרטונים עדיין — הוסיפי סרטון חדש למעלה!</div>';
-    return;
-  }
+  if(list.length===0){ grid.innerHTML='<div style="text-align:center;padding:40px;color:var(--text2);grid-column:1/-1"><div style="font-size:48px;margin-bottom:12px">🎬</div>אין סרטונים עדיין</div>'; return; }
   var html='';
   list.forEach(function(v){
     var thumb='https://img.youtube.com/vi/'+v.youtubeId+'/hqdefault.jpg';
     var langTag=v.language==='he'?'<span class="tag tag-he">🇮🇱 עברית</span>':'<span class="tag tag-en">🇺🇸 אנגלית</span>';
-    html+='<div class="video-card"><div class="video-thumb"><img src="'+thumb+'" alt="'+v.title+'" onerror="this.style.background=\'#1a1a1a\'"></div><div class="video-info"><div class="video-title">'+v.title+'</div><div class="video-meta">'+langTag+'<span>'+(v.tag||'')+'</span><span>'+(v.date||'')+'</span></div><div class="video-actions"><a href="https://youtube.com/watch?v='+v.youtubeId+'" target="_blank" class="btn btn-outline" style="font-size:11px;padding:4px 10px">▶ צפה</a><button class="btn btn-red" style="font-size:11px;padding:4px 10px" onclick="deleteVideo(\''+v.id+'\')">🗑 מחק</button></div></div></div>';
+    html+='<div class="video-card"><div class="video-thumb"><img src="'+thumb+'" alt="'+v.title+'"></div><div class="video-info"><div class="video-title">'+v.title+'</div><div class="video-meta">'+langTag+'<span>'+(v.tag||'')+'</span><span>'+(v.date||'')+'</span></div><div class="video-actions"><a href="https://youtube.com/watch?v='+v.youtubeId+'" target="_blank" class="btn btn-outline" style="font-size:11px;padding:4px 10px">▶ צפה</a><button class="btn btn-red" style="font-size:11px;padding:4px 10px" onclick="deleteVideo(\''+v.id+'\')">🗑 מחק</button></div></div></div>';
   });
   grid.innerHTML=html;
 }
-
-function filterVideos(lang,el){
-  document.querySelectorAll('.lang-filter-btn').forEach(function(b){b.classList.remove('active');});
-  el.classList.add('active');
-  if(lang==='all') renderVideoCards(allVideos);
-  else renderVideoCards(allVideos.filter(function(v){return v.language===lang;}));
-}
-
+function filterVideos(lang,el){ document.querySelectorAll('.lang-filter-btn').forEach(function(b){b.classList.remove('active');}); el.classList.add('active'); if(lang==='all') renderVideoCards(allVideos); else renderVideoCards(allVideos.filter(function(v){return v.language===lang;})); }
 function addVideo(){
-  var title=document.getElementById('videoTitle').value.trim();
-  var ytid=document.getElementById('videoYtId').value.trim();
-  var lang=document.getElementById('videoLang').value;
-  var tag=document.getElementById('videoTag').value.trim();
-  var notify=document.getElementById('videoNotify').checked;
+  var title=document.getElementById('videoTitle').value.trim(); var ytid=document.getElementById('videoYtId').value.trim();
+  var lang=document.getElementById('videoLang').value; var tag=document.getElementById('videoTag').value.trim(); var notify=document.getElementById('videoNotify').checked;
   if(!title||!ytid){showToast('נא למלא שם וקוד YouTube'); return;}
-  if(ytid.indexOf('/shorts/')>-1){ytid=ytid.split('/shorts/')[1].split('?')[0];}
-  else if(ytid.indexOf('youtube.com')>-1){var m=ytid.match(/v=([^&]+)/);if(m)ytid=m[1];}
+  if(ytid.indexOf('youtube.com')>-1){var m=ytid.match(/v=([^&]+)/);if(m)ytid=m[1];}
   if(ytid.indexOf('youtu.be')>-1){ytid=ytid.split('/').pop().split('?')[0];}
-  var body={action:'addVideo',title:title,youtubeId:ytid,language:lang,tag:tag,sendNotification:notify};
-  fetch(PROXY_URL,{method:'POST',body:JSON.stringify(body)})
-    .then(function(r){return r.json();})
-    .then(function(d){
-      if(d.success){
-        showToast(notify?'✅ סרטון נוסף + התראה נשלחה!':'✅ סרטון נוסף בהצלחה!');
-        document.getElementById('videoTitle').value='';
-        document.getElementById('videoYtId').value='';
-        document.getElementById('videoTag').value='';
-        loadVideos();
-      } else { showToast('שגיאה: '+(d.error||'')); }
-    })
-    .catch(function(){showToast('שגיאת רשת');});
+  if(ytid.indexOf('/shorts/')>-1){ytid=ytid.split('/shorts/')[1].split('?')[0];}
+  fetch(PROXY_URL,{method:'POST',body:JSON.stringify({action:'addVideo',title:title,youtubeId:ytid,language:lang,tag:tag,sendNotification:notify})})
+    .then(function(r){return r.json();}).then(function(d){ if(d.success){showToast('✅ סרטון נוסף!'); document.getElementById('videoTitle').value=''; document.getElementById('videoYtId').value=''; document.getElementById('videoTag').value=''; loadVideos();} else {showToast('שגיאה');} });
 }
+function deleteVideo(id){ if(!confirm('למחוק?')) return; fetch(PROXY_URL,{method:'POST',body:JSON.stringify({action:'deleteVideo',id:id})}).then(function(r){return r.json();}).then(function(d){if(d.success){showToast('🗑 נמחק');loadVideos();}}); }
 
-function deleteVideo(id){
-  if(!confirm('למחוק את הסרטון?')) return;
-  fetch(PROXY_URL,{method:'POST',body:JSON.stringify({action:'deleteVideo',id:id})})
-    .then(function(r){return r.json();})
-    .then(function(d){ if(d.success){showToast('🗑 הסרטון נמחק');loadVideos();}});
-}
-
-// ============ NOTIFICATIONS ============
+// ============ NOTIFICATIONS (keep old proxy) ============
 function sendNotification(){
-  var title=document.getElementById('notifTitle').value.trim();
-  var message=document.getElementById('notifMessage').value.trim();
-  var lang=document.getElementById('notifLang').value;
+  var title=document.getElementById('notifTitle').value.trim(); var message=document.getElementById('notifMessage').value.trim(); var lang=document.getElementById('notifLang').value;
   if(!title||!message){showToast('נא למלא כותרת ותוכן');return;}
   fetch(PROXY_URL,{method:'POST',body:JSON.stringify({action:'sendNotification',title:title,message:message,language:lang})})
-    .then(function(r){return r.json();})
-    .then(function(d){
-      if(d.success){
-        showToast('✅ התראה נשלחה!');
-        document.getElementById('notifTitle').value='';
-        document.getElementById('notifMessage').value='';
-        loadNotifHistory();
-      }
-    });
+    .then(function(r){return r.json();}).then(function(d){ if(d.success){showToast('✅ התראה נשלחה!'); document.getElementById('notifTitle').value=''; document.getElementById('notifMessage').value=''; loadNotifHistory();} });
 }
-
 function loadNotifHistory(){
-  fetch(PROXY_URL+'?action=getNotifications&since=0')
-    .then(function(r){return r.json();})
-    .then(function(d){
-      if(!d.success) return;
-      var notifs=d.notifications||[];
-      if(notifs.length===0){
-        document.getElementById('notifHistory').innerHTML='<div style="text-align:center;padding:40px;color:var(--text2)"><div style="font-size:48px;margin-bottom:12px">🔔</div>אין התראות עדיין</div>';
-        return;
-      }
-      var html='';
-      notifs.reverse().forEach(function(n){
-        var langLabel=n.language==='he'?'🇮🇱':'🇺🇸';
-        var typeIcon=n.type==='video'?'🎬':'📢';
-        html+='<div class="table-row"><div class="flex items-center gap-14"><div class="video-icon">'+typeIcon+'</div><div><div style="font-size:14px;font-weight:500">'+n.title+'</div><div style="font-size:13px;color:#8A8A8A">'+n.message+'</div></div></div><div class="flex items-center gap-16"><span>'+langLabel+'</span><span style="font-size:12px;color:#8A8A8A">'+n.date+'</span></div></div>';
-      });
-      document.getElementById('notifHistory').innerHTML=html;
-    })
-    .catch(function(){});
+  fetch(PROXY_URL+'?action=getNotifications&since=0').then(function(r){return r.json();}).then(function(d){
+    if(!d.success) return; var notifs=d.notifications||[];
+    if(notifs.length===0){ document.getElementById('notifHistory').innerHTML='<div style="text-align:center;padding:40px;color:var(--text2)"><div style="font-size:48px;margin-bottom:12px">🔔</div>אין התראות עדיין</div>'; return; }
+    var html=''; notifs.reverse().forEach(function(n){ html+='<div class="table-row"><div class="flex items-center gap-14"><div class="video-icon">'+(n.type==='video'?'🎬':'📢')+'</div><div><div style="font-size:14px;font-weight:500">'+n.title+'</div><div style="font-size:13px;color:#8A8A8A">'+n.message+'</div></div></div><div style="font-size:12px;color:#8A8A8A">'+n.date+'</div></div>'; });
+    document.getElementById('notifHistory').innerHTML=html;
+  }).catch(function(){});
 }
 </script>
 </body>
