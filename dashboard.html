@@ -435,9 +435,16 @@ function renderFollowup() {
   var html = '';
   sorted.forEach(function(u) {
     var tagClass = getTagClass(u.topic);
-    html += '<div style="background:#141414;border-radius:12px;border:1px solid #252525;padding:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px"><div class="flex items-center gap-14"><div class="avatar" style="width:48px;height:48px;font-size:18px">'+u.name[0]+'</div><div><div class="flex items-center gap-8" style="margin-bottom:4px"><span style="font-size:16px;font-weight:600">'+u.name+'</span><span class="tag '+tagClass+'">'+u.topic+'</span></div><div style="font-size:13px;color:#8A8A8A">'+u.count+' שאלות — שאלה אחרונה: ״'+u.lastQ+'״</div></div></div><div style="font-size:14px;font-weight:700;color:var(--gold)">'+u.count+' שאלות</div></div>';
+    html += '<div style="background:#141414;border-radius:12px;border:1px solid #252525;padding:20px;cursor:pointer;transition:all .2s" onclick="showUserConversations(\''+u.name.replace(/'/g,"\\'")+'\')" onmouseover="this.style.borderColor=\'#C9A84C\'" onmouseout="this.style.borderColor=\'#252525\'"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px"><div class="flex items-center gap-14"><div class="avatar" style="width:48px;height:48px;font-size:18px">'+u.name[0]+'</div><div><div class="flex items-center gap-8" style="margin-bottom:4px"><span style="font-size:16px;font-weight:600">'+u.name+'</span><span class="tag '+tagClass+'">'+u.topic+'</span></div><div style="font-size:13px;color:#8A8A8A">'+u.count+' שאלות — שאלה אחרונה: ״'+u.lastQ+'״</div></div></div><div style="display:flex;align-items:center;gap:12px"><div style="font-size:14px;font-weight:700;color:var(--gold)">'+u.count+' שאלות</div><div style="color:var(--gold);font-size:16px">◀ צפה בשיחות</div></div></div></div>';
   });
   document.getElementById('followupList').innerHTML = html || '<div class="loading">אין משתמשים עדיין</div>';
+}
+
+function showUserConversations(userName) {
+  switchTab('conversations');
+  document.getElementById('searchBox').value = userName;
+  filteredConvs = allConversations.filter(function(c) { return c.name === userName; });
+  renderConversations();
 }
 
 // ============ VIDEOS (keep old proxy) ============
