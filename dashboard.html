@@ -41,6 +41,12 @@ a{color:var(--gold);text-decoration:none}
 .table-row{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;border-bottom:1px solid var(--border);gap:12px;flex-wrap:wrap}
 .table-row:last-child{border-bottom:none}
 .table-row:hover{background:var(--card2)}
+.conv-row{cursor:pointer;transition:all .2s}
+.conv-row:hover{background:var(--card2);border-right:3px solid var(--gold)}
+.conv-answer{display:none;padding:12px 24px 20px 78px;background:var(--card2);border-bottom:1px solid var(--border);font-size:14px;line-height:1.8;color:#d0c8b8;white-space:pre-wrap;word-wrap:break-word}
+.conv-answer.open{display:block}
+.expand-icon{color:var(--gold);font-size:18px;transition:transform .2s;flex-shrink:0}
+.expand-icon.open{transform:rotate(90deg)}
 .avatar{width:40px;height:40px;border-radius:50%;background:var(--gold-dim);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;color:var(--gold);flex-shrink:0}
 .avatar.sm{width:36px;height:36px;font-size:14px}
 .tag{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;white-space:nowrap}
@@ -365,11 +371,11 @@ function renderUsersChart(users) {
 function renderConversations() {
   var list = filteredConvs.slice().reverse().slice(0, 50);
   var html = '';
-  list.forEach(function(c) {
+  list.forEach(function(c, idx) {
     var tagClass = getTagClass(c.topic);
-    var answer = (c.answer||'').substring(0,100);
-    if ((c.answer||'').length > 100) answer += '...';
-    html += '<div class="table-row"><div class="flex items-center gap-14" style="flex:1"><div class="avatar">'+((c.name||'?')[0])+'</div><div style="flex:1"><div class="flex items-center gap-10" style="margin-bottom:4px;flex-wrap:wrap"><span style="font-size:14px;font-weight:600">'+c.name+'</span><span class="tag '+tagClass+'">'+c.topic+'</span></div><div style="font-size:13px;color:var(--text);margin-bottom:2px">❓ '+c.question+'</div><div style="font-size:12px;color:#8A8A8A;max-height:40px;overflow:hidden">💬 '+answer+'</div></div></div><div style="font-size:12px;color:#8A8A8A;white-space:nowrap">'+c.date+'</div></div>';
+    var rowId = 'conv-' + idx;
+    html += '<div class="table-row conv-row" onclick="toggleAnswer(\''+rowId+'\')"><div class="flex items-center gap-14" style="flex:1"><div class="avatar">'+((c.name||'?')[0])+'</div><div style="flex:1"><div class="flex items-center gap-10" style="margin-bottom:4px;flex-wrap:wrap"><span style="font-size:14px;font-weight:600">'+c.name+'</span><span class="tag '+tagClass+'">'+c.topic+'</span></div><div style="font-size:13px;color:var(--text)">❓ '+c.question+'</div></div></div><div class="flex items-center gap-12"><div style="font-size:12px;color:#8A8A8A;white-space:nowrap">'+c.date+'</div><div class="expand-icon" id="icon-'+rowId+'">◀</div></div></div>';
+    html += '<div class="conv-answer" id="'+rowId+'">💬 '+(c.answer||'אין תשובה')+'</div>';
   });
   document.getElementById('conversationsList').innerHTML = html || '<div class="loading">אין שיחות עדיין</div>';
   document.getElementById('convCount').textContent = filteredConvs.length + ' שיחות';
@@ -382,6 +388,18 @@ function renderQuickConversations() {
     html += '<div class="table-row"><div class="flex items-center gap-14" style="flex:1"><div class="avatar sm">'+((c.name||'?')[0])+'</div><div><div style="font-size:14px;font-weight:500">'+c.name+'</div><div style="font-size:12px;color:#8A8A8A">'+c.question+'</div></div></div><div style="font-size:12px;color:#8A8A8A">'+c.date+'</div></div>';
   });
   document.getElementById('quickConversations').innerHTML = html;
+}
+
+function toggleAnswer(id) {
+  var el = document.getElementById(id);
+  var icon = document.getElementById('icon-' + id);
+  if (el.classList.contains('open')) {
+    el.classList.remove('open');
+    if (icon) icon.classList.remove('open');
+  } else {
+    el.classList.add('open');
+    if (icon) icon.classList.add('open');
+  }
 }
 
 function filterConversations() {
