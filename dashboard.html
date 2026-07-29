@@ -475,6 +475,7 @@ function addVideo(){
   if(ytid.indexOf('youtube.com')>-1){var m=ytid.match(/v=([^&]+)/);if(m)ytid=m[1];}
   if(ytid.indexOf('youtu.be')>-1){ytid=ytid.split('/').pop().split('?')[0];}
   if(ytid.indexOf('/shorts/')>-1){ytid=ytid.split('/shorts/')[1].split('?')[0];}
+  document.getElementById('videoYtId').value=ytid;
   fetch(PROXY_URL,{method:'POST',body:JSON.stringify({action:'addVideo',title:title,youtubeId:ytid,language:lang,tag:tag,sendNotification:notify})})
     .then(function(r){return r.json();}).then(function(d){ if(d.success){showToast('✅ סרטון נוסף!'); document.getElementById('videoTitle').value=''; document.getElementById('videoYtId').value=''; document.getElementById('videoTag').value=''; loadVideos();} else {showToast('שגיאה');} });
 }
