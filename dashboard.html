@@ -196,7 +196,7 @@ canvas{max-width:100%;height:200px!important}
     <h3>➕ הוסף סרטון חדש</h3>
     <div class="form-row">
       <input class="form-input" id="videoTitle" placeholder="שם הסרטון" />
-      <input class="form-input" id="videoYtId" placeholder="YouTube ID או לינק" dir="ltr" />
+     <input class="form-input" id="videoYtId" placeholder="YouTube ID או לינק" dir="ltr" oninput="fetchYtTitle(this.value)" />
     </div>
     <div class="form-row">
       <select class="form-select" id="videoLang"><option value="he">🇮🇱 עברית</option><option value="en">🇺🇸 אנגלית</option></select>
