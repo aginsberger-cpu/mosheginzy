@@ -468,6 +468,18 @@ function renderVideoCards(list){
   grid.innerHTML=html;
 }
 function filterVideos(lang,el){ document.querySelectorAll('.lang-filter-btn').forEach(function(b){b.classList.remove('active');}); el.classList.add('active'); if(lang==='all') renderVideoCards(allVideos); else renderVideoCards(allVideos.filter(function(v){return v.language===lang;})); }
+  function fetchYtTitle(val){
+  var ytid=val.trim();
+  if(!ytid)return;
+  if(ytid.indexOf('youtube.com')>-1){var m=ytid.match(/v=([^&]+)/);if(m)ytid=m[1];}
+  if(ytid.indexOf('youtu.be')>-1){ytid=ytid.split('/').pop().split('?')[0];}
+  if(ytid.indexOf('/shorts/')>-1){ytid=ytid.split('/shorts/')[1].split('?')[0];}
+  if(ytid.length<6)return;
+  fetch('https://noembed.com/embed?url=https://www.youtube.com/watch?v='+ytid)
+    .then(function(r){return r.json();})
+    .then(function(d){if(d.title&&!document.getElementById('videoTitle').value){document.getElementById('videoTitle').value=d.title;}})
+    .catch(function(){});
+}
 function addVideo(){
   var title=document.getElementById('videoTitle').value.trim(); var ytid=document.getElementById('videoYtId').value.trim();
   var lang=document.getElementById('videoLang').value; var tag=document.getElementById('videoTag').value.trim(); var notify=document.getElementById('videoNotify').checked;
