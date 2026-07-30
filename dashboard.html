@@ -452,7 +452,7 @@ function loadVideos(){
   fetch(PROXY_URL+'?action=getVideos')
     .then(function(r){return r.json();})
     .then(function(d){
-      if(d.success){ allVideos=(d.videos||[]).filter(function(v){return v.active==='yes';}); renderVideoCards(allVideos); }
+      if(d.success){ allVideos=(d.videos||[]).filter(function(v){return v.active==='yes';}).reverse(); renderVideoCards(allVideos); }
       else { renderVideoCards([]); }
     }).catch(function(){renderVideoCards([]);});
 }
