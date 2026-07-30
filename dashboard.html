@@ -288,7 +288,7 @@ function processData(data) {
     };
   });
   
-  filteredConvs = allConversations.slice();
+ filteredConvs = allConversations.slice().sort(function(a,b){ return new Date(b.rawDate) - new Date(a.rawDate); });
   
   // Stats
   var uniqueConvs = {};
