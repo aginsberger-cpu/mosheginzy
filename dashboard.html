@@ -369,7 +369,7 @@ function renderUsersChart(users) {
 
 // ============ CONVERSATIONS ============
 function renderConversations() {
-  var list = filteredConvs.slice().reverse().slice(0, 50);
+  var list = filteredConvs.slice().slice(0, 50);
   var html = '';
   list.forEach(function(c, idx) {
     var tagClass = getTagClass(c.topic);
