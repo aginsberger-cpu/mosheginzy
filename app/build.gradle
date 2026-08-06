@@ -1,0 +1,35 @@
+apply plugin: 'com.android.application'
+
+android {
+    namespace 'com.mosheginzy.app'
+    compileSdkVersion 36
+
+    defaultConfig {
+        applicationId "com.mosheginzy.app"
+        minSdkVersion 21
+        targetSdkVersion 36
+        versionCode 11
+        versionName "1.10"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'com.github.tiktok:tiktok-business-android-sdk:1.5.0'
+    implementation 'androidx.lifecycle:lifecycle-process:2.3.1'
+    implementation 'androidx.lifecycle:lifecycle-common-java8:2.3.1'
+    implementation 'com.android.installreferrer:installreferrer:2.2'
+}
