@@ -437,7 +437,7 @@ function renderFollowup() {
     userCounts[c.name].lastQ = c.question;
     userCounts[c.name].topic = c.topic;
   });
-  var sorted = Object.values(userCounts).sort(function(a,b) { return b.count - a.count; });
+  var sorted = Object.values(userCounts).sort(function(a,b) { return new Date(b.lastDate) - new Date(a.lastDate); });
   var html = '';
   sorted.forEach(function(u) {
     var tagClass = getTagClass(u.topic);
