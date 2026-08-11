@@ -432,7 +432,7 @@ function getTagClass(topic) {
 function renderFollowup() {
   var userCounts = {};
   allConversations.forEach(function(c) {
-    if (!userCounts[c.name]) userCounts[c.name] = { name:c.name, count:0, lastQ:'', topic:'אחר' };
+    if (!userCounts[c.name]) userCounts[c.name] = { name:c.name, count:0, lastQ:'', lastDate:'', topic:'אחר' };
     userCounts[c.name].count++;
     userCounts[c.name].lastQ = c.question;
     userCounts[c.name].topic = c.topic;
