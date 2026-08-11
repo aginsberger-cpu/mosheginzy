@@ -435,6 +435,7 @@ function renderFollowup() {
     if (!userCounts[c.name]) userCounts[c.name] = { name:c.name, count:0, lastQ:'', lastDate:'', topic:'אחר' };
     userCounts[c.name].count++;
     userCounts[c.name].lastQ = c.question;
+    userCounts[c.name].lastDate = c.rawDate;
     userCounts[c.name].topic = c.topic;
   });
   var sorted = Object.values(userCounts).sort(function(a,b) { return new Date(b.lastDate) - new Date(a.lastDate); });
