@@ -288,7 +288,13 @@ function processData(data) {
     };
   });
   
- filteredConvs = allConversations.slice().sort(function(a,b){ return new Date(b.rawDate) - new Date(a.rawDate); });
+var seen = {};
+filteredConvs = allConversations.filter(function(c) {
+  var key = c.name + '|' + c.question;
+  if (seen[key]) return false;
+  seen[key] = true;
+  return true;
+}).sort(function(a,b){ return new Date(b.rawDate) - new Date(a.rawDate); });
   
   // Stats
   var uniqueConvs = {};
