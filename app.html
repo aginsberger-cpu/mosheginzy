@@ -550,9 +550,18 @@ fbq('track','PageView',{content_category:platform});
 }
   function shareApp(){var msg='הורד את האפליקציה של משה גינזי 👇 https://mosheginzy.com/getapp';if(window.Android&&window.Android.shareApp){window.Android.shareApp(msg);}else if(navigator.share){navigator.share({title:'משה גינזי',text:'הורד את האפליקציה של משה גינזי 👇',url:'https://mosheginzy.com/getapp'});}else{window.open('https://mosheginzy.com/getapp','_blank');}}
 function shareAnswer(txt){var msg=(currentLang==='en'?'Moshe answered: ':'משה ענה לי: ')+txt+(currentLang==='en'?' 💛 Download the app: ':' 💛 הורד את האפליקציה: ')+'https://mosheginzy.com/getapp';if(window.Android&&window.Android.shareApp){window.Android.shareApp(msg);}else if(navigator.share){navigator.share({title:'משה גינזי',text:msg});}else{window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');}}
-var DIFY_KEY='app-VFD9vOFBd83JQC3BvLwuX5Q4';
-var DIFY_URL='https://api.dify.ai/v1/chat-messages';
-var cid='';var isSending=false;
+// מקרב: מנוע הצ'אט הוחלף מ-Dify לשרת של מקרב (Netivot) - העיצוב וכל
+// שאר האפליקציה נשארו בדיוק אותו דבר, לפי בקשת יצחק. MEKAREV_UID הוא
+// מזהה קבוע פר-מכשיר (כמו USER_ID באתר/אפליקציית מקרב עצמה) - נשמר
+// ב-localStorage בנפרד משם המשתמש (userName), כי השרת של מקרב מזהה כל
+// שיחה לפי מזהה קבוע כזה, לא לפי שם חופשי.
+var MEKAREV_API='https://hirabbi.com';
+function getMekarevUserId(){
+  var id=localStorage.getItem('mekarev-user-id');
+  if(!id){id='mg-'+Date.now()+'-'+Math.random().toString(36).slice(2);localStorage.setItem('mekarev-user-id',id);}
+  return id;
+}
+var isSending=false;
   var EL_KEY='sk_0a386a44903ba282d03e112390d1e87774ce751bf08a4749';
 var EL_VOICE='jSyAO1W1N4S7u904a6Z3';
 var currentAudio=null;
@@ -622,10 +631,18 @@ function setGender(g){userGender=g;document.getElementById('btn-f').classList.to
 function startApp(){
   var n=document.getElementById('name-input').value.trim();
   if(!n){document.getElementById('name-input').focus();return;}
-  userName=n;localStorage.setItem('mg-app-name',n);localStorage.setItem('mg-app-gender',userGender);showChatMode();
+  userName=n;localStorage.setItem('mg-app-name',n);localStorage.setItem('mg-app-gender',userGender);
+  // מודיעים לשרת של מקרב מה השם (והמגדר, אם כבר נבחר) - כדי שהתשובות
+  // יהיו מותאמות אישית (פנייה בשם, לשון זכר/נקבה נכונה), בדיוק כמו
+  // בזרימת ההיכרות הרגילה באתר/אפליקציית מקרב עצמה.
+  var mUid=getMekarevUserId();
+  fetch(MEKAREV_API+'/api/identify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:mUid,replyText:n})}).catch(function(){});
+  if(userGender==='זכר'||userGender==='נקבה'){
+    fetch(MEKAREV_API+'/api/gender',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:mUid,replyText:userGender})}).catch(function(){});
+  }
+  showChatMode();
 }
 function showChatMode(){
- if(!cid)cid=localStorage.getItem('mg-cid-'+userName)||'';
   var s=document.createElement('script');s.src=SHEET_URL+'?action=getHistory&name='+encodeURIComponent(userName)+'&callback=onHistory';document.head.appendChild(s);window.onHistory=function(d){if(d&&d.history){localStorage.setItem('mg-history-'+userName,d.history);}};
   document.getElementById('name-panel').style.display='none';
   document.getElementById('chat-input-bar').classList.remove('hidden');
@@ -663,7 +680,11 @@ function sendMsg(){
   var inp=document.getElementById('chat-input');
   var txt=inp.value.trim();if(!txt||isSending)return;
 inp.value='';inp.style.height='40px';isSending=true;addMsg(txt,'user');showTyping();
-fetch(DIFY_URL,{method:'POST',headers:{'Authorization':'Bearer '+DIFY_KEY,'Content-Type':'application/json'},body:JSON.stringify({inputs:{name:userName,today:new Date().toLocaleDateString('he-IL',{weekday:'long',year:'numeric',month:'long',day:'numeric'})+' / '+new Date().toLocaleDateString('he-IL',{weekday:'long',year:'numeric',month:'long',day:'numeric',calendar:'hebrew'}),history:(localStorage.getItem('mg-history-'+userName)||'').slice(-500)},query:txt,response_mode:'blocking',conversation_id:cid||undefined,user:userName})}).then(function(r){return r.json();}).then(function(d){rmTyping();isSending=false;if(d.answer){cid=d.conversation_id||cid;localStorage.setItem('mg-cid-'+userName,cid);var h=localStorage.getItem('mg-history-'+userName)||'';var newH=h+(h?'\n':'')+d.answer.substring(0,200);localStorage.setItem('mg-history-'+userName,newH);fetch(SHEET_URL+'?action=saveHistory&name='+encodeURIComponent(userName)+'&history='+encodeURIComponent(d.answer)+'&t='+Date.now())
+// מקרב: השאלה נשלחת עכשיו לשרת של מקרב (בדיוק כמו שהאתר/אפליקציית
+// מקרב עצמה שולחת) - במקום ל-Dify. שאר הזרימה (הודעת "מקליד...",
+// שמירת היסטוריה מקומית, סנכרון ל-Google Sheets, הקראה בקול) נשארה
+// בדיוק אותו דבר.
+fetch(MEKAREV_API+'/api/chat/simple',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getMekarevUserId(),message:txt,lang:currentLang==='en'?'en':'he'})}).then(function(r){return r.json();}).then(function(d){rmTyping();isSending=false;if(d&&d.answer){var h=localStorage.getItem('mg-history-'+userName)||'';var newH=h+(h?'\n':'')+d.answer.substring(0,200);localStorage.setItem('mg-history-'+userName,newH);fetch(SHEET_URL+'?action=saveHistory&name='+encodeURIComponent(userName)+'&history='+encodeURIComponent(d.answer)+'&t='+Date.now())
 .then(function(r){
   return r.text();
 })
