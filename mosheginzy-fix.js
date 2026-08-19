@@ -1,10 +1,18 @@
 // =============================================
 // MOSHE GINZY BOT - mosheginzy-fix.js
 // =============================================
-
-var DIFY_KEY = 'app-VFD9vOFBd83JQC3BvLwuX5Q4';
-var DIFY_URL = 'https://api.dify.ai/v1/chat-messages';
-var mgCid = '';
+// מקרב: הצ'אט המוטמע בדף הנחיתה עצמו (index.html) - נפרד לגמרי מהצ'אט
+// שב-app.html, אבל אותו תיקון בדיוק: הוחלף Dify בשרת של מקרב (hirabbi.com),
+// עם הזרמה (streaming) כדי שהתשובה תיכתב בזמן אמת, ובלי לגעת בעיצוב.
+// getMekarevUserId() משתמש באותו מפתח localStorage בדיוק כמו ב-app.html
+// (mekarev-user-id) - כך שאם אותו משתמש/ת מדבר/ת גם כאן וגם ב-app.html
+// (אותו origin, mosheginzy.com), זו אותה זהות/היסטוריה אצל מקרב.
+var MEKAREV_API = 'https://hirabbi.com';
+function getMekarevUserId() {
+  var id = localStorage.getItem('mekarev-user-id');
+  if (!id) { id = 'mg-' + Date.now() + '-' + Math.random().toString(36).slice(2); localStorage.setItem('mekarev-user-id', id); }
+  return id;
+}
 var mgSending = false;
 var mgUserName = '';
 var mgUserGender = '';
@@ -26,14 +34,19 @@ function mgSaveName() {
   mgUserName = n;
   localStorage.setItem('mg-user-name', n);
   localStorage.setItem('mg-user-gender', mgUserGender);
-  
+
   // Hide name screen
   var ns = document.getElementById('mg-name-screen');
   if (ns) ns.style.display = 'none';
-  
-  // Load saved conversation id
-  mgCid = localStorage.getItem('mg-cid-' + n) || '';
-  
+
+  // מקרב: רישום השם והמגדר אצל מקרב (בדיוק כמו ב-app.html) - לא חוסם
+  // את הצגת ברכת הפתיחה, נשלח ברקע.
+  var mUid = getMekarevUserId();
+  fetch(MEKAREV_API + '/api/identify', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ userId: mUid, replyText: n }) }).catch(function () {});
+  if (mgUserGender === 'זכר' || mgUserGender === 'נקבה') {
+    fetch(MEKAREV_API + '/api/gender', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ userId: mUid, replyText: mgUserGender }) }).catch(function () {});
+  }
+
   // Show greeting
   var greeting;
   if (mgUserGender === 'נקבה') {
@@ -47,27 +60,28 @@ function mgSaveName() {
 // Add message to chat
 function mgAddMsg(txt, who) {
   var w = document.getElementById('mg-msgs');
-  if (!w) return;
-  
+  if (!w) return null;
+
   var row = document.createElement('div');
   row.style.cssText = 'display:flex;gap:10px;margin-bottom:14px;padding:0 8px;direction:rtl;' + (who === 'user' ? 'flex-direction:row-reverse;' : '');
-  
+
   if (who === 'bot') {
     var av = document.createElement('div');
     av.style.cssText = 'width:36px;height:36px;border-radius:50%;flex-shrink:0;overflow:hidden;border:1.5px solid rgba(212,175,55,0.3);';
     av.innerHTML = '<img src="תמונה מצוינת משה גינזי.png" style="width:100%;height:100%;object-fit:cover;object-position:top" onerror="this.parentElement.innerHTML=\'<div style=color:#d4af37;text-align:center;line-height:36px;font-weight:bold>מ</div>\'">';
     row.appendChild(av);
   }
-  
+
   var b = document.createElement('div');
   b.style.cssText = 'padding:12px 16px;border-radius:16px;max-width:80%;font-size:.92rem;line-height:1.8;white-space:pre-wrap;' +
-    (who === 'bot' 
-      ? 'background:rgba(212,175,55,0.08);color:#e8e0d0;border:1px solid rgba(212,175,55,0.12);border-top-right-radius:4px;' 
+    (who === 'bot'
+      ? 'background:rgba(212,175,55,0.08);color:#e8e0d0;border:1px solid rgba(212,175,55,0.12);border-top-right-radius:4px;'
       : 'background:rgba(212,175,55,0.18);color:#e8e0d0;border-top-left-radius:4px;');
   b.textContent = txt;
   row.appendChild(b);
   w.appendChild(row);
   w.scrollTop = w.scrollHeight;
+  return b;
 }
 
 // Show typing indicator
@@ -87,72 +101,114 @@ function mgRemoveTyping() {
   if (t) t.remove();
 }
 
+// מקרב: תיבת הצעה שמופיעה אחרי תשובה שהמנוע סימן שלא כיסתה את השאלה
+// במדויק - מקבילה בדיוק לזו שנוספה ב-app.html ובאתר מקרב עצמו.
+// הערה: המספר הנכון של משה בוואטסאפ (972584094045, בלי ה-0 המקומי
+// שבטעות נשאר בכפתור אחר בקובץ app.html - ראה הסבר ליצחק בצ'אט) -
+// נלקח מהכפתור "שלח הודעה בוואטסאפ" הקיים כאן בדף הזה (index.html).
+function mgAddReferralSuggestion(question) {
+  var w = document.getElementById('mg-msgs');
+  if (!w) return;
+  var isEn = typeof currentLang !== 'undefined' && currentLang === 'en';
+  var div = document.createElement('div');
+  div.style.cssText = 'margin:0 8px 14px 8px;padding:12px 16px;border-radius:14px;font-size:.85rem;line-height:1.6;color:#e8e0d0;background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.18);';
+  var p = document.createElement('div');
+  p.textContent = isEn ? "I couldn't find a precise answer to this in the sources I have." : 'לא מצאתי לזה תשובה מדויקת מהמקורות שיש לי.';
+  div.appendChild(p);
+
+  var actions = document.createElement('div');
+  actions.style.cssText = 'display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;';
+
+  var waBtn = document.createElement('button');
+  waBtn.type = 'button';
+  waBtn.style.cssText = 'display:inline-flex;align-items:center;gap:6px;border:none;border-radius:16px;padding:7px 12px;font-size:.8rem;cursor:pointer;color:#fff;background:#25D366;';
+  waBtn.textContent = isEn ? '💬 Send to Moshe on WhatsApp' : '💬 שלח למשה בוואטסאפ';
+  waBtn.onclick = function () { window.open('https://wa.me/972584094045?text=' + encodeURIComponent(question), '_blank'); };
+  actions.appendChild(waBtn);
+
+  var followupBtn = document.createElement('button');
+  followupBtn.type = 'button';
+  var idleText = isEn ? '🔔 We will notify you when we have an answer' : '🔔 נשלח לך מענה בהתראה כשיש לנו תשובה';
+  followupBtn.style.cssText = 'display:inline-flex;align-items:center;gap:6px;border:none;border-radius:16px;padding:7px 12px;font-size:.8rem;cursor:pointer;color:#1a1408;background:#d4af37;';
+  followupBtn.textContent = idleText;
+  followupBtn.onclick = function () {
+    followupBtn.disabled = true;
+    followupBtn.style.opacity = '0.6';
+    followupBtn.textContent = isEn ? 'Please wait…' : 'רגע…';
+    fetch(MEKAREV_API + '/api/followup/request', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ userId: getMekarevUserId(), question: question }) }).then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); }).then(function () {
+      followupBtn.textContent = isEn ? '✓ Got it - we will notify you' : '✓ קיבלנו - נשלח לך התראה כשיש לנו תשובה';
+    }).catch(function () {
+      followupBtn.disabled = false; followupBtn.style.opacity = '1'; followupBtn.textContent = idleText;
+    });
+  };
+  actions.appendChild(followupBtn);
+
+  div.appendChild(actions);
+  w.appendChild(div);
+  w.scrollTop = w.scrollHeight;
+}
+
 // Send message
+// מקרב: השאלה נשלחת עכשיו לשרת של מקרב, בהזרמה (streaming, /api/chat) -
+// כדי שהתשובה תיכתב בזמן אמת. שאר הזרימה (הודעת "משה חושב...", שמירת
+// היסטוריה מקומית) נשארה בדיוק אותו דבר, רק בסוף ההזרמה במקום מיד.
 function mgSend() {
   var inp = document.getElementById('mg-inp');
   var txt = inp ? inp.value.trim() : '';
   if (!txt || mgSending) return;
   if (!mgUserName) { mgSaveName(); return; }
-  
+
   inp.value = '';
   inp.style.height = 'auto';
   mgSending = true;
   mgAddMsg(txt, 'user');
   mgShowTyping();
-  
-  var today = new Date().toLocaleDateString('he-IL', {
-    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
-  });
-  
-  fetch(DIFY_URL, {
-    method: 'POST',
-    headers: {
-      'Authorization': 'Bearer ' + DIFY_KEY,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      inputs: {
-        name: mgUserName,
-        gender: mgUserGender,
-        today: today,
-        history: (localStorage.getItem('mg-history-' + mgUserName) || '').slice(-500)
-      },
-      query: txt,
-      response_mode: 'blocking',
-      conversation_id: mgCid || undefined,
-      user: mgUserName
-    })
-  })
-  .then(function(r) {
-    if (!r.ok) throw new Error('status ' + r.status);
-    return r.json();
-  })
-  .then(function(d) {
-    mgRemoveTyping();
+
+  var fullText = '';
+  var bubbleEl = null;
+  var finalNoAnswer = false;
+  fetch(MEKAREV_API + '/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ userId: getMekarevUserId(), message: txt, lang: (typeof currentLang !== 'undefined' && currentLang === 'en') ? 'en' : 'he' }) }).then(function (res) {
+    if (!res.ok || !res.body) throw new Error('http ' + res.status);
+    var reader = res.body.getReader();
+    var decoder = new TextDecoder('utf-8');
+    var buffer = '';
+    function pump() {
+      return reader.read().then(function (chunk) {
+        if (chunk.done) return;
+        buffer += decoder.decode(chunk.value, { stream: true });
+        var idx;
+        while ((idx = buffer.indexOf('\n\n')) !== -1) {
+          var frame = buffer.slice(0, idx); buffer = buffer.slice(idx + 2);
+          var line = frame.split('\n').filter(function (l) { return l.indexOf('data: ') === 0; })[0];
+          if (!line) continue;
+          var payload; try { payload = JSON.parse(line.slice(6)); } catch (e) { continue; }
+          if (payload.type === 'delta') {
+            fullText += payload.text;
+            if (!bubbleEl) { mgRemoveTyping(); bubbleEl = mgAddMsg('', 'bot'); }
+            bubbleEl.textContent = fullText;
+            var w = document.getElementById('mg-msgs'); if (w) w.scrollTop = w.scrollHeight;
+          } else if (payload.type === 'done') {
+            finalNoAnswer = Boolean(payload.noAnswer);
+          }
+        }
+        return pump();
+      });
+    }
+    return pump();
+  }).then(function () {
     mgSending = false;
-    if (d.answer) {
-      mgCid = d.conversation_id || mgCid;
-      localStorage.setItem('mg-cid-' + mgUserName, mgCid);
-      // Save history
+    if (fullText) {
       var h = localStorage.getItem('mg-history-' + mgUserName) || '';
-      var newH = h + (h ? '\n' : '') + d.answer.substring(0, 200);
+      var newH = h + (h ? '\n' : '') + fullText.substring(0, 200);
       localStorage.setItem('mg-history-' + mgUserName, newH);
-      mgAddMsg(d.answer, 'bot');
+      if (finalNoAnswer) mgAddReferralSuggestion(txt);
     } else {
       mgAddMsg('משה לא הצליח לענות — נסו שוב 🙏', 'bot');
     }
-  })
-  .catch(function(e) {
+  }).catch(function () {
     mgRemoveTyping();
     mgSending = false;
-    // If conversation_id expired, clear and ask to retry
-    if (mgCid) {
-      mgCid = '';
-      localStorage.removeItem('mg-cid-' + mgUserName);
-      mgAddMsg('מתחבר מחדש... שלחו שוב 🔄', 'bot');
-    } else {
-      mgAddMsg('משה לא הצליח לענות — נסו שוב 🙏', 'bot');
-    }
+    mgAddMsg('משה לא הצליח לענות — נסו שוב 🙏', 'bot');
   });
 }
 
