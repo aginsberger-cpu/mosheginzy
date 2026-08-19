@@ -871,7 +871,33 @@ setInterval(function(){goS((cur+1)%slides.length)},4000);
 
 <script src="mosheginzy-fix.js"></script>
 
-  <!-- local slideshow, no vimeo needed -->
+  <!-- Language toggle -->
+<script>
+var currentLang='he';
+function setLang(lang){
+  currentLang=lang;
+  localStorage.setItem('mg-lang',lang);
+  document.getElementById('btn-lang-he').classList.toggle('active',lang==='he');
+  document.getElementById('btn-lang-en').classList.toggle('active',lang==='en');
+  document.documentElement.setAttribute('lang',lang);
+  document.documentElement.setAttribute('dir',lang==='he'?'rtl':'ltr');
+  document.querySelectorAll('[data-'+lang+']').forEach(function(el){
+    var val=el.getAttribute('data-'+lang);
+    if(!val)return;
+    if(el.tagName==='INPUT'||el.tagName==='TEXTAREA'){el.placeholder=val;return;}
+    el.innerHTML=val;
+  });
+  var mgInp=document.getElementById('mg-inp');
+  if(mgInp)mgInp.placeholder=lang==='he'?'כתוב שאלה...':'Type your question...';
+  var mgName=document.getElementById('mg-name-input');
+  if(mgName)mgName.placeholder=lang==='he'?'כתוב שמך כאן...':'Enter your name...';
+}
+(function(){
+  var saved=localStorage.getItem('mg-lang');
+  if(saved)setLang(saved);
+})();
+</script>
+<!-- local slideshow, no vimeo needed -->
   <!-- Firebase SDK --><script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-analytics-compat.js"></script>
 
