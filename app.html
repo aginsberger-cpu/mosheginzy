@@ -193,6 +193,16 @@ body.light .top-bar{background:linear-gradient(135deg,rgba(250,246,235,0.99),rgb
 .typing-dots span:nth-child(2){animation:bounce 1.2s .2s infinite}
 .typing-dots span:nth-child(3){animation:bounce 1.2s .4s infinite}
 
+/* תיבת הצעה שמופיעה אחרי תשובה שהמנוע סימן שלא כיסתה את השאלה
+   במדויק (noAnswer) - מציעה לפנות ישירות למשה בוואטסאפ, או להשאיר
+   את השאלה לבירור מעמיק ולקבל התראה כשיש תשובה. תואם למה שכבר קיים
+   באתר/אפליקציית מקרב עצמה (public/index.html, addReferralSuggestion). */
+.referral-suggestion{align-self:flex-start;max-width:82%;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px 14px;font-size:.85rem;line-height:1.6;color:var(--txt);}
+.referral-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;}
+.referral-btn{display:inline-flex;align-items:center;gap:6px;border:none;border-radius:16px;padding:7px 12px;font-size:.8rem;cursor:pointer;color:#fff;background:#25D366;touch-action:manipulation;}
+.referral-btn:disabled{opacity:.6;cursor:default;}
+.referral-btn.followup{background:var(--gold2);color:#141210;}
+
 .chat-input-bar{position:fixed;bottom:var(--nav-h);left:0;right:0;z-index:50;background:rgba(26,26,26,0.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--border);padding:10px 12px;display:flex;gap:8px;align-items:flex-end;}
 body.light .chat-input-bar{background:rgba(245,240,232,0.97);}
 .chat-input-bar.hidden{display:none;}
@@ -662,7 +672,8 @@ function addMsg(txt,who){
   var row=document.createElement('div');row.className='msg-row '+(who==='user'?'user':'');
  var av=document.createElement('div');av.className='msg-av';if(who==='bot'){av.style.backgroundImage="url('https://aginsberger-cpu.github.io/mosheginzy/%D7%AA%D7%9E%D7%95%D7%A0%D7%94%20%D7%9E%D7%A6%D7%95%D7%99%D7%A0%D7%AA%20%D7%9E%D7%A9%D7%94%20%D7%92%D7%99%D7%A0%D7%96%D7%99.png')";av.style.backgroundSize='cover';av.style.backgroundPosition='center';}else{av.textContent='☺';}
   var bubble=document.createElement('div');bubble.className='msg-bubble '+(who==='bot'?'bot':'user');bubble.textContent=txt;
-row.appendChild(av);row.appendChild(bubble);if(who==='bot'){var sb=document.createElement('button');sb.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>';sb.style.cssText='background:none;border:none;color:var(--gold);cursor:pointer;padding:4px 8px;flex-shrink:0;';sb.onclick=function(){shareAnswer(txt);};row.appendChild(sb);}w.appendChild(row);  w.scrollTop=w.scrollHeight;document.getElementById('screen-chat').scrollTop=99999;
+row.appendChild(av);row.appendChild(bubble);if(who==='bot'){var sb=document.createElement('button');sb.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>';sb.style.cssText='background:none;border:none;color:var(--gold);cursor:pointer;padding:4px 8px;flex-shrink:0;';sb.onclick=function(){shareAnswer(bubble.textContent);};row.appendChild(sb);}w.appendChild(row);  w.scrollTop=w.scrollHeight;document.getElementById('screen-chat').scrollTop=99999;
+  return bubble;
 }
 function showTyping(){
   var w=document.getElementById('chat-msgs');
@@ -681,10 +692,43 @@ function sendMsg(){
   var txt=inp.value.trim();if(!txt||isSending)return;
 inp.value='';inp.style.height='40px';isSending=true;addMsg(txt,'user');showTyping();
 // מקרב: השאלה נשלחת עכשיו לשרת של מקרב (בדיוק כמו שהאתר/אפליקציית
-// מקרב עצמה שולחת) - במקום ל-Dify. שאר הזרימה (הודעת "מקליד...",
+// מקרב עצמה שולחת) - במקום ל-Dify. בהזרמה (streaming, /api/chat, בדיוק
+// כמו ב-public/app.js של אתר מקרב) כדי שהתשובה תיכתב על המסך בזמן
+// אמת במקום להופיע כולה בבת אחת בסוף (מה שקרה עם /api/chat/simple -
+// יצחק ביקש שזה יתחיל להיכתב מייד). שאר הזרימה (הודעת "מקליד...",
 // שמירת היסטוריה מקומית, סנכרון ל-Google Sheets, הקראה בקול) נשארה
-// בדיוק אותו דבר.
-fetch(MEKAREV_API+'/api/chat/simple',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getMekarevUserId(),message:txt,lang:currentLang==='en'?'en':'he'})}).then(function(r){return r.json();}).then(function(d){rmTyping();isSending=false;if(d&&d.answer){var h=localStorage.getItem('mg-history-'+userName)||'';var newH=h+(h?'\n':'')+d.answer.substring(0,200);localStorage.setItem('mg-history-'+userName,newH);fetch(SHEET_URL+'?action=saveHistory&name='+encodeURIComponent(userName)+'&history='+encodeURIComponent(d.answer)+'&t='+Date.now())
+// בדיוק אותו דבר, רק בסוף ההזרמה במקום מיד.
+var fullText='';var bubbleEl=null;var finalNoAnswer=false;
+fetch(MEKAREV_API+'/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getMekarevUserId(),message:txt,lang:currentLang==='en'?'en':'he'})}).then(function(res){
+  if(!res.ok||!res.body)throw new Error('http '+res.status);
+  var reader=res.body.getReader();var decoder=new TextDecoder('utf-8');var buffer='';
+  function pump(){
+    return reader.read().then(function(chunk){
+      if(chunk.done)return;
+      buffer+=decoder.decode(chunk.value,{stream:true});
+      var idx;
+      while((idx=buffer.indexOf('\n\n'))!==-1){
+        var frame=buffer.slice(0,idx);buffer=buffer.slice(idx+2);
+        var line=frame.split('\n').filter(function(l){return l.indexOf('data: ')===0;})[0];
+        if(!line)continue;
+        var payload;try{payload=JSON.parse(line.slice(6));}catch(e){continue;}
+        if(payload.type==='delta'){
+          fullText+=payload.text;
+          if(!bubbleEl){rmTyping();bubbleEl=addMsg('','bot');}
+          bubbleEl.textContent=fullText;
+          var w=document.getElementById('chat-msgs');w.scrollTop=w.scrollHeight;
+        }else if(payload.type==='done'){
+          finalNoAnswer=Boolean(payload.noAnswer);
+        }
+      }
+      return pump();
+    });
+  }
+  return pump();
+}).then(function(){
+  isSending=false;
+  if(fullText){
+    var h=localStorage.getItem('mg-history-'+userName)||'';var newH=h+(h?'\n':'')+fullText.substring(0,200);localStorage.setItem('mg-history-'+userName,newH);fetch(SHEET_URL+'?action=saveHistory&name='+encodeURIComponent(userName)+'&history='+encodeURIComponent(fullText)+'&t='+Date.now())
 .then(function(r){
   return r.text();
 })
@@ -693,7 +737,47 @@ fetch(MEKAREV_API+'/api/chat/simple',{method:'POST',headers:{'Content-Type':'app
 })
 .catch(function(e){
   console.log('SHEET ERROR:',e);
-}); window._shcb=function(){};addMsg(d.answer,'bot');speakText(d.answer);}else{addMsg(currentLang==='en'?'Moshe could not respond — please try again 🙏':'משה לא הצליח לענות — נסה שוב 🙏','bot');}}).catch(function(){rmTyping();isSending=false;addMsg(currentLang==='en'?'Moshe could not respond — please try again 🙏':'משה לא הצליח לענות — נסה שוב 🙏','bot');});
+}); window._shcb=function(){};speakText(fullText);
+    // מקרב: בדיוק כמו באתר/אפליקציית מקרב עצמה - אם המנוע סימן שהתשובה
+    // לא כיסתה את השאלה במדויק (noAnswer), מציעים בנוסף פנייה ישירה
+    // למשה בוואטסאפ, או להשאיר את השאלה לבירור עם התראה בהמשך.
+    if(finalNoAnswer)addReferralSuggestion(txt);
+  }else{
+    rmTyping();addMsg(currentLang==='en'?'Moshe could not respond — please try again 🙏':'משה לא הצליח לענות — נסה שוב 🙏','bot');
+  }
+}).catch(function(){rmTyping();isSending=false;addMsg(currentLang==='en'?'Moshe could not respond — please try again 🙏':'משה לא הצליח לענות — נסה שוב 🙏','bot');});
+}
+// מקרב: תיבת הצעה שמופיעה אחרי תשובה שהמנוע סימן שלא כיסתה את השאלה
+// במדויק - מקבילה בדיוק ל-addReferralSuggestion באתר מקרב עצמו
+// (public/index.html). כפתור וואטסאפ - פותח וואטסאפ עם השאלה מוכנה
+// לשליחה, למספר של משה שכבר מוגדר באתר הזה (אותו מספר כמו בכפתור
+// "שלח הודעה בוואטסאפ" הקיים ב-index.html). כפתור "בירור מעמיק" -
+// שומר את השאלה אצל מקרב לבירור מאוחר יותר (בלי לחייב וואטסאפ עכשיו).
+function addReferralSuggestion(question){
+  var w=document.getElementById('chat-msgs');
+  var div=document.createElement('div');div.className='referral-suggestion';
+  var p=document.createElement('div');p.textContent=currentLang==='en'?"I couldn't find a precise answer to this in the sources I have.":'לא מצאתי לזה תשובה מדויקת מהמקורות שיש לי.';
+  div.appendChild(p);
+  var actions=document.createElement('div');actions.className='referral-actions';
+  var waBtn=document.createElement('button');waBtn.type='button';waBtn.className='referral-btn';
+  waBtn.textContent=currentLang==='en'?'💬 Send to Moshe on WhatsApp':'💬 שלח למשה בוואטסאפ';
+  waBtn.onclick=function(){window.open('https://wa.me/9720584094045?text='+encodeURIComponent(question),'_blank');};
+  actions.appendChild(waBtn);
+  var followupBtn=document.createElement('button');followupBtn.type='button';followupBtn.className='referral-btn followup';
+  var followupIdleText=currentLang==='en'?'🔔 We will notify you when we have an answer':'🔔 נשלח לך מענה בהתראה כשיש לנו תשובה';
+  followupBtn.textContent=followupIdleText;
+  followupBtn.onclick=function(){
+    followupBtn.disabled=true;
+    followupBtn.textContent=currentLang==='en'?'Please wait…':'רגע…';
+    fetch(MEKAREV_API+'/api/followup/request',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getMekarevUserId(),question:question})}).then(function(r){if(!r.ok)throw new Error('http '+r.status);return r.json();}).then(function(){
+      followupBtn.textContent=currentLang==='en'?'✓ Got it - we will notify you':'✓ קיבלנו - נשלח לך התראה כשיש לנו תשובה';
+    }).catch(function(){
+      followupBtn.disabled=false;followupBtn.textContent=followupIdleText;
+    });
+  };
+  actions.appendChild(followupBtn);
+  div.appendChild(actions);
+  w.appendChild(div);w.scrollTop=w.scrollHeight;
 }
 function speakText(txt){if(currentAudio){try{currentAudio.stop();}catch(e){}currentAudio=null;}var sentences=txt.match(/[^.!?؟]+[.!?؟]+/g)||[txt];var shortTxt=sentences[0].trim();if(!shortTxt||shortTxt.length<5)shortTxt=txt.substring(0,120);if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();fetch('https://api.elevenlabs.io/v1/text-to-speech/'+EL_VOICE,{method:'POST',headers:{'xi-api-key':EL_KEY,'Content-Type':'application/json'},body:JSON.stringify({text:shortTxt,model_id:'eleven_v3',voice_settings:{stability:.65,similarity_boost:.85}})}).then(function(r){if(!r.ok)throw new Error('EL status '+r.status);return r.arrayBuffer();}).then(function(buf){return audioCtx.decodeAudioData(buf);}).then(function(decoded){var src=audioCtx.createBufferSource();src.buffer=decoded;src.connect(audioCtx.destination);src.start(0);currentAudio=src;}).catch(function(e){console.warn('speakText error:',e);});}
 
