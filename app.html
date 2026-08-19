@@ -761,7 +761,7 @@ function addReferralSuggestion(question){
   var actions=document.createElement('div');actions.className='referral-actions';
   var waBtn=document.createElement('button');waBtn.type='button';waBtn.className='referral-btn';
   waBtn.textContent=currentLang==='en'?'💬 Send to Moshe on WhatsApp':'💬 שלח למשה בוואטסאפ';
-  waBtn.onclick=function(){window.open('https://wa.me/9720584094045?text='+encodeURIComponent(question),'_blank');};
+  waBtn.onclick=function(){window.open('https://wa.me/972584094045?text='+encodeURIComponent(question),'_blank');};
   actions.appendChild(waBtn);
   var followupBtn=document.createElement('button');followupBtn.type='button';followupBtn.className='referral-btn followup';
   var followupIdleText=currentLang==='en'?'🔔 We will notify you when we have an answer':'🔔 נשלח לך מענה בהתראה כשיש לנו תשובה';
