@@ -35,18 +35,42 @@ function mgSetGender(g) {
   if (bm) bm.classList.toggle('active', g === 'זכר');
 }
 
+// מקרב (update): לפני התיקון הזה, תיבת הכתיבה (mg-input-row) הייתה גלויה
+// ופעילה תמיד, גם כשהמבקר עוד לא מילא שם - כך שאפשר היה לדלג לגמרי על
+// שלב ההיכרות ולשאול שאלה ישירות. זה גרם לשתי בעיות: (1) השם/המגדר לא
+// נרשמו אצל מקרב לאותם מבקרים, ו-(2) אם בכל זאת ניסו לשלוח הודעה בלי שם,
+// mgSend היה קורא ל-mgSaveName שרק "מתמקד" בשקט בשדה השם הריק ולא עושה
+// כלום אחר - מרגיש כאילו "המערכת שואלת שוב" בלי שום הסבר. התיקון: תיבת
+// הכתיבה מוסתרת כברירת מחדל (ראה class="mg-input-row mg-hidden" ב-
+// index.html) ומוצגת רק אחרי שהשם נשמר בהצלחה - בדיוק כמו ב-app.html.
+var mgPendingMessage = '';
+
+function mgRevealInput() {
+  var row = document.getElementById('mg-input-row');
+  if (row) row.classList.remove('mg-hidden');
+}
+
 // Save name and start chat
 function mgSaveName() {
   var inp = document.getElementById('mg-name-input');
   var n = inp ? inp.value.trim() : '';
-  if (!n) { if (inp) inp.focus(); return; }
+  if (!n) {
+    if (inp) {
+      inp.focus();
+      if (inp.scrollIntoView) inp.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      inp.style.borderColor = '#e05555';
+      setTimeout(function () { inp.style.borderColor = ''; }, 1200);
+    }
+    return;
+  }
   mgUserName = n;
   localStorage.setItem('mg-user-name', n);
   localStorage.setItem('mg-user-gender', mgUserGender);
 
-  // Hide name screen
+  // Hide name screen, reveal the chat input
   var ns = document.getElementById('mg-name-screen');
   if (ns) ns.style.display = 'none';
+  mgRevealInput();
 
   // מקרב: רישום השם והמגדר אצל מקרב (בדיוק כמו ב-app.html) - לא חוסם
   // את הצגת ברכת הפתיחה, נשלח ברקע.
@@ -64,6 +88,15 @@ function mgSaveName() {
     greeting = 'שלום ' + n + '! 👋 אני משה. מה שאתה שואל בלב — אפשר לשאול אותו בקול.';
   }
   mgAddMsg(greeting, 'bot');
+
+  // אם המבקר בכל זאת הספיק להקליד שאלה לפני שמילא שם (למשל לחץ Enter
+  // בתיבת השם וגם היה טקסט ממתין), נשלח אותה עכשיו במקום לאבד אותה.
+  if (mgPendingMessage) {
+    var pending = mgPendingMessage;
+    mgPendingMessage = '';
+    var chatInp = document.getElementById('mg-inp');
+    if (chatInp) { chatInp.value = pending; mgSend(); }
+  }
 }
 
 // Add message to chat
@@ -178,7 +211,7 @@ function mgSend() {
   var inp = document.getElementById('mg-inp');
   var txt = inp ? inp.value.trim() : '';
   if (!txt || mgSending) return;
-  if (!mgUserName) { mgSaveName(); return; }
+  if (!mgUserName) { mgPendingMessage = txt; mgSaveName(); return; }
 
   inp.value = '';
   inp.style.height = 'auto';
