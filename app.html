@@ -571,6 +571,19 @@ function getMekarevUserId(){
   if(!id){id='mg-'+Date.now()+'-'+Math.random().toString(36).slice(2);localStorage.setItem('mekarev-user-id',id);}
   return id;
 }
+// מקרב (update): שני מספרי וואטסאפ נפרדים מוגדרים בשרת של מקרב עצמו
+// (/api/config, אותו מקום בדיוק שבו public/index.html של אתר מקרב שולף
+// אותם) - moshePhone (מספר כללי) ו-halachaPhone (קו הלכה ייעודי). קודם
+// כפתור הוואטסאפ כאן היה מקובע תמיד למספר אחד קבוע בקוד - זה גרם לזה
+// ששאלות הלכה הופנו לאותו מספר כללי במקום לקו ההלכה. שולפים את שניהם
+// פעם אחת מוקדם (ברקע, לא חוסם כלום) ומטמינים אותם, בדיוק כמו
+// fetchMoshePhone/cachedHalachaPhone באתר מקרב עצמו.
+var cachedMoshePhone='';
+var cachedHalachaPhone='';
+fetch(MEKAREV_API+'/api/config').then(function(r){return r.json();}).then(function(data){
+  cachedMoshePhone=data.moshePhone||'';
+  cachedHalachaPhone=data.halachaPhone||'';
+}).catch(function(){});
 var isSending=false;
   var EL_KEY='sk_0a386a44903ba282d03e112390d1e87774ce751bf08a4749';
 var EL_VOICE='jSyAO1W1N4S7u904a6Z3';
@@ -698,7 +711,7 @@ inp.value='';inp.style.height='40px';isSending=true;addMsg(txt,'user');showTypin
 // יצחק ביקש שזה יתחיל להיכתב מייד). שאר הזרימה (הודעת "מקליד...",
 // שמירת היסטוריה מקומית, סנכרון ל-Google Sheets, הקראה בקול) נשארה
 // בדיוק אותו דבר, רק בסוף ההזרמה במקום מיד.
-var fullText='';var bubbleEl=null;var finalNoAnswer=false;
+var fullText='';var bubbleEl=null;var finalNoAnswer=false;var finalIsHalacha=false;
 fetch(MEKAREV_API+'/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getMekarevUserId(),message:txt,lang:currentLang==='en'?'en':'he'})}).then(function(res){
   if(!res.ok||!res.body)throw new Error('http '+res.status);
   var reader=res.body.getReader();var decoder=new TextDecoder('utf-8');var buffer='';
@@ -719,6 +732,7 @@ fetch(MEKAREV_API+'/api/chat',{method:'POST',headers:{'Content-Type':'applicatio
           var w=document.getElementById('chat-msgs');w.scrollTop=w.scrollHeight;
         }else if(payload.type==='done'){
           finalNoAnswer=Boolean(payload.noAnswer);
+          finalIsHalacha=Boolean(payload.isHalacha);
         }
       }
       return pump();
@@ -741,7 +755,7 @@ fetch(MEKAREV_API+'/api/chat',{method:'POST',headers:{'Content-Type':'applicatio
     // מקרב: בדיוק כמו באתר/אפליקציית מקרב עצמה - אם המנוע סימן שהתשובה
     // לא כיסתה את השאלה במדויק (noAnswer), מציעים בנוסף פנייה ישירה
     // למשה בוואטסאפ, או להשאיר את השאלה לבירור עם התראה בהמשך.
-    if(finalNoAnswer)addReferralSuggestion(txt);
+    if(finalNoAnswer)addReferralSuggestion(txt,finalIsHalacha);
   }else{
     rmTyping();addMsg(currentLang==='en'?'Moshe could not respond — please try again 🙏':'משה לא הצליח לענות — נסה שוב 🙏','bot');
   }
@@ -749,19 +763,34 @@ fetch(MEKAREV_API+'/api/chat',{method:'POST',headers:{'Content-Type':'applicatio
 }
 // מקרב: תיבת הצעה שמופיעה אחרי תשובה שהמנוע סימן שלא כיסתה את השאלה
 // במדויק - מקבילה בדיוק ל-addReferralSuggestion באתר מקרב עצמו
-// (public/index.html). כפתור וואטסאפ - פותח וואטסאפ עם השאלה מוכנה
-// לשליחה, למספר של משה שכבר מוגדר באתר הזה (אותו מספר כמו בכפתור
-// "שלח הודעה בוואטסאפ" הקיים ב-index.html). כפתור "בירור מעמיק" -
-// שומר את השאלה אצל מקרב לבירור מאוחר יותר (בלי לחייב וואטסאפ עכשיו).
-function addReferralSuggestion(question){
+// (public/index.html), כולל ההבחנה בין שאלת הלכה לשאלה כללית: אם השרת
+// סימן שזו שאלת הלכה (isHalacha) וקיים מספר קו הלכה מוגדר
+// (cachedHalachaPhone) - הכפתור פונה לקו ההלכה הייעודי; אחרת (שאלה
+// כללית, או שאין קו הלכה מוגדר) - פונה למספר הכללי של משה
+// (cachedMoshePhone), בדיוק כמו שהיה קודם.
+function addReferralSuggestion(question,isHalacha){
+  var useHalacha=Boolean(isHalacha&&cachedHalachaPhone);
   var w=document.getElementById('chat-msgs');
   var div=document.createElement('div');div.className='referral-suggestion';
-  var p=document.createElement('div');p.textContent=currentLang==='en'?"I couldn't find a precise answer to this in the sources I have.":'לא מצאתי לזה תשובה מדויקת מהמקורות שיש לי.';
+  var p=document.createElement('div');
+  if(useHalacha){
+    p.textContent=currentLang==='en'?'This question deserves a precise halachic answer for your specific situation.':'זו שאלה שמגיעה לה מענה הלכתי מדויק למקרה הספציפי שלך.';
+  }else{
+    p.textContent=currentLang==='en'?"I couldn't find a precise answer to this in the sources I have.":'לא מצאתי לזה תשובה מדויקת מהמקורות שיש לי.';
+  }
   div.appendChild(p);
   var actions=document.createElement('div');actions.className='referral-actions';
   var waBtn=document.createElement('button');waBtn.type='button';waBtn.className='referral-btn';
-  waBtn.textContent=currentLang==='en'?'💬 Send to Moshe on WhatsApp':'💬 שלח למשה בוואטסאפ';
-  waBtn.onclick=function(){window.open('https://wa.me/972584094045?text='+encodeURIComponent(question),'_blank');};
+  if(useHalacha){
+    waBtn.textContent=currentLang==='en'?'📞 Contact the halacha line on WhatsApp':'📞 פנה לקו ההלכה בוואטסאפ';
+    waBtn.onclick=function(){window.open('https://wa.me/'+cachedHalachaPhone+'?text='+encodeURIComponent(question),'_blank');};
+  }else{
+    waBtn.textContent=currentLang==='en'?'💬 Send to Moshe on WhatsApp':'💬 שלח למשה בוואטסאפ';
+    waBtn.onclick=function(){
+      var phone=cachedMoshePhone||'972584094045';
+      window.open('https://wa.me/'+phone+'?text='+encodeURIComponent(question),'_blank');
+    };
+  }
   actions.appendChild(waBtn);
   var followupBtn=document.createElement('button');followupBtn.type='button';followupBtn.className='referral-btn followup';
   var followupIdleText=currentLang==='en'?'🔔 We will notify you when we have an answer':'🔔 נשלח לך מענה בהתראה כשיש לנו תשובה';
