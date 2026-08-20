@@ -292,6 +292,7 @@ nav::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;backgrou
   display:flex;gap:10px;align-items:center;
   flex-shrink:0;backdrop-filter:blur(35px) brightness(1.2)
 }
+.mg-input-row.mg-hidden{display:none;}
 #mg-inp{flex:1;background:linear-gradient(135deg,rgba(15,45,82,0.4),rgba(10,25,41,0.3));border:2px solid var(--border);border-radius:18px;padding:10px 18px;color:#ffffff;font-size:16px;font-family:var(--font-body);outline:none;direction:rtl;text-align:right;unicode-bidi:plaintext;-webkit-appearance:none;transition:all .2s;resize:none;min-height:58px;max-height:120px;line-height:1.45;overflow-y:auto;backdrop-filter:blur(35px) brightness(1.2)}
 .mg-input-row{align-items:flex-end;}
 #mg-inp:focus{border-color:var(--gold3);box-shadow:0 0 20px rgba(212,175,55,0.4)}
@@ -635,7 +636,7 @@ setInterval(function(){goS((cur+1)%slides.length)},4000);
         </div>
       </div>
 
-      <div class="mg-input-row">
+      <div class="mg-input-row mg-hidden" id="mg-input-row">
         <button class="mg-send-btn" onclick="mgSend()">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="#0f1f3d"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
         </button>
