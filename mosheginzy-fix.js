@@ -13,6 +13,15 @@ function getMekarevUserId() {
   if (!id) { id = 'mg-' + Date.now() + '-' + Math.random().toString(36).slice(2); localStorage.setItem('mekarev-user-id', id); }
   return id;
 }
+// מקרב (update): שני מספרי וואטסאפ נפרדים מוגדרים בשרת של מקרב עצמו
+// (/api/config) - moshePhone (כללי) ו-halachaPhone (קו הלכה ייעודי).
+// שולפים פעם אחת מוקדם ומטמינים - ראה mgAddReferralSuggestion למטה.
+var mgCachedMoshePhone = '';
+var mgCachedHalachaPhone = '';
+fetch(MEKAREV_API + '/api/config').then(function (r) { return r.json(); }).then(function (data) {
+  mgCachedMoshePhone = data.moshePhone || '';
+  mgCachedHalachaPhone = data.halachaPhone || '';
+}).catch(function () {});
 var mgSending = false;
 var mgUserName = '';
 var mgUserGender = '';
@@ -102,18 +111,23 @@ function mgRemoveTyping() {
 }
 
 // מקרב: תיבת הצעה שמופיעה אחרי תשובה שהמנוע סימן שלא כיסתה את השאלה
-// במדויק - מקבילה בדיוק לזו שנוספה ב-app.html ובאתר מקרב עצמו.
-// הערה: המספר הנכון של משה בוואטסאפ (972584094045, בלי ה-0 המקומי
-// שבטעות נשאר בכפתור אחר בקובץ app.html - ראה הסבר ליצחק בצ'אט) -
-// נלקח מהכפתור "שלח הודעה בוואטסאפ" הקיים כאן בדף הזה (index.html).
-function mgAddReferralSuggestion(question) {
+// במדויק - מקבילה בדיוק לזו שנוספה ב-app.html ובאתר מקרב עצמו, כולל
+// ההבחנה בין שאלת הלכה (פונה לקו ההלכה, mgCachedHalachaPhone) לשאלה
+// כללית (פונה למשה, mgCachedMoshePhone) - ראה ההסבר המלא ליד
+// mgCachedMoshePhone/mgCachedHalachaPhone למעלה.
+function mgAddReferralSuggestion(question, isHalacha) {
+  var useHalacha = Boolean(isHalacha && mgCachedHalachaPhone);
   var w = document.getElementById('mg-msgs');
   if (!w) return;
   var isEn = typeof currentLang !== 'undefined' && currentLang === 'en';
   var div = document.createElement('div');
   div.style.cssText = 'margin:0 8px 14px 8px;padding:12px 16px;border-radius:14px;font-size:.85rem;line-height:1.6;color:#e8e0d0;background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.18);';
   var p = document.createElement('div');
-  p.textContent = isEn ? "I couldn't find a precise answer to this in the sources I have." : 'לא מצאתי לזה תשובה מדויקת מהמקורות שיש לי.';
+  if (useHalacha) {
+    p.textContent = isEn ? 'This question deserves a precise halachic answer for your specific situation.' : 'זו שאלה שמגיעה לה מענה הלכתי מדויק למקרה הספציפי שלך.';
+  } else {
+    p.textContent = isEn ? "I couldn't find a precise answer to this in the sources I have." : 'לא מצאתי לזה תשובה מדויקת מהמקורות שיש לי.';
+  }
   div.appendChild(p);
 
   var actions = document.createElement('div');
@@ -122,8 +136,16 @@ function mgAddReferralSuggestion(question) {
   var waBtn = document.createElement('button');
   waBtn.type = 'button';
   waBtn.style.cssText = 'display:inline-flex;align-items:center;gap:6px;border:none;border-radius:16px;padding:7px 12px;font-size:.8rem;cursor:pointer;color:#fff;background:#25D366;';
-  waBtn.textContent = isEn ? '💬 Send to Moshe on WhatsApp' : '💬 שלח למשה בוואטסאפ';
-  waBtn.onclick = function () { window.open('https://wa.me/972584094045?text=' + encodeURIComponent(question), '_blank'); };
+  if (useHalacha) {
+    waBtn.textContent = isEn ? '📞 Contact the halacha line on WhatsApp' : '📞 פנה לקו ההלכה בוואטסאפ';
+    waBtn.onclick = function () { window.open('https://wa.me/' + mgCachedHalachaPhone + '?text=' + encodeURIComponent(question), '_blank'); };
+  } else {
+    waBtn.textContent = isEn ? '💬 Send to Moshe on WhatsApp' : '💬 שלח למשה בוואטסאפ';
+    waBtn.onclick = function () {
+      var phone = mgCachedMoshePhone || '972584094045';
+      window.open('https://wa.me/' + phone + '?text=' + encodeURIComponent(question), '_blank');
+    };
+  }
   actions.appendChild(waBtn);
 
   var followupBtn = document.createElement('button');
@@ -167,6 +189,7 @@ function mgSend() {
   var fullText = '';
   var bubbleEl = null;
   var finalNoAnswer = false;
+  var finalIsHalacha = false;
   fetch(MEKAREV_API + '/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ userId: getMekarevUserId(), message: txt, lang: (typeof currentLang !== 'undefined' && currentLang === 'en') ? 'en' : 'he' }) }).then(function (res) {
     if (!res.ok || !res.body) throw new Error('http ' + res.status);
     var reader = res.body.getReader();
@@ -189,6 +212,7 @@ function mgSend() {
             var w = document.getElementById('mg-msgs'); if (w) w.scrollTop = w.scrollHeight;
           } else if (payload.type === 'done') {
             finalNoAnswer = Boolean(payload.noAnswer);
+            finalIsHalacha = Boolean(payload.isHalacha);
           }
         }
         return pump();
@@ -201,7 +225,7 @@ function mgSend() {
       var h = localStorage.getItem('mg-history-' + mgUserName) || '';
       var newH = h + (h ? '\n' : '') + fullText.substring(0, 200);
       localStorage.setItem('mg-history-' + mgUserName, newH);
-      if (finalNoAnswer) mgAddReferralSuggestion(txt);
+      if (finalNoAnswer) mgAddReferralSuggestion(txt, finalIsHalacha);
     } else {
       mgAddMsg('משה לא הצליח לענות — נסו שוב 🙏', 'bot');
     }
