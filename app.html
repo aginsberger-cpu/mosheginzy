@@ -711,7 +711,7 @@ inp.value='';inp.style.height='40px';isSending=true;addMsg(txt,'user');showTypin
 // יצחק ביקש שזה יתחיל להיכתב מייד). שאר הזרימה (הודעת "מקליד...",
 // שמירת היסטוריה מקומית, סנכרון ל-Google Sheets, הקראה בקול) נשארה
 // בדיוק אותו דבר, רק בסוף ההזרמה במקום מיד.
-var fullText='';var bubbleEl=null;var finalNoAnswer=false;var finalIsHalacha=false;
+var fullText='';var bubbleEl=null;var finalNoAnswer=false;var finalIsHalacha=false;var finalVideos=[];
 fetch(MEKAREV_API+'/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getMekarevUserId(),message:txt,lang:currentLang==='en'?'en':'he'})}).then(function(res){
   if(!res.ok||!res.body)throw new Error('http '+res.status);
   var reader=res.body.getReader();var decoder=new TextDecoder('utf-8');var buffer='';
@@ -733,6 +733,15 @@ fetch(MEKAREV_API+'/api/chat',{method:'POST',headers:{'Content-Type':'applicatio
         }else if(payload.type==='done'){
           finalNoAnswer=Boolean(payload.noAnswer);
           finalIsHalacha=Boolean(payload.isHalacha);
+          // מקרב: השרת מחזיר כאן גם עד שני סרטונים רלוונטיים שנבחרו
+          // אוטומטית לפי השאלה/התשובה (ראה getVideoSuggestions ב-
+          // server.js של מקרב) - עד עכשיו השדה הזה פשוט לא נקרא כאן
+          // בכלל, אז אף פעם לא הוצג סרטון בגרסת האפליקציה הזו (בניגוד
+          // לאתר/אפליקציית מקרב עצמה, public/index.html, ששם זה כן
+          // עבד) - זו בדיוק הסיבה שבגללה שאלות כמו "שרצים בדגי הסלמון"
+          // או "צבא לחרדים" מעולם לא הראו סרטון פה, למרות שהשרת בחר
+          // אותו נכון בכל פעם.
+          finalVideos=Array.isArray(payload.videos)?payload.videos:[];
         }
       }
       return pump();
@@ -756,6 +765,7 @@ fetch(MEKAREV_API+'/api/chat',{method:'POST',headers:{'Content-Type':'applicatio
     // לא כיסתה את השאלה במדויק (noAnswer), מציעים בנוסף פנייה ישירה
     // למשה בוואטסאפ, או להשאיר את השאלה לבירור עם התראה בהמשך.
     if(finalNoAnswer)addReferralSuggestion(txt,finalIsHalacha);
+    if(finalVideos&&finalVideos.length)addVideoSuggestions(finalVideos);
   }else{
     rmTyping();addMsg(currentLang==='en'?'Moshe could not respond — please try again 🙏':'משה לא הצליח לענות — נסה שוב 🙏','bot');
   }
@@ -807,6 +817,29 @@ function addReferralSuggestion(question,isHalacha){
   actions.appendChild(followupBtn);
   div.appendChild(actions);
   w.appendChild(div);w.scrollTop=w.scrollHeight;
+}
+// מקרב: מציג אחרי תשובת הבוט עד שני כפתורי "סרטון מומלץ" - מקביל בדיוק
+// ל-addVideoSuggestions באתר/אפליקציית מקרב עצמה (public/index.html),
+// רק שכאן, בהתאם לעיצוב הקיים של האפליקציה הזו, לא מטמיעים את הנגן
+// ישירות בתוך הצ'אט אלא משתמשים בפופאפ הווידאו הקיים (openVideo, אותו
+// אחד שמשמש את "ספריית שיעורים") - לחיצה על הכפתור פותחת אותו במסך מלא.
+function addVideoSuggestions(videos){
+  var w=document.getElementById('chat-msgs');
+  videos.forEach(function(v){
+    if(!v||!v.youtubeId)return;
+    var div=document.createElement('div');div.className='referral-suggestion';
+    var p=document.createElement('div');
+    p.textContent=currentLang==='en'?'This might help too - a short explanation video:':'זה עשוי לעזור גם - סרטון הסבר קצר:';
+    div.appendChild(p);
+    var actions=document.createElement('div');actions.className='referral-actions';
+    var btn=document.createElement('button');btn.type='button';btn.className='referral-btn followup';
+    btn.textContent='▶ '+(v.title||(currentLang==='en'?'Watch video':'צפייה בסרטון'));
+    btn.onclick=function(){openVideo(v.youtubeId,v.title);};
+    actions.appendChild(btn);
+    div.appendChild(actions);
+    w.appendChild(div);
+  });
+  w.scrollTop=w.scrollHeight;
 }
 function speakText(txt){if(currentAudio){try{currentAudio.stop();}catch(e){}currentAudio=null;}var sentences=txt.match(/[^.!?؟]+[.!?؟]+/g)||[txt];var shortTxt=sentences[0].trim();if(!shortTxt||shortTxt.length<5)shortTxt=txt.substring(0,120);if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();fetch('https://api.elevenlabs.io/v1/text-to-speech/'+EL_VOICE,{method:'POST',headers:{'xi-api-key':EL_KEY,'Content-Type':'application/json'},body:JSON.stringify({text:shortTxt,model_id:'eleven_v3',voice_settings:{stability:.65,similarity_boost:.85}})}).then(function(r){if(!r.ok)throw new Error('EL status '+r.status);return r.arrayBuffer();}).then(function(buf){return audioCtx.decodeAudioData(buf);}).then(function(decoded){var src=audioCtx.createBufferSource();src.buffer=decoded;src.connect(audioCtx.destination);src.start(0);currentAudio=src;}).catch(function(e){console.warn('speakText error:',e);});}
 
@@ -935,10 +968,11 @@ function openMP4(url){
 }
 
 // VIDEO
-function openVideo(id){
+function openVideo(id,title){
   var vid=document.getElementById('vpop-video');if(vid){vid.pause();vid.src='';vid.style.display='none';}
   document.getElementById('vpop-iframe').style.display='block';
   document.getElementById('vpop-iframe').src='https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0&playsinline=1';
+  var titleEl=document.getElementById('vpop-title');if(titleEl)titleEl.textContent=title||'';
   document.getElementById('video-popup').classList.add('open');
   // Try fullscreen on mobile
   var el=document.getElementById('video-popup');
