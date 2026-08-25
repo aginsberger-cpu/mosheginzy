@@ -203,6 +203,21 @@ body.light .top-bar{background:linear-gradient(135deg,rgba(250,246,235,0.99),rgb
 .referral-btn:disabled{opacity:.6;cursor:default;}
 .referral-btn.followup{background:var(--gold2);color:#141210;}
 
+/* מקרב: כרטיס דירוג שיחה - מוצג פעם אחת בכל שיחה, אחרי כמה שאלות
+   (השרת כבר קובע מתי, ראה showRatingPrompt ב-server.js) - זהה בתפקוד
+   ל-addRatingPrompt שכבר קיים באתר/אפליקציית מקרב עצמה
+   (public/index.html), רק שכאן, כמו שאר תיבות ההצעה בקובץ הזה, לא
+   נקרא עד עכשיו בכלל מה-payload שהשרת שולח (בדיוק כמו שקרה לפני כן
+   עם videos) - זו הסיבה שהדירוג "הפסיק לעבוד": הוא בעצם אף פעם לא
+   עבד באפליקציה הזו, רק באתר. */
+.rating-prompt{align-self:flex-start;max-width:82%;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px 14px;font-size:.85rem;line-height:1.6;color:var(--txt);}
+.rating-prompt-title{margin-bottom:8px;}
+.rating-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
+.rating-chip{border:1px solid var(--border2);background:transparent;color:var(--txt);border-radius:16px;padding:6px 12px;font-size:.78rem;cursor:pointer;touch-action:manipulation;font-family:var(--font);}
+.rating-chip.selected{background:linear-gradient(135deg,var(--gold3),var(--gold2));color:#0f0f0f;border-color:transparent;}
+.rating-submit-btn{border:none;border-radius:16px;padding:7px 14px;font-size:.8rem;cursor:pointer;color:#0f0f0f;background:linear-gradient(135deg,var(--gold3),var(--gold2));font-family:var(--font);}
+.rating-submit-btn:disabled{opacity:.5;cursor:default;}
+
 .chat-input-bar{position:fixed;bottom:var(--nav-h);left:0;right:0;z-index:50;background:rgba(26,26,26,0.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--border);padding:10px 12px;display:flex;gap:8px;align-items:flex-end;}
 body.light .chat-input-bar{background:rgba(245,240,232,0.97);}
 .chat-input-bar.hidden{display:none;}
@@ -722,7 +737,7 @@ inp.value='';inp.style.height='40px';isSending=true;addMsg(txt,'user');showTypin
 // יצחק ביקש שזה יתחיל להיכתב מייד). שאר הזרימה (הודעת "מקליד...",
 // שמירת היסטוריה מקומית, סנכרון ל-Google Sheets, הקראה בקול) נשארה
 // בדיוק אותו דבר, רק בסוף ההזרמה במקום מיד.
-var fullText='';var bubbleEl=null;var finalNoAnswer=false;var finalIsHalacha=false;var finalVideos=[];
+var fullText='';var bubbleEl=null;var finalNoAnswer=false;var finalIsHalacha=false;var finalVideos=[];var finalShowRatingPrompt=false;
 fetch(MEKAREV_API+'/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getMekarevUserId(),message:txt,lang:currentLang==='en'?'en':'he'})}).then(function(res){
   if(!res.ok||!res.body)throw new Error('http '+res.status);
   var reader=res.body.getReader();var decoder=new TextDecoder('utf-8');var buffer='';
@@ -753,6 +768,10 @@ fetch(MEKAREV_API+'/api/chat',{method:'POST',headers:{'Content-Type':'applicatio
           // או "צבא לחרדים" מעולם לא הראו סרטון פה, למרות שהשרת בחר
           // אותו נכון בכל פעם.
           finalVideos=Array.isArray(payload.videos)?payload.videos:[];
+          // מקרב: אותו דבר בדיוק קרה עם דירוג השיחה (showRatingPrompt) -
+          // השדה פשוט לא נקרא כאן, אז זה "הפסיק לעבוד" באפליקציה הזו
+          // כי הוא בעצם אף פעם לא עבד כאן (רק באתר, public/index.html).
+          finalShowRatingPrompt=Boolean(payload.showRatingPrompt);
         }
       }
       return pump();
@@ -777,6 +796,7 @@ fetch(MEKAREV_API+'/api/chat',{method:'POST',headers:{'Content-Type':'applicatio
     // למשה בוואטסאפ, או להשאיר את השאלה לבירור עם התראה בהמשך.
     if(finalNoAnswer)addReferralSuggestion(txt,finalIsHalacha);
     if(finalVideos&&finalVideos.length)addVideoSuggestions(finalVideos);
+    if(finalShowRatingPrompt)addRatingPrompt();
   }else{
     rmTyping();addMsg(currentLang==='en'?'Moshe could not respond — please try again 🙏':'משה לא הצליח לענות — נסה שוב 🙏','bot');
   }
@@ -863,6 +883,56 @@ function addVideoSuggestions(videos){
     w.appendChild(div);
   });
   w.scrollTop=w.scrollHeight;
+}
+// מקרב: כרטיס דירוג שיחה - מקביל בדיוק ל-addRatingPrompt באתר/
+// אפליקציית מקרב עצמה (public/index.html). בחירה מרובה (אפשר לסמן כמה
+// תגיות יחד), ולחיצה על "שלח" שולחת אותן ומחליפה את הכרטיס בהודעת
+// תודה קצרה כדי שלא אפשר יהיה לשלוח שוב.
+var RATING_CHIPS=[
+  {value:'נחמד',he:'נחמד',en:'Nice',negative:false},
+  {value:'מעניין',he:'מעניין',en:'Interesting',negative:false},
+  {value:'מועיל',he:'מועיל',en:'Helpful',negative:false},
+  {value:'מחכים',he:'מחכים',en:'Insightful',negative:false},
+  {value:'לא_רלוונטי',he:'לא רלוונטי',en:'Not relevant',negative:true},
+  {value:'לא_ברור',he:'לא ברור',en:'Unclear',negative:true},
+  {value:'משעמם',he:'משעמם',en:'Boring',negative:true}
+];
+function submitConversationRating(tags){
+  return fetch(MEKAREV_API+'/api/chat/rating',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getMekarevUserId(),tags:tags})}).catch(function(){});
+}
+function addRatingPrompt(){
+  var w=document.getElementById('chat-msgs');
+  var div=document.createElement('div');div.className='rating-prompt';
+  var title=document.createElement('div');title.className='rating-prompt-title';
+  title.textContent=currentLang==='en'?'How was this conversation?':'איך הייתה השיחה?';
+  div.appendChild(title);
+  var chipsWrap=document.createElement('div');chipsWrap.className='rating-chips';
+  var selected={};
+  RATING_CHIPS.forEach(function(c){
+    var chip=document.createElement('button');chip.type='button';
+    chip.className='rating-chip'+(c.negative?' negative':'');
+    chip.textContent=currentLang==='en'?c.en:c.he;
+    chip.onclick=function(){
+      if(selected[c.value]){delete selected[c.value];chip.classList.remove('selected');}
+      else{selected[c.value]=true;chip.classList.add('selected');}
+      submitBtn.disabled=Object.keys(selected).length===0;
+    };
+    chipsWrap.appendChild(chip);
+  });
+  div.appendChild(chipsWrap);
+  var submitBtn=document.createElement('button');submitBtn.type='button';submitBtn.className='rating-submit-btn';
+  submitBtn.textContent=currentLang==='en'?'Send':'שלח';
+  submitBtn.disabled=true;
+  submitBtn.onclick=function(){
+    submitBtn.disabled=true;
+    submitBtn.textContent=currentLang==='en'?'Sending…':'שולח…';
+    submitConversationRating(Object.keys(selected)).then(function(){
+      chipsWrap.remove();submitBtn.remove();
+      title.textContent=currentLang==='en'?'Thanks! 🙏':'תודה! 🙏';
+    });
+  };
+  div.appendChild(submitBtn);
+  w.appendChild(div);w.scrollTop=w.scrollHeight;
 }
 function speakText(txt){if(currentAudio){try{currentAudio.stop();}catch(e){}currentAudio=null;}var sentences=txt.match(/[^.!?؟]+[.!?؟]+/g)||[txt];var shortTxt=sentences[0].trim();if(!shortTxt||shortTxt.length<5)shortTxt=txt.substring(0,120);if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();fetch('https://api.elevenlabs.io/v1/text-to-speech/'+EL_VOICE,{method:'POST',headers:{'xi-api-key':EL_KEY,'Content-Type':'application/json'},body:JSON.stringify({text:shortTxt,model_id:'eleven_v3',voice_settings:{stability:.65,similarity_boost:.85}})}).then(function(r){if(!r.ok)throw new Error('EL status '+r.status);return r.arrayBuffer();}).then(function(buf){return audioCtx.decodeAudioData(buf);}).then(function(decoded){var src=audioCtx.createBufferSource();src.buffer=decoded;src.connect(audioCtx.destination);src.start(0);currentAudio=src;}).catch(function(e){console.warn('speakText error:',e);});}
 
