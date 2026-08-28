@@ -32,4 +32,6 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-process:2.3.1'
     implementation 'androidx.lifecycle:lifecycle-common-java8:2.3.1'
     implementation 'com.android.installreferrer:installreferrer:2.2'
+        implementation 'com.google.firebase:firebase-messaging:24.1.0'
+    implementation platform('com.google.firebase:firebase-bom:33.7.0')
 }
