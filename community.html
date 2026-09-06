@@ -24,140 +24,44 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:var(--font);background:var(--bg);color:var(--pri);min-height:100vh;max-width:520px;margin:0 auto;-webkit-tap-highlight-color:transparent}
 button{cursor:pointer;font-family:var(--font);border:none;background:none}
-textarea{font-family:var(--font)}
+textarea,input{font-family:var(--font)}
 .glass{background:var(--card);border-radius:var(--r);border:1px solid var(--border);padding:18px;box-shadow:0 3px 16px rgba(0,0,0,0.25)}
 .glass.glow{border-color:var(--gold-b);box-shadow:0 0 24px rgba(201,168,76,0.06)}
 .badge{background:var(--gold-dim);color:var(--gold);padding:3px 10px;border-radius:16px;font-size:11px;font-weight:600;border:1px solid var(--gold-b);display:inline-block}
-.avatar{border-radius:50%;background:rgba(201,168,76,0.12);border:1.5px solid rgba(201,168,76,0.3);display:flex;align-items:center;justify-content:center;color:var(--gold);font-weight:700;flex-shrink:0}
 .gold-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,var(--gold),var(--gold-l));color:#0d0d0d;padding:12px 22px;border-radius:var(--rs);font-size:15px;font-weight:700;box-shadow:0 4px 14px rgba(201,168,76,0.2);transition:all 0.2s;width:100%}
 .light .gold-btn{color:#fff}
 .gold-btn:disabled{background:var(--border);color:var(--muted);box-shadow:none}
-.wa-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:#25D366;color:#fff;padding:13px 20px;border-radius:var(--r);font-size:15px;font-weight:600;width:100%}
 
-/* Header */
-.header{padding:40px 18px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.header{padding:16px 18px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
 .header-left{display:flex;align-items:center;gap:12px}
 .header img{width:42px;height:42px;border-radius:50%;border:2px solid var(--gold);object-fit:cover}
 .header h1{font-size:19px;font-weight:700;color:var(--gold);font-style:italic}
-.header .sub{font-size:11px;color:var(--muted);margin-top:1px}
 .header-right{display:flex;align-items:center;gap:8px}
 .theme-btn{background:var(--border);border-radius:20px;padding:6px 10px;font-size:14px}
 .lang-wrap{display:flex;border-radius:20px;overflow:hidden;border:1px solid var(--gold-b)}
 .lang-btn{padding:5px 12px;font-size:12px;font-weight:700;color:var(--muted);transition:0.2s}
 .lang-btn.active{background:rgba(201,168,76,0.15);color:var(--gold)}
 
-/* Tabs */
 .tabs{display:flex;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:20;background:var(--bg)}
 .tab-btn{flex:1;padding:12px 4px 9px;display:flex;flex-direction:column;align-items:center;gap:3px;border-bottom:2px solid transparent;transition:0.2s}
 .tab-btn.active{border-bottom-color:var(--gold)}
-.tab-btn .emoji{font-size:16px;color:var(--muted);display:flex;align-items:center;justify-content:center}
-.tab-btn.active .emoji{color:var(--gold)}
+.tab-btn .emoji{font-size:16px}
 .tab-btn .label{font-size:10px;font-weight:500;color:var(--muted)}
 .tab-btn.active .label{font-weight:700;color:var(--gold)}
-.tab-content{padding:16px 14px;display:flex;flex-direction:column;gap:14px;padding-bottom:40px}
-.tab-panel{display:none}.tab-panel.active{display:block}
+.tab-content{padding:16px 14px;display:none;flex-direction:column;gap:14px;padding-bottom:40px}.tab-content.active{display:flex}
 
-/* Question */
-.q-top-bar{height:3px;background:linear-gradient(90deg,var(--gold),transparent);border-radius:var(--r) var(--r) 0 0}
-.q-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-.q-title{font-size:20px;font-weight:700;color:var(--white);line-height:1.7;margin-bottom:10px}
-.q-body{font-size:14px;color:var(--sec);line-height:1.85}
-.vid-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;padding:12px 18px;font-size:14px;font-weight:600;color:var(--gold)}
-.vid-placeholder{width:100%;padding-bottom:56.25%;position:relative;background:rgba(0,0,0,0.3)}
-.light .vid-placeholder{background:rgba(0,0,0,0.05)}
-.vid-placeholder-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
-.vid-play{width:64px;height:64px;border-radius:50%;background:rgba(201,168,76,0.1);border:2px solid rgba(201,168,76,0.3);display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--gold)}
-.input-area textarea{width:100%;padding:12px;border-radius:var(--rs);border:1px solid var(--border);font-size:14px;resize:vertical;background:var(--input);color:var(--pri);outline:none;line-height:1.7}
-.input-area textarea:focus{border-color:var(--gold-b)}
-.responses-header{display:flex;justify-content:space-between;align-items:center}
-.responses-header span:first-child{font-size:15px;font-weight:700;color:var(--white)}
-.responses-header span:last-child{font-size:12px;color:var(--muted)}
-.resp-card{display:flex;gap:12px;padding:14px}
-.resp-vote{display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px}
-.resp-vote .heart{font-size:16px;color:var(--muted);cursor:pointer;transition:0.2s}
-.resp-vote .heart.voted{color:var(--gold)}
-.resp-vote .count{font-size:13px;font-weight:700;color:var(--muted)}
-.resp-vote .count.voted{color:var(--gold)}
-.resp-meta{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
-.resp-author{font-weight:600;font-size:13px;color:var(--pri)}
-.resp-time{font-size:11px;color:var(--muted)}
-.resp-text{font-size:14px;color:var(--pri);line-height:1.8}
-
-/* Forum */
-.forum-cats{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}
-.cat-btn{padding:7px 14px;border-radius:18px;font-size:12px;font-weight:600;border:1px solid transparent;white-space:nowrap;background:var(--border);color:var(--muted);transition:0.2s}
-.cat-btn.active{border-color:var(--gold-b);background:rgba(201,168,76,0.1);color:var(--gold)}
-.thread-card{padding:14px;cursor:pointer}
-.thread-title{font-size:14px;font-weight:600;color:var(--white);line-height:1.5;margin-bottom:4px}
-.thread-meta{font-size:11px;color:var(--muted)}
-.thread-author-mg{color:var(--gold)!important}
-.official-card{border-color:var(--gold-b)!important}
-.official-card .of-meta{display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.official-card img{width:32px;height:32px;border-radius:50%;border:2px solid var(--gold);object-fit:cover}
-.official-card .of-name{font-weight:700;font-size:13px;color:var(--gold)}
-.official-card .of-text{font-size:14px;color:var(--pri);line-height:1.85}
-
-/* Quiz */
-.quiz-intro{text-align:center;padding:36px 20px}
-.quiz-icon{width:70px;height:70px;border-radius:50%;margin:0 auto 18px;background:var(--gold-dim);border:2px solid var(--gold-b);display:flex;align-items:center;justify-content:center;font-size:32px}
-.quiz-title{font-size:22px;font-weight:800;color:var(--white);margin-bottom:6px}
-.quiz-sub{font-size:14px;color:var(--sec);margin-bottom:4px}
-.quiz-info{font-size:12px;color:var(--muted)}
-.quiz-rules{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:13px;color:var(--sec)}
-.quiz-progress{display:flex;align-items:center;gap:10px}
-.quiz-progress .num{font-size:12px;color:var(--muted)}
-.quiz-progress .bar{flex:1;height:4px;background:var(--border);border-radius:2px;overflow:hidden}
-.quiz-progress .fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-l));border-radius:2px;transition:width 0.4s}
-.q-question{font-size:18px;font-weight:700;color:var(--white);line-height:1.7}
-.opt-btn{display:flex;align-items:center;gap:12px;padding:13px 16px;border-radius:var(--r);border:1.5px solid var(--border);background:var(--card);font-size:15px;color:var(--pri);font-weight:500;text-align:inherit;transition:0.2s;width:100%}
-.opt-btn.correct{background:var(--ok-bg);border-color:rgba(93,186,114,0.4);color:var(--ok)}
-.opt-btn.wrong{background:var(--err-bg);border-color:rgba(212,85,85,0.4);color:var(--err)}
-.opt-circle{width:30px;height:30px;border-radius:50%;flex-shrink:0;background:var(--border);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--muted)}
-.opt-btn.correct .opt-circle{background:rgba(93,186,114,0.15);border-color:var(--ok);color:var(--ok)}
-.opt-btn.wrong .opt-circle{background:rgba(212,85,85,0.15);border-color:var(--err);color:var(--err)}
-.explanation{font-size:14px;color:var(--pri);line-height:1.8}
-.result-circle{width:90px;height:90px;border-radius:50%;margin:0 auto 16px;background:rgba(201,168,76,0.1);border:3px solid var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center}
-.result-score{font-size:26px;font-weight:800;color:var(--gold)}
-.result-of{font-size:11px;color:var(--muted)}
-.hist-row{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:var(--rs);margin-bottom:4px}
-.hist-row.ok{background:var(--ok-bg)}.hist-row.fail{background:var(--err-bg)}
-.hist-row .icon{font-size:14px}.hist-row.ok .icon{color:var(--ok)}.hist-row.fail .icon{color:var(--err)}
-.hist-row .txt{font-size:13px;color:var(--pri)}
-
-/* Leaderboard */
-.podium{display:flex;justify-content:center;align-items:flex-end;gap:6px;padding:16px 8px 0}
-.pod-col{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;max-width:100px}
-.pod-medal{font-size:26px}
-.pod-name{font-size:11px;font-weight:700;color:var(--white);text-align:center}
-.pod-bar{width:100%;border-radius:10px 10px 0 0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.pod-pts{font-size:18px;font-weight:800}.pod-lbl{font-size:9px;color:var(--muted)}
-.lb-row{display:flex;align-items:center;gap:12px;padding:12px 14px}
-.lb-rank{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0}
-.lb-name{font-size:14px;font-weight:600;color:var(--pri)}
-.lb-stats{font-size:11px;color:var(--muted)}
-.lb-pts{font-size:16px;font-weight:800}
-.my-stats{display:flex;justify-content:space-around;text-align:center}
-.my-stats .val{font-size:20px;font-weight:800;color:var(--gold-l)}
-.my-stats .lbl{font-size:10px;color:var(--muted);margin-top:2px}
-
-/* Loading */
-.loading{display:flex;justify-content:center;padding:40px;color:var(--muted);font-size:14px}
-.hidden{display:none!important}
-
-/* YouTube embed */
-.yt-wrap{position:relative;width:100%;padding-bottom:56.25%;border-radius:0 0 var(--r) var(--r);overflow:hidden}
-.yt-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+.loading{color:var(--muted);font-size:13px;padding:20px;text-align:center}
 </style>
 </head>
 <body>
 
 <!-- HEADER -->
-<div class="header" id="header">
+<div class="header">
   <div class="header-left">
     <img id="moshePhoto" src="" alt="Moshe Ginzy">
     <div>
-      <h1 id="headerTitle">משה גינזי</h1>
-      <div class="sub" id="headerSub">קהילת לימוד · שאל · ענה · למד</div>
+      <h1>משה גינזי</h1>
+      <div style="font-size:12px;color:var(--muted)">קהילת לימוד</div>
     </div>
   </div>
   <div class="header-right">
@@ -172,41 +76,37 @@ textarea{font-family:var(--font)}
 <!-- TABS -->
 <div class="tabs" id="tabBar">
   <button class="tab-btn active" data-tab="question" onclick="switchTab('question')">
-    <span class="emoji"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 21h6M12 3a6 6 0 00-3 11.19V17h6v-2.81A6 6 0 0012 3z"/></svg></span><span class="label" data-i="tab_q">שאלת היום</span>
+    <span class="emoji">💡</span><span class="label">שאלה</span>
   </button>
   <button class="tab-btn" data-tab="forum" onclick="switchTab('forum')">
-    <span class="emoji"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></span><span class="label" data-i="tab_f">פורום</span>
+    <span class="emoji">💬</span><span class="label">פורום</span>
   </button>
   <button class="tab-btn" data-tab="quiz" onclick="switchTab('quiz')">
-    <span class="emoji"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 15l-2 5l9-11h-5l2-5l-9 11h5z"/></svg></span><span class="label" data-i="tab_z">חידון</span>
+    <span class="emoji">🏆</span><span class="label">חידון</span>
   </button>
   <button class="tab-btn" data-tab="leaderboard" onclick="switchTab('leaderboard')">
-    <span class="emoji"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="label" data-i="tab_l">דירוג</span>
+    <span class="emoji">⭐</span><span class="label">דירוג</span>
   </button>
 </div>
 
 <!-- QUESTION TAB -->
-<div class="tab-panel active" id="panel-question">
-  <div class="tab-content" id="questionContent">
-    <div class="loading" id="questionLoading">טוען שאלת היום...</div>
-  </div>
+<div class="tab-content active" id="panel-question">
+  <div id="questionContent" class="loading">טוען...</div>
 </div>
 
 <!-- FORUM TAB -->
-<div class="tab-panel" id="panel-forum">
-  <div class="tab-content" id="forumContent">
-    <div class="loading" id="forumLoading">טוען פורום...</div>
-  </div>
+<div class="tab-content" id="panel-forum">
+  <div id="forumContent" class="loading">טוען...</div>
 </div>
 
 <!-- QUIZ TAB -->
-<div class="tab-panel" id="panel-quiz">
-  <div class="tab-content" id="quizContent"></div>
+<div class="tab-content" id="panel-quiz">
+  <div id="quizContent" class="loading">טוען...</div>
 </div>
 
 <!-- LEADERBOARD TAB -->
-<div class="tab-panel" id="panel-leaderboard">
-  <div class="tab-content" id="leaderboardContent"></div>
+<div class="tab-content" id="panel-leaderboard">
+  <div id="leaderboardContent" class="loading">טוען...</div>
 </div>
 
 <!-- Firebase SDK -->
@@ -216,9 +116,6 @@ textarea{font-family:var(--font)}
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics-compat.js"></script>
 
 <script>
-/* ═══════════════════════════════════════
-   FIREBASE INIT
-═══════════════════════════════════════ */
 const firebaseConfig = {
   apiKey: "AIzaSyD9HKATYu3y5mO-sIheHeob_6yb8HwOlbA",
   authDomain: "moshe-ginzy.firebaseapp.com",
@@ -234,142 +131,25 @@ const auth = firebase.auth();
 try { firebase.analytics(); } catch(e){}
 
 let currentUser = null;
-auth.signInAnonymously().then(cred => { currentUser = cred.user; loadAll(); }).catch(e => { console.warn("Auth error, loading anyway:", e); loadAll(); });
-
+let lang = "he", isDark = true;
 const MOSHE_PHOTO = "https://raw.githubusercontent.com/aginsberger-cpu/mosheginzy/main/moshe-photo.jpg";
+
 document.getElementById("moshePhoto").src = MOSHE_PHOTO;
 
-/* ═══════════════════════════════════════
-   i18n
-═══════════════════════════════════════ */
-let lang = "he", isDark = true;
+auth.signInAnonymously().then(cred => { 
+  currentUser = cred.user; 
+  loadAll(); 
+}).catch(e => { 
+  console.warn("Auth error:", e); 
+  loadAll(); 
+});
 
+/* i18n */
 const T = {
-  he: {
-    dir:"rtl", header:"משה גינזי", sub:"קהילת לימוד · שאל · ענה · למד",
-    tab_q:"שאלת היום", tab_f:"פורום", tab_z:"חידון", tab_l:"דירוג",
-    date:"כ\"ה באלול תשפ\"ו", cat:"הלכה ומחשבה",
-    qTitle:"האם מותר לשקר כדי לשמור על שלום?",
-    qBody:"התורה אומרת \"מדבר שקר תרחק\" — ציווי ברור ומוחלט. אבל חז\"ל אומרים שמותר לשנות מפני השלום. איפה בדיוק עובר הגבול?",
-    watchVid:"צפה בתשובה של משה גינזי", hideVid:"הסתר סרטון",
-    vidPlaceholder:"הסרטון שלך יופיע כאן",
-    whatThink:"מה דעתך?", placeholder:"שתף את התשובה שלך...",
-    send:"שלח", sent:"נשלח בהצלחה", responses:"תשובות", sortBy:"ממוין לפי הצבעות",
-    topAnswer:"תשובה מובילה", shareWA:"שתף את השאלה בוואטסאפ",
-    forumTitle:"פורום הקהילה", replies:"תגובות", views:"צפיות",
-    newTopic:"פתח נושא חדש", back:"חזרה לפורום",
-    addOpinion:"הוסף את דעתך...", sendReply:"שלח תגובה",
-    officialAnswer:"תשובה רשמית", reply:"הגב",
-    mosheResp:"שאלה נפלאה! חז\"ל אומרים שהקב\"ה ברא את העולם כדי להיטיב — וכל שאלה שנשאלת מתוך רצון אמיתי להבין, היא חלק מהתהליך הזה. בואו נלמד יחד.",
-    cats:["הכל","פרשת השבוע","הלכה","מחשבה","לימוד","קהילה","המלצות"],
-    weeklyQuiz:"חידון השבוע", testKnow:"בחן את הידע שלך ביהדות",
-    questionsCount:"שאלות", minutes:"דקות", start:"התחל חידון",
-    howItWorks:"איך זה עובד?",
-    rules:["ענה על שאלות ביהדות ובמקורות","אין מגבלת זמן — קח את הזמן שלך","קבל הסברים מפורטים על כל תשובה","צבור נקודות ועלה בדירוג"],
-    pts:"נק'", correct:"נכון! ", incorrect:"לא מדויק — ",
-    nextQ:"שאלה הבאה", finish:"סיום — ראה תוצאות",
-    tryAgain:"נסה שוב", challenge:"אתגר חבר", summary:"סיכום", outOf:"מתוך",
-    perfect:{t:"מושלם!",s:"תלמיד חכם אמיתי"}, great:{t:"מרשים!",s:"ידע רחב ומעמיק"},
-    ok:{t:"לא רע!",s:"ממשיכים ללמוד"}, low:{t:"יש מה ללמוד",s:"כל ניסיון הוא התקדמות"},
-    lbTitle:"דירוג הקהילה", lbSub:"הלומדים הפעילים ביותר השבוע",
-    points:"נקודות", days:"ימים", quizzes:"חידונים", answers:"תשובות",
-    yourStats:"הסטטיסטיקה שלך", yourPts:"נקודות", yourRank:"דירוג", yourStreak:"ימים רצופים", yourQuizzes:"חידונים",
-    loading:"טוען...",
-    quizQ:[
-      {q:"כמה מצוות יש בתורה?",opts:["248","365","613","720"],c:2,ex:"יש תרי\"ג (613) מצוות — 248 מצוות עשה ו-365 מצוות לא תעשה."},
-      {q:"מי בנה את בית המקדש הראשון?",opts:["דוד המלך","שלמה המלך","משה רבנו","עזרא הסופר"],c:1,ex:"שלמה המלך בנה את בית המקדש הראשון."},
-      {q:"באיזה ספר בתנ\"ך לא מוזכר שם ה'?",opts:["שיר השירים","קהלת","מגילת אסתר","רות"],c:2,ex:"מגילת אסתר — הספר היחיד שבו שם ה' לא מוזכר מפורשות."},
-      {q:"מהו הציווי הראשון לעם ישראל?",opts:["שמירת שבת","קידוש החודש","ברית מילה","כיבוד אב ואם"],c:1,ex:"קידוש החודש — עוד לפני יציאת מצרים."},
-      {q:"כמה שנים שהה עם ישראל במדבר?",opts:["7 שנים","12 שנה","40 שנה","50 שנה"],c:2,ex:"40 שנה — עונש על חטא המרגלים."},
-      {q:"מי אמר \"הנני\" שלוש פעמים?",opts:["משה רבנו","אברהם אבינו","שמואל הנביא","ישעיהו"],c:1,ex:"אברהם אבינו — לה', לישמעאל, ולמלאך בעקידה."}
-    ],
-    threads:[
-      {id:"t1",title:"פרשת כי תבוא — למה דווקא 98 קללות?",author:"משה גינזי",replies:34,views:567,last:"לפני שעה",cat:"פרשת השבוע",pinned:true},
-      {id:"t2",title:"שימוש בבינה מלאכותית בשבת — מותר?",author:"נתן ב.",replies:45,views:1203,last:"לפני 3 שעות",cat:"הלכה",pinned:false},
-      {id:"t3",title:"מה ההבדל בין אמונה לביטחון?",author:"מירית כ.",replies:28,views:567,last:"לפני 5 שעות",cat:"מחשבה",pinned:false},
-      {id:"t4",title:"הלכות תשובה — מאיפה מתחילים?",author:"רבקה א.",replies:22,views:445,last:"אתמול",cat:"הלכה",pinned:false},
-      {id:"t5",title:"מה השאלה הכי מפתיעה ששאלתם את משה גינזי?",author:"חנה ג.",replies:38,views:890,last:"לפני יומיים",cat:"קהילה",pinned:false},
-      {id:"t6",title:"הציגו את עצמכם! מאיפה אתם?",author:"משה גינזי",replies:52,views:1450,last:"לפני 3 ימים",cat:"קהילה",pinned:true}
-    ],
-    sampleResp:[
-      {id:1,author:"דוד כהן",init:"דכ",text:"יש הבדל עקרוני בין שקר פעיל לבין הימנעות מלהגיד את כל האמת.",votes:24,time:"לפני 3 שעות"},
-      {id:2,author:"שרה מזרחי",init:"שמ",text:"הרמב\"ם פוסק שמותר לשנות מפני דרכי שלום, אבל שלא ייגרם נזק לצד שלישי.",votes:18,time:"לפני 5 שעות"},
-      {id:3,author:"יוסף לוי",init:"יל",text:"הכוונה היא המפתח. אהרון הכהן היה אוהב שלום ורודף שלום.",votes:12,time:"לפני 7 שעות"}
-    ],
-    leaders:[
-      {r:1,name:"דוד כהן",pts:2450,badge:"תלמיד חכם",streak:28,qz:42,ans:67},
-      {r:2,name:"רחל לוי",pts:2180,badge:"חברותא מצטיינת",streak:21,qz:38,ans:54},
-      {r:3,name:"יוסף אברהם",pts:1920,badge:"שואל נלהב",streak:18,qz:35,ans:41},
-      {r:4,name:"שרה מזרחי",pts:1750,badge:"חכמת נשים",streak:15,qz:29,ans:38},
-      {r:5,name:"משה ישראלי",pts:1580,badge:"לומד יומי",streak:12,qz:24,ans:31}
-    ]
-  },
-  en: {
-    dir:"ltr", header:"Moshe Ginzy", sub:"Learning Community · Ask · Answer · Grow",
-    tab_q:"Daily Q", tab_f:"Forum", tab_z:"Quiz", tab_l:"Rankings",
-    date:"25 Elul 5786", cat:"Halacha & Thought",
-    qTitle:"Is it permitted to lie to keep the peace?",
-    qBody:"The Torah says 'Distance yourself from falsehood' — a clear command. But our Sages say it's permitted to change the truth for the sake of peace. Where exactly is the line?",
-    watchVid:"Watch Moshe Ginzy's answer", hideVid:"Hide video",
-    vidPlaceholder:"Your video will appear here",
-    whatThink:"What do you think?", placeholder:"Share your answer...",
-    send:"Submit", sent:"Submitted successfully", responses:"responses", sortBy:"Sorted by votes",
-    topAnswer:"Top answer", shareWA:"Share on WhatsApp",
-    forumTitle:"Community Forum", replies:"replies", views:"views",
-    newTopic:"New Topic", back:"Back to forum",
-    addOpinion:"Add your thoughts...", sendReply:"Submit reply",
-    officialAnswer:"Official Answer", reply:"Reply",
-    mosheResp:"Great question! Our Sages teach that God created the world for goodness — and every question asked with genuine desire to understand is part of that journey. Let's learn together.",
-    cats:["All","Weekly Parsha","Halacha","Thought","Learning","Community","Recommendations"],
-    weeklyQuiz:"Weekly Quiz", testKnow:"Test your Jewish knowledge",
-    questionsCount:"questions", minutes:"minutes", start:"Start Quiz",
-    howItWorks:"How it works",
-    rules:["Answer questions on Judaism & Torah","No time limit — take your time","Get detailed explanations for each answer","Earn points and climb the rankings"],
-    pts:"pts", correct:"Correct! ", incorrect:"Not quite — ",
-    nextQ:"Next Question", finish:"Finish — See Results",
-    tryAgain:"Try Again", challenge:"Challenge a Friend", summary:"Summary", outOf:"out of",
-    perfect:{t:"Perfect!",s:"A true Torah scholar"}, great:{t:"Impressive!",s:"Deep and broad knowledge"},
-    ok:{t:"Not bad!",s:"Keep learning and growing"}, low:{t:"Room to grow",s:"Every attempt is progress"},
-    lbTitle:"Community Rankings", lbSub:"Most active learners this week",
-    points:"points", days:"days", quizzes:"quizzes", answers:"answers",
-    yourStats:"Your Stats", yourPts:"Points", yourRank:"Rank", yourStreak:"Day Streak", yourQuizzes:"Quizzes",
-    loading:"Loading...",
-    quizQ:[
-      {q:"How many mitzvot are in the Torah?",opts:["248","365","613","720"],c:2,ex:"There are 613 mitzvot — 248 positive and 365 negative commandments."},
-      {q:"Who built the First Temple?",opts:["King David","King Solomon","Moses","Ezra the Scribe"],c:1,ex:"King Solomon built the First Temple in Jerusalem."},
-      {q:"Which book of Tanach doesn't mention God's name?",opts:["Song of Songs","Ecclesiastes","Book of Esther","Ruth"],c:2,ex:"The Book of Esther — the only book where God's name doesn't appear explicitly."},
-      {q:"What was the first commandment given to Israel?",opts:["Shabbat","Sanctifying the New Moon","Circumcision","Honoring parents"],c:1,ex:"Sanctifying the New Moon — given before the Exodus from Egypt."},
-      {q:"How many years did Israel wander in the desert?",opts:["7 years","12 years","40 years","50 years"],c:2,ex:"40 years — as punishment for the sin of the spies."},
-      {q:"Who said 'Hineni' three times?",opts:["Moses","Abraham","Samuel","Isaiah"],c:1,ex:"Abraham — to God, to Ishmael, and to the angel at the Akeidah."}
-    ],
-    threads:[
-      {id:"t1",title:"Parshat Ki Tavo — Why exactly 98 curses?",author:"Moshe Ginzy",replies:34,views:567,last:"1 hr ago",cat:"Weekly Parsha",pinned:true},
-      {id:"t2",title:"Using AI on Shabbat — permitted?",author:"Nathan B.",replies:45,views:1203,last:"3 hrs ago",cat:"Halacha",pinned:false},
-      {id:"t3",title:"Faith vs Trust — what's the difference?",author:"Mirit K.",replies:28,views:567,last:"5 hrs ago",cat:"Thought",pinned:false},
-      {id:"t4",title:"Laws of Teshuva — where to begin?",author:"Rivka A.",replies:22,views:445,last:"Yesterday",cat:"Halacha",pinned:false},
-      {id:"t5",title:"Most surprising question you asked Moshe Ginzy?",author:"Chana G.",replies:38,views:890,last:"2 days ago",cat:"Community",pinned:false},
-      {id:"t6",title:"Introduce yourself! Where are you from?",author:"Moshe Ginzy",replies:52,views:1450,last:"3 days ago",cat:"Community",pinned:true}
-    ],
-    sampleResp:[
-      {id:1,author:"David C.",init:"DC",text:"There's a fundamental difference between actively lying and not telling the whole truth.",votes:24,time:"3 hours ago"},
-      {id:2,author:"Sarah M.",init:"SM",text:"Rambam rules that one may adjust the truth for peace, only when no third party is harmed.",votes:18,time:"5 hours ago"},
-      {id:3,author:"Joseph L.",init:"JL",text:"Intention is key. Aaron HaKohen was a lover and pursuer of peace.",votes:12,time:"7 hours ago"}
-    ],
-    leaders:[
-      {r:1,name:"David Cohen",pts:2450,badge:"Torah Scholar",streak:28,qz:42,ans:67},
-      {r:2,name:"Rachel Levy",pts:2180,badge:"Top Partner",streak:21,qz:38,ans:54},
-      {r:3,name:"Joseph Abraham",pts:1920,badge:"Eager Learner",streak:18,qz:35,ans:41},
-      {r:4,name:"Sarah Mizrachi",pts:1750,badge:"Wise Woman",streak:15,qz:29,ans:38},
-      {r:5,name:"Moshe Israeli",pts:1580,badge:"Daily Learner",streak:12,qz:24,ans:31}
-    ]
-  }
+  he: { dir:"rtl", q:"שאלת היום", f:"פורום", z:"חידון", l:"דירוג" },
+  en: { dir:"ltr", q:"Daily Q", f:"Forum", z:"Quiz", l:"Rankings" }
 };
 
-function t() { return T[lang]; }
-
-/* ═══════════════════════════════════════
-   THEME & LANG
-═══════════════════════════════════════ */
 function toggleTheme() {
   isDark = !isDark;
   document.body.classList.toggle("light", !isDark);
@@ -378,418 +158,104 @@ function toggleTheme() {
 
 function setLang(l) {
   lang = l;
-  document.documentElement.dir = t().dir;
-  document.documentElement.lang = l === "he" ? "he" : "en";
+  document.documentElement.dir = T[l].dir;
+  document.documentElement.lang = l;
   document.getElementById("btnHe").classList.toggle("active", l === "he");
   document.getElementById("btnEn").classList.toggle("active", l === "en");
-  document.getElementById("headerTitle").textContent = t().header;
-  document.getElementById("headerSub").textContent = t().sub;
-  document.querySelectorAll("[data-i]").forEach(el => {
-    const key = el.getAttribute("data-i");
-    if (t()[key]) el.textContent = t()[key];
-  });
-  renderCurrentTab();
+  loadAll();
 }
 
-/* ═══════════════════════════════════════
-   TABS
-═══════════════════════════════════════ */
 let currentTab = "question";
-
 function switchTab(tab) {
   currentTab = tab;
   document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === tab));
-  document.querySelectorAll(".tab-panel").forEach(p => p.classList.toggle("active", p.id === "panel-" + tab));
-  renderCurrentTab();
+  document.querySelectorAll(".tab-content").forEach(p => p.classList.toggle("active", p.id === "panel-" + tab));
+  loadTab(tab);
 }
 
-function renderCurrentTab() {
-  if (currentTab === "question") renderQuestion();
-  else if (currentTab === "forum") renderForum();
-  else if (currentTab === "quiz") renderQuizIntro();
-  else if (currentTab === "leaderboard") renderLeaderboard();
-}
-
-/* ═══════════════════════════════════════
-   LOAD ALL
-═══════════════════════════════════════ */
 function loadAll() {
-  renderQuestion();
-  renderForum();
-  renderQuizIntro();
-  renderLeaderboard();
+  loadTab("question");
+  loadTab("forum");
+  loadTab("quiz");
+  loadTab("leaderboard");
 }
 
-/* ═══════════════════════════════════════
-   1. QUESTION OF THE DAY
-═══════════════════════════════════════ */
-let questionResponses = [];
-let showVideo = true;
-let votedSet = new Set();
+function loadTab(tab) {
+  if (tab === "question") loadQuestion();
+  else if (tab === "forum") loadForum();
+  else if (tab === "quiz") loadQuiz();
+  else if (tab === "leaderboard") loadLeaderboard();
+}
 
-function renderQuestion() {
-  const s = t();
-  const responses = s.sampleResp;
-  const c = document.getElementById("questionContent");
-
-  c.innerHTML = `
-    <div class="glass glow" style="padding:0;overflow:hidden">
-      <div class="q-top-bar"></div>
-      <div style="padding:18px 20px">
-        <div class="q-badges"><span class="badge">${s.date}</span><span style="background:var(--border);color:var(--sec);padding:3px 10px;border-radius:16px;font-size:11px">${s.cat}</span></div>
-        <div class="q-title">${s.qTitle}</div>
-        <div class="q-body">${s.qBody}</div>
-      </div>
-    </div>
-
-    <div class="glass" style="padding:0;overflow:hidden">
-      <button class="vid-toggle" onclick="toggleVideo()">
-        <span>🎬 ${showVideo ? s.hideVid : s.watchVid}</span>
-        <span style="transform:${showVideo ? 'rotate(90deg)' : 'none'};transition:0.2s;display:inline-block">›</span>
-      </button>
-      ${showVideo ? `<div class="vid-placeholder" id="videoArea"><div class="vid-placeholder-inner"><div class="vid-play">▶</div><span style="color:var(--muted);font-size:13px">${s.vidPlaceholder}</span></div></div>` : ''}
-    </div>
-
-    <div class="glass">
-      <h3 style="font-size:15px;font-weight:600;color:var(--white);margin-bottom:10px">${s.whatThink}</h3>
-      <div class="input-area">
-        <textarea id="respInput" rows="3" placeholder="${s.placeholder}" dir="${s.dir}"></textarea>
-      </div>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
-        <button class="gold-btn" style="width:auto" onclick="submitResponse()">${s.send}</button>
-        <span id="sentMsg" style="color:var(--ok);font-size:13px;font-weight:500" class="hidden">✓ ${s.sent}</span>
-      </div>
-    </div>
-
-    <div class="responses-header">
-      <span>${responses.length} ${s.responses}</span>
-      <span>${s.sortBy}</span>
-    </div>
-
-    ${responses.map((r, i) => `
-      <div class="glass resp-card">
-        <div class="resp-vote">
-          <span class="heart ${votedSet.has(r.id) ? 'voted' : ''}" onclick="voteResp(${r.id})">${votedSet.has(r.id) ? '♥' : '♡'}</span>
-          <span class="count ${votedSet.has(r.id) ? 'voted' : ''}">${r.votes + (votedSet.has(r.id) ? 1 : 0)}</span>
+/* QUESTION */
+function loadQuestion() {
+  db.collection("dailyQuestions").orderBy("createdAt", "desc").limit(1).onSnapshot(snap => {
+    const c = document.getElementById("questionContent");
+    if (snap.empty) {
+      c.innerHTML = '<div class="loading">אין שאלה עדיין</div>';
+      return;
+    }
+    const q = snap.docs[0].data();
+    c.innerHTML = `
+      <div class="glass glow" style="padding:0;overflow:hidden">
+        <div style="height:3px;background:linear-gradient(90deg,var(--gold),transparent)"></div>
+        <div style="padding:18px 20px">
+          <div style="font-size:20px;font-weight:700;color:var(--white);line-height:1.7;margin-bottom:10px">${q.title || q.q}</div>
+          <div style="font-size:14px;color:var(--sec);line-height:1.85">${q.body || q.ex}</div>
         </div>
-        <div style="flex:1">
-          <div class="resp-meta">
-            <div class="avatar" style="width:28px;height:28px;font-size:10px">${r.init}</div>
-            <span class="resp-author">${r.author}</span>
-            <span class="resp-time">${r.time}</span>
-            ${i === 0 ? `<span class="badge">${s.topAnswer}</span>` : ''}
+      </div>
+      ${q.videoUrl ? `
+        <div class="glass" style="padding:0;overflow:hidden">
+          <div style="position:relative;width:100%;padding-bottom:56.25%">
+            <iframe src="https://www.youtube.com/embed/${q.videoUrl.split('v=')[1]}" style="position:absolute;inset:0;width:100%;height:100%;border:none" allowfullscreen></iframe>
           </div>
-          <div class="resp-text">${r.text}</div>
         </div>
-      </div>
-    `).join('')}
-
-    <button class="wa-btn" onclick="shareWhatsApp()">📲 ${s.shareWA}</button>
-  `;
+      ` : ''}
+    `;
+  });
 }
 
-function toggleVideo() { showVideo = !showVideo; renderQuestion(); }
-
-function voteResp(id) {
-  if (votedSet.has(id)) votedSet.delete(id);
-  else votedSet.add(id);
-  if (currentUser) {
-    db.collection("votes").doc(currentUser.uid + "_" + id).set({ voted: votedSet.has(id), ts: firebase.firestore.FieldValue.serverTimestamp() }).catch(()=>{});
-  }
-  renderQuestion();
-}
-
-function submitResponse() {
-  const input = document.getElementById("respInput");
-  const text = input.value.trim();
-  if (!text) return;
-  if (currentUser) {
-    db.collection("responses").add({
-      uid: currentUser.uid,
-      text: text,
-      votes: 0,
-      ts: firebase.firestore.FieldValue.serverTimestamp()
-    }).catch(()=>{});
-  }
-  input.value = "";
-  const msg = document.getElementById("sentMsg");
-  msg.classList.remove("hidden");
-  setTimeout(() => msg.classList.add("hidden"), 3000);
-}
-
-function shareWhatsApp() {
-  const s = t();
-  const text = encodeURIComponent(s.qTitle + "\n\n" + s.qBody + "\n\nhttps://mosheginzy.com/community.html");
-  window.open("https://wa.me/?text=" + text, "_blank");
-}
-
-/* ═══════════════════════════════════════
-   2. FORUM
-═══════════════════════════════════════ */
-let forumFilter = 0;
-let selectedThread = null;
-
-function renderForum() {
-  if (selectedThread) { renderThread(); return; }
-  const s = t();
-  const threads = s.threads.filter(th => forumFilter === 0 || th.cat === s.cats[forumFilter]);
-  const c = document.getElementById("forumContent");
-
-  c.innerHTML = `
-    <h2 style="font-size:18px;font-weight:700;color:var(--white)">${s.forumTitle}</h2>
-    <div class="forum-cats">${s.cats.map((cat, i) => `<button class="cat-btn ${forumFilter === i ? 'active' : ''}" onclick="setForumFilter(${i})">${cat}</button>`).join('')}</div>
-    <button class="gold-btn" onclick="alert('${lang === 'he' ? 'יתווסף בקרוב!' : 'Coming soon!'}')">${s.newTopic}</button>
-    ${threads.map(th => `
-      <div class="glass thread-card" onclick="openThread('${th.id}')">
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
-          ${th.pinned ? '<span style="font-size:11px;color:var(--gold)">📌</span>' : ''}
-          ${th.replies > 30 ? '<span style="font-size:11px">🔥</span>' : ''}
-          <div class="thread-title">${th.title}</div>
+/* FORUM */
+function loadForum() {
+  db.collection("forumThreads").orderBy("createdAt", "desc").onSnapshot(snap => {
+    const c = document.getElementById("forumContent");
+    let html = '';
+    snap.forEach(doc => {
+      const t = doc.data();
+      html += `
+        <div class="glass" style="cursor:pointer" onclick="alert('${t.title}')">
+          <div style="font-size:14px;font-weight:600;color:var(--white);margin-bottom:4px">${t.title}</div>
+          <div style="font-size:11px;color:var(--muted)">${t.author} • ${t.replies || 0} תגובות</div>
         </div>
-        <div class="thread-meta">
-          <span class="${(th.author === 'משה גינזי' || th.author === 'Moshe Ginzy') ? 'thread-author-mg' : ''}">${th.author}</span>
-          · ${th.replies} ${s.replies} · ${th.views} ${s.views} · ${th.last}
-        </div>
-      </div>
-    `).join('')}
-  `;
+      `;
+    });
+    if (!html) html = '<div class="loading">אין פוסטים בפורום</div>';
+    c.innerHTML = html;
+  });
 }
 
-function setForumFilter(i) { forumFilter = i; renderForum(); }
-
-function openThread(id) {
-  selectedThread = t().threads.find(th => th.id === id);
-  renderThread();
+/* QUIZ */
+function loadQuiz() {
+  db.collection("weeklyQuizzes").orderBy("createdAt", "desc").limit(1).onSnapshot(snap => {
+    const c = document.getElementById("quizContent");
+    if (snap.empty) {
+      c.innerHTML = '<div class="glass" style="text-align:center;padding:30px"><div style="font-size:14px;color:var(--muted)">אין חידון עדיין. היכנס ל-admin.html וצור חידון!</div></div>';
+      return;
+    }
+    const quiz = snap.docs[0].data();
+    const questions = quiz.questions || [];
+    c.innerHTML = `<div class="glass" style="text-align:center"><div style="font-size:14px;color:var(--white)">חידון עם ${questions.length} שאלות</div><div style="font-size:11px;color:var(--muted);margin-top:10px">שאלה ראשונה: ${questions[0]?.q || 'טוען...'}</div></div>`;
+  });
 }
 
-function renderThread() {
-  const s = t();
-  const th = selectedThread;
-  if (!th) return;
-  const c = document.getElementById("forumContent");
-
-  c.innerHTML = `
-    <button style="font-size:13px;color:var(--gold);font-weight:600;text-align:${s.dir === 'rtl' ? 'right' : 'left'}" onclick="closeThread()">← ${s.back}</button>
-    <div class="glass glow">
-      <div style="display:flex;gap:8px;margin-bottom:10px">${th.pinned ? '📌' : ''}<span class="badge">${th.cat}</span></div>
-      <h2 style="font-size:18px;font-weight:700;color:var(--white);line-height:1.6;margin-bottom:8px">${th.title}</h2>
-      <span style="font-size:12px;color:var(--muted)">${th.author} · ${th.replies} ${s.replies} · ${th.views} ${s.views}</span>
-    </div>
-    <div class="glass">
-      <textarea rows="2" placeholder="${s.addOpinion}" dir="${s.dir}" style="width:100%;padding:12px;border-radius:var(--rs);border:1px solid var(--border);font-size:14px;background:var(--input);color:var(--pri);outline:none;line-height:1.7;resize:vertical"></textarea>
-      <button class="gold-btn" style="margin-top:8px;width:auto">${s.sendReply}</button>
-    </div>
-    <div class="glass glow official-card">
-      <div class="of-meta">
-        <img src="${MOSHE_PHOTO}" alt="Moshe Ginzy">
-        <span class="of-name">${lang === 'he' ? 'משה גינזי' : 'Moshe Ginzy'}</span>
-        <span class="badge">${s.officialAnswer}</span>
-      </div>
-      <div class="of-text">${s.mosheResp}</div>
-    </div>
-    ${s.sampleResp.map(r => `
-      <div class="glass" style="padding:14px">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
-          <div class="avatar" style="width:28px;height:28px;font-size:10px">${r.init}</div>
-          <span style="font-weight:600;font-size:13px;color:var(--pri)">${r.author}</span>
-          <span style="font-size:11px;color:var(--muted)">${r.time}</span>
-        </div>
-        <p style="font-size:14px;color:var(--pri);line-height:1.8">${r.text}</p>
-        <div style="display:flex;gap:14px;margin-top:10px;font-size:12px;color:var(--muted)">
-          <span style="cursor:pointer">♡ ${r.votes}</span>
-          <span style="cursor:pointer">💬 ${s.reply}</span>
-        </div>
-      </div>
-    `).join('')}
-  `;
+/* LEADERBOARD */
+function loadLeaderboard() {
+  document.getElementById("leaderboardContent").innerHTML = '<div class="glass" style="text-align:center;padding:30px"><div style="font-size:14px;color:var(--muted)">דירוג יתעדכן כשמשתמשים ישחקו</div></div>';
 }
 
-function closeThread() { selectedThread = null; renderForum(); }
-
-/* ═══════════════════════════════════════
-   3. QUIZ
-═══════════════════════════════════════ */
-let quizStep = "intro", qi = 0, qSel = null, qDone = false, qScore = 0, qHist = [];
-
-function renderQuizIntro() {
-  quizStep = "intro"; qi = 0; qSel = null; qDone = false; qScore = 0; qHist = [];
-  const s = t();
-  const QQ = s.quizQ;
-  const c = document.getElementById("quizContent");
-  c.innerHTML = `
-    <div class="glass glow quiz-intro">
-      <div class="quiz-icon">🏆</div>
-      <div class="quiz-title">${s.weeklyQuiz}</div>
-      <div class="quiz-sub">${s.testKnow}</div>
-      <div class="quiz-info">${QQ.length} ${s.questionsCount} · ~3 ${s.minutes}</div>
-    </div>
-    <button class="gold-btn" style="padding:15px 24px;font-size:17px" onclick="startQuiz()">${s.start}</button>
-    <div class="glass">
-      <h3 style="font-size:14px;font-weight:600;color:var(--white);margin-bottom:10px">${s.howItWorks}</h3>
-      ${["💡","⏱️","📚","🏆"].map((icon, i) => `<div class="quiz-rules"><span style="font-size:16px">${icon}</span> ${s.rules[i]}</div>`).join('')}
-    </div>
-  `;
-}
-
-function startQuiz() { quizStep = "play"; renderQuizQuestion(); }
-
-function renderQuizQuestion() {
-  const s = t();
-  const QQ = s.quizQ;
-  const q = QQ[qi];
-  const c = document.getElementById("quizContent");
-  const pct = ((qi + (qDone ? 1 : 0)) / QQ.length) * 100;
-  const letters = lang === "he" ? ["א","ב","ג","ד"] : ["A","B","C","D"];
-
-  c.innerHTML = `
-    <div class="quiz-progress">
-      <span class="num">${qi + 1}/${QQ.length}</span>
-      <div class="bar"><div class="fill" style="width:${pct}%"></div></div>
-      <span class="badge">${qScore} ${s.pts}</span>
-    </div>
-    <div class="glass glow" style="padding:22px 18px"><div class="q-question">${q.q}</div></div>
-    ${q.opts.map((opt, i) => {
-      let cls = "opt-btn";
-      let circCls = "opt-circle";
-      let circText = letters[i];
-      if (qDone && i === q.c) { cls += " correct"; circText = "✓"; }
-      else if (qDone && i === qSel && i !== q.c) { cls += " wrong"; circText = "✗"; }
-      return `<button class="${cls}" onclick="quizAnswer(${i})" ${qDone ? 'disabled' : ''}>
-        <div class="${circCls}">${circText}</div>${opt}</button>`;
-    }).join('')}
-    ${qDone ? `
-      <div class="glass" style="background:${qSel === q.c ? 'var(--ok-bg)' : 'rgba(201,168,76,0.05)'};border-color:${qSel === q.c ? 'rgba(93,186,114,0.2)' : 'var(--gold-b)'}">
-        <div class="explanation"><strong style="color:${qSel === q.c ? 'var(--ok)' : 'var(--gold)'}">${qSel === q.c ? s.correct : s.incorrect}</strong>${q.ex}</div>
-      </div>
-      <button class="gold-btn" onclick="quizNext()">${qi < QQ.length - 1 ? s.nextQ : s.finish}</button>
-    ` : ''}
-  `;
-}
-
-function quizAnswer(i) {
-  if (qDone) return;
-  qSel = i;
-  qDone = true;
-  const q = t().quizQ[qi];
-  if (i === q.c) qScore++;
-  qHist.push({ q: q.q, ok: i === q.c });
-  renderQuizQuestion();
-}
-
-function quizNext() {
-  if (qi < t().quizQ.length - 1) { qi++; qSel = null; qDone = false; renderQuizQuestion(); }
-  else renderQuizResults();
-}
-
-function renderQuizResults() {
-  const s = t();
-  const QQ = s.quizQ;
-  const pct = Math.round((qScore / QQ.length) * 100);
-  const m = pct === 100 ? s.perfect : pct >= 66 ? s.great : pct >= 50 ? s.ok : s.low;
-  const c = document.getElementById("quizContent");
-
-  if (currentUser) {
-    db.collection("quizScores").add({
-      uid: currentUser.uid, score: qScore, total: QQ.length, pct: pct,
-      ts: firebase.firestore.FieldValue.serverTimestamp()
-    }).catch(()=>{});
-  }
-
-  c.innerHTML = `
-    <div class="glass glow" style="text-align:center;padding:28px 18px">
-      <div class="result-circle"><span class="result-score">${qScore}</span><span class="result-of">${s.outOf} ${QQ.length}</span></div>
-      <h2 style="font-size:20px;font-weight:800;color:var(--white);margin-bottom:4px">${m.t}</h2>
-      <p style="font-size:14px;color:var(--sec)">${m.s}</p>
-    </div>
-    <div class="glass">
-      <h3 style="font-size:13px;font-weight:600;color:var(--sec);margin-bottom:8px">${s.summary}</h3>
-      ${qHist.map(h => `<div class="hist-row ${h.ok ? 'ok' : 'fail'}"><span class="icon">${h.ok ? '✓' : '✗'}</span><span class="txt">${h.q}</span></div>`).join('')}
-    </div>
-    <div style="display:flex;gap:8px">
-      <button class="gold-btn" onclick="renderQuizIntro()">${s.tryAgain}</button>
-      <button class="wa-btn" style="flex:1" onclick="shareQuiz()">📲 ${s.challenge}</button>
-    </div>
-  `;
-}
-
-function shareQuiz() {
-  const s = t();
-  const text = encodeURIComponent((lang === 'he' ? `קיבלתי ${qScore} מתוך ${t().quizQ.length} בחידון של משה גינזי! נסה גם:` : `I scored ${qScore}/${t().quizQ.length} on Moshe Ginzy's quiz! Try it:`) + "\nhttps://mosheginzy.com/community.html");
-  window.open("https://wa.me/?text=" + text, "_blank");
-}
-
-/* ═══════════════════════════════════════
-   4. LEADERBOARD
-═══════════════════════════════════════ */
-function renderLeaderboard() {
-  const s = t();
-  const L = s.leaders;
-  const podC = ["#c9a84c", "#9eaab8", "#b07d4f"];
-  const podH = [120, 95, 75];
-  const medals = ["🥇", "🥈", "🥉"];
-  const c = document.getElementById("leaderboardContent");
-
-  c.innerHTML = `
-    <div>
-      <h2 style="font-size:18px;font-weight:700;color:var(--white);margin-bottom:2px">${s.lbTitle}</h2>
-      <p style="font-size:12px;color:var(--muted)">${s.lbSub}</p>
-    </div>
-    <div class="glass glow" style="padding:16px 8px 0;overflow:hidden">
-      <div class="podium">
-        ${[1, 0, 2].map(idx => {
-          const u = L[idx];
-          return `<div class="pod-col">
-            <span class="pod-medal" ${idx === 0 ? 'style="font-size:26px"' : 'style="font-size:20px"'}>${medals[idx]}</span>
-            <div class="avatar" style="width:${idx === 0 ? 44 : 36}px;height:${idx === 0 ? 44 : 36}px;font-size:${idx === 0 ? 16 : 13}px">${u.name[0]}</div>
-            <span class="pod-name">${u.name}</span>
-            <div class="pod-bar" style="height:${podH[idx]}px;background:linear-gradient(180deg,${podC[idx]}25,${podC[idx]}08);border:1px solid ${podC[idx]}30;border-bottom:none">
-              <span class="pod-pts" style="color:${podC[idx]}">${u.pts}</span>
-              <span class="pod-lbl">${s.points}</span>
-            </div>
-          </div>`;
-        }).join('')}
-      </div>
-    </div>
-    ${L.map(u => `
-      <div class="glass lb-row" style="${u.r <= 3 ? (lang === 'he' ? 'border-right' : 'border-left') + ':3px solid ' + podC[u.r - 1] : ''}">
-        <div class="lb-rank" style="background:${u.r <= 3 ? podC[u.r - 1] + '20' : 'var(--border)'};color:${u.r <= 3 ? podC[u.r - 1] : 'var(--muted)'}">${u.r}</div>
-        <div style="flex:1">
-          <div style="display:flex;align-items:center;gap:6px;margin-bottom:1px">
-            <span class="lb-name">${u.name}</span><span class="badge">${u.badge}</span>
-          </div>
-          <span class="lb-stats">🔥 ${u.streak} ${s.days} · 📝 ${u.qz} ${s.quizzes} · 💬 ${u.ans} ${s.answers}</span>
-        </div>
-        <span class="lb-pts" style="color:${u.r <= 3 ? podC[u.r - 1] : 'var(--muted)'}">${u.pts}</span>
-      </div>
-    `).join('')}
-    <div class="glass glow">
-      <h3 style="font-size:13px;font-weight:600;color:var(--gold);margin-bottom:12px">${s.yourStats}</h3>
-      <div class="my-stats">
-        ${[{v:"0",l:s.yourPts},{v:"—",l:s.yourRank},{v:"0",l:s.yourStreak},{v:"0",l:s.yourQuizzes}].map(x => `<div><div class="val">${x.v}</div><div class="lbl">${x.l}</div></div>`).join('')}
-      </div>
-    </div>
-  `;
-}
-
-/* ═══════════════════════════════════════
-   INIT
-═══════════════════════════════════════ */
-// Handle URL params: community.html?tab=question|forum|quiz|leaderboard
-const urlParams = new URLSearchParams(window.location.search);
-const tabParam = urlParams.get("tab");
-if (tabParam && ["question","forum","quiz","leaderboard"].includes(tabParam)) {
-  switchTab(tabParam);
-}
-const langParam = urlParams.get("lang");
-if (langParam && ["he","en"].includes(langParam)) {
-  setLang(langParam);
-}
-
-// Fallback photo if GitHub image fails
 document.getElementById("moshePhoto").onerror = function() {
   this.style.background = "linear-gradient(135deg, var(--gold), var(--gold-l))";
   this.style.display = "flex";
-  this.alt = "מג";
 };
 </script>
 </body>
