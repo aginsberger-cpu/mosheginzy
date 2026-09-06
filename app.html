@@ -989,7 +989,7 @@ function speakText(txt){if(currentAudio){try{currentAudio.stop();}catch(e){}curr
       };
       rec.onerror=function(e){
         console.warn('mic:',e.error);stopMic();
-        if(e.error==='not-allowed'){alert(currentLang==='en'?'Please allow microphone access.':'אנא אפשר גישה למיקרופון.');}
+       if(e.error==='not-allowed'){console.log('Mic permission not granted');}
       };
       rec.start();
     }catch(e){stopMic();}
