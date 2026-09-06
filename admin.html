@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ממשק ניהול — משה גינזי</title>
+<style>
+:root {
+  --bg:#0d0d0d; --card:rgba(25,25,28,0.85); --input:rgba(45,45,50,0.6);
+  --gold:#c9a84c; --gold-l:#e8d48b; --gold-dim:rgba(201,168,76,0.15); --gold-b:rgba(201,168,76,0.25);
+  --white:#f0ece2; --pri:#e8e4da; --sec:#9e9a90; --muted:#6b6860;
+  --border:rgba(255,255,255,0.07); --ok:#5dba72; --ok-bg:rgba(93,186,114,0.12);
+  --err:#d45555; --err-bg:rgba(212,85,85,0.12);
+  --font:'Segoe UI',-apple-system,Arial,sans-serif;
+  --r:14px; --rs:10px;
+}
+.light {
+  --bg:#faf7f0; --card:rgba(255,255,255,0.92); --input:rgba(245,242,235,0.8);
+  --gold:#9e7c2e; --gold-l:#c9a84c; --gold-dim:rgba(158,124,46,0.1); --gold-b:rgba(158,124,46,0.2);
+  --white:#1a1a2e; --pri:#2c2c3e; --sec:#5a5a6e; --muted:#8a8a98;
+  --border:rgba(0,0,0,0.08); --ok:#2d8a56; --ok-bg:rgba(45,138,86,0.08);
+  --err:#c44040; --err-bg:rgba(196,64,64,0.08);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font);background:var(--bg);color:var(--pri);min-height:100vh;max-width:600px;margin:0 auto;-webkit-tap-highlight-color:transparent}
+button{cursor:pointer;font-family:var(--font);border:none;background:none}
+textarea,input{font-family:var(--font)}
+.glass{background:var(--card);border-radius:var(--r);border:1px solid var(--border);padding:20px;box-shadow:0 3px 16px rgba(0,0,0,0.25)}
+.glass.glow{border-color:var(--gold-b);box-shadow:0 0 24px rgba(201,168,76,0.06)}
+.badge{background:var(--gold-dim);color:var(--gold);padding:4px 12px;border-radius:16px;font-size:11px;font-weight:600;border:1px solid var(--gold-b);display:inline-block}
+.gold-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,var(--gold),var(--gold-l));color:#0d0d0d;padding:12px 22px;border-radius:var(--rs);font-size:15px;font-weight:700;box-shadow:0 4px 14px rgba(201,168,76,0.2);transition:all 0.2s;width:100%}
+.light .gold-btn{color:#fff}
+.gold-btn:disabled{background:var(--border);color:var(--muted);box-shadow:none;cursor:not-allowed}
+.gold-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 6px 20px rgba(201,168,76,0.3)}
+
+/* Header */
+.header{padding:20px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.header-left{display:flex;align-items:center;gap:12px}
+.header img{width:46px;height:46px;border-radius:50%;border:2px solid var(--gold);object-fit:cover}
+.header h1{font-size:20px;font-weight:700;color:var(--gold);font-style:italic}
+.header .sub{font-size:12px;color:var(--muted)}
+.header-right{display:flex;gap:8px}
+.theme-btn{background:var(--border);border-radius:20px;padding:8px 12px;font-size:14px;transition:0.2s}
+.theme-btn:hover{background:var(--gold-dim)}
+
+/* Tabs */
+.tabs{display:flex;gap:6px;border-bottom:1px solid var(--border);padding:12px 14px 0;position:sticky;top:0;z-index:20;background:var(--bg);overflow-x:auto}
+.tab-btn{padding:10px 16px 10px;border-radius:var(--r) var(--r) 0 0;font-size:13px;font-weight:600;color:var(--muted);background:transparent;border:1px solid transparent;transition:0.2s;white-space:nowrap}
+.tab-btn.active{color:var(--gold);border:1px solid var(--gold-b);border-bottom-color:var(--bg);background:var(--gold-dim)}
+.tab-content{padding:18px 14px;display:none}.tab-content.active{display:block}
+
+/* Form */
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:13px;font-weight:600;color:var(--gold);margin-bottom:6px}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:12px;border-radius:var(--rs);border:1px solid var(--border);font-size:14px;background:var(--input);color:var(--pri);outline:none;line-height:1.7;resize:vertical;font-family:var(--font)}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--gold-b)}
+.form-group textarea{min-height:100px}
+
+/* Lists */
+.list-item{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:start}
+.list-item-content{flex:1}
+.list-item-title{font-size:14px;font-weight:600;color:var(--white);margin-bottom:4px}
+.list-item-meta{font-size:11px;color:var(--muted)}
+.list-item-actions{display:flex;gap:6px}
+.list-item-btn{background:var(--border);border-radius:var(--rs);padding:6px 10px;font-size:12px;font-weight:600;color:var(--gold);transition:0.2s}
+.list-item-btn:hover{background:var(--gold-dim)}
+.list-item-btn.del{color:var(--err)}
+.list-item-btn.del:hover{background:var(--err-bg)}
+
+/* Message */
+.message{padding:12px 14px;border-radius:var(--rs);font-size:13px;font-weight:600;margin-bottom:12px}
+.message.ok{background:var(--ok-bg);color:var(--ok);border:1px solid rgba(93,186,114,0.3)}
+.message.err{background:var(--err-bg);color:var(--err);border:1px solid rgba(212,85,85,0.3)}
+.hidden{display:none!important}
+.loading{opacity:0.6;pointer-events:none}
+
+/* Sections */
+.section-title{font-size:16px;font-weight:700;color:var(--white);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.divider{height:1px;background:var(--border);margin:20px 0}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <img id="moshePhoto" src="" alt="Moshe Ginzy">
+    <div>
+      <h1>ממשק ניהול</h1>
+      <div class="sub">עדכן תוכן בקהילה</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">☀️</button>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('question')">💡 שאלה יומית</button>
+  <button class="tab-btn" onclick="switchTab('library')">📚 ספריית חידות</button>
+  <button class="tab-btn" onclick="switchTab('quiz')">🏆 חידון</button>
+  <button class="tab-btn" onclick="switchTab('forum')">💬 פורום</button>
+  <button class="tab-btn" onclick="switchTab('data')">📊 נתונים</button>
+</div>
+
+<!-- QUESTION TAB -->
+<div class="tab-content active" id="tab-question">
+  <div class="glass glow">
+    <div class="section-title">📝 שאלת היום</div>
+    <div id="messageQuestion" class="message hidden"></div>
+    <form onsubmit="submitQuestion(event)">
+      <div class="form-group">
+        <label>כותרת השאלה</label>
+        <input type="text" id="qTitle" placeholder="למשל: האם מותר לשקר כדי לשמור על שלום?" required>
+      </div>
+      <div class="form-group">
+        <label>תוכן השאלה</label>
+        <textarea id="qBody" placeholder="הסברה מפורטת של השאלה..." required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>קישור סרטון יוטיוב (URL)</label>
+        <input type="url" id="qVideoUrl" placeholder="https://youtube.com/watch?v=..." required>
+      </div>
+      <div class="form-group">
+        <label>תאריך (אופציונלי)</label>
+        <input type="text" id="qDate" placeholder="כ״ד באלול תשפ״ו">
+      </div>
+      <button type="submit" class="gold-btn">💾 שמור שאלה</button>
+    </form>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="glass">
+    <div class="section-title">📌 השאלה הנוכחית</div>
+    <div id="currentQuestion">
+      <div style="color:var(--muted);font-size:13px">טוען...</div>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ LIBRARY TAB -->
+<div class="tab-content" id="tab-library">
+  <div class="glass glow">
+    <div class="section-title">📚 הוסף שאלה למאגר</div>
+    <div id="messageLibrary" class="message hidden"></div>
+    <form onsubmit="submitQuestionToLibrary(event)">
+      <div class="form-group">
+        <label>הטקסט של השאלה</label>
+        <input type="text" id="libQ" placeholder="כמה מצוות בתורה?" required>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:16px">
+        <div style="flex:1">
+          <label style="font-size:11px;color:var(--muted);display:block;margin-bottom:4px">תשובה א'</label>
+          <input type="text" id="libA1" placeholder="248" required>
+        </div>
+        <div style="flex:1">
+          <label style="font-size:11px;color:var(--muted);display:block;margin-bottom:4px">תשובה ב'</label>
+          <input type="text" id="libA2" placeholder="365" required>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:16px">
+        <div style="flex:1">
+          <label style="font-size:11px;color:var(--muted);display:block;margin-bottom:4px">תשובה ג'</label>
+          <input type="text" id="libA3" placeholder="613" required>
+        </div>
+        <div style="flex:1">
+          <label style="font-size:11px;color:var(--muted);display:block;margin-bottom:4px">תשובה ד'</label>
+          <input type="text" id="libA4" placeholder="720" required>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:16px">
+        <label style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:var(--pri)">
+          <input type="number" id="libC" min="0" max="3" placeholder="0" required style="width:60px">
+          <span>מספר התשובה הנכונה (0-3)</span>
+        </label>
+      </div>
+      <div class="form-group">
+        <label>הסבר</label>
+        <textarea id="libEx" placeholder="הסבר מדוע זו התשובה הנכונה..." required></textarea>
+      </div>
+      <button type="submit" class="gold-btn">➕ הוסף לספריה</button>
+    </form>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="glass">
+    <div class="section-title">📖 שאלות בספריה (${libraryCount})</div>
+    <div id="libraryList">
+      <div style="color:var(--muted);font-size:13px">טוען...</div>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ TAB -->
+<div class="tab-content" id="tab-quiz">
+  <div class="glass glow">
+    <div class="section-title">🏆 חידון שבועי אוטומטי</div>
+    <div id="messageQuiz" class="message hidden"></div>
+    <button type="button" class="gold-btn" onclick="createWeeklyQuiz()" id="createQuizBtn">✨ צור חידון חדש</button>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="glass">
+    <div class="section-title">📊 החידון הנוכחי</div>
+    <div id="currentQuiz">
+      <div style="color:var(--muted);font-size:13px">טוען...</div>
+    </div>
+  </div>
+</div>
+
+<!-- FORUM TAB -->
+<div class="tab-content" id="tab-forum">
+  <div class="glass glow">
+    <div class="section-title">💬 פתח נושא בפורום</div>
+    <div id="messageForum" class="message hidden"></div>
+    <form onsubmit="submitThread(event)">
+      <div class="form-group">
+        <label>כותרת הנושא</label>
+        <input type="text" id="fTitle" placeholder="למשל: פרשת כי תבוא — למה 98 קללות?" required>
+      </div>
+      <div class="form-group">
+        <label>קטגוריה</label>
+        <select id="fCat" required>
+          <option value="פרשת השבוע">פרשת השבוע</option>
+          <option value="הלכה">הלכה</option>
+          <option value="מחשבה">מחשבה</option>
+          <option value="לימוד">לימוד</option>
+          <option value="קהילה">קהילה</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>שם המחבר</label>
+        <input type="text" id="fAuthor" placeholder="שמך או 'משה גינזי'" required>
+      </div>
+      <div class="form-group">
+        <label>תוכן הנושא (אופציונלי)</label>
+        <textarea id="fBody" placeholder="תוכן הנושא..."></textarea>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:16px">
+        <label style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--sec)">
+          <input type="checkbox" id="fPinned">
+          <span>📌 הצמד בעמוד הבית</span>
+        </label>
+      </div>
+      <button type="submit" class="gold-btn">💾 פתח נושא</button>
+    </form>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="glass">
+    <div class="section-title">📌 נושאים שנפתחו</div>
+    <div id="threadsList">
+      <div style="color:var(--muted);font-size:13px">טוען...</div>
+    </div>
+  </div>
+</div>
+
+<!-- DATA TAB -->
+<div class="tab-content" id="tab-data">
+  <div class="glass">
+    <div class="section-title">📊 סטטיסטיקות</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+      <div style="background:var(--input);padding:12px;border-radius:var(--rs)">
+        <div style="font-size:11px;color:var(--muted)">כל תשובות</div>
+        <div style="font-size:22px;font-weight:800;color:var(--gold)" id="statsResponses">0</div>
+      </div>
+      <div style="background:var(--input);padding:12px;border-radius:var(--rs)">
+        <div style="font-size:11px;color:var(--muted)">הצבעות</div>
+        <div style="font-size:22px;font-weight:800;color:var(--gold)" id="statsVotes">0</div>
+      </div>
+      <div style="background:var(--input);padding:12px;border-radius:var(--rs)">
+        <div style="font-size:11px;color:var(--muted)">חידונים שנשלמו</div>
+        <div style="font-size:22px;font-weight:800;color:var(--gold)" id="statsQuizzes">0</div>
+      </div>
+      <div style="background:var(--input);padding:12px;border-radius:var(--rs)">
+        <div style="font-size:11px;color:var(--muted)">נושאי פורום</div>
+        <div style="font-size:22px;font-weight:800;color:var(--gold)" id="statsThreads">0</div>
+      </div>
+    </div>
+    <button class="gold-btn" onclick="refreshStats()">🔄 רענן סטטיסטיקות</button>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="glass">
+    <div class="section-title">🔐 הגדרות</div>
+    <button class="gold-btn" style="background:var(--err-bg);color:var(--err)" onclick="logOut()">התנתק</button>
+  </div>
+</div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyD9HKATYu3y5mO-sIheHeob_6yb8HwOlbA",
+  authDomain: "moshe-ginzy.firebaseapp.com",
+  projectId: "moshe-ginzy",
+  storageBucket: "moshe-ginzy.firebasestorage.app",
+  messagingSenderId: "310969098073",
+  appId: "1:310969098073:web:77f81033d31bef6ecaf648"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const auth = firebase.auth();
+
+let isDark = true;
+const MOSHE_PHOTO = "https://raw.githubusercontent.com/aginsberger-cpu/mosheginzy/main/moshe-photo.jpg";
+document.getElementById("moshePhoto").src = MOSHE_PHOTO;
+
+/* THEME */
+function toggleTheme() {
+  isDark = !isDark;
+  document.body.classList.toggle("light", !isDark);
+  document.getElementById("themeBtn").textContent = isDark ? "☀️" : "🌙";
+}
+
+/* TABS */
+function switchTab(tab) {
+  document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+  document.getElementById("tab-" + tab).classList.add("active");
+  event.target.classList.add("active");
+  if (tab === "data") refreshStats();
+}
+
+/* MESSAGE */
+function showMsg(id, text, ok = true) {
+  const el = document.getElementById(id);
+  el.textContent = text;
+  el.className = "message " + (ok ? "ok" : "err");
+  el.classList.remove("hidden");
+  setTimeout(() => el.classList.add("hidden"), 3000);
+}
+
+/* QUESTION */
+function submitQuestion(e) {
+  e.preventDefault();
+  const title = document.getElementById("qTitle").value;
+  const body = document.getElementById("qBody").value;
+  const videoUrl = document.getElementById("qVideoUrl").value;
+  const date = document.getElementById("qDate").value || new Date().toLocaleDateString("he-IL");
+
+  db.collection("dailyQuestions").add({
+    title, body, videoUrl, date,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  }).then(() => {
+    showMsg("messageQuestion", "✓ שאלה נשמרה בהצלחה!");
+    e.target.reset();
+    loadCurrentQuestion();
+  }).catch(err => {
+    showMsg("messageQuestion", "❌ שגיאה: " + err.message, false);
+  });
+}
+
+function loadCurrentQuestion() {
+  db.collection("dailyQuestions").orderBy("createdAt", "desc").limit(1).onSnapshot(snap => {
+    if (snap.empty) {
+      document.getElementById("currentQuestion").innerHTML = '<div style="color:var(--muted)">אין שאלה עדיין</div>';
+      return;
+    }
+    const q = snap.docs[0].data();
+    document.getElementById("currentQuestion").innerHTML = `
+      <div class="list-item">
+        <div class="list-item-content">
+          <div class="list-item-title">${q.title}</div>
+          <div class="list-item-meta">${q.date}</div>
+        </div>
+        <button class="list-item-btn del" onclick="deleteDoc('dailyQuestions', '${snap.docs[0].id}')">🗑️</button>
+      </div>
+    `;
+  });
+}
+
+/* QUIZ LIBRARY */
+let libraryCount = 0;
+
+function submitQuestionToLibrary(e) {
+  e.preventDefault();
+  const q = document.getElementById("libQ").value;
+  const opts = [
+    document.getElementById("libA1").value,
+    document.getElementById("libA2").value,
+    document.getElementById("libA3").value,
+    document.getElementById("libA4").value
+  ];
+  const c = parseInt(document.getElementById("libC").value);
+  const ex = document.getElementById("libEx").value;
+  
+  db.collection("quizQuestions").add({
+    q, opts, c, ex,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  }).then(() => {
+    showMsg("messageLibrary", "✓ שאלה נוספה לספריה!");
+    e.target.reset();
+    loadLibrary();
+  }).catch(err => {
+    showMsg("messageLibrary", "❌ שגיאה: " + err.message, false);
+  });
+}
+
+function loadLibrary() {
+  db.collection("quizQuestions").orderBy("createdAt", "desc").onSnapshot(snap => {
+    libraryCount = snap.size;
+    let html = '';
+    snap.forEach(doc => {
+      const q = doc.data();
+      html += `
+        <div class="list-item">
+          <div class="list-item-content">
+            <div class="list-item-title">${q.q}</div>
+            <div class="list-item-meta">4 תשובות • ${q.ex.substring(0, 40)}...</div>
+          </div>
+          <button class="list-item-btn del" onclick="deleteDoc('quizQuestions', '${doc.id}')">🗑️</button>
+        </div>
+      `;
+    });
+    if (!html) html = '<div style="color:var(--muted)">אין שאלות בספריה עדיין</div>';
+    document.getElementById("libraryList").innerHTML = html;
+    document.querySelectorAll(".section-title").forEach(el => {
+      if (el.textContent.includes("ספריית")) {
+        el.textContent = `📖 שאלות בספריה (${libraryCount})`;
+      }
+    });
+  });
+}
+
+/* AUTO QUIZ */
+function createWeeklyQuiz() {
+  const btn = document.getElementById("createQuizBtn");
+  btn.disabled = true;
+  btn.textContent = "✨ יוצר חידון...";
+  
+  db.collection("quizQuestions").get().then(snap => {
+    if (snap.size < 6) {
+      showMsg("messageQuiz", "❌ צריכות לפחות 6 שאלות בספריה", false);
+      btn.disabled = false;
+      btn.textContent = "✨ צור חידון חדש";
+      return;
+    }
+    
+    const questions = [];
+    const allDocs = [];
+    snap.forEach(doc => allDocs.push(doc.data()));
+    
+    // ערבב ובחר 6-8 שאלות אקראיות
+    const numQuestions = Math.min(8, Math.max(6, allDocs.length));
+    const shuffled = allDocs.sort(() => Math.random() - 0.5).slice(0, numQuestions);
+    
+    db.collection("weeklyQuizzes").add({
+      questions: shuffled,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    }).then(() => {
+      showMsg("messageQuiz", `✓ חידון חדש נוצר עם ${numQuestions} שאלות!`);
+      btn.disabled = false;
+      btn.textContent = "✨ צור חידון חדש";
+      loadCurrentQuiz();
+    }).catch(err => {
+      showMsg("messageQuiz", "❌ שגיאה: " + err.message, false);
+      btn.disabled = false;
+      btn.textContent = "✨ צור חידון חדש";
+    });
+  });
+}
+
+function loadCurrentQuiz() {
+  db.collection("weeklyQuizzes").orderBy("createdAt", "desc").limit(1).onSnapshot(snap => {
+    if (snap.empty) {
+      document.getElementById("currentQuiz").innerHTML = '<div style="color:var(--muted)">אין חידון עדיין</div>';
+      return;
+    }
+    const quiz = snap.docs[0].data();
+    const numQ = quiz.questions.length;
+    const html = `
+      <div class="list-item">
+        <div class="list-item-content">
+          <div class="list-item-title">🏆 חידון שבועי</div>
+          <div class="list-item-meta">${numQ} שאלות • בנוי מ-${libraryCount} שאלות בספריה</div>
+        </div>
+        <button class="list-item-btn del" onclick="deleteDoc('weeklyQuizzes', '${snap.docs[0].id}')">🗑️</button>
+      </div>
+    `;
+    document.getElementById("currentQuiz").innerHTML = html;
+  });
+}
+
+/* FORUM */
+function submitThread(e) {
+  e.preventDefault();
+  const title = document.getElementById("fTitle").value;
+  const cat = document.getElementById("fCat").value;
+  const author = document.getElementById("fAuthor").value;
+  const body = document.getElementById("fBody").value;
+  const pinned = document.getElementById("fPinned").checked;
+
+  db.collection("forumThreads").add({
+    title, cat, author, body, pinned,
+    replies: 0, views: 0,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  }).then(() => {
+    showMsg("messageForum", "✓ נושא פתוח!");
+    e.target.reset();
+    loadThreads();
+  }).catch(err => {
+    showMsg("messageForum", "❌ שגיאה: " + err.message, false);
+  });
+}
+
+function loadThreads() {
+  db.collection("forumThreads").orderBy("createdAt", "desc").onSnapshot(snap => {
+    let html = '';
+    snap.forEach(doc => {
+      const t = doc.data();
+      html += `
+        <div class="list-item">
+          <div class="list-item-content">
+            <div class="list-item-title">${t.pinned ? '📌 ' : ''}${t.title}</div>
+            <div class="list-item-meta">${t.cat} · ${t.author} · ${t.replies} תגובות</div>
+          </div>
+          <button class="list-item-btn del" onclick="deleteDoc('forumThreads', '${doc.id}')">🗑️</button>
+        </div>
+      `;
+    });
+    if (!html) html = '<div style="color:var(--muted)">אין נושאים עדיין</div>';
+    document.getElementById("threadsList").innerHTML = html;
+  });
+}
+
+/* DELETE */
+function deleteDoc(col, id) {
+  if (!confirm("האם אתה בטוח?")) return;
+  db.collection(col).doc(id).delete().then(() => {
+    if (col === "dailyQuestions") loadCurrentQuestion();
+    else if (col === "quizzes") loadQuizzes();
+    else if (col === "forumThreads") loadThreads();
+  }).catch(err => console.error("Delete error:", err));
+}
+
+/* STATS */
+function refreshStats() {
+  db.collection("responses").get().then(snap => document.getElementById("statsResponses").textContent = snap.size);
+  db.collection("votes").get().then(snap => document.getElementById("statsVotes").textContent = snap.size);
+  db.collection("quizScores").get().then(snap => document.getElementById("statsQuizzes").textContent = snap.size);
+  db.collection("forumThreads").get().then(snap => document.getElementById("statsThreads").textContent = snap.size);
+  db.collection("quizQuestions").get().then(snap => {
+    libraryCount = snap.size;
+    document.querySelectorAll(".section-title").forEach(el => {
+      if (el.textContent.includes("ספריית")) {
+        el.textContent = `📖 שאלות בספריה (${libraryCount})`;
+      }
+    });
+  });
+}
+
+/* LOGOUT */
+function logOut() {
+  auth.signOut().then(() => {
+    alert("התנתקת בהצלחה");
+    location.reload();
+  });
+}
+
+/* INIT */
+auth.onAuthStateChanged(user => {
+  if (!user) {
+    alert("רק מנהל יכול לגשת לדף זה");
+    location.href = "index.html";
+  } else {
+    loadCurrentQuestion();
+    loadLibrary();
+    loadCurrentQuiz();
+    loadThreads();
+    refreshStats();
+  }
+});
+
+document.getElementById("moshePhoto").onerror = function() {
+  this.style.background = "linear-gradient(135deg, var(--gold), var(--gold-l))";
+  this.style.display = "flex";
+  this.textContent = "מג";
+};
+</script>
+</body>
+</html>
