@@ -1005,7 +1005,7 @@ function speakText(txt){if(currentAudio){try{currentAudio.stop();}catch(e){}curr
       };
       rec.onerror=function(e){
         console.warn('mic:',e.error);stopMic();
-       if(e.error==='not-allowed'){console.log('Mic permission not granted');}
+     if(e.error==='not-allowed'&&!window.micAlerted){window.micAlerted=true;alert(currentLang==='en'?'Please allow microphone access in your phone Settings > Apps > Moshe Ginzy > Permissions':'אנא אפשר גישה למיקרופון בהגדרות הטלפון > אפליקציות > משה גינזי > הרשאות');}
       };
       rec.start();
     }catch(e){stopMic();}
