@@ -791,6 +791,20 @@ document.getElementById("moshePhoto").onerror = function() {
   this.style.display = "flex";
   this.alt = "מג";
 };
+  // Load quiz from Firebase
+function loadWeeklyQuizFromFirebase() {
+  db.collection("weeklyQuizzes").orderBy("createdAt", "desc").limit(1).onSnapshot(snap => {
+    if (!snap.empty) {
+      const quiz = snap.docs[0].data();
+      currentQuizQuestions = quiz.questions || [];
+      if (currentTab === "quiz") renderQuizIntro();
+    }
+  });
+}
+
+// Load on startup
+  let currentQuizQuestions = [];
+if (currentUser) loadWeeklyQuizFromFirebase();
 </script>
 </body>
 </html>
