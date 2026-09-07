@@ -234,7 +234,7 @@ const auth = firebase.auth();
 try { firebase.analytics(); } catch(e){}
 
 let currentUser = null;
-auth.signInAnonymously().then(cred => { currentUser = cred.user; loadAll(); }).catch(e => { console.warn("Auth error, loading anyway:", e); loadAll(); });
+auth.signInAnonymously().then(cred => { currentUser = cred.user;loadWeeklyQuizFromFirebase();  loadAll(); }).catch(e => { console.warn("Auth error, loading anyway:", e); loadAll(); });
 
 const MOSHE_PHOTO = "https://raw.githubusercontent.com/aginsberger-cpu/mosheginzy/main/moshe-photo.jpg";
 document.getElementById("moshePhoto").src = MOSHE_PHOTO;
