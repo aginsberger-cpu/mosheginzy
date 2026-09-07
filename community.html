@@ -216,12 +216,33 @@ auth.signInAnonymously().then(function(cred) {
 
 /* LOAD QUIZ FROM FIREBASE */
 function loadWeeklyQuizFromFirebase() {
-  db.collection("weeklyQuizzes").orderBy("createdAt", "desc").limit(1).onSnapshot(function(snap) {
-    if (!snap.empty) {
-      var quiz = snap.docs[0].data();
-      currentQuizQuestions = quiz.questions || [];
-      if (currentTab === "quiz") renderQuizIntro();
+  /* AUTO DAILY QUIZ - picks 8 random questions each day automatically! */
+  db.collection("quizQuestions").get().then(function(snap) {
+    if (snap.empty) return;
+    
+    var allQuestions = [];
+    snap.forEach(function(doc) { allQuestions.push(doc.data()); });
+    
+    /* Use today's date as seed for consistent daily selection */
+    var today = new Date();
+    var dayNum = Math.floor(today.getTime() / 86400000); /* days since epoch */
+    
+    /* Seeded shuffle - same day = same questions */
+    function seededRandom(seed) {
+      var x = Math.sin(seed) * 10000;
+      return x - Math.floor(x);
     }
+    
+    var shuffled = allQuestions.slice();
+    for (var i = shuffled.length - 1; i > 0; i--) {
+      var j = Math.floor(seededRandom(dayNum + i) * (i + 1));
+      var temp = shuffled[i];
+      shuffled[i] = shuffled[j];
+      shuffled[j] = temp;
+    }
+    
+    currentQuizQuestions = shuffled.slice(0, 8);
+    if (currentTab === "quiz") renderQuizIntro();
   });
 }
 
@@ -416,6 +437,10 @@ function getVideoId(url) {
   var match = url.match(/[?&]v=([^&]+)/);
   if (match) return match[1];
   match = url.match(/youtu\.be\/([^?]+)/);
+  if (match) return match[1];
+  match = url.match(/shorts\/([^?&/]+)/);
+  if (match) return match[1];
+  match = url.match(/embed\/([^?&/]+)/);
   if (match) return match[1];
   return null;
 }
