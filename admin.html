@@ -435,7 +435,7 @@ function loadLibrary() {
 }
 
 /* AUTO QUIZ */
-function createWeeklyQudb.collection("quizQuestions").get().then(snap => {
+function createWeeklyQuiz() {
     if (snap.size < 6) {
       showMsg("messageQuiz", "❌ צריכות לפחות 6 שאלות בספריה", false);
       btn.disabled = false;
