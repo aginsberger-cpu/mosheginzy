@@ -441,6 +441,11 @@ function createWeeklyQuiz() {
   btn.disabled = true;
   btn.textContent = "✨ יוצר חידון...";
   
+  // מחק חידונים ישנים קודם!
+  db.collection("weeklyQuizzes").get().then(snap => {
+    snap.forEach(doc => doc.ref.delete());
+  });
+  
   db.collection("quizQuestions").get().then(snap => {
     if (snap.size < 6) {
       showMsg("messageQuiz", "❌ צריכות לפחות 6 שאלות בספריה", false);
