@@ -794,8 +794,10 @@ document.getElementById("moshePhoto").onerror = function() {
   // Load quiz from Firebase
 function loadWeeklyQuizFromFirebase() {
   db.collection("weeklyQuizzes").orderBy("createdAt", "desc").limit(1).onSnapshot(snap => {
+    console.log("Quiz loaded from Firebase, docs:", snap.size);
     if (!snap.empty) {
       const quiz = snap.docs[0].data();
+       console.log("Quiz questions:", quiz.questions);
       currentQuizQuestions = quiz.questions || [];
       if (currentTab === "quiz") renderQuizIntro();
     }
