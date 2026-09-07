@@ -635,7 +635,7 @@ function startQuiz() { quizStep = "play"; renderQuizQuestion(); }
 
 function renderQuizQuestion() {
   const s = t();
-  const QQ = s.quizQ;
+ const QQ = currentQuizQuestions.length > 0 ? currentQuizQuestions : s.quizQ;
   const q = QQ[qi];
   const c = document.getElementById("quizContent");
   const pct = ((qi + (qDone ? 1 : 0)) / QQ.length) * 100;
