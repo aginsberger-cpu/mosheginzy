@@ -435,12 +435,7 @@ function loadLibrary() {
 }
 
 /* AUTO QUIZ */
-function createWeeklyQuiz() {
-  const btn = document.getElementById("createQuizBtn");
-  btn.disabled = true;
-  btn.textContent = "✨ יוצר חידון...";
-  
-  db.collection("quizQuestions").get().then(snap => {
+function createWeeklyQudb.collection("quizQuestions").get().then(snap => {
     if (snap.size < 6) {
       showMsg("messageQuiz", "❌ צריכות לפחות 6 שאלות בספריה", false);
       btn.disabled = false;
@@ -448,32 +443,61 @@ function createWeeklyQuiz() {
       return;
     }
     
-    const questions = [];
     const allDocs = [];
     snap.forEach(doc => allDocs.push(doc.data()));
     
-    // ערבב ובחר 6-8 שאלות אקראיות
     const numQuestions = Math.min(8, Math.max(6, allDocs.length));
     const shuffled = allDocs.sort(() => Math.random() - 0.5).slice(0, numQuestions);
+    
+    console.log("Saving quiz with questions:", shuffled);
     
     db.collection("weeklyQuizzes").add({
       questions: shuffled,
       createdAt: firebase.firestore.FieldValue.serverTimestamp()
     }).then(() => {
+      console.log("Quiz saved successfully");
       showMsg("messageQuiz", `✓ חידון חדש נוצר עם ${numQuestions} שאלות!`);
       btn.disabled = false;
       btn.textContent = "✨ צור חידון חדש";
       loadCurrentQuiz();
     }).catch(err => {
+      console.error("Error saving quiz:", err);
+      showMsg("messageQuiz", "❌ שגיאה: " + err.message, false);
+      btn.disabled = false;
+      btn.textContent = "✨ צור חידון חדש";
+    });
+  });db.collection("quizQuestions").get().then(snap => {
+    if (snap.size < 6) {
+      showMsg("messageQuiz", "❌ צריכות לפחות 6 שאלות בספריה", false);
+      btn.disabled = false;
+      btn.textContent = "✨ צור חידון חדש";
+      return;
+    }
+    
+    const allDocs = [];
+    snap.forEach(doc => allDocs.push(doc.data()));
+    
+    const numQuestions = Math.min(8, Math.max(6, allDocs.length));
+    const shuffled = allDocs.sort(() => Math.random() - 0.5).slice(0, numQuestions);
+    
+    console.log("Saving quiz with questions:", shuffled);
+    
+    db.collection("weeklyQuizzes").add({
+      questions: shuffled,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    }).then(() => {
+      console.log("Quiz saved successfully");
+      showMsg("messageQuiz", `✓ חידון חדש נוצר עם ${numQuestions} שאלות!`);
+      btn.disabled = false;
+      btn.textContent = "✨ צור חידון חדש";
+      loadCurrentQuiz();
+    }).catch(err => {
+      console.error("Error saving quiz:", err);
       showMsg("messageQuiz", "❌ שגיאה: " + err.message, false);
       btn.disabled = false;
       btn.textContent = "✨ צור חידון חדש";
     });
   });
-}
-
-function loadCurrentQuiz() {
-  db.collection("weeklyQuizzes").orderBy("createdAt", "desc").limit(1).onSnapshot(snap => {
     if (snap.empty) {
       document.getElementById("currentQuiz").innerHTML = '<div style="color:var(--muted)">אין חידון עדיין</div>';
       return;
