@@ -474,6 +474,10 @@ function createWeeklyQuiz() {
     });
   });
 }
+  
+function loadCurrentQuiz() {
+  db.collection("weeklyQuizzes").orderBy("createdAt", "desc").limit(1).onSnapshot(snap => {
+    if (snap.empty) {
    
       document.getElementById("currentQuiz").innerHTML = '<div style="color:var(--muted)">אין חידון עדיין</div>';
       return;
