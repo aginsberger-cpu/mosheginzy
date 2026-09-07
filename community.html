@@ -799,7 +799,7 @@ function loadWeeklyQuizFromFirebase() {
       const quiz = snap.docs[0].data();
        console.log("Quiz questions:", quiz.questions);
       currentQuizQuestions = quiz.questions || [];
-      if (currentTab === "quiz") renderQuizIntro();
+     renderQuizIntro();  // תמיד קרא, לא משנה מה currentTab!
     }
   });
 }
