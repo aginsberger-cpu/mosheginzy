@@ -207,6 +207,7 @@ document.getElementById("moshePhoto").src = MOSHE_PHOTO;
 auth.signInAnonymously().then(function(cred) {
   currentUser = cred.user;
   loadWeeklyQuizFromFirebase();
+  loadDailyQuestion();
   loadAll();
 }).catch(function(e) {
   console.warn("Auth error:", e);
@@ -398,14 +399,55 @@ function loadAll() {
   renderLeaderboard();
 }
 
-/* 1. QUESTION */
+/* 1. QUESTION - reads from Firebase dailyQuestions */
+var currentDailyQuestion = null;
+
+function loadDailyQuestion() {
+  db.collection("dailyQuestions").orderBy("createdAt", "desc").limit(1).onSnapshot(function(snap) {
+    if (!snap.empty) {
+      currentDailyQuestion = snap.docs[0].data();
+      if (currentTab === "question") renderQuestion();
+    }
+  });
+}
+
+function getVideoId(url) {
+  if (!url) return null;
+  var match = url.match(/[?&]v=([^&]+)/);
+  if (match) return match[1];
+  match = url.match(/youtu\.be\/([^?]+)/);
+  if (match) return match[1];
+  return null;
+}
+
 function renderQuestion() {
   var s = t();
   var responses = s.sampleResp;
   var c = document.getElementById("questionContent");
+
+  var qTitle = s.qTitle;
+  var qBody = s.qBody;
+  var qDate = s.date;
+  var qCat = s.cat;
+  var videoId = null;
+
+  if (currentDailyQuestion) {
+    qTitle = currentDailyQuestion.title || qTitle;
+    qBody = currentDailyQuestion.body || qBody;
+    qDate = currentDailyQuestion.date || qDate;
+    videoId = getVideoId(currentDailyQuestion.videoUrl);
+  }
+
+  var videoHtml = '';
+  if (videoId && showVideo) {
+    videoHtml = '<div class="yt-wrap"><iframe src="https://www.youtube.com/embed/' + videoId + '" allowfullscreen></iframe></div>';
+  } else if (showVideo) {
+    videoHtml = '<div class="vid-placeholder"><div class="vid-placeholder-inner"><div class="vid-play">▶</div><span style="color:var(--muted);font-size:13px">' + s.vidPlaceholder + '</span></div></div>';
+  }
+
   c.innerHTML =
-    '<div class="glass glow" style="padding:0;overflow:hidden"><div class="q-top-bar"></div><div style="padding:18px 20px"><div class="q-badges"><span class="badge">' + s.date + '</span><span style="background:var(--border);color:var(--sec);padding:3px 10px;border-radius:16px;font-size:11px">' + s.cat + '</span></div><div class="q-title">' + s.qTitle + '</div><div class="q-body">' + s.qBody + '</div></div></div>' +
-    '<div class="glass" style="padding:0;overflow:hidden"><button class="vid-toggle" onclick="toggleVideo()"><span>🎬 ' + (showVideo ? s.hideVid : s.watchVid) + '</span><span style="transform:' + (showVideo ? 'rotate(90deg)' : 'none') + ';transition:0.2s;display:inline-block">›</span></button>' + (showVideo ? '<div class="vid-placeholder"><div class="vid-placeholder-inner"><div class="vid-play">▶</div><span style="color:var(--muted);font-size:13px">' + s.vidPlaceholder + '</span></div></div>' : '') + '</div>' +
+    '<div class="glass glow" style="padding:0;overflow:hidden"><div class="q-top-bar"></div><div style="padding:18px 20px"><div class="q-badges"><span class="badge">' + qDate + '</span><span style="background:var(--border);color:var(--sec);padding:3px 10px;border-radius:16px;font-size:11px">' + qCat + '</span></div><div class="q-title">' + qTitle + '</div><div class="q-body">' + qBody + '</div></div></div>' +
+    '<div class="glass" style="padding:0;overflow:hidden"><button class="vid-toggle" onclick="toggleVideo()"><span>🎬 ' + (showVideo ? s.hideVid : s.watchVid) + '</span><span style="transform:' + (showVideo ? 'rotate(90deg)' : 'none') + ';transition:0.2s;display:inline-block">›</span></button>' + videoHtml + '</div>' +
     '<div class="glass"><h3 style="font-size:15px;font-weight:600;color:var(--white);margin-bottom:10px">' + s.whatThink + '</h3><div class="input-area"><textarea id="respInput" rows="3" placeholder="' + s.placeholder + '" dir="' + s.dir + '"></textarea></div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px"><button class="gold-btn" style="width:auto" onclick="submitResponse()">' + s.send + '</button><span id="sentMsg" style="color:var(--ok);font-size:13px;font-weight:500" class="hidden">✓ ' + s.sent + '</span></div></div>' +
     '<div class="responses-header"><span>' + responses.length + ' ' + s.responses + '</span><span>' + s.sortBy + '</span></div>' +
     responses.map(function(r, i) {
