@@ -458,10 +458,13 @@ function renderQuestion() {
   var qCat = s.cat;
   var videoId = null;
 
-  if (currentDailyQuestion) {
+  if (currentDailyQuestion && lang === "he") {
     qTitle = currentDailyQuestion.title || qTitle;
     qBody = currentDailyQuestion.body || qBody;
     qDate = currentDailyQuestion.date || qDate;
+    qCat = currentDailyQuestion.cat || qCat;
+    videoId = getVideoId(currentDailyQuestion.videoUrl);
+  } else if (currentDailyQuestion) {
     videoId = getVideoId(currentDailyQuestion.videoUrl);
   }
 
