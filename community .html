@@ -248,6 +248,8 @@ function loadWeeklyQuizFromFirebase() {
 
 /* GET QUIZ QUESTIONS - always prefer Firebase, fallback to hardcoded */
 function getQQ() {
+  /* Hebrew = Firebase questions, English = hardcoded English questions */
+  if (lang === "en") return t().quizQ;
   if (currentQuizQuestions.length > 0) return currentQuizQuestions;
   return t().quizQ;
 }
@@ -437,6 +439,10 @@ function getVideoId(url) {
   var match = url.match(/[?&]v=([^&]+)/);
   if (match) return match[1];
   match = url.match(/youtu\.be\/([^?]+)/);
+  if (match) return match[1];
+  match = url.match(/shorts\/([^?&/]+)/);
+  if (match) return match[1];
+  match = url.match(/embed\/([^?&/]+)/);
   if (match) return match[1];
   return null;
 }
