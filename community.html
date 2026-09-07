@@ -614,7 +614,7 @@ let quizStep = "intro", qi = 0, qSel = null, qDone = false, qScore = 0, qHist = 
 function renderQuizIntro() {
   quizStep = "intro"; qi = 0; qSel = null; qDone = false; qScore = 0; qHist = [];
   const s = t();
-  const QQ = s.quizQ;
+  const QQ = currentQuizQuestions.length > 0 ? currentQuizQuestions : s.quizQ;
   const c = document.getElementById("quizContent");
   c.innerHTML = `
     <div class="glass glow quiz-intro">
