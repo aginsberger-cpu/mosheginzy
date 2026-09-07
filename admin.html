@@ -436,9 +436,12 @@ function loadLibrary() {
 
 /* AUTO QUIZ */
 function createWeeklyQuiz() {
-    if (snap.size < 6) {
-      showMsg("messageQuiz", "❌ צריכות לפחות 6 שאלות בספריה", false);
-      btn.disabled = false;
+ 
+  const btn = document.getElementById("createQuizBtn");
+  btn.disabled = true;
+  btn.textContent = "✨ יוצר חידון...";
+  
+  db.collection("quizQuestions").get().then(snap => {
       btn.textContent = "✨ צור חידון חדש";
       return;
     }
