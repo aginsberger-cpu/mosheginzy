@@ -22,7 +22,7 @@
   --err:#c44040; --err-bg:rgba(196,64,64,0.08);
 }
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:var(--font);background:var(--bg);color:var(--pri);min-height:100vh;max-width:520px;margin:0 auto;-webkit-tap-highlight-color:transparent}
+body{font-family:var(--font);background:var(--bg);color:var(--pri);min-height:100vh;max-width:520px;margin:0 auto;-webkit-tap-highlight-color:transparent;padding-bottom:64px}
 button{cursor:pointer;font-family:var(--font);border:none;background:none}
 textarea{font-family:var(--font)}
 .glass{background:var(--card);border-radius:var(--r);border:1px solid var(--border);padding:18px;box-shadow:0 3px 16px rgba(0,0,0,0.25)}
@@ -129,6 +129,12 @@ textarea{font-family:var(--font)}
 .my-stats .lbl{font-size:10px;color:var(--muted);margin-top:2px}
 .loading{display:flex;justify-content:center;padding:40px;color:var(--muted);font-size:14px}
 .hidden{display:none!important}
+/* BOTTOM NAV */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(15,15,15,0.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--border);border-radius:18px 18px 0 0;display:flex;height:64px;padding-bottom:env(safe-area-inset-bottom)}
+.light .bottom-nav{background:rgba(245,240,232,0.97)}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--muted);font-size:.58rem;font-weight:500;cursor:pointer;border:none;background:none;font-family:var(--font);transition:color .2s;text-decoration:none}
+.bn-item.active{color:#E8C040}
+.bn-item svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .yt-wrap{position:relative;width:100%;padding-bottom:56.25%;border-radius:0 0 var(--r) var(--r);overflow:hidden}
 .yt-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
 </style>
@@ -191,6 +197,10 @@ try { firebase.analytics(); } catch(e){}
 
 var currentUser = null;
 var currentQuizQuestions = [];
+var userStats = { totalPts: 0, quizCount: 0, bestStreak: 0 };
+var firebaseLeaders = [];
+var allFirebaseQuestions = [];
+var quizAttempt = 0;
 var lang = "he", isDark = true;
 var currentTab = "question";
 var quizStep = "intro", qi = 0, qSel = null, qDone = false, qScore = 0, qHist = [];
@@ -208,42 +218,92 @@ auth.signInAnonymously().then(function(cred) {
   currentUser = cred.user;
   loadWeeklyQuizFromFirebase();
   loadDailyQuestion();
+  loadUserStats();
+  loadLeaderboard();
   loadAll();
 }).catch(function(e) {
   console.warn("Auth error:", e);
   loadAll();
 });
 
+/* LOAD USER STATS FROM FIREBASE */
+function loadUserStats() {
+  if (!currentUser) return;
+  db.collection("quizScores").where("uid", "==", currentUser.uid).get().then(function(snap) {
+    var totalPts = 0;
+    var quizCount = 0;
+    snap.forEach(function(doc) {
+      var d = doc.data();
+      totalPts += (d.score || 0);
+      quizCount++;
+    });
+    userStats.totalPts = totalPts;
+    userStats.quizCount = quizCount;
+    if (currentTab === "leaderboard") renderLeaderboard();
+  });
+}
+
+/* LOAD LEADERBOARD FROM FIREBASE */
+function loadLeaderboard() {
+  db.collection("quizScores").get().then(function(snap) {
+    var byUser = {};
+    snap.forEach(function(doc) {
+      var d = doc.data();
+      var uid = d.uid;
+      if (!byUser[uid]) byUser[uid] = { uid: uid, totalPts: 0, quizCount: 0 };
+      byUser[uid].totalPts += (d.score || 0);
+      byUser[uid].quizCount++;
+    });
+    /* Convert to array and sort by points */
+    firebaseLeaders = Object.values(byUser).sort(function(a, b) { return b.totalPts - a.totalPts; }).slice(0, 10);
+    /* Assign display names */
+    var heNames = ["לומד א׳","לומד ב׳","לומד ג׳","לומד ד׳","לומד ה׳","לומד ו׳","לומד ז׳","לומד ח׳","לומד ט׳","לומד י׳"];
+    var enNames = ["Learner A","Learner B","Learner C","Learner D","Learner E","Learner F","Learner G","Learner H","Learner I","Learner J"];
+    firebaseLeaders.forEach(function(u, i) {
+      u.heName = heNames[i] || "לומד";
+      u.enName = enNames[i] || "Learner";
+      /* Mark if this is the current user */
+      u.isMe = currentUser && u.uid === currentUser.uid;
+      if (u.isMe) {
+        u.heName = "אתה 🌟";
+        u.enName = "You 🌟";
+      }
+    });
+    if (currentTab === "leaderboard") renderLeaderboard();
+  });
+}
+
 /* LOAD QUIZ FROM FIREBASE */
 function loadWeeklyQuizFromFirebase() {
-  /* AUTO DAILY QUIZ - picks 8 random questions each day automatically! */
   db.collection("quizQuestions").get().then(function(snap) {
     if (snap.empty) return;
-    
-    var allQuestions = [];
-    snap.forEach(function(doc) { allQuestions.push(doc.data()); });
-    
-    /* Use today's date as seed for consistent daily selection */
-    var today = new Date();
-    var dayNum = Math.floor(today.getTime() / 86400000); /* days since epoch */
-    
-    /* Seeded shuffle - same day = same questions */
-    function seededRandom(seed) {
-      var x = Math.sin(seed) * 10000;
-      return x - Math.floor(x);
-    }
-    
-    var shuffled = allQuestions.slice();
-    for (var i = shuffled.length - 1; i > 0; i--) {
-      var j = Math.floor(seededRandom(dayNum + i) * (i + 1));
-      var temp = shuffled[i];
-      shuffled[i] = shuffled[j];
-      shuffled[j] = temp;
-    }
-    
-    currentQuizQuestions = shuffled.slice(0, 8);
+    allFirebaseQuestions = [];
+    snap.forEach(function(doc) { allFirebaseQuestions.push(doc.data()); });
+    pickQuizQuestions();
     if (currentTab === "quiz") renderQuizIntro();
   });
+}
+
+/* Pick 8 questions - different each attempt */
+function pickQuizQuestions() {
+  if (allFirebaseQuestions.length === 0) return;
+  var today = new Date();
+  var dayNum = Math.floor(today.getTime() / 86400000);
+  var seed = dayNum * 100 + quizAttempt;
+
+  function seededRandom(s) {
+    var x = Math.sin(s) * 10000;
+    return x - Math.floor(x);
+  }
+
+  var shuffled = allFirebaseQuestions.slice();
+  for (var i = shuffled.length - 1; i > 0; i--) {
+    var j = Math.floor(seededRandom(seed + i) * (i + 1));
+    var temp = shuffled[i];
+    shuffled[i] = shuffled[j];
+    shuffled[j] = temp;
+  }
+  currentQuizQuestions = shuffled.slice(0, 8);
 }
 
 /* GET QUIZ QUESTIONS - always prefer Firebase, fallback to hardcoded */
@@ -279,7 +339,7 @@ var T = {
     rules:["ענה על שאלות ביהדות ובמקורות","אין מגבלת זמן — קח את הזמן שלך","קבל הסברים מפורטים על כל תשובה","צבור נקודות ועלה בדירוג"],
     pts:"נק'", correct:"נכון! ", incorrect:"לא מדויק — ",
     nextQ:"שאלה הבאה", finish:"סיום — ראה תוצאות",
-    tryAgain:"נסה שוב", challenge:"אתגר חבר", summary:"סיכום", outOf:"מתוך",
+    tryAgain:"נסה שוב", challenge:"אתגר חבר", backToApp:"חזרה לאפליקציה", nextQuiz:"לחידון הבא", summary:"סיכום", outOf:"מתוך",
     perfect:{t:"מושלם!",s:"תלמיד חכם אמיתי"}, great:{t:"מרשים!",s:"ידע רחב ומעמיק"},
     ok:{t:"לא רע!",s:"ממשיכים ללמוד"}, low:{t:"יש מה ללמוד",s:"כל ניסיון הוא התקדמות"},
     lbTitle:"דירוג הקהילה", lbSub:"הלומדים הפעילים ביותר השבוע",
@@ -338,7 +398,7 @@ var T = {
     rules:["Answer questions on Judaism & Torah","No time limit","Get detailed explanations","Earn points and climb the rankings"],
     pts:"pts", correct:"Correct! ", incorrect:"Not quite — ",
     nextQ:"Next Question", finish:"Finish — See Results",
-    tryAgain:"Try Again", challenge:"Challenge a Friend", summary:"Summary", outOf:"out of",
+    tryAgain:"Try Again", challenge:"Challenge a Friend", backToApp:"Back to App", nextQuiz:"Next Quiz", summary:"Summary", outOf:"out of",
     perfect:{t:"Perfect!",s:"A true Torah scholar"}, great:{t:"Impressive!",s:"Deep knowledge"},
     ok:{t:"Not bad!",s:"Keep learning"}, low:{t:"Room to grow",s:"Every attempt is progress"},
     lbTitle:"Community Rankings", lbSub:"Most active learners this week",
@@ -397,6 +457,16 @@ function setLang(l) {
     var key = el.getAttribute("data-i");
     if (t()[key]) el.textContent = t()[key];
   });
+  /* Update bottom nav labels */
+  var navLabels = l === "he"
+    ? {home:"בית",chat:"שאל משה",community:"קהילה",lessons:"שיעורים",chavruta:"חברותא",about:"אודות"}
+    : {home:"Home",chat:"Ask Moshe",community:"Community",lessons:"Lessons",chavruta:"Chavruta",about:"About"};
+  document.getElementById("nav-home-lbl").textContent = navLabels.home;
+  document.getElementById("nav-chat-lbl").textContent = navLabels.chat;
+  document.getElementById("nav-community-lbl").textContent = navLabels.community;
+  document.getElementById("nav-lessons-lbl").textContent = navLabels.lessons;
+  document.getElementById("nav-chavruta-lbl").textContent = navLabels.chavruta;
+  document.getElementById("nav-about-lbl").textContent = navLabels.about;
   renderCurrentTab();
 }
 
@@ -553,6 +623,8 @@ function closeThread() { selectedThread = null; renderForum(); }
 /* 3. QUIZ - READS FROM FIREBASE! */
 function renderQuizIntro() {
   quizStep = "intro"; qi = 0; qSel = null; qDone = false; qScore = 0; qHist = [];
+  quizAttempt++;
+  pickQuizQuestions();
   var s = t();
   var QQ = getQQ();
   var c = document.getElementById("quizContent");
@@ -609,13 +681,17 @@ function renderQuizResults() {
   var m = pct === 100 ? s.perfect : pct >= 66 ? s.great : pct >= 50 ? s.ok : s.low;
   var c = document.getElementById("quizContent");
   if (currentUser) {
-    db.collection("quizScores").add({ uid: currentUser.uid, score: qScore, total: QQ.length, pct: pct, ts: firebase.firestore.FieldValue.serverTimestamp() }).catch(function(){});
+    db.collection("quizScores").add({ uid: currentUser.uid, score: qScore, total: QQ.length, pct: pct, ts: firebase.firestore.FieldValue.serverTimestamp() }).then(function() {
+      loadUserStats();
+      loadLeaderboard();
+    }).catch(function(){});
   }
   c.innerHTML =
     '<div class="glass glow" style="text-align:center;padding:28px 18px"><div class="result-circle"><span class="result-score">' + qScore + '</span><span class="result-of">' + s.outOf + ' ' + QQ.length + '</span></div><h2 style="font-size:20px;font-weight:800;color:var(--white);margin-bottom:4px">' + m.t + '</h2><p style="font-size:14px;color:var(--sec)">' + m.s + '</p></div>' +
     '<div class="glass"><h3 style="font-size:13px;font-weight:600;color:var(--sec);margin-bottom:8px">' + s.summary + '</h3>' +
     qHist.map(function(h) { return '<div class="hist-row ' + (h.ok ? 'ok' : 'fail') + '"><span class="icon">' + (h.ok ? '✓' : '✗') + '</span><span class="txt">' + h.q + '</span></div>'; }).join('') + '</div>' +
-    '<div style="display:flex;gap:8px"><button class="gold-btn" onclick="renderQuizIntro()">' + s.tryAgain + '</button><button class="wa-btn" style="flex:1" onclick="shareQuiz()">📲 ' + s.challenge + '</button></div>';
+    '<div style="display:flex;gap:8px"><button class="gold-btn" onclick="renderQuizIntro()">' + s.nextQuiz + '</button><button class="wa-btn" style="flex:1" onclick="shareQuiz()">📲 ' + s.challenge + '</button></div>' +
+    '<button onclick="goBackToApp()" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;border-radius:var(--rs);border:1.5px solid var(--gold-b);background:var(--gold-dim);color:var(--gold);font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font)">🏠 ' + s.backToApp + '</button>';
 }
 
 function shareQuiz() {
@@ -624,26 +700,65 @@ function shareQuiz() {
   window.open("https://wa.me/?text=" + text, "_blank");
 }
 
+/* FIND USER RANK */
+function getUserRank() {
+  if (!currentUser) return "—";
+  for (var i = 0; i < firebaseLeaders.length; i++) {
+    if (firebaseLeaders[i].uid === currentUser.uid) return (i + 1).toString();
+  }
+  return "—";
+}
+
+/* BACK TO APP */
+function goBackToApp() {
+  if (window.history.length > 1) {
+    window.history.back();
+  } else {
+    window.location.href = "app.html";
+  }
+}
+
 /* 4. LEADERBOARD */
 function renderLeaderboard() {
   var s = t();
-  var L = s.leaders;
   var podC = ["#c9a84c", "#9eaab8", "#b07d4f"];
   var podH = [120, 95, 75];
   var medals = ["🥇", "🥈", "🥉"];
   var c = document.getElementById("leaderboardContent");
-  c.innerHTML =
-    '<div><h2 style="font-size:18px;font-weight:700;color:var(--white);margin-bottom:2px">' + s.lbTitle + '</h2><p style="font-size:12px;color:var(--muted)">' + s.lbSub + '</p></div>' +
-    '<div class="glass glow" style="padding:16px 8px 0;overflow:hidden"><div class="podium">' +
+
+  /* Use real Firebase data if available, otherwise show empty state */
+  var L = firebaseLeaders;
+
+  if (L.length === 0) {
+    c.innerHTML =
+      '<div><h2 style="font-size:18px;font-weight:700;color:var(--white);margin-bottom:2px">' + s.lbTitle + '</h2><p style="font-size:12px;color:var(--muted)">' + s.lbSub + '</p></div>' +
+      '<div class="glass glow" style="text-align:center;padding:40px 20px"><div style="font-size:48px;margin-bottom:12px">🏆</div><p style="font-size:16px;font-weight:600;color:var(--white);margin-bottom:8px">' + (lang === 'he' ? 'הדירוג ריק עדיין' : 'No rankings yet') + '</p><p style="font-size:14px;color:var(--sec)">' + (lang === 'he' ? 'ענו על חידונים כדי להופיע בדירוג!' : 'Complete quizzes to appear on the leaderboard!') + '</p></div>' +
+      '<div class="glass glow"><h3 style="font-size:13px;font-weight:600;color:var(--gold);margin-bottom:12px">' + s.yourStats + '</h3><div class="my-stats">' +
+      [{v:userStats.totalPts.toString(),l:s.yourPts},{v:getUserRank(),l:s.yourRank},{v:"0",l:s.yourStreak},{v:userStats.quizCount.toString(),l:s.yourQuizzes}].map(function(x) { return '<div><div class="val">' + x.v + '</div><div class="lbl">' + x.l + '</div></div>'; }).join('') + '</div></div>';
+    return;
+  }
+
+  /* Build podium (only if 3+ users) */
+  var podiumHtml = '';
+  if (L.length >= 3) {
+    podiumHtml = '<div class="glass glow" style="padding:16px 8px 0;overflow:hidden"><div class="podium">' +
     [1, 0, 2].map(function(idx) {
       var u = L[idx];
-      return '<div class="pod-col"><span class="pod-medal" ' + (idx === 0 ? 'style="font-size:26px"' : 'style="font-size:20px"') + '>' + medals[idx] + '</span><div class="avatar" style="width:' + (idx === 0 ? 44 : 36) + 'px;height:' + (idx === 0 ? 44 : 36) + 'px;font-size:' + (idx === 0 ? 16 : 13) + 'px">' + u.name[0] + '</div><span class="pod-name">' + u.name + '</span><div class="pod-bar" style="height:' + podH[idx] + 'px;background:linear-gradient(180deg,' + podC[idx] + '25,' + podC[idx] + '08);border:1px solid ' + podC[idx] + '30;border-bottom:none"><span class="pod-pts" style="color:' + podC[idx] + '">' + u.pts + '</span><span class="pod-lbl">' + s.points + '</span></div></div>';
-    }).join('') + '</div></div>' +
-    L.map(function(u) {
-      return '<div class="glass lb-row" style="' + (u.r <= 3 ? (lang === 'he' ? 'border-right' : 'border-left') + ':3px solid ' + podC[u.r - 1] : '') + '"><div class="lb-rank" style="background:' + (u.r <= 3 ? podC[u.r - 1] + '20' : 'var(--border)') + ';color:' + (u.r <= 3 ? podC[u.r - 1] : 'var(--muted)') + '">' + u.r + '</div><div style="flex:1"><div style="display:flex;align-items:center;gap:6px;margin-bottom:1px"><span class="lb-name">' + u.name + '</span><span class="badge">' + u.badge + '</span></div><span class="lb-stats">🔥 ' + u.streak + ' ' + s.days + ' · 📝 ' + u.qz + ' ' + s.quizzes + ' · 💬 ' + u.ans + ' ' + s.answers + '</span></div><span class="lb-pts" style="color:' + (u.r <= 3 ? podC[u.r - 1] : 'var(--muted)') + '">' + u.pts + '</span></div>';
+      var name = lang === 'he' ? u.heName : u.enName;
+      return '<div class="pod-col"><span class="pod-medal" ' + (idx === 0 ? 'style="font-size:26px"' : 'style="font-size:20px"') + '>' + medals[idx] + '</span><div class="avatar" style="width:' + (idx === 0 ? 44 : 36) + 'px;height:' + (idx === 0 ? 44 : 36) + 'px;font-size:' + (idx === 0 ? 16 : 13) + 'px;' + (u.isMe ? 'border-color:var(--gold);border-width:2px' : '') + '">' + name[0] + '</div><span class="pod-name">' + name + '</span><div class="pod-bar" style="height:' + podH[idx] + 'px;background:linear-gradient(180deg,' + podC[idx] + '25,' + podC[idx] + '08);border:1px solid ' + podC[idx] + '30;border-bottom:none"><span class="pod-pts" style="color:' + podC[idx] + '">' + u.totalPts + '</span><span class="pod-lbl">' + s.points + '</span></div></div>';
+    }).join('') + '</div></div>';
+  }
+
+  c.innerHTML =
+    '<div><h2 style="font-size:18px;font-weight:700;color:var(--white);margin-bottom:2px">' + s.lbTitle + '</h2><p style="font-size:12px;color:var(--muted)">' + s.lbSub + '</p></div>' +
+    podiumHtml +
+    L.map(function(u, idx) {
+      var r = idx + 1;
+      var name = lang === 'he' ? u.heName : u.enName;
+      return '<div class="glass lb-row" style="' + (r <= 3 ? (lang === 'he' ? 'border-right' : 'border-left') + ':3px solid ' + podC[r - 1] : '') + (u.isMe ? ';background:var(--gold-dim)' : '') + '"><div class="lb-rank" style="background:' + (r <= 3 ? podC[r - 1] + '20' : 'var(--border)') + ';color:' + (r <= 3 ? podC[r - 1] : 'var(--muted)') + '">' + r + '</div><div style="flex:1"><div style="display:flex;align-items:center;gap:6px;margin-bottom:1px"><span class="lb-name">' + name + '</span></div><span class="lb-stats">📝 ' + u.quizCount + ' ' + s.quizzes + ' · ' + u.totalPts + ' ' + s.points + '</span></div><span class="lb-pts" style="color:' + (r <= 3 ? podC[r - 1] : 'var(--muted)') + '">' + u.totalPts + '</span></div>';
     }).join('') +
     '<div class="glass glow"><h3 style="font-size:13px;font-weight:600;color:var(--gold);margin-bottom:12px">' + s.yourStats + '</h3><div class="my-stats">' +
-    [{v:"0",l:s.yourPts},{v:"—",l:s.yourRank},{v:"0",l:s.yourStreak},{v:"0",l:s.yourQuizzes}].map(function(x) { return '<div><div class="val">' + x.v + '</div><div class="lbl">' + x.l + '</div></div>'; }).join('') + '</div></div>';
+    [{v:userStats.totalPts.toString(),l:s.yourPts},{v:getUserRank(),l:s.yourRank},{v:"0",l:s.yourStreak},{v:userStats.quizCount.toString(),l:s.yourQuizzes}].map(function(x) { return '<div><div class="val">' + x.v + '</div><div class="lbl">' + x.l + '</div></div>'; }).join('') + '</div></div>';
 }
 
 /* INIT */
@@ -663,5 +778,33 @@ document.getElementById("moshePhoto").onerror = function() {
   this.alt = "מג";
 };
 </script>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="bn-item" onclick="window.location.href='app.html'">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <span id="nav-home-lbl">בית</span>
+  </button>
+  <button class="bn-item" onclick="window.location.href='app.html?screen=chat'">
+    <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <span id="nav-chat-lbl">שאל משה</span>
+  </button>
+  <button class="bn-item active">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="9" cy="7" r="3"/><circle cx="17" cy="7" r="3"/><path d="M5 21v-2a4 4 0 014-4h0M13 21v-2a4 4 0 014-4h0"/></svg>
+    <span id="nav-community-lbl">קהילה</span>
+  </button>
+  <button class="bn-item" onclick="window.location.href='app.html?screen=lessons'">
+    <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+    <span id="nav-lessons-lbl">שיעורים</span>
+  </button>
+  <button class="bn-item" onclick="window.location.href='app.html?screen=chavruta'">
+    <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    <span id="nav-chavruta-lbl">חברותא</span>
+  </button>
+  <button class="bn-item" onclick="window.location.href='app.html?screen=about'">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <span id="nav-about-lbl">אודות</span>
+  </button>
+</nav>
 </body>
 </html>
