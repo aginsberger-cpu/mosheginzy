@@ -226,12 +226,6 @@ function getHebrewDateEn() {
     return f.format(new Date());
   } catch(e) { return ""; }
 }
-/* Set dynamic date in i18n */
-var heDate = getHebrewDate();
-var enDate = getHebrewDateEn();
-if (heDate) T.he.date = heDate;
-if (enDate) T.en.date = enDate;
-
 /* AUTH + LOAD */
 auth.signInAnonymously().then(function(cred) {
   currentUser = cred.user;
@@ -455,6 +449,12 @@ var T = {
 };
 
 function t() { return T[lang]; }
+
+/* Set dynamic Hebrew date */
+var heDate = getHebrewDate();
+var enDate = getHebrewDateEn();
+if (heDate) T.he.date = heDate;
+if (enDate) T.en.date = enDate;
 
 /* THEME & LANG */
 function toggleTheme() {
