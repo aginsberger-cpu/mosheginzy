@@ -530,11 +530,11 @@ fbq('track','PageView',{content_category:platform});
       <div class="verse-text" data-he="כל אדם הוא עולם שלם" data-en="Every person is an entire world">כל אדם הוא עולם שלם</div>
       <div class="verse-src">— <span data-he="משנה סנהדרין" data-en="Mishnah Sanhedrin">משנה סנהדרין</span></div>
     </div>
-    <div class="about-links">
-      <a href="https://mosheginzy.com" class="about-link">mosheginzy.com →</a>
-      <a href="https://tikva.netivotny.org" class="about-link" id="link-tikva"><span data-he="אבני תקווה ←" data-en="Avnei Tikva →">אבני תקווה ←</span></a>
-      <a href="https://netivotny.org" class="about-link"><span data-he="ארגון נתיבות ←" data-en="Netivot Organization →">ארגון נתיבות ←</span></a>
-    </div>
+   <div class="about-links">
+  <button class="about-link" onclick="openSite('https://mosheginzy.com','mosheginzy.com')">mosheginzy.com →</button>
+  <button class="about-link" id="link-tikva" onclick="openSite(currentLang==='en'?'https://tikva.netivotny.org/en/':'https://tikva.netivotny.org','אבני תקווה')"><span data-he="אבני תקווה ←" data-en="Avnei Tikva →">אבני תקווה ←</span></button>
+  <button class="about-link" onclick="openSite('https://netivotny.org','ארגון נתיבות')"><span data-he="ארגון נתיבות ←" data-en="Netivot Organization →">ארגון נתיבות ←</span></button>
+</div> </div>
     <button class="change-btn" onclick="changeUser()" data-he="החלף משתמש / התחל מחדש" data-en="Switch User / Start Over">החלף משתמש / התחל מחדש</button>
     <div class="footer-copy">© 2026 משה גינזי<br><a href="https://mosheginzy.com/privacy.html" class="footer-link" data-he="מדיניות פרטיות" data-en="Privacy Policy">מדיניות פרטיות</a> | <a href="https://netivotny.org" class="footer-link">Netivot</a></div>
   </div>
