@@ -1115,6 +1115,21 @@ function closeVideo(){
   if(document.exitFullscreen){try{document.exitFullscreen();}catch(e){}}
   else if(document.webkitExitFullscreen){try{document.webkitExitFullscreen();}catch(e){}}
 }
+  // SWIPE BETWEEN SCREENS
+(function(){
+  var screens = ['home','chat','lessons','chavruta','about'];
+  var startX = 0;
+  document.addEventListener('touchstart', function(e){ startX = e.touches[0].clientX; }, {passive:true});
+  document.addEventListener('touchend', function(e){
+    var diff = startX - e.changedTouches[0].clientX;
+    if(Math.abs(diff) < 60) return;
+    var current = screens.indexOf(document.querySelector('.screen.active').id.replace('screen-',''));
+    if(current === -1) return;
+    if(diff > 0 && current < screens.length-1) goScreen(screens[current+1]);
+    else if(diff < 0 && current > 0) goScreen(screens[current-1]);
+  }, {passive:true});
+})();
+</script>
 </script>
   <script src="moshe-notifications.js"></script>
 </body>
