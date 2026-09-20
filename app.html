@@ -594,7 +594,18 @@ fbq('track','PageView',{content_category:platform});
     <div class="vpop-frame"><iframe id="vpop-iframe" src="" allowfullscreen allow="autoplay"></iframe></div>
   </div>
 </div>
+function openSite(url, title) {
+  var iframe = document.getElementById('vpop-iframe');
+  var vid = document.getElementById('vpop-video');
+  if(vid){ vid.pause(); vid.src=''; vid.style.display='none'; }
+  iframe.style.display = 'block';
+  iframe.src = url;
+  var titleEl = document.getElementById('vpop-title');
+  if(titleEl) titleEl.textContent = title || '';
+  document.getElementById('video-popup').classList.add('open');
+}
 
+function showHistory(){
 <script>
   function showHistory(){
   var h=localStorage.getItem('mg-history-'+userName)||'';
