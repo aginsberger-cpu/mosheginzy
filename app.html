@@ -615,9 +615,9 @@ function showHistory(){
   var popup=document.getElementById('history-popup');
   var content=document.getElementById('history-content');
   function showHistory(){
-  var h=localStorage.getItem('mg-history-'+userName)||'';
-  var popup=document.getElementById('history-popup');
-  var content=document.getElementById('history-content');
+ 
+
+
   if(!h){content.textContent='אין היסטוריה עדיין.';}
   else{content.textContent=h.slice(-1000);}
   popup.style.display='flex';
