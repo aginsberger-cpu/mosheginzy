@@ -663,11 +663,22 @@ function renderQuestion() {
     '<div class="glass glow" style="padding:0;overflow:hidden"><div class="q-top-bar"></div><div style="padding:18px 20px"><div class="q-badges"><span class="badge">' + qDate + '</span><span style="background:var(--border);color:var(--sec);padding:3px 10px;border-radius:16px;font-size:11px">' + qCat + '</span></div><div class="q-title">' + qTitle + '</div><div class="q-body">' + qBody + '</div></div></div>' +
     '<div class="glass" style="padding:0;overflow:hidden"><button class="vid-toggle" onclick="toggleVideo()"><span>🎬 ' + (showVideo ? s.hideVid : s.watchVid) + '</span><span style="transform:' + (showVideo ? 'rotate(90deg)' : 'none') + ';transition:0.2s;display:inline-block">›</span></button>' + videoHtml + '</div>' +
     '<div class="glass"><h3 style="font-size:15px;font-weight:600;color:var(--white);margin-bottom:10px">' + s.whatThink + '</h3><div class="input-area"><textarea id="respInput" rows="3" placeholder="' + s.placeholder + '" dir="' + s.dir + '"></textarea></div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px"><button class="gold-btn" style="width:auto" onclick="submitResponse()">' + s.send + '</button><span id="sentMsg" style="color:var(--ok);font-size:13px;font-weight:500" class="hidden">✓ ' + s.sent + '</span></div></div>' +
-    '<div class="responses-header"><span>' + responses.length + ' ' + s.responses + '</span><span>' + s.sortBy + '</span></div>' +
-    responses.map(function(r, i) {
-      return '<div class="glass resp-card"><div class="resp-vote"><span class="heart ' + (votedSet.has(r.id) ? 'voted' : '') + '" onclick="voteResp(' + r.id + ')">' + (votedSet.has(r.id) ? '♥' : '♡') + '</span><span class="count ' + (votedSet.has(r.id) ? 'voted' : '') + '">' + (r.votes + (votedSet.has(r.id) ? 1 : 0)) + '</span></div><div style="flex:1"><div class="resp-meta"><div class="avatar" style="width:28px;height:28px;font-size:10px">' + r.init + '</div><span class="resp-author">' + r.author + '</span><span class="resp-time">' + r.time + '</span>' + (i === 0 ? '<span class="badge">' + s.topAnswer + '</span>' : '') + '</div><div class="resp-text">' + r.text + '</div></div></div>';
+   '<div class="responses-header"><span>' + (firebaseResponses.length || responses.length) + ' ' + s.responses + '</span><span>' + s.sortBy + '</span></div>' +
+    (firebaseResponses.length > 0 ? firebaseResponses : responses).map(function(r, i) {
+      var emojis = ['👍','❤️','🔥','🙏','💡'];
+      var reacts = r.reactions || {};
+      var emojiBar = emojis.map(function(e) {
+        var count = reacts[e] || 0;
+        return '<span onclick="reactToResp(\'' + (r.docId||r.id) + '\',\'' + e + '\')" style="cursor:pointer;padding:3px 6px;border-radius:10px;background:var(--border);font-size:13px;margin-left:4px">' + e + (count > 0 ? ' ' + count : '') + '</span>';
+      }).join('');
+      var replyInput = '<div id="replyBox_' + (r.docId||r.id) + '" style="display:none;margin-top:8px"><textarea rows="2" style="width:100%;padding:8px;border-radius:var(--rs);border:1px solid var(--border);font-size:13px;background:var(--input);color:var(--pri);outline:none" placeholder="' + (lang==='he'?'כתוב תגובה...':'Write a reply...') + '" dir="' + s.dir + '"></textarea><button onclick="sendReplyToResp(\'' + (r.docId||r.id) + '\')" style="margin-top:4px;padding:6px 14px;border-radius:var(--rs);background:var(--gold);color:#000;font-size:13px;font-weight:700;cursor:pointer">' + (lang==='he'?'שלח':'Send') + '</button></div>';
+      var repliesHtml = (r.replies||[]).map(function(rep) {
+        return '<div style="margin-top:8px;padding:8px;border-radius:var(--rs);background:var(--input);font-size:13px;color:var(--sec)">↳ ' + rep.text + '</div>';
+      }).join('');
+      return '<div class="glass resp-card"><div class="resp-vote"><span class="heart ' + (votedSet.has(r.docId||r.id) ? 'voted' : '') + '" onclick="voteResp(\'' + (r.docId||r.id) + '\')">' + (votedSet.has(r.docId||r.id) ? '♥' : '♡') + '</span><span class="count ' + (votedSet.has(r.docId||r.id) ? 'voted' : '') + '">' + ((r.votes||0) + (votedSet.has(r.docId||r.id) ? 1 : 0)) + '</span></div><div style="flex:1"><div class="resp-meta"><div class="avatar" style="width:28px;height:28px;font-size:10px">' + (r.init||'★') + '</div><span class="resp-author">' + (r.author||(lang==='he'?'לומד':'Learner')) + '</span><span class="resp-time">' + (r.time||'') + '</span>' + (i === 0 ? '<span class="badge">' + s.topAnswer + '</span>' : '') + '</div><div class="resp-text">' + r.text + '</div><div style="margin-top:8px">' + emojiBar + '</div>' + repliesHtml + '<div style="margin-top:6px"><span onclick="toggleReplyBox(\'' + (r.docId||r.id) + '\')" style="font-size:12px;color:var(--gold);cursor:pointer">💬 ' + (lang==='he'?'הגב':'Reply') + '</span></div>' + replyInput + '</div></div>';
     }).join('') +
     '<button class="wa-btn" onclick="shareWhatsApp()">📲 ' + s.shareWA + '</button>';
+}
 }
 
 function toggleVideo() { showVideo = !showVideo; renderQuestion(); }
