@@ -620,8 +620,8 @@ function showHistory(){
   else{content.textContent=h.slice(-1000);}
   popup.style.display='flex';
 }
-  function shareApp(){var msg='הורד את האפליקציה של משה גינזי 👇 https://mosheginzy.com/getapp';if(window.Android&&window.Android.shareApp){window.Android.shareApp(msg);}else if(navigator.share){navigator.share({title:'משה גינזי',text:'הורד את האפליקציה של משה גינזי 👇',url:'https://mosheginzy.com/getapp'});}else{window.open('https://mosheginzy.com/getapp','_blank');}}
-function shareAnswer(txt){var msg=(currentLang==='en'?'Moshe answered: ':'משה ענה לי: ')+txt+(currentLang==='en'?' 💛 Download the app: ':' 💛 הורד את האפליקציה: ')+'https://mosheginzy.com/getapp';if(window.Android&&window.Android.shareApp){window.Android.shareApp(msg);}else if(navigator.share){navigator.share({title:'משה גינזי',text:msg});}else{window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');}}
+  function shareApp(){var msg='הורד את האפליקציה של משה גינזי 👇 https://mosheginzy.com/getapp';if(window.Android&&window.Android.shareApp){window.Android.shareApp(msg);}else if(navigator.share){navigator.share({title:'משה גינזי',text:'הורד את האפליקציה של משה גינזי 👇',url:'https://mosheginzy.com/getapp'}).catch(function(){});}else{window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');}}
+function shareAnswer(txt){var msg=(currentLang==='en'?'Moshe answered: ':'משה ענה לי: ')+txt+(currentLang==='en'?' 💛 Download the app: ':' 💛 הורד את האפליקציה: ')+'https://mosheginzy.com/getapp';if(window.Android&&window.Android.shareApp){window.Android.shareApp(msg);}else if(navigator.share){navigator.share({title:'משה גינזי',text:msg}).catch(function(){});}else{window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');}}
 // מקרב: מנוע הצ'אט הוחלף מ-Dify לשרת של מקרב (Netivot) - העיצוב וכל
 // שאר האפליקציה נשארו בדיוק אותו דבר, לפי בקשת יצחק. MEKAREV_UID הוא
 // מזהה קבוע פר-מכשיר (כמו USER_ID באתר/אפליקציית מקרב עצמה) - נשמר
@@ -642,9 +642,13 @@ function getMekarevUserId(){
 // fetchMoshePhone/cachedHalachaPhone באתר מקרב עצמו.
 var cachedMoshePhone='';
 var cachedHalachaPhone='';
+// מקרב: אותו /api/config בדיוק, רק שולפים כאן גם vapidPublicKey - המפתח
+// הציבורי הדרוש כדי להירשם ל-Push (ראה subscribeMekarevPush למטה).
+var cachedVapidPublicKey='';
 fetch(MEKAREV_API+'/api/config').then(function(r){return r.json();}).then(function(data){
   cachedMoshePhone=data.moshePhone||'';
   cachedHalachaPhone=data.halachaPhone||'';
+  cachedVapidPublicKey=data.vapidPublicKey||'';
 }).catch(function(){});
 var isSending=false;
   var EL_KEY='sk_0a386a44903ba282d03e112390d1e87774ce751bf08a4749';
@@ -742,6 +746,30 @@ function showChatMode(){
 function changeUser(){localStorage.removeItem('mg-app-name');localStorage.removeItem('mg-app-gender');location.reload();}
 
 // CHAT
+// מקרב (יצחק: "הוא לא שם לי לינק שאני יכול ללחוץ עליו בקלות ולשתף אותו
+// עם כל החברים") - כשהבוט עצמו כותב בתשובה את קישור השיתוף
+// (https://mosheginzy.com/getapp, לפי הכלל ב-systemPrompt.js), הטקסט
+// עד עכשיו הופיע כמחרוזת רגילה בתוך הבועה (textContent) - לא לחיץ
+// בכלל, ואפילו אם היה לחיץ הוא רק פותח את דף ה-getapp (שמעביר אוטומטית
+// לחנות), לא את תפריט השיתוף האמיתי. הפונקציה הזו מזהה את הקישור הזה
+// בתוך טקסט תשובת הבוט ומחליפה אותו בכפתור אמיתי שפותח את תפריט השיתוף
+// (shareApp, אותה פונקציה בדיוק כמו כפתור השיתוף בסרגל הכלים).
+function enhanceBotBubbleShareLink(bubbleEl,text){
+  var marker='https://mosheginzy.com/getapp';
+  var idx=text.indexOf(marker);
+  if(idx===-1||!bubbleEl)return;
+  bubbleEl.textContent='';
+  var before=text.slice(0,idx);
+  var after=text.slice(idx+marker.length);
+  if(before)bubbleEl.appendChild(document.createTextNode(before));
+  var linkBtn=document.createElement('a');
+  linkBtn.href='#';
+  linkBtn.style.cssText='color:var(--gold);font-weight:700;text-decoration:underline;cursor:pointer;';
+  linkBtn.textContent=currentLang==='en'?'📲 tap here to share the app':'📲 לחץ כאן לשיתוף האפליקציה';
+  linkBtn.onclick=function(e){e.preventDefault();shareApp();};
+  bubbleEl.appendChild(linkBtn);
+  if(after)bubbleEl.appendChild(document.createTextNode(after));
+}
 function addMsg(txt,who){
   var w=document.getElementById('chat-msgs');
   var row=document.createElement('div');row.className='msg-row '+(who==='user'?'user':'');
@@ -773,7 +801,7 @@ inp.value='';inp.style.height='40px';isSending=true;addMsg(txt,'user');showTypin
 // יצחק ביקש שזה יתחיל להיכתב מייד). שאר הזרימה (הודעת "מקליד...",
 // שמירת היסטוריה מקומית, סנכרון ל-Google Sheets, הקראה בקול) נשארה
 // בדיוק אותו דבר, רק בסוף ההזרמה במקום מיד.
-var fullText='';var bubbleEl=null;var finalNoAnswer=false;var finalIsHalacha=false;var finalVideos=[];var finalShowRatingPrompt=false;
+var fullText='';var bubbleEl=null;var finalNoAnswer=false;var finalIsHalacha=false;var finalVideos=[];var finalShowRatingPrompt=false;var finalOfferPush=null;
 fetch(MEKAREV_API+'/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getMekarevUserId(),message:txt,lang:currentLang==='en'?'en':'he'})}).then(function(res){
   if(!res.ok||!res.body)throw new Error('http '+res.status);
   var reader=res.body.getReader();var decoder=new TextDecoder('utf-8');var buffer='';
@@ -808,6 +836,11 @@ fetch(MEKAREV_API+'/api/chat',{method:'POST',headers:{'Content-Type':'applicatio
           // השדה פשוט לא נקרא כאן, אז זה "הפסיק לעבוד" באפליקציה הזו
           // כי הוא בעצם אף פעם לא עבד כאן (רק באתר, public/index.html).
           finalShowRatingPrompt=Boolean(payload.showRatingPrompt);
+          // מקרב (יצחק: "אני רוצה שהבוט יקבל אישור להתראות דרך הטלפון") -
+          // השרת מחזיר כאן offerPush ('video'/'question'/'callback'/'offer')
+          // רק ברגעים שבאמת שווה להציע (ראה shouldOfferPush ב-server.js),
+          // ורק אם התלמיד/ה עוד לא רשום/ה ולא סירב/ה בעבר.
+          finalOfferPush=payload.offerPush||null;
         }
       }
       return pump();
@@ -817,6 +850,7 @@ fetch(MEKAREV_API+'/api/chat',{method:'POST',headers:{'Content-Type':'applicatio
 }).then(function(){
   isSending=false;
   if(fullText){
+    enhanceBotBubbleShareLink(bubbleEl,fullText);
     var h=localStorage.getItem('mg-history-'+userName)||'';var newH=h+(h?'\n':'')+fullText.substring(0,200);localStorage.setItem('mg-history-'+userName,newH);fetch(SHEET_URL+'?action=saveHistory&name='+encodeURIComponent(userName)+'&history='+encodeURIComponent(fullText)+'&t='+Date.now())
 .then(function(r){
   return r.text();
@@ -833,6 +867,7 @@ fetch(MEKAREV_API+'/api/chat',{method:'POST',headers:{'Content-Type':'applicatio
     if(finalNoAnswer)addReferralSuggestion(txt,finalIsHalacha);
     if(finalVideos&&finalVideos.length)addVideoSuggestions(finalVideos);
     if(finalShowRatingPrompt)addRatingPrompt();
+    if(finalOfferPush)addPushOfferPrompt(finalOfferPush);
   }else{
     rmTyping();addMsg(currentLang==='en'?'Moshe could not respond — please try again 🙏':'משה לא הצליח לענות — נסה שוב 🙏','bot');
   }
@@ -969,6 +1004,91 @@ function addRatingPrompt(){
   };
   div.appendChild(submitBtn);
   w.appendChild(div);w.scrollTop=w.scrollHeight;
+}
+// מקרב (יצחק: "אני רוצה שהבוט יקבל אישור להתראות דרך הטלפון... אנחנו
+// לא נשגע אותו, רק במקרים בודדים שזה חשוב בשבילו") - כרטיס בקשת הרשאה
+// להתראות, מקביל בעיצוב לכרטיסי addReferralSuggestion/addRatingPrompt
+// למעלה. מוצג רק כשהשרת מחזיר offerPush (ראה shouldOfferPush ב-
+// server.js) - כלומר רק ברגעים קונקרטיים ששווה להציע, לא בכל תשובה.
+var PUSH_OFFER_TEXTS={
+  video:{he:'רוצה שנעדכן אותך בהתראה כשעולה סרטון חדש שרלוונטי לך?',en:'Want us to notify you when a new relevant video is posted?'},
+  question:{he:'השאלה הזו דורשת קצת בירור - רוצה שנעדכן אותך בהתראה ברגע שיש לנו תשובה?',en:'This question needs a bit more digging - want us to notify you the moment we have an answer?'},
+  callback:{he:'ביקשת שנחזור אליך - רוצה שנעדכן אותך בהתראה כשזה קורה?',en:'You asked for a call back - want us to notify you when that happens?'},
+  offer:{he:'רוצה שנעדכן אותך בהתראה כדי שלא נשכח מזה יחד?',en:'Want us to send you a gentle reminder about this?'}
+};
+function addPushOfferPrompt(reason){
+  if(!('serviceWorker' in navigator)||!('PushManager' in window))return;
+  if(typeof Notification!=='undefined'&&Notification.permission==='denied')return;
+  var w=document.getElementById('chat-msgs');
+  var div=document.createElement('div');div.className='referral-suggestion';
+  var texts=PUSH_OFFER_TEXTS[reason]||PUSH_OFFER_TEXTS.question;
+  var p=document.createElement('div');
+  p.textContent=(currentLang==='en'?texts.en:texts.he)+' '+(currentLang==='en'?"(don't worry - we won't spam you, only for things that matter to you)":'(בלי לדאוג - לא נציף אותך, רק בדברים שבאמת חשובים לך)');
+  div.appendChild(p);
+  var actions=document.createElement('div');actions.className='referral-actions';
+  var yesBtn=document.createElement('button');yesBtn.type='button';yesBtn.className='referral-btn followup';
+  yesBtn.textContent=currentLang==='en'?'🔔 Yes, please':'🔔 כן, אשמח';
+  var noBtn=document.createElement('button');noBtn.type='button';noBtn.className='referral-btn';noBtn.style.background='rgba(120,120,120,0.35)';
+  noBtn.textContent=currentLang==='en'?'No thanks':'לא תודה';
+  yesBtn.onclick=function(){
+    yesBtn.disabled=true;noBtn.disabled=true;
+    yesBtn.textContent=currentLang==='en'?'One moment…':'רגע…';
+    subscribeMekarevPush().then(function(ok){
+      if(ok){
+        p.textContent=currentLang==='en'?"Great - we'll update you when there's something important 🙂":'מעולה - נעדכן אותך כשיש משהו חשוב 🙂';
+      }else{
+        p.textContent=currentLang==='en'?"Couldn't turn on notifications on this device/browser right now.":'לא הצלחנו להפעיל התראות במכשיר/דפדפן הזה כרגע.';
+      }
+      actions.remove();
+    });
+  };
+  noBtn.onclick=function(){
+    noBtn.disabled=true;yesBtn.disabled=true;
+    fetch(MEKAREV_API+'/api/push/decline',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getMekarevUserId()})}).catch(function(){});
+    p.textContent=currentLang==='en'?'No problem - you can always turn this on later.':'אין בעיה - תמיד אפשר להפעיל את זה מאוחר יותר.';
+    actions.remove();
+  };
+  actions.appendChild(yesBtn);actions.appendChild(noBtn);
+  div.appendChild(actions);
+  w.appendChild(div);w.scrollTop=w.scrollHeight;
+}
+// ראה enableAdminPush בעמוד הניהול של מקרב - אותה זרימה בדיוק (בקשת
+// הרשאה -> רישום Service Worker -> יצירת מנוי Push -> שמירתו בשרת),
+// רק שכאן זה למול /api/push/subscribe (לא /api/admin-push/subscribe)
+// ועם /sw.js של mosheginzy.com עצמו (לא של שרת מקרב).
+function urlBase64ToUint8Array(base64String){
+  var padding='='.repeat((4-base64String.length%4)%4);
+  var base64=(base64String+padding).replace(/-/g,'+').replace(/_/g,'/');
+  var rawData=atob(base64);
+  var outputArray=new Uint8Array(rawData.length);
+  for(var i=0;i<rawData.length;i++){outputArray[i]=rawData.charCodeAt(i);}
+  return outputArray;
+}
+function subscribeMekarevPush(){
+  return new Promise(function(resolve){
+    (async function(){
+      try{
+        if(!cachedVapidPublicKey){
+          var cfgRes=await fetch(MEKAREV_API+'/api/config');
+          var cfg=await cfgRes.json();
+          cachedVapidPublicKey=cfg.vapidPublicKey||'';
+        }
+        if(!cachedVapidPublicKey)return resolve(false);
+        var reg=await navigator.serviceWorker.register('/sw.js');
+        await navigator.serviceWorker.ready;
+        var sub=await reg.pushManager.getSubscription();
+        if(!sub){
+          var permission=await Notification.requestPermission();
+          if(permission!=='granted')return resolve(false);
+          sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:urlBase64ToUint8Array(cachedVapidPublicKey)});
+        }
+        var res=await fetch(MEKAREV_API+'/api/push/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getMekarevUserId(),subscription:sub.toJSON()})});
+        resolve(Boolean(res&&res.ok));
+      }catch(e){
+        resolve(false);
+      }
+    })();
+  });
 }
 function speakText(txt){if(currentAudio){try{currentAudio.stop();}catch(e){}currentAudio=null;}var sentences=txt.match(/[^.!?؟]+[.!?؟]+/g)||[txt];var shortTxt=sentences[0].trim();if(!shortTxt||shortTxt.length<5)shortTxt=txt.substring(0,120);if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();fetch('https://api.elevenlabs.io/v1/text-to-speech/'+EL_VOICE,{method:'POST',headers:{'xi-api-key':EL_KEY,'Content-Type':'application/json'},body:JSON.stringify({text:shortTxt,model_id:'eleven_v3',voice_settings:{stability:.65,similarity_boost:.85}})}).then(function(r){if(!r.ok)throw new Error('EL status '+r.status);return r.arrayBuffer();}).then(function(buf){return audioCtx.decodeAudioData(buf);}).then(function(decoded){var src=audioCtx.createBufferSource();src.buffer=decoded;src.connect(audioCtx.destination);src.start(0);currentAudio=src;}).catch(function(e){console.warn('speakText error:',e);});}
 
