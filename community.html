@@ -601,6 +601,7 @@ function loadDailyQuestion() {
   db.collection("dailyQuestions").orderBy("createdAt", "desc").limit(1).onSnapshot(function(snap) {
     if (!snap.empty) {
       currentDailyQuestion = snap.docs[0].data();
+      setLang(lang);
       if (currentTab === "question") renderQuestion();
     }
   });
