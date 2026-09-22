@@ -604,7 +604,7 @@ function loadDailyQuestion() {
     }
   });
 }
-  function loadResponses() {
+ 
       function loadResponses() {
   db.collection("responses").orderBy("ts", "desc").onSnapshot(function(snap) {
     firebaseResponses = [];
