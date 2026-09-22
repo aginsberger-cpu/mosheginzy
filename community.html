@@ -630,17 +630,7 @@ function loadThreadResponses(threadId) {
   });
 }
 
-function getVideoId(url) {
-  db.collection("responses").orderBy("ts", "desc").onSnapshot(function(snap) {
-    firebaseResponses = [];
-    snap.forEach(function(doc) {
-      var d = doc.data();
-      d.docId = doc.id;
-      firebaseResponses.push(d);
-    });
-    if (currentTab === "question") renderQuestion();
-  });
-}
+
 
 function getVideoId(url) {
   if (!url) return null;
