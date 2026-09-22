@@ -553,7 +553,7 @@ function setLang(l) {
   document.getElementById("btnHe").classList.toggle("active", l === "he");
   document.getElementById("btnEn").classList.toggle("active", l === "en");
   document.getElementById("headerTitle").textContent = t().header;
-  document.getElementById("headerSub").textContent = t().sub;
+ var hs = document.getElementById("headerSub"); if (hs) hs.textContent = t().sub;
   document.querySelectorAll("[data-i]").forEach(function(el) {
     var key = el.getAttribute("data-i");
     if (t()[key]) el.textContent = t()[key];
