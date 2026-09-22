@@ -231,6 +231,7 @@ function getHebrewDateEn() {
 /* AUTH + LOAD */
 auth.signInAnonymously().then(function(cred) {
   currentUser = cred.user;
+  setLang(lang);
   loadWeeklyQuizFromFirebase();
   loadDailyQuestion();
    loadResponses();
