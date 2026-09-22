@@ -684,8 +684,18 @@ function submitResponse() {
   var input = document.getElementById("respInput");
   var text = input.value.trim();
   if (!text) return;
+  var newResp = {
+    uid: currentUser ? currentUser.uid : "anon",
+    text: text,
+    votes: 0,
+    reactions: {},
+    replies: [],
+    ts: firebase.firestore.FieldValue.serverTimestamp(),
+    author: lang === "he" ? "לומד" : "Learner",
+    init: "★"
+  };
   if (currentUser) {
-    db.collection("responses").add({ uid: currentUser.uid, text: text, votes: 0, ts: firebase.firestore.FieldValue.serverTimestamp() }).catch(function(){});
+    db.collection("responses").add(newResp).catch(function(){});
   }
   input.value = "";
   var msg = document.getElementById("sentMsg");
