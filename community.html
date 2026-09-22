@@ -611,7 +611,7 @@ if (currentTab === "question") renderQuestion();
       d.docId = doc.id;
       firebaseResponses.push(d);
     });
-    if (currentTab === "question") renderQuestion();
+ if (currentTab === "question") { renderQuestion(); setLang(lang); }
   });
 }
 
