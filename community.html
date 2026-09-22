@@ -823,7 +823,54 @@ function renderThread() {
     }).join('');
 }
 
-function closeThread() { selectedThread = null; renderForum(); }
+function submitForumReply(threadId) {
+  var input = document.getElementById("forumReplyInput");
+  var text = input ? input.value.trim() : "";
+  if (!text) return;
+  db.collection("forumReplies").add({
+    threadId: threadId,
+    uid: currentUser ? currentUser.uid : "anon",
+    text: text,
+    votes: 0,
+    reactions: {},
+    replies: [],
+    ts: firebase.firestore.FieldValue.serverTimestamp(),
+    author: lang === "he" ? "לומד" : "Learner",
+    init: "★"
+  }).catch(function(){});
+  input.value = "";
+  var msg = document.getElementById("forumSentMsg");
+  if (msg) { msg.classList.remove("hidden"); setTimeout(function() { msg.classList.add("hidden"); }, 3000); }
+}
+
+function toggleForumReplyBox(id) {
+  var box = document.getElementById("freplyBox_" + id);
+  if (box) box.style.display = box.style.display === 'none' ? 'block' : 'none';
+}
+
+function sendReplyToForumReply(id) {
+  var box = document.getElementById("freplyBox_" + id);
+  if (!box) return;
+  var ta = box.querySelector("textarea");
+  var text = ta.value.trim();
+  if (!text) return;
+  db.collection("forumReplies").doc(id).update({
+    replies: firebase.firestore.FieldValue.arrayUnion({ text: text, ts: new Date().toISOString() })
+  }).catch(function(){});
+  ta.value = "";
+  box.style.display = "none";
+}
+
+function reactToForumReply(id, emoji) {
+  db.collection("forumReplies").doc(id).get().then(function(doc) {
+    if (!doc.exists) return;
+    var reacts = doc.data().reactions || {};
+    reacts[emoji] = (reacts[emoji] || 0) + 1;
+    db.collection("forumReplies").doc(id).update({ reactions: reacts });
+  });
+}
+
+function closeThread() { selectedThread = null; currentThreadId = null; renderForum(); }
 
 /* 3. QUIZ - READS FROM FIREBASE! */
 function renderQuizIntro() {
