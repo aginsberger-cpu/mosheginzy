@@ -762,13 +762,20 @@ function enhanceBotBubbleShareLink(bubbleEl,text){
   var before=text.slice(0,idx);
   var after=text.slice(idx+marker.length);
   if(before)bubbleEl.appendChild(document.createTextNode(before));
-  var linkBtn=document.createElement('a');
-  linkBtn.href='#';
-  linkBtn.style.cssText='color:var(--gold);font-weight:700;text-decoration:underline;cursor:pointer;';
-  linkBtn.textContent=currentLang==='en'?'📲 tap here to share the app':'📲 לחץ כאן לשיתוף האפליקציה';
-  linkBtn.onclick=function(e){e.preventDefault();shareApp();};
-  bubbleEl.appendChild(linkBtn);
   if(after)bubbleEl.appendChild(document.createTextNode(after));
+  // יצחק ביקש כפתור אמיתי ומספיק גדול (לא רק לינק טקסט קטן) שפותח את
+  // תפריט השיתוף המלא של הטלפון - בדיוק כמו כפתור השיתוף הראשי
+  // (shareApp), רק ממוקם כאן בתוך הודעת הבוט עצמה, בשורה משלו.
+  var btnWrap=document.createElement('div');
+  btnWrap.style.cssText='margin-top:10px;';
+  var shareBtn=document.createElement('button');
+  shareBtn.type='button';
+  shareBtn.className='referral-btn followup';
+  shareBtn.style.cssText='width:100%;justify-content:center;padding:12px 16px;font-size:.95rem;font-weight:700;border-radius:22px;';
+  shareBtn.textContent=currentLang==='en'?'📲 Share the app':'📲 שתף את האפליקציה';
+  shareBtn.onclick=function(e){e.preventDefault();shareApp();};
+  btnWrap.appendChild(shareBtn);
+  bubbleEl.appendChild(btnWrap);
 }
 function addMsg(txt,who){
   var w=document.getElementById('chat-msgs');
