@@ -814,14 +814,6 @@ function renderThread() {
       return '<div class="glass" style="padding:14px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><div class="avatar" style="width:28px;height:28px;font-size:10px">' + (r.init||'★') + '</div><span style="font-weight:600;font-size:13px;color:var(--pri)">' + (r.author||(lang==='he'?'לומד':'Learner')) + '</span><span style="font-size:11px;color:var(--muted)">' + (r.time||'') + '</span></div><p style="font-size:14px;color:var(--pri);line-height:1.8">' + r.text + '</p><div style="margin-top:8px">' + emojiBar + '</div>' + repliesHtml + '<div style="margin-top:6px"><span onclick="toggleForumReplyBox(\'' + (r.docId||r.id) + '\')" style="font-size:12px;color:var(--gold);cursor:pointer">💬 ' + (lang==='he'?'הגב':'Reply') + '</span></div>' + replyInput + '</div>';
     }).join('');
 }
-    '<button style="font-size:13px;color:var(--gold);font-weight:600" onclick="closeThread()">← ' + s.back + '</button>' +
-    '<div class="glass glow"><div style="display:flex;gap:8px;margin-bottom:10px">' + (th.pinned ? '📌' : '') + '<span class="badge">' + th.cat + '</span></div><h2 style="font-size:18px;font-weight:700;color:var(--white);line-height:1.6;margin-bottom:8px">' + th.title + '</h2><span style="font-size:12px;color:var(--muted)">' + th.author + ' · ' + th.replies + ' ' + s.replies + ' · ' + th.views + ' ' + s.views + '</span></div>' +
-    '<div class="glass"><textarea rows="2" placeholder="' + s.addOpinion + '" dir="' + s.dir + '" style="width:100%;padding:12px;border-radius:var(--rs);border:1px solid var(--border);font-size:14px;background:var(--input);color:var(--pri);outline:none;line-height:1.7;resize:vertical"></textarea><button class="gold-btn" style="margin-top:8px;width:auto">' + s.sendReply + '</button></div>' +
-    '<div class="glass glow official-card"><div class="of-meta"><img src="' + MOSHE_PHOTO + '" alt="Moshe Ginzy"><span class="of-name">' + (lang === 'he' ? 'משה גינזי' : 'Moshe Ginzy') + '</span><span class="badge">' + s.officialAnswer + '</span></div><div class="of-text">' + (s.threadMoshe[th.id] || s.mosheResp) + '</div></div>' +
-    (s.threadResp[th.id] || []).map(function(r) {
-      return '<div class="glass" style="padding:14px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><div class="avatar" style="width:28px;height:28px;font-size:10px">' + r.init + '</div><span style="font-weight:600;font-size:13px;color:var(--pri)">' + r.author + '</span><span style="font-size:11px;color:var(--muted)">' + r.time + '</span></div><p style="font-size:14px;color:var(--pri);line-height:1.8">' + r.text + '</p><div style="display:flex;gap:14px;margin-top:10px;font-size:12px;color:var(--muted)"><span style="cursor:pointer">♡ ' + r.votes + '</span><span style="cursor:pointer">💬 ' + s.reply + '</span></div></div>';
-    }).join('');
-}
 
 function submitForumReply(threadId) {
   var input = document.getElementById("forumReplyInput");
