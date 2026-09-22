@@ -605,6 +605,32 @@ function loadDailyQuestion() {
   });
 }
   function loadResponses() {
+      function loadResponses() {
+  db.collection("responses").orderBy("ts", "desc").onSnapshot(function(snap) {
+    firebaseResponses = [];
+    snap.forEach(function(doc) {
+      var d = doc.data();
+      d.docId = doc.id;
+      firebaseResponses.push(d);
+    });
+    if (currentTab === "question") renderQuestion();
+  });
+}
+
+function loadThreadResponses(threadId) {
+  currentThreadId = threadId;
+  db.collection("forumReplies").where("threadId", "==", threadId).orderBy("ts", "desc").onSnapshot(function(snap) {
+    firebaseThreadResponses[threadId] = [];
+    snap.forEach(function(doc) {
+      var d = doc.data();
+      d.docId = doc.id;
+      firebaseThreadResponses[threadId].push(d);
+    });
+    if (selectedThread && selectedThread.id === threadId) renderThread();
+  });
+}
+
+function getVideoId(url) {
   db.collection("responses").orderBy("ts", "desc").onSnapshot(function(snap) {
     firebaseResponses = [];
     snap.forEach(function(doc) {
