@@ -200,7 +200,7 @@ var userStats = { totalPts: 0, quizCount: 0, bestStreak: 0 };
 var firebaseLeaders = [];
 var allFirebaseQuestions = [];
 var quizAttempt = 0;
-var lang = "he", isDark = true;
+var lang = new URLSearchParams(window.location.search).get("lang") || "he", isDark = true;
 var currentTab = "question";
 var quizStep = "intro", qi = 0, qSel = null, qDone = false, qScore = 0, qHist = [];
 var questionResponses = [];
