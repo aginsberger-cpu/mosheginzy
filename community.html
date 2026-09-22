@@ -792,7 +792,28 @@ function renderThread() {
   var th = selectedThread;
   if (!th) return;
   var c = document.getElementById("forumContent");
+  var fbReplies = firebaseThreadResponses[th.id] || [];
+  var staticReplies = s.threadResp[th.id] || [];
+  var allReplies = fbReplies.length > 0 ? fbReplies : staticReplies;
   c.innerHTML =
+    '<button style="font-size:13px;color:var(--gold);font-weight:600" onclick="closeThread()">← ' + s.back + '</button>' +
+    '<div class="glass glow"><div style="display:flex;gap:8px;margin-bottom:10px">' + (th.pinned ? '📌' : '') + '<span class="badge">' + th.cat + '</span></div><h2 style="font-size:18px;font-weight:700;color:var(--white);line-height:1.6;margin-bottom:8px">' + th.title + '</h2><span style="font-size:12px;color:var(--muted)">' + th.author + ' · ' + allReplies.length + ' ' + s.replies + ' · ' + th.views + ' ' + s.views + '</span></div>' +
+    '<div class="glass"><textarea id="forumReplyInput" rows="2" placeholder="' + s.addOpinion + '" dir="' + s.dir + '" style="width:100%;padding:12px;border-radius:var(--rs);border:1px solid var(--border);font-size:14px;background:var(--input);color:var(--pri);outline:none;line-height:1.7;resize:vertical"></textarea><div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px"><button class="gold-btn" style="width:auto" onclick="submitForumReply(\'' + th.id + '\')">' + s.sendReply + '</button><span id="forumSentMsg" style="color:var(--ok);font-size:13px;font-weight:500" class="hidden">✓ ' + s.sent + '</span></div></div>' +
+    '<div class="glass glow official-card"><div class="of-meta"><img src="' + MOSHE_PHOTO + '" alt="Moshe Ginzy"><span class="of-name">' + (lang === 'he' ? 'משה גינזי' : 'Moshe Ginzy') + '</span><span class="badge">' + s.officialAnswer + '</span></div><div class="of-text">' + (s.threadMoshe[th.id] || s.mosheResp) + '</div></div>' +
+    allReplies.map(function(r) {
+      var emojis = ['👍','❤️','🔥','🙏','💡'];
+      var reacts = r.reactions || {};
+      var emojiBar = emojis.map(function(e) {
+        var count = reacts[e] || 0;
+        return '<span onclick="reactToForumReply(\'' + (r.docId||r.id) + '\',\'' + e + '\')" style="cursor:pointer;padding:3px 6px;border-radius:10px;background:var(--border);font-size:13px;margin-left:4px">' + e + (count > 0 ? ' ' + count : '') + '</span>';
+      }).join('');
+      var replyInput = '<div id="freplyBox_' + (r.docId||r.id) + '" style="display:none;margin-top:8px"><textarea rows="2" style="width:100%;padding:8px;border-radius:var(--rs);border:1px solid var(--border);font-size:13px;background:var(--input);color:var(--pri);outline:none" placeholder="' + (lang==='he'?'כתוב תגובה...':'Write a reply...') + '" dir="' + s.dir + '"></textarea><button onclick="sendReplyToForumReply(\'' + (r.docId||r.id) + '\')" style="margin-top:4px;padding:6px 14px;border-radius:var(--rs);background:var(--gold);color:#000;font-size:13px;font-weight:700;cursor:pointer">' + (lang==='he'?'שלח':'Send') + '</button></div>';
+      var repliesHtml = (r.replies||[]).map(function(rep) {
+        return '<div style="margin-top:8px;padding:8px;border-radius:var(--rs);background:var(--input);font-size:13px;color:var(--sec)">↳ ' + rep.text + '</div>';
+      }).join('');
+      return '<div class="glass" style="padding:14px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><div class="avatar" style="width:28px;height:28px;font-size:10px">' + (r.init||'★') + '</div><span style="font-weight:600;font-size:13px;color:var(--pri)">' + (r.author||(lang==='he'?'לומד':'Learner')) + '</span><span style="font-size:11px;color:var(--muted)">' + (r.time||'') + '</span></div><p style="font-size:14px;color:var(--pri);line-height:1.8">' + r.text + '</p><div style="margin-top:8px">' + emojiBar + '</div>' + repliesHtml + '<div style="margin-top:6px"><span onclick="toggleForumReplyBox(\'' + (r.docId||r.id) + '\')" style="font-size:12px;color:var(--gold);cursor:pointer">💬 ' + (lang==='he'?'הגב':'Reply') + '</span></div>' + replyInput + '</div>';
+    }).join('');
+}
     '<button style="font-size:13px;color:var(--gold);font-weight:600" onclick="closeThread()">← ' + s.back + '</button>' +
     '<div class="glass glow"><div style="display:flex;gap:8px;margin-bottom:10px">' + (th.pinned ? '📌' : '') + '<span class="badge">' + th.cat + '</span></div><h2 style="font-size:18px;font-weight:700;color:var(--white);line-height:1.6;margin-bottom:8px">' + th.title + '</h2><span style="font-size:12px;color:var(--muted)">' + th.author + ' · ' + th.replies + ' ' + s.replies + ' · ' + th.views + ' ' + s.views + '</span></div>' +
     '<div class="glass"><textarea rows="2" placeholder="' + s.addOpinion + '" dir="' + s.dir + '" style="width:100%;padding:12px;border-radius:var(--rs);border:1px solid var(--border);font-size:14px;background:var(--input);color:var(--pri);outline:none;line-height:1.7;resize:vertical"></textarea><button class="gold-btn" style="margin-top:8px;width:auto">' + s.sendReply + '</button></div>' +
