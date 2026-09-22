@@ -562,12 +562,12 @@ function setLang(l) {
   var navLabels = l === "he"
     ? {home:"בית",chat:"שאל משה",community:"קהילה",lessons:"שיעורים",chavruta:"חברותא",about:"אודות"}
     : {home:"Home",chat:"Ask Moshe",community:"Community",lessons:"Lessons",chavruta:"Chavruta",about:"About"};
-  document.getElementById("nav-home-lbl").textContent = navLabels.home;
-  document.getElementById("nav-chat-lbl").textContent = navLabels.chat;
-  document.getElementById("nav-community-lbl").textContent = navLabels.community;
-  document.getElementById("nav-lessons-lbl").textContent = navLabels.lessons;
-  document.getElementById("nav-chavruta-lbl").textContent = navLabels.chavruta;
-  document.getElementById("nav-about-lbl").textContent = navLabels.about;
+ var nl = document.getElementById("nav-home-lbl"); if (nl) nl.textContent = navLabels.home;
+var nc = document.getElementById("nav-chat-lbl"); if (nc) nc.textContent = navLabels.chat;
+var nco = document.getElementById("nav-community-lbl"); if (nco) nco.textContent = navLabels.community;
+var nle = document.getElementById("nav-lessons-lbl"); if (nle) nle.textContent = navLabels.lessons;
+var nch = document.getElementById("nav-chavruta-lbl"); if (nch) nch.textContent = navLabels.chavruta;
+var na = document.getElementById("nav-about-lbl"); if (na) na.textContent = navLabels.about;
   renderCurrentTab();
 }
 
