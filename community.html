@@ -782,8 +782,11 @@ function renderForum() {
 }
 
 function setForumFilter(i) { forumFilter = i; renderForum(); }
-function openThread(id) { selectedThread = t().threads.find(function(th) { return th.id === id; }); renderThread(); }
-
+function openThread(id) {
+  selectedThread = t().threads.find(function(th) { return th.id === id; });
+  loadThreadResponses(id);
+  renderThread();
+}
 function renderThread() {
   var s = t();
   var th = selectedThread;
