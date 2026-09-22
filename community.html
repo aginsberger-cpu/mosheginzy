@@ -230,6 +230,7 @@ auth.signInAnonymously().then(function(cred) {
   currentUser = cred.user;
   loadWeeklyQuizFromFirebase();
   loadDailyQuestion();
+   loadResponses();
   loadUserStats();
   loadLeaderboard();
   loadAll();
