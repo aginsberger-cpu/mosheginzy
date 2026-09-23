@@ -1064,5 +1064,87 @@ document.getElementById("moshePhoto").onerror = function() {
     <span id="nav-about-lbl">אודות</span>
   </button>
 </nav>
+  <!-- ===== תיקון: חידון באנגלית (אפשר למחוק את כל הבלוק הזה כדי לבטל) ===== -->
+<script>
+(function(){
+  /* English question bank */
+  T.en.quizQ = [
+      {q:"How many mitzvot are in the Torah?",opts:["248","365","613","720"],c:2,ex:"There are 613 mitzvot — 248 positive commandments and 365 prohibitions."},
+      {q:"Who built the First Temple?",opts:["King David","King Solomon","Moses","Ezra"],c:1,ex:"King Solomon built the First Temple in Jerusalem."},
+      {q:"In which book of Tanach is God's name not mentioned explicitly?",opts:["Genesis","Psalms","Book of Esther","Ruth"],c:2,ex:"The Book of Esther — God's hand is hidden behind the events."},
+      {q:"What was the first commandment given to the Jewish people as a nation?",opts:["Shabbat","Sanctifying the New Moon","Circumcision","Honoring parents"],c:1,ex:"Sanctifying the New Moon (Kiddush HaChodesh) — given in Egypt, before the Exodus."},
+      {q:"How many years did Israel wander in the desert?",opts:["7","12","40","50"],c:2,ex:"40 years — a consequence of the sin of the spies."},
+      {q:"Who said \"Hineni\" (Here I am) three times in the story of the Akeidah?",opts:["Moses","Abraham","Samuel","Isaiah"],c:1,ex:"Abraham — to God, to Isaac, and to the angel."},
+      {q:"Who led the Jewish people after Moses?",opts:["Aaron","Caleb","Joshua","Samuel"],c:2,ex:"Joshua led the people into the Land of Israel."},
+      {q:"How many sons did Jacob have?",opts:["7","10","12","13"],c:2,ex:"Jacob had 12 sons — the fathers of the 12 tribes."},
+      {q:"On which mountain was the Torah given?",opts:["Mount Moriah","Mount Sinai","Mount Carmel","Mount Nebo"],c:1,ex:"The Torah was given at Mount Sinai."},
+      {q:"How many books are in the Chumash (Five Books of Moses)?",opts:["3","5","7","10"],c:1,ex:"Five: Genesis, Exodus, Leviticus, Numbers and Deuteronomy."},
+      {q:"Which holiday commemorates the Exodus from Egypt?",opts:["Sukkot","Shavuot","Passover","Chanukah"],c:2,ex:"Passover (Pesach) celebrates the Exodus from Egypt."},
+      {q:"How many candles are lit on the last night of Chanukah (not counting the shamash)?",opts:["6","7","8","9"],c:2,ex:"Eight candles — one for each night of the miracle."},
+      {q:"Which prophet was swallowed by a great fish?",opts:["Elijah","Jonah","Jeremiah","Ezekiel"],c:1,ex:"Jonah, who tried to flee from his mission to Nineveh."},
+      {q:"What is the first word of the Torah?",opts:["Bereishit","Shema","Vayomer","Elokim"],c:0,ex:"Bereishit — \"In the beginning\"."},
+      {q:"Who was the mother of Moses?",opts:["Miriam","Yocheved","Tzipporah","Sarah"],c:1,ex:"Yocheved, from the tribe of Levi."},
+      {q:"From which tribe do the Kohanim (priests) come?",opts:["Judah","Levi","Benjamin","Reuben"],c:1,ex:"The Kohanim are descendants of Aaron, from the tribe of Levi."},
+      {q:"In which Hebrew month is Yom Kippur?",opts:["Nissan","Elul","Tishrei","Kislev"],c:2,ex:"Yom Kippur falls on the 10th of Tishrei."},
+      {q:"On which holiday is the shofar blown as a central mitzvah?",opts:["Rosh Hashanah","Purim","Shavuot","Pesach"],c:0,ex:"Rosh Hashanah — the Day of the Shofar blast."},
+      {q:"Who defeated Goliath?",opts:["Saul","Jonathan","David","Samson"],c:2,ex:"The young David, with a sling and a stone."},
+      {q:"How many plagues struck Egypt?",opts:["7","10","12","40"],c:1,ex:"Ten plagues, ending with the plague of the firstborn."},
+      {q:"What is the central prayer said while standing, three times a day?",opts:["Shema","Amidah","Hallel","Aleinu"],c:1,ex:"The Amidah (Shemoneh Esrei)."},
+      {q:"According to tradition, who wrote most of the Book of Psalms?",opts:["King Solomon","King David","Moses","Samuel"],c:1,ex:"King David, the Sweet Singer of Israel."},
+      {q:"Which Megillah is read on Purim?",opts:["Ruth","Esther","Lamentations","Song of Songs"],c:1,ex:"Megillat Esther tells the story of the Purim miracle."},
+      {q:"How many days are counted in the Omer?",opts:["40","49","50","70"],c:1,ex:"49 days, from Pesach until Shavuot."},
+      {q:"Who is considered the first of the Patriarchs?",opts:["Noah","Abraham","Isaac","Jacob"],c:1,ex:"Abraham, who recognized the One God."},
+      {q:"Who compiled the Mishnah?",opts:["Rabbi Akiva","Hillel","Rabbi Yehuda HaNasi","Rambam"],c:2,ex:"Rabbi Yehuda HaNasi, around 200 CE."},
+      {q:"Which fast day mourns the destruction of both Temples?",opts:["Yom Kippur","Tisha B'Av","Fast of Esther","Tzom Gedaliah"],c:1,ex:"Tisha B'Av — the 9th of Av."},
+      {q:"Which holiday celebrates the giving of the Torah?",opts:["Shavuot","Sukkot","Purim","Rosh Hashanah"],c:0,ex:"Shavuot, 50 days after Pesach."},
+      {q:"What are the four species taken on Sukkot?",opts:["Wheat, barley, grapes, figs","Lulav, etrog, hadassim, aravot","Matzah, maror, wine, egg","Olive, date, pomegranate, fig"],c:1,ex:"The lulav, etrog, myrtle (hadassim) and willow (aravot)."},
+      {q:"Who was sold into slavery by his brothers?",opts:["Benjamin","Joseph","Judah","Reuben"],c:1,ex:"Joseph, who later became viceroy of Egypt."}
+    ];
+
+  var quizLang = lang;
+
+  /* Pick questions in the current language */
+  pickQuizQuestions = function() {
+    var dayNum = Math.floor(new Date().getTime() / 86400000);
+    var seed = dayNum * 100 + quizAttempt;
+    function rnd(x) { x = Math.sin(x) * 10000; return x - Math.floor(x); }
+    var pool;
+    if (lang === "en") {
+      var enFb = allFirebaseQuestions.filter(function(q){ return q.qEn && q.optsEn && q.optsEn.length === 4; })
+        .map(function(q){ return { q:q.qEn, opts:q.optsEn, c:q.c, ex:q.exEn || "" }; });
+      pool = enFb.length >= 8 ? enFb : T.en.quizQ;
+    } else {
+      pool = allFirebaseQuestions;
+    }
+    if (!pool || pool.length === 0) { currentQuizQuestions = []; return; }
+    var arr = pool.slice();
+    for (var i = arr.length - 1; i > 0; i--) {
+      var j = Math.floor(rnd(seed + i) * (i + 1));
+      var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+    }
+    currentQuizQuestions = arr.slice(0, 8);
+    quizLang = lang;
+  };
+
+  /* Before starting - make sure questions match the language */
+  var origStartQuiz = startQuiz;
+  startQuiz = function() {
+    if (quizLang !== lang) pickQuizQuestions();
+    origStartQuiz();
+  };
+
+  /* When switching language - reload the quiz */
+  var origSetLang = setLang;
+  setLang = function(l) {
+    origSetLang(l);
+    if (quizStep === "intro" || quizLang !== lang) renderQuizIntro();
+  };
+
+  /* Apply now */
+  pickQuizQuestions();
+  setLang(lang);
+})();
+</script>
+<!-- ===== סוף התיקון ===== -->
 </body>
 </html>
