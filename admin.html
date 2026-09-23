@@ -376,7 +376,7 @@ function submitQuestion(e) {
     bodyEn: document.getElementById("qBodyEn").value.trim(),
     dateEn: document.getElementById("qDateEn").value.trim() || new Intl.DateTimeFormat("en-u-ca-hebrew",{day:"numeric",month:"long",year:"numeric"}).format(new Date()),
     catEn: document.getElementById("qCatEn").value.trim(),
-    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    videoUrlEn: document.getElementById("qVideoUrlEn").value.trim(),    createdAt: firebase.firestore.FieldValue.serverTimestamp()
   }).then(() => {
     showMsg("messageQuestion", "✓ שאלה נשמרה בהצלחה!");
     e.target.reset();
