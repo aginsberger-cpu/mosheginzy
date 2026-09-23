@@ -659,8 +659,7 @@ function renderQuestion() {
     qBody = currentDailyQuestion.body || qBody;
     qDate = currentDailyQuestion.date || qDate;
     qCat = currentDailyQuestion.cat || qCat;
-    videoId = getVideoId(currentDailyQuestion.videoUrl);
-    /* Use English fields if available */
+    videoId = getVideoId((lang === "en" && currentDailyQuestion.videoUrlEn) ? currentDailyQuestion.videoUrlEn : currentDailyQuestion.videoUrl);    /* Use English fields if available */
     if (lang === "en") {
       if (currentDailyQuestion.titleEn) qTitle = currentDailyQuestion.titleEn;
       if (currentDailyQuestion.bodyEn) qBody = currentDailyQuestion.bodyEn;
