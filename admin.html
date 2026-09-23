@@ -368,7 +368,11 @@ function submitQuestion(e) {
   const date = document.getElementById("qDate").value || new Date().toLocaleDateString("he-IL");
 
   db.collection("dailyQuestions").add({
-    title, body, videoUrl, date,
+  \    title, body, videoUrl, date,
+    titleEn: document.getElementById("qTitleEn").value.trim(),
+    bodyEn: document.getElementById("qBodyEn").value.trim(),
+    dateEn: document.getElementById("qDateEn").value.trim() || new Intl.DateTimeFormat("en-u-ca-hebrew",{day:"numeric",month:"long",year:"numeric"}).format(new Date()),
+    catEn: document.getElementById("qCatEn").value.trim(),
     createdAt: firebase.firestore.FieldValue.serverTimestamp()
   }).then(() => {
     showMsg("messageQuestion", "✓ שאלה נשמרה בהצלחה!");
