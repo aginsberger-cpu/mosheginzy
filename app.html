@@ -422,13 +422,11 @@ fbq('track','PageView',{content_category:platform});
 </div>
 <!-- CHAT -->
 <div class="screen" id="screen-chat">
-  <!-- CHAT -->
-<div class="screen" id="screen-chat">
-<button id="mute-btn" onclick="toggleMute()" style="...">🔊</button>
+<button id="mute-btn" onclick="toggleMute()" style="position:fixed;top:calc(var(--top-bar) + env(safe-area-inset-top,0px) + 10px);left:12px;z-index:250;width:40px;height:40px;border-radius:50%;border:1px solid rgba(212,168,67,0.4);background:rgba(20,16,10,0.85);font-size:18px;cursor:pointer">🔊</button>
 <script>
-function isMuted(){...}
-function updateMuteBtn(){...}
-function toggleMute(){...}
+function isMuted(){try{return localStorage.getItem('mg-mute')==='1';}catch(e){return false;}}
+function updateMuteBtn(){var b=document.getElementById('mute-btn');if(b)b.textContent=isMuted()?'🔇':'🔊';}
+function toggleMute(){var m=!isMuted();try{localStorage.setItem('mg-mute',m?'1':'0');}catch(e){}if(m&&currentAudio){try{currentAudio.stop();}catch(e){}currentAudio=null;}updateMuteBtn();}
 updateMuteBtn();
 </script>
   <div class="chat-hero" id="chat-hero-section">
