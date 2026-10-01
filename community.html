@@ -595,11 +595,13 @@ function loadAll() {
 
 /* 1. QUESTION - reads from Firebase dailyQuestions */
 var currentDailyQuestion = null;
+var currentDailyQuestionId = null;
 
 function loadDailyQuestion() {
   db.collection("dailyQuestions").orderBy("createdAt", "desc").limit(1).onSnapshot(function(snap) {
     if (!snap.empty) {
  currentDailyQuestion = snap.docs[0].data();
+ currentDailyQuestionId = snap.docs[0].id;
 setLang(lang);
 if (currentTab === "question") renderQuestion();
     }
@@ -646,9 +648,24 @@ function getVideoId(url) {
   return null;
 }
 
+/* Responses belong to one daily question: by questionId, or (older responses
+   saved before questionId existed) by being written after the question was posted */
+function tsMillis(x){ return (x && typeof x.toMillis === "function") ? x.toMillis() : null; }
+function responsesForCurrentQuestion() {
+  if (!currentDailyQuestionId) return [];
+  var qStart = currentDailyQuestion ? tsMillis(currentDailyQuestion.createdAt) : null;
+  return firebaseResponses.filter(function(r) {
+    if (r.questionId) return r.questionId === currentDailyQuestionId;
+    var t = tsMillis(r.ts);
+    if (t === null) return true;            /* just submitted, server time not set yet */
+    return qStart !== null && t >= qStart;
+  });
+}
+
 function renderQuestion() {
   var s = t();
   var responses = s.dailyResp || [];
+  var shownResponses = responsesForCurrentQuestion();
   var c = document.getElementById("questionContent");
 
   var qTitle = s.qTitle;
@@ -682,8 +699,8 @@ function renderQuestion() {
     '<div class="glass glow" style="padding:0;overflow:hidden"><div class="q-top-bar"></div><div style="padding:18px 20px"><div class="q-badges"><span class="badge">' + qDate + '</span><span style="background:var(--border);color:var(--sec);padding:3px 10px;border-radius:16px;font-size:11px">' + qCat + '</span></div><div class="q-title">' + qTitle + '</div><div class="q-body">' + qBody + '</div></div></div>' +
     '<div class="glass" style="padding:0;overflow:hidden"><button class="vid-toggle" onclick="toggleVideo()"><span>🎬 ' + (showVideo ? s.hideVid : s.watchVid) + '</span><span style="transform:' + (showVideo ? 'rotate(90deg)' : 'none') + ';transition:0.2s;display:inline-block">›</span></button>' + videoHtml + '</div>' +
     '<div class="glass"><h3 style="font-size:15px;font-weight:600;color:var(--white);margin-bottom:10px">' + s.whatThink + '</h3><div class="input-area"><textarea id="respInput" rows="3" placeholder="' + s.placeholder + '" dir="' + s.dir + '"></textarea></div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px"><button class="gold-btn" style="width:auto" onclick="submitResponse()">' + s.send + '</button><span id="sentMsg" style="color:var(--ok);font-size:13px;font-weight:500" class="hidden">✓ ' + s.sent + '</span></div></div>' +
-   '<div class="responses-header"><span>' + (firebaseResponses.length || responses.length) + ' ' + s.responses + '</span><span>' + s.sortBy + '</span></div>' +
-    (firebaseResponses.length > 0 ? firebaseResponses : responses).map(function(r, i) {
+   '<div class="responses-header"><span>' + (shownResponses.length || responses.length) + ' ' + s.responses + '</span><span>' + s.sortBy + '</span></div>' +
+    (shownResponses.length > 0 ? shownResponses : responses).map(function(r, i) {
       var emojis = ['👍','❤️','🔥','🙏','💡'];
       var reacts = r.reactions || {};
       var emojiBar = emojis.map(function(e) {
@@ -715,6 +732,7 @@ function submitResponse() {
   var text = input.value.trim();
   if (!text) return;
   var newResp = {
+    questionId: currentDailyQuestionId,
     uid: currentUser ? currentUser.uid : "anon",
     text: text,
     votes: 0,
