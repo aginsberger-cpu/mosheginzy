@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ספריית השיעורים — משה גינזי</title>
+<meta name="description" content="סרטונים קצרים של משה גינזי על זוגיות, משפחה, אמונה, משמעות החיים, שבת ועוד — לפי נושאים.">
+<link rel="canonical" href="https://mosheginzy.com/videos.html">
+<link rel="icon" type="image/png" sizes="48x48" href="favicon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="moshe-icon-180.png">
+<meta property="og:title" content="ספריית השיעורים — משה גינזי">
+<meta property="og:description" content="סרטונים קצרים על החיים — זוגיות, משפחה, אמונה ומשמעות.">
+<meta property="og:image" content="https://mosheginzy.com/og-image.jpg">
+<meta property="og:url" content="https://mosheginzy.com/videos.html">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4RW51LT65M"></script>
+<script>
+  window.dataLayer=window.dataLayer||[];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js',new Date());
+  gtag('config','AW-944658564');
+  gtag('config','G-4RW51LT65M');
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=Frank+Ruhl+Libre:wght@500;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#0F2236;--bg2:#0B1A2C;--ink:#0B1A2C;
+  --gold:#C8A24A;--gold2:#C8A24A;--gold3:#D9B762;
+  --border:rgba(200,162,74,.26);--border-strong:rgba(200,162,74,.5);
+  --txt:#EDE6D6;--muted:#A9B2BC;--faint:#7f8a96;
+  --display:'Frank Ruhl Libre',Georgia,serif;--body:'Assistant','Segoe UI',Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg2);color:var(--txt);font-family:var(--body);min-height:100vh;
+  font-size:17px;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+
+/* ---------- NAV ---------- */
+.nav{position:sticky;top:0;z-index:50;background:rgba(7,16,25,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.nav-in{max-width:1280px;margin:0 auto;padding:.7rem 4vw;display:flex;align-items:center;gap:1.5rem}
+.brand{display:flex;flex-direction:column;line-height:1.1;flex-shrink:0}
+.brand-name{font-family:var(--display);font-size:1.35rem;font-weight:700;color:var(--gold3);text-shadow:0 0 18px rgba(212,175,55,.45)}
+.brand-sub{font-size:.62rem;letter-spacing:.18em;color:var(--faint)}
+.menu{display:flex;gap:.2rem;margin-inline-start:auto;list-style:none}
+.menu a{display:block;padding:.5rem .8rem;border-radius:8px;font-size:.92rem;color:var(--muted);transition:color .2s,background .2s}
+.menu a:hover{color:var(--txt);background:rgba(212,175,55,.08)}
+.menu a.on{color:var(--gold)}
+.lang{display:flex;gap:4px;direction:ltr}
+.lang button{background:transparent;border:1px solid var(--border);color:var(--gold2);font-size:.75rem;padding:.35rem .7rem;border-radius:6px}
+.lang button.on{background:var(--gold);color:var(--ink);border-color:var(--gold);font-weight:700}
+.burger{display:none;background:none;border:1px solid var(--border);color:var(--gold);border-radius:8px;width:40px;height:38px;font-size:1.1rem}
+@media(max-width:900px){
+  .menu{display:none;position:absolute;top:100%;inset-inline:0;flex-direction:column;background:#071019;border-bottom:1px solid var(--border);padding:.5rem 4vw 1rem}
+  .menu.open{display:flex}
+  .menu a{padding:.8rem .5rem;font-size:1rem;border-bottom:1px solid rgba(212,175,55,.1)}
+  .burger{display:block;margin-inline-start:auto}
+}
+
+/* ---------- HEADER ---------- */
+.wrap{max-width:1280px;margin:0 auto;padding:0 4vw}
+.head{padding:2.6rem 0 1.4rem;display:grid;grid-template-columns:1fr 1.25fr;gap:2.5rem;align-items:center}
+.eyebrow{font-size:.72rem;letter-spacing:.3em;color:var(--gold2);margin-bottom:.7rem}
+h1{font-family:var(--display);font-size:clamp(2rem,4vw,3.1rem);line-height:1.12;font-weight:700}
+h1 em{font-style:normal;color:var(--gold)}
+.lead{color:var(--muted);font-size:1.02rem;line-height:1.7;margin:.9rem 0 1.4rem;max-width:34em}
+.search{position:relative;max-width:440px}
+.search input{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:999px;padding:.85rem 2.8rem .85rem 1.2rem;color:var(--txt);font:inherit;font-size:.95rem;outline:none;transition:border-color .2s,background .2s}
+.search input:focus{border-color:var(--gold);background:rgba(255,255,255,.07)}
+.search svg{position:absolute;top:50%;inset-inline-start:1rem;transform:translateY(-50%);width:18px;height:18px;stroke:var(--gold2)}
+.stats{display:flex;gap:1.6rem;margin-top:1.4rem;color:var(--faint);font-size:.82rem}
+.stats b{display:block;font-family:var(--display);font-size:1.5rem;color:var(--gold2);font-weight:700}
+
+.feature{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--border-strong);box-shadow:0 20px 60px rgba(0,0,0,.45),0 0 40px rgba(212,175,55,.12);cursor:pointer;aspect-ratio:16/9;background:#000}
+.feature .bgblur{position:absolute;inset:-20px;background-size:cover;background-position:center;filter:blur(22px) brightness(.55);transform:scale(1.1)}
+.feature img.fg{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.feature::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(7,16,25,.95) 0%,rgba(7,16,25,.2) 55%,transparent 75%)}
+.feature-meta{position:absolute;bottom:0;inset-inline:0;padding:1.4rem 1.6rem;z-index:2}
+.pill{display:inline-block;background:var(--gold);color:var(--ink);font-size:.7rem;font-weight:700;padding:.22rem .65rem;border-radius:999px;margin-bottom:.55rem}
+.feature-title{font-family:var(--display);font-size:clamp(1.3rem,2.4vw,1.9rem);line-height:1.2}
+.bigplay{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;width:74px;height:74px;border-radius:50%;background:linear-gradient(135deg,var(--gold3),var(--gold2));display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 8px rgba(212,175,55,.18),0 8px 30px rgba(0,0,0,.5);transition:transform .25s}
+.feature:hover .bigplay{transform:translate(-50%,-50%) scale(1.07)}
+.bigplay svg{width:26px;height:26px;fill:var(--ink);margin-left:4px}
+@media(max-width:900px){.head{grid-template-columns:1fr;gap:1.6rem;padding-top:1.6rem}.feature{order:-1}}
+
+/* ---------- CATEGORY CHIPS ---------- */
+.chips-bar{position:sticky;top:61px;z-index:40;background:rgba(10,19,32,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-block:1px solid rgba(212,175,55,.15);margin-top:1rem}
+.chips{max-width:1280px;margin:0 auto;padding:.8rem 4vw;display:flex;gap:.5rem;overflow-x:auto;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex-shrink:0;display:flex;align-items:center;gap:.45rem;background:rgba(255,255,255,.04);border:1px solid rgba(212,175,55,.22);color:var(--muted);padding:.55rem 1rem;border-radius:999px;font-size:.9rem;white-space:nowrap;transition:all .2s}
+.chip:hover{border-color:var(--gold2);color:var(--txt)}
+.chip .n{font-size:.72rem;color:var(--faint)}
+.chip.on{background:var(--gold);border-color:var(--gold);color:var(--ink);font-weight:700}
+.chip.on .n{color:rgba(7,16,25,.65)}
+
+/* ---------- SECTIONS & GRID ---------- */
+.section{padding:2rem 0 .5rem}
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1rem}
+.sec-h h2{font-family:var(--display);font-size:1.45rem;font-weight:700}
+.sec-h h2 span{color:var(--gold)}
+.sec-h small{color:var(--faint);font-size:.82rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1.4rem 1.2rem}
+.row{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(220px,260px);gap:1rem;overflow-x:auto;padding-bottom:.5rem;scrollbar-width:thin}
+.card{cursor:pointer;border-radius:14px;transition:transform .25s}
+.card:hover{transform:translateY(-4px)}
+.thumb{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#05090f;border:1px solid rgba(212,175,55,.25);transition:border-color .25s,box-shadow .25s}
+.card:hover .thumb{border-color:var(--gold);box-shadow:0 10px 30px rgba(0,0,0,.45),0 0 24px rgba(212,175,55,.18)}
+.thumb .bgblur{position:absolute;inset:-14px;background-size:cover;background-position:center;filter:blur(14px) brightness(.5);transform:scale(1.1)}
+.thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.thumb.wide img{object-fit:cover}
+.thumb .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;background:rgba(0,0,0,.25);transition:opacity .25s}
+.card:hover .thumb .play{opacity:1}
+.thumb .play i{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--gold3),var(--gold2));display:flex;align-items:center;justify-content:center}
+.thumb .play svg{width:16px;height:16px;fill:var(--ink);margin-left:3px}
+.thumb .badge{position:absolute;top:.5rem;inset-inline-end:.5rem;background:rgba(7,16,25,.8);border:1px solid rgba(212,175,55,.35);color:var(--gold2);font-size:.66rem;padding:.15rem .5rem;border-radius:999px}
+.meta{padding:.7rem .2rem 0}
+.cat{font-size:.72rem;color:var(--gold2);letter-spacing:.04em;margin-bottom:.25rem}
+.ttl{font-size:1rem;font-weight:500;line-height:1.4;color:#f3f1ec;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+@media(max-width:600px){.grid{grid-template-columns:1fr 1fr;gap:1.1rem .8rem}.ttl{font-size:.88rem}.cat{font-size:.66rem}.thumb .play{opacity:1;background:transparent}.thumb .play i{width:34px;height:34px}.thumb .play svg{width:12px;height:12px}}
+.spk{font-size:.78rem;color:var(--muted);margin-top:.25rem}
+.empty{text-align:center;color:var(--muted);padding:3.5rem 1rem;border:1px dashed var(--border);border-radius:16px}
+.empty b{display:block;font-family:var(--display);font-size:1.3rem;color:var(--txt);margin-bottom:.4rem}
+
+/* ---------- CTA ---------- */
+.cta{margin:3rem 0 0;border:1px solid var(--border-strong);border-radius:18px;padding:2rem 2.2rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;background:linear-gradient(135deg,rgba(15,45,82,.55),rgba(10,19,32,.6))}
+.cta h3{font-family:var(--display);font-size:1.5rem;margin-bottom:.3rem}
+.cta p{color:var(--muted);font-size:.95rem}
+.btns{display:flex;gap:.6rem;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:.4rem;padding:.8rem 1.3rem;border-radius:10px;font-weight:700;font-size:.92rem;border:1px solid var(--gold)}
+.btn.gold{background:linear-gradient(135deg,var(--gold3),var(--gold2));color:var(--ink)}
+.btn.out{color:var(--gold);background:transparent}
+footer{margin-top:3.5rem;border-top:1px solid rgba(212,175,55,.15);padding:1.6rem 4vw;text-align:center;color:var(--faint);font-size:.8rem}
+footer a{color:var(--gold2)}
+
+/* ---------- PLAYER ---------- */
+#player{position:fixed;inset:0;z-index:100;background:rgba(3,7,12,.94);display:none;align-items:center;justify-content:center;padding:4vh 4vw;backdrop-filter:blur(6px)}
+#player.open{display:flex}
+.pl-box{width:min(1000px,100%);max-height:100%;display:flex;flex-direction:column}
+.pl-top{display:flex;justify-content:flex-end;margin-bottom:.6rem}
+.pl-close{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:1.2rem}
+.pl-frame{position:relative;width:100%;aspect-ratio:16/9;max-height:72vh;background:#000;border-radius:14px;overflow:hidden;border:1px solid var(--border)}
+.pl-frame.tall{aspect-ratio:auto;height:72vh}
+.pl-frame iframe,.pl-frame video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
+.pl-info{padding:1rem .2rem 0;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap}
+.pl-title{font-family:var(--display);font-size:1.35rem;line-height:1.3}
+.pl-cat{color:var(--gold2);font-size:.8rem;margin-bottom:.2rem}
+.pl-actions{display:flex;gap:.5rem;flex-wrap:wrap}
+.pl-actions .btn{padding:.6rem 1rem;font-size:.85rem}
+.btn.wa{border-color:#25D366;color:#25D366}
+
+/* ===== שכבת עיצוב — תואמת לדף הבית ===== */
+h1{font-weight:500!important;font-size:clamp(2.1rem,3.6vw,3rem)!important;letter-spacing:0;text-wrap:balance}
+.brand-name{text-shadow:none!important;color:var(--gold3)!important}
+.brand-sub{letter-spacing:0!important}
+.menu a.on{color:var(--txt)!important;box-shadow:inset 0 -2px 0 var(--gold)}
+.lang button{border-radius:4px!important}
+.lang button.on{background:transparent!important;color:var(--txt)!important;border-color:var(--gold)!important}
+.search input{border-radius:6px!important;border-color:rgba(255,255,255,.16)!important}
+.feature{border-radius:8px!important;border:1px solid var(--border)!important;box-shadow:0 24px 60px rgba(0,0,0,.35)!important}
+.pill{border-radius:3px!important}
+.bigplay{box-shadow:none!important;background:rgba(11,26,44,.7)!important;border:1px solid rgba(255,255,255,.7)}
+.bigplay svg{fill:#fff!important}
+.chips-bar{background:rgba(11,26,44,.95)!important}
+.chip{border-radius:4px!important;background:transparent!important;color:var(--txt)!important}
+.chip.on{background:var(--gold)!important;color:var(--ink)!important}
+.sec-h h2 span{color:inherit!important}
+.card:hover{transform:none!important}
+.thumb{border-radius:6px!important;border-color:rgba(255,255,255,.09)!important}
+.card:hover .thumb{box-shadow:none!important}
+.thumb .play i{background:rgba(11,26,44,.7)!important;border:1px solid rgba(255,255,255,.7)}
+.thumb .play svg{fill:#fff!important}
+.thumb .badge{border-radius:3px!important;background:var(--gold)!important;color:var(--ink)!important;border:none!important}
+.cat{letter-spacing:0!important}
+.ttl{font-weight:600!important}
+.cta{border-radius:8px!important;background:var(--bg)!important;border-color:var(--border)!important}
+.cta h3{font-weight:500}
+.btn{border-radius:4px!important}
+.btn.gold{background:var(--gold)!important}
+.pl-frame{border-radius:8px!important}
+footer{border-top-color:var(--border)!important}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--gold3);outline-offset:3px}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="brand" href="index.html"><span class="brand-name" data-he="משה גינזי" data-en="Moshe Ginzy">משה גינזי</span><span class="brand-sub" data-he="מחשבה במסלול מחדש" data-en="RETHINKING THE ROUTE">מחשבה במסלול מחדש</span></a>
+    <button class="burger" onclick="document.getElementById('menu').classList.toggle('open')" aria-label="תפריט">☰</button>
+    <ul class="menu" id="menu">
+      <li><a href="index.html" data-he="בית" data-en="Home">בית</a></li>
+      <li><a href="videos.html" class="on" data-he="שיעורים" data-en="Videos">שיעורים</a></li>
+      <li><a href="index.html#bot-section" data-he="שאל את משה" data-en="Ask Moshe">שאל את משה</a></li>
+      <li><a href="index.html#chavruta" data-he="חברותא אישית" data-en="Personal Chavruta">חברותא אישית</a></li>
+      <li><a href="community.html" data-he="קהילה" data-en="Community">קהילה</a></li>
+      <li><a href="getapp.html" data-he="האפליקציה" data-en="The App">האפליקציה</a></li>
+    </ul>
+    <div class="lang"><button id="lang-he" class="on" onclick="setLang('he')">עברית</button><button id="lang-en" onclick="setLang('en')">English</button></div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <section class="head">
+      <div>
+                <h1 data-he="ספריית השיעורים של משה גינזי" data-en="The Moshe Ginzy video library">ספריית השיעורים של משה גינזי</h1>
+        <p class="lead" data-he="סרטונים קצרים על זוגיות, משפחה, אמונה ומשמעות החיים. בלי הטפה ובלי לחץ. בחרו נושא והתחילו לצפות." data-en="Short videos on relationships, family, faith and the meaning of life. No preaching, no pressure. Pick a topic and start watching.">סרטונים קצרים על זוגיות, משפחה, אמונה ומשמעות החיים. בלי הטפה ובלי לחץ. בחרו נושא והתחילו לצפות.</p>
+        <div class="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="q" type="search" placeholder="חיפוש סרטון…" oninput="state.q=this.value;render()">
+        </div>
+        <div class="stats"><div><b id="st-videos">0</b><span data-he="סרטונים" data-en="videos">סרטונים</span></div><div><b id="st-cats">0</b><span data-he="נושאים" data-en="topics">נושאים</span></div></div>
+      </div>
+      <div class="feature" id="feature" role="button" tabindex="0"></div>
+    </section>
+  </div>
+
+  <nav class="chips-bar" aria-label="קטגוריות"><div class="chips" id="chips"></div></nav>
+
+  <div class="wrap">
+    <section class="section" id="recent-sec" style="display:none">
+      <div class="sec-h"><h2 data-he="המשך <span>צפייה</span>" data-en="Continue <span>watching</span>">המשך <span>צפייה</span></h2></div>
+      <div class="row" id="recent"></div>
+    </section>
+
+    <section class="section">
+      <div class="sec-h"><h2 id="grid-title"></h2><small id="grid-count"></small></div>
+      <div class="grid" id="grid"></div>
+    </section>
+
+    <section class="cta">
+      <div>
+        <h3 data-he="יש לך שאלה על מה שראית?" data-en="Have a question about what you watched?">יש לך שאלה על מה שראית?</h3>
+        <p data-he="אפשר לשאול את משה עכשיו — או להצטרף לחברותא אישית שבועית, בחינם." data-en="Ask Moshe right now — or join a free weekly one-on-one chavruta.">אפשר לשאול את משה עכשיו — או להצטרף לחברותא אישית שבועית, בחינם.</p>
+      </div>
+      <div class="btns">
+        <a class="btn gold" href="index.html#bot-section" data-he="שאל את משה" data-en="Ask Moshe">שאל את משה</a>
+        <a class="btn out" href="index.html#chavruta" data-he="לחברותא אישית" data-en="Personal chavruta">לחברותא אישית</a>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer><span data-he="פרויקט של" data-en="A project of">פרויקט של</span> <a href="https://netivotny.org">Congregation Netivot of New York Inc.</a> · <a href="privacy.html" data-he="מדיניות פרטיות" data-en="Privacy">מדיניות פרטיות</a></footer>
+
+<div id="player" onclick="if(event.target===this)closePlayer()">
+  <div class="pl-box">
+    <div class="pl-top"><button class="pl-close" onclick="closePlayer()" aria-label="סגור">✕</button></div>
+    <div class="pl-frame" id="pl-frame"></div>
+    <div class="pl-info">
+      <div><div class="pl-cat" id="pl-cat"></div><div class="pl-title" id="pl-title"></div></div>
+      <div class="pl-actions">
+        <a class="btn gold" id="pl-ask" href="index.html#bot-section" data-he="שאל את משה על זה" data-en="Ask Moshe about this">שאל את משה על זה</a>
+        <a class="btn out wa" id="pl-wa" target="_blank" rel="noopener" data-he="שתף בוואטסאפ" data-en="Share on WhatsApp">שתף בוואטסאפ</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   מקור הסרטונים:
+   1. רשימה קבועה (סרטוני MP4 שכבר יושבים באתר + סרטוני YouTube קיימים)
+   2. כל סרטון שמוסיפים בדשבורד (dashboard.html) — נטען אוטומטית.
+      התגית שכותבים בדשבורד קובעת את הקטגוריה.
+   ========================================================= */
+var PROXY_URL='https://script.google.com/macros/s/AKfycbx1IJHkaBhhmqmPIvyPEY8Xr_-OYRZf3KNrRRezqeDUgkJP3IkTLPGUt_y1Hx811avx/exec';
+
+/* קטגוריות. כל תגית מהדשבורד שמכילה אחת ממילות המפתח נכנסת לקטגוריה.
+   תגית שלא מתאימה לאף קטגוריה תקבל כפתור משלה. */
+var CATS=[
+  {id:'zugiut', he:'זוגיות', en:'Relationships', icon:'💞', kw:['זוגיות','נישואין','שלום בית','זוג','חתונה','אהבה','marriage','relationship','couple','love']},
+  {id:'family', he:'משפחה וחינוך', en:'Family & Parenting', icon:'👨‍👩‍👧', kw:['משפחה','ילדים','חינוך','הורים','הורות','אמא','אבא','family','kids','children','parent']},
+  {id:'emuna', he:'אמונה וביטחון', en:'Faith & Trust', icon:'🕊️', kw:['אמונה','ביטחון','השגחה','תפילה','faith','trust','prayer','providence']},
+  {id:'meaning', he:'משמעות החיים', en:'Meaning of Life', icon:'✨', kw:['משמעות','תכלית','אמת','נשמה','meaning','purpose','soul','life']},
+  {id:'shabbat', he:'שבת וחגים', en:'Shabbat & Holidays', icon:'🕯️', kw:['שבת','חג','חגים','shabbat','festival','holiday']},
+  {id:'money', he:'כסף והצלחה', en:'Money & Success', icon:'📈', kw:['כסף','הצלחה','פרנסה','עבודה','money','success','work']},
+  {id:'growth', he:'מודעות ויומיום', en:'Awareness & Daily Life', icon:'🧭', kw:['מודעות','יומיום','חשבון נפש','מידות','awareness','wisdom','daily','travel']},
+  {id:'stories', he:'משלים וסיפורים', en:'Parables & Stories', icon:'📜', kw:['משל','סיפור','פלא','היסטוריה','מסורת','story','parable','history']}
+];
+
+var BUILTIN=[
+  // עברית — MP4 שיושבים באתר (בלי יוטיוב בכלל)
+  {src:'pilot.mp4',thumb:'pilot.jpg',lang:'he',tag:'אמונה · ביטחון',title:'למה אתם מנסים לנהל את הטייס?',tall:true},
+  {src:'mom.mp4',thumb:'mom.jpg',lang:'he',tag:'השגחה · משפחה',title:'אמא פולניה על פרק כף היד שלי',tall:true},
+  {src:'plastic.mp4',thumb:'plastic.jpg',lang:'he',tag:'משמעות · אמת',title:'החיים הם לא פלסטיק',tall:true},
+  {src:'shabbat.mp4',thumb:'shabbat.jpg',lang:'he',tag:'שבת · שקט',title:'הנוסחה הדיגיטלית והשקט של שבת',tall:true},
+  {src:'money.mp4',thumb:'money.jpg',lang:'he',tag:'כסף · שליטה',title:'המנהל הסמוי של הכיס שלנו',tall:true},
+  {src:'keys.mp4',thumb:'keys.jpg',lang:'he',tag:'מודעות · יומיום',title:'איפה המפתחות שלי',tall:true},
+  {src:'butterfly.mp4',thumb:'butterfly.jpg',lang:'he',tag:'השגחה · מעשים קטנים',title:'אפקט הפרפר',tall:true},
+  {src:'jerusalem.mp4',thumb:'jerusalem.jpg',lang:'he',tag:'משל · תכלית',title:'דירה בירושלים',tall:true},
+  {src:'history.mp4',thumb:'history.jpg',lang:'he',tag:'מסורת · היסטוריה',title:'האירוע החשוב בהיסטוריה',tall:true},
+  {src:'waiter.mp4',thumb:'waiter.jpg',lang:'he',tag:'משל · חשבון נפש',title:'המלצר והחשבון',tall:true},
+  // עברית — YouTube
+  {yt:'62t1C2qZOJk',lang:'he',tag:'אמונה',title:'מי מנהל את האירוע?'},
+  {yt:'tti5WUy7kDo',lang:'he',tag:'הצלחה',title:'כסף והצלחה'},
+  {yt:'zvTXEa1CkZc',lang:'he',tag:'משמעות',title:'משמעות החיים'},
+  {yt:'qNqf6BgdSDs',lang:'he',tag:'משפחה',title:'הילדים שלנו'},
+  {yt:'eYJzCv7qyPU',lang:'he',tag:'פלא',title:'מתמטיקה של הפלא'},
+  // English — MP4 on the site
+  {src:'keysenglish.mp4',thumb:'keys-en.jpg',lang:'en',tag:'Awareness',title:'Where Are My Keys?',tall:true},
+  {src:'journey.mp4',thumb:'journey.jpg',lang:'en',tag:'Soul',title:'A Quiet Journey to the Heart',tall:true},
+  {src:'flightmode.mp4',thumb:'flightmode.jpg',lang:'en',tag:'Shabbat',title:'When Was the Last Time You Were in Flight Mode?',tall:true},
+  {src:'festival.mp4',thumb:'festival.jpg',lang:'en',tag:'Faith',title:'The Unexpected Festival Guests',tall:true},
+  {src:'oldman.mp4',thumb:'oldman.jpg',lang:'en',tag:'Wisdom',title:"The Old Man's Secret",tall:true},
+  {src:'travel.mp4',thumb:'travel.jpg',lang:'en',tag:'Life · Travel',title:'Travelling Soon?',tall:true}
+];
+
+var state={lang:'he',cat:'all',q:'',videos:[]};
+function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(k)||'null');localStorage.setItem(k,JSON.stringify(v));}catch(e){return null;}}
+
+function catOf(tag){
+  var t=(tag||'').toLowerCase();
+  for(var i=0;i<CATS.length;i++){for(var j=0;j<CATS[i].kw.length;j++){if(t.indexOf(CATS[i].kw[j].toLowerCase())>-1)return CATS[i].id;}}
+  return tag?('tag:'+tag.split(/[·,|]/)[0].trim()):'other';
+}
+function catLabel(id){
+  for(var i=0;i<CATS.length;i++)if(CATS[i].id===id)return CATS[i][state.lang];
+  if(id==='guest')return state.lang==='en'?'Guest Speakers':'מרצים אורחים';
+  if(id.indexOf('tag:')===0)return id.slice(4);
+  return state.lang==='en'?'More':'עוד';
+}
+function key(v){return v.yt?('yt:'+v.yt):('mp4:'+v.src);}
+function thumbOf(v){return v.yt?('https://i.ytimg.com/vi/'+v.yt+'/hqdefault.jpg'):v.thumb;}
+function esc(s){return String(s||'').replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+
+function prepare(list){
+  var seen={},out=[];
+  list.forEach(function(v){var k=key(v);if(seen[k])return;seen[k]=1;
+    // "מרצה: הרב אהרון לוי · זוגיות"  ← שם המרצה + הנושא
+    var t=v.tag||'',m=t.match(/(?:מרצה|מרצים|speaker)\s*:\s*([^·,|]+)/i);
+    if(m){v.speaker=m[1].trim();t=t.replace(m[0],'').replace(/^[\s·,|]+|[\s·,|]+$/g,'');}
+    v.cat=t?catOf(t):'guest';out.push(v);});
+  return out;
+}
+
+function langVideos(){return state.videos.filter(function(v){return v.lang===state.lang;});}
+
+function cardHTML(v){
+  var th=thumbOf(v);
+  return '<div class="card" data-k="'+esc(key(v))+'"><div class="thumb'+(v.yt?' wide':'')+'"><div class="bgblur" style="background-image:url(\''+esc(th)+'\')"></div><img loading="lazy" src="'+esc(th)+'" alt="'+esc(v.title)+'" onerror="this.style.opacity=0"><div class="play"><i><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21"/></svg></i></div>'+(v.isNew?'<span class="badge">'+(state.lang==='en'?'New':'חדש')+'</span>':'')+'</div><div class="meta"><div class="cat">'+esc(v.cat==='guest'?catLabel('guest'):catLabel(v.cat))+'</div><div class="ttl">'+esc(v.title)+'</div>'+(v.speaker?'<div class="spk">'+esc(v.speaker)+'</div>':'')+'</div></div>';
+}
+
+function render(){
+  var all=langVideos();
+  // chips
+  var counts={};all.forEach(function(v){if(v.cat!=='guest')counts[v.cat]=(counts[v.cat]||0)+1;if(v.speaker)counts.guest=(counts.guest||0)+1;});
+  var ids=CATS.map(function(c){return c.id;}).filter(function(id){return counts[id];});
+  Object.keys(counts).forEach(function(id){if(ids.indexOf(id)<0&&id!=='guest')ids.push(id);});
+  if(counts.guest)ids.push('guest');
+  if(state.cat!=='all'&&!counts[state.cat])state.cat='all';
+  var ch='<button class="chip'+(state.cat==='all'?' on':'')+'" data-c="all">'+(state.lang==='en'?'All':'הכל')+' <span class="n">'+all.length+'</span></button>';
+  ids.forEach(function(id){var c=CATS.filter(function(x){return x.id===id;})[0];ch+='<button class="chip'+(state.cat===id?' on':'')+'" data-c="'+esc(id)+'">'+esc(catLabel(id))+' <span class="n">'+counts[id]+'</span></button>';});
+  document.getElementById('chips').innerHTML=ch;
+  document.getElementById('st-videos').textContent=all.length;
+  document.getElementById('st-cats').textContent=ids.length;
+
+  // grid
+  var q=state.q.trim().toLowerCase();
+  var list=all.filter(function(v){return (state.cat==='all'||v.cat===state.cat||(state.cat==='guest'&&v.speaker))&&(!q||(v.title+' '+(v.tag||'')+' '+(v.speaker||'')).toLowerCase().indexOf(q)>-1);});
+  document.getElementById('grid-title').innerHTML=state.cat==='all'?(state.lang==='en'?'All <span>videos</span>':'כל <span>הסרטונים</span>'):'<span>'+esc(catLabel(state.cat))+'</span>';
+  document.getElementById('grid-count').textContent=list.length+(state.lang==='en'?' videos':' סרטונים');
+  document.getElementById('grid').innerHTML=list.length?list.map(cardHTML).join(''):'<div class="empty" style="grid-column:1/-1"><b>'+(state.lang==='en'?'No videos found':'לא נמצאו סרטונים')+'</b>'+(state.lang==='en'?'Try another word or topic.':'נסו מילה אחרת או נושא אחר.')+'</div>';
+
+  // feature: newest from dashboard, else first
+  var own=all.filter(function(v){return !v.speaker;});
+  var f=own.filter(function(v){return v.isNew;})[0]||own[0]||all[0];
+  var fe=document.getElementById('feature');
+  if(f){var th=thumbOf(f);fe.dataset.k=key(f);fe.innerHTML='<div class="bgblur" style="background-image:url(\''+esc(th)+'\')"></div><img class="fg" src="'+esc(th)+'" alt=""><div class="bigplay"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21"/></svg></div><div class="feature-meta"><span class="pill">'+(state.lang==='en'?'Featured':'הסרטון המומלץ')+'</span><div class="feature-title">'+esc(f.title)+'</div></div>';}
+
+  // recent
+  var rec=(store('mg_recent')||[]).map(function(k){return all.filter(function(v){return key(v)===k;})[0];}).filter(Boolean).slice(0,8);
+  document.getElementById('recent-sec').style.display=rec.length?'':'none';
+  document.getElementById('recent').innerHTML=rec.map(cardHTML).join('');
+}
+
+function find(k){return state.videos.filter(function(v){return key(v)===k;})[0];}
+
+function openPlayer(v){
+  if(!v)return;
+  var fr=document.getElementById('pl-frame');
+  fr.className='pl-frame'+(v.tall?' tall':'');
+  if(v.yt){
+    fr.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+encodeURIComponent(v.yt)+'?autoplay=1&rel=0&modestbranding=1&iv_load_policy=3&playsinline=1&color=white" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="'+esc(v.title)+'"></iframe>';
+  }else{
+    fr.innerHTML='<video src="'+esc(v.src)+'" poster="'+esc(v.thumb)+'" controls autoplay playsinline controlslist="nodownload"></video>';
+  }
+  document.getElementById('pl-title').textContent=v.title;
+  document.getElementById('pl-cat').textContent=catLabel(v.cat)+(v.speaker?' · '+v.speaker:'');
+  var share=location.origin+location.pathname+'?v='+encodeURIComponent(key(v));
+  document.getElementById('pl-wa').href='https://wa.me/?text='+encodeURIComponent(v.title+' — '+share);
+  document.getElementById('pl-ask').href='index.html?q='+encodeURIComponent((state.lang==='en'?'I watched "':'צפיתי בסרטון "')+v.title+'"')+'#bot-section';
+  document.getElementById('player').classList.add('open');
+  document.body.style.overflow='hidden';
+  var r=(store('mg_recent')||[]).filter(function(x){return x!==key(v);});r.unshift(key(v));store('mg_recent',r.slice(0,12));
+  try{gtag('event','video_open',{video_title:v.title,video_category:catLabel(v.cat)});}catch(e){}
+}
+function closePlayer(){
+  document.getElementById('player').classList.remove('open');
+  document.getElementById('pl-frame').innerHTML='';
+  document.body.style.overflow='';
+  render();
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closePlayer();});
+
+document.addEventListener('click',function(e){
+  var chip=e.target.closest('.chip');
+  if(chip){state.cat=chip.dataset.c;render();var u=new URL(location.href);if(state.cat==='all')u.searchParams.delete('cat');else u.searchParams.set('cat',state.cat);history.replaceState(null,'',u);return;}
+  var card=e.target.closest('.card,.feature');
+  if(card&&card.dataset.k)openPlayer(find(card.dataset.k));
+});
+
+function setLang(l){
+  state.lang=l;try{localStorage.setItem('mg-lang',l);}catch(e){}
+  document.documentElement.lang=l;document.documentElement.dir=l==='en'?'ltr':'rtl';
+  document.getElementById('lang-he').classList.toggle('on',l==='he');
+  document.getElementById('lang-en').classList.toggle('on',l==='en');
+  document.querySelectorAll('[data-he]').forEach(function(el){el.innerHTML=el.getAttribute('data-'+l);});
+  document.getElementById('q').placeholder=l==='en'?'Search videos…':'חיפוש סרטון…';
+  state.cat='all';render();
+}
+
+function init(){
+  var p=new URLSearchParams(location.search);
+  state.videos=prepare(BUILTIN.slice());
+  var l=p.get('lang');if(!l){try{l=localStorage.getItem('mg-lang');}catch(e){}}l=l||'he';
+  setLang(l==='en'?'en':'he');
+  if(p.get('cat')){state.cat=p.get('cat');render();}
+  if(p.get('v')){var v=find(p.get('v'));if(v)openPlayer(v);}
+
+  // טעינת סרטונים מהדשבורד
+  fetch(PROXY_URL+'?action=getVideos').then(function(r){return r.json();}).then(function(d){
+    if(!d||!d.success||!Array.isArray(d.videos))return;
+    var extra=d.videos.filter(function(v){return v.active==='yes'&&v.youtubeId;}).reverse().map(function(v,i){
+      return {yt:String(v.youtubeId).trim(),lang:v.language==='en'?'en':'he',tag:v.tag||'',title:v.title||'',isNew:i<3};
+    });
+    state.videos=prepare(extra.concat(BUILTIN));
+    render();
+    if(p.get('v')&&!document.getElementById('player').classList.contains('open')){var vv=find(p.get('v'));if(vv)openPlayer(vv);}
+  }).catch(function(){});
+}
+init();
+</script>
+</body>
+</html>
