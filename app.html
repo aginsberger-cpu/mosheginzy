@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#0f0f0f">
+<meta name="theme-color" content="#0B1A2C">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -331,6 +331,17 @@ html[lang="en"] .msg-bubble.bot{border-bottom-right-radius:18px;border-bottom-le
 html[lang="en"] .msg-bubble.user{border-bottom-left-radius:18px;border-bottom-right-radius:4px;}
 html[lang="en"] .msg-row.user{flex-direction:row;}
 html[lang="en"] .msg-row:not(.user){flex-direction:row-reverse;}
+/* ערכת צבעים: כחול לילה וזהב, כמו באתר */
+body:not(.light){
+  --bg:#0B1A2C;--card:#0F2236;--card2:#132A42;
+  --gold:#D4AF5A;--gold2:#C8A24A;--gold3:#E6C77A;
+  --border:rgba(200,162,74,0.28);--border2:rgba(200,162,74,0.5);
+  --txt:#EDE6D6;--muted:#A9B2BC;
+  background:radial-gradient(ellipse 900px 500px at 80% -10%,rgba(200,162,74,.10),transparent 70%),#0B1A2C;
+}
+body:not(.light) .top-bar{background:linear-gradient(180deg,rgba(8,20,31,.98),rgba(11,26,44,.96));}
+body:not(.light) .bottom-nav,body:not(.light) .chat-input-bar,body:not(.light) .page-header{background:rgba(8,20,31,.97);}
+body:not(.light) .msg-bubble.user{background:linear-gradient(135deg,rgba(200,162,74,.22),rgba(200,162,74,.14));border-color:rgba(200,162,74,.35);}
 </style>
 <!-- Google Analytics: מדידת שימוש באפליקציה, מופרד לפי פלטפורמה (ios / android / web) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-4RW51LT65M"></script>
