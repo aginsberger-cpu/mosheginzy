@@ -138,12 +138,18 @@ textarea{font-family:var(--font)}
 .yt-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none;max-height:220px}
 .in-app .header{padding-top:calc(16px + max(env(safe-area-inset-top,0px),28px))}
 .in-app .tabs{top:calc(74px + max(env(safe-area-inset-top,0px),28px))}
+.site-back{display:none}
+.from-site .site-back{display:inline-flex;align-items:center;gap:4px;color:var(--gold);text-decoration:none;font-size:14px;font-weight:600;padding:6px 10px 6px 4px;border:1px solid var(--gold-b);border-radius:8px;margin-inline-end:4px}
+.from-site .bottom-nav{display:none}
+.from-site{padding-bottom:0}
 </style>
 </head>
 <body>
   <script>if(/; wv\)/.test(navigator.userAgent)||window.Android){document.body.classList.add('in-app');}</script>
+  <script>/* הגיעו מהאתר — מציגים קישור חזרה לאתר ומסתירים את תפריט האפליקציה */if(/[?&]from=site/.test(location.search)&&!document.body.classList.contains('in-app')){document.body.classList.add('from-site');}</script>
 <div class="header" id="header">
   <div class="header-left">
+    <a class="site-back" href="index.html" aria-label="חזרה לאתר"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg><span>לאתר</span></a>
     <img id="moshePhoto" src="" alt="Moshe Ginzy">
     <div>
       <h1 id="headerTitle">משה גינזי</h1>
