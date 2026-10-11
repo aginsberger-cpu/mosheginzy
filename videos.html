@@ -184,6 +184,26 @@ h1{font-weight:500!important;font-size:clamp(2.1rem,3.6vw,3rem)!important;letter
 .pl-frame{border-radius:8px!important}
 footer{border-top-color:var(--border)!important}
 a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--gold3);outline-offset:3px}
+
+/* ===== תיקוני מובייל (אוקטובר 2026) — מונע גלישה לצד, מסדר תמונות ונגן ===== */
+html,body{overflow-x:clip;max-width:100%}
+.head{grid-template-columns:minmax(0,1fr) minmax(0,1.25fr)}
+@media(max-width:900px){.head{grid-template-columns:minmax(0,1fr)}}
+.card,.meta,.head>div{min-width:0}
+.ttl,.feature-title,.pl-title,.cta h3,.cta p{overflow-wrap:anywhere}
+.grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
+@media(max-width:600px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.row{grid-auto-columns:minmax(150px,170px)}
+/* כל התמונות באותו גודל — לאורך, כמו סרטונים קצרים */
+.thumb{aspect-ratio:3/4}
+.thumb img,.thumb.wide img{object-fit:contain}
+.thumb.portrait img{object-fit:cover;object-position:center 30%}
+/* נגן */
+#player{align-items:flex-start;overflow-y:auto;padding:max(12px,3vh) 4vw}
+.pl-box{margin:auto;min-width:0}
+.pl-frame.tall{aspect-ratio:9/16;width:auto;height:min(68vh,calc((92vw)*16/9));max-height:none;margin-inline:auto}
+.pl-info>div:first-child{min-width:0;flex:1 1 220px}
+@media(max-width:600px){.pl-title{font-size:1.1rem}.pl-actions{width:100%}.pl-actions .btn{flex:1;justify-content:center}}
 </style>
 </head>
 <body>
@@ -327,6 +347,18 @@ function catLabel(id){
 }
 function key(v){return v.yt?('yt:'+v.yt):('mp4:'+v.src);}
 function thumbOf(v){return v.yt?('https://i.ytimg.com/vi/'+v.yt+'/hqdefault.jpg'):v.thumb;}
+/* תמונה בגודל המקורי: לסרטונים קצרים (לאורך) יוטיוב שומר תמונה לאורך בלי פסים בצדדים */
+function imgOf(v){return v.yt?('https://i.ytimg.com/vi/'+v.yt+'/oar2.jpg'):v.thumb;}
+function thumbLoad(img){
+  if(img.naturalWidth<=120&&img.src.indexOf('/oar2.jpg')>-1){img.src=img.src.replace('/oar2.jpg','/hqdefault.jpg');return;}
+  if(img.naturalHeight>img.naturalWidth){var t=img.closest('.thumb');if(t)t.classList.add('portrait');var c=img.closest('[data-k]');var v=c&&find(c.dataset.k);if(v)v.portrait=true;}
+}
+function thumbErr(img){if(img.src.indexOf('/oar2.jpg')>-1){img.src=img.src.replace('/oar2.jpg','/hqdefault.jpg');}else{img.style.opacity=0;}}
+/* מסיר כתובות אתר מהכותרת שמוצגת (למשל "- mosheginzy.com/getapp") */
+function cleanTitle(t){
+  var c=String(t||'').replace(/(?:https?:\/\/)?(?:www\.)?[a-z0-9-]+\.(?:com|org|net|co\.il|app)(?:\/[^\s]*)?/gi,'').replace(/[\s\-–—|:·]+$/,'').replace(/^[\s\-–—|:·]+/,'').replace(/\s{2,}/g,' ').trim();
+  return c||String(t||'');
+}
 function esc(s){return String(s||'').replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
 
 function prepare(list){
@@ -335,7 +367,7 @@ function prepare(list){
     // "מרצה: הרב אהרון לוי · זוגיות"  ← שם המרצה + הנושא
     var t=v.tag||'',m=t.match(/(?:מרצה|מרצים|speaker)\s*:\s*([^·,|]+)/i);
     if(m){v.speaker=m[1].trim();t=t.replace(m[0],'').replace(/^[\s·,|]+|[\s·,|]+$/g,'');}
-    v.cat=t?catOf(t):'guest';out.push(v);});
+    v.cat=t?catOf(t):'guest';v.title=cleanTitle(v.title);out.push(v);});
   return out;
 }
 
@@ -343,7 +375,7 @@ function langVideos(){return state.videos.filter(function(v){return v.lang===sta
 
 function cardHTML(v){
   var th=thumbOf(v);
-  return '<div class="card" data-k="'+esc(key(v))+'"><div class="thumb'+(v.yt?' wide':'')+'"><div class="bgblur" style="background-image:url(\''+esc(th)+'\')"></div><img loading="lazy" src="'+esc(th)+'" alt="'+esc(v.title)+'" onerror="this.style.opacity=0"><div class="play"><i><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21"/></svg></i></div>'+(v.isNew?'<span class="badge">'+(state.lang==='en'?'New':'חדש')+'</span>':'')+'</div><div class="meta"><div class="cat">'+esc(v.cat==='guest'?catLabel('guest'):catLabel(v.cat))+'</div><div class="ttl">'+esc(v.title)+'</div>'+(v.speaker?'<div class="spk">'+esc(v.speaker)+'</div>':'')+'</div></div>';
+  return '<div class="card" data-k="'+esc(key(v))+'"><div class="thumb'+(v.yt?' wide':'')+(v.portrait?' portrait':'')+'"><div class="bgblur" style="background-image:url(\''+esc(th)+'\')"></div><img loading="lazy" src="'+esc(imgOf(v))+'" alt="'+esc(v.title)+'" onload="thumbLoad(this)" onerror="thumbErr(this)"><div class="play"><i><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21"/></svg></i></div>'+(v.isNew?'<span class="badge">'+(state.lang==='en'?'New':'חדש')+'</span>':'')+'</div><div class="meta"><div class="cat">'+esc(v.cat==='guest'?catLabel('guest'):catLabel(v.cat))+'</div><div class="ttl">'+esc(v.title)+'</div>'+(v.speaker?'<div class="spk">'+esc(v.speaker)+'</div>':'')+'</div></div>';
 }
 
 /* חיפוש: מחפש בשם, בתגית, בשם המרצה ובשם הנושא ומילות המפתח שלו. כמה מילים = כולן צריכות להופיע, בכל סדר. */
@@ -378,7 +410,7 @@ function render(){
   var own=all.filter(function(v){return !v.speaker;});
   var f=own.filter(function(v){return v.isNew;})[0]||own[0]||all[0];
   var fe=document.getElementById('feature');
-  if(f){var th=thumbOf(f);fe.dataset.k=key(f);fe.innerHTML='<div class="bgblur" style="background-image:url(\''+esc(th)+'\')"></div><img class="fg" src="'+esc(th)+'" alt=""><div class="bigplay"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21"/></svg></div><div class="feature-meta"><span class="pill">'+(state.lang==='en'?'Featured':'הסרטון המומלץ')+'</span><div class="feature-title">'+esc(f.title)+'</div></div>';}
+  if(f){var th=thumbOf(f);fe.dataset.k=key(f);fe.innerHTML='<div class="bgblur" style="background-image:url(\''+esc(th)+'\')"></div><img class="fg" src="'+esc(imgOf(f))+'" alt="" onerror="thumbErr(this)"><div class="bigplay"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21"/></svg></div><div class="feature-meta"><span class="pill">'+(state.lang==='en'?'Featured':'הסרטון המומלץ')+'</span><div class="feature-title">'+esc(f.title)+'</div></div>';}
 
   // recent
   var rec=(store('mg_recent')||[]).map(function(k){return all.filter(function(v){return key(v)===k;})[0];}).filter(Boolean).slice(0,8);
@@ -391,7 +423,7 @@ function find(k){return state.videos.filter(function(v){return key(v)===k;})[0];
 function openPlayer(v){
   if(!v)return;
   var fr=document.getElementById('pl-frame');
-  fr.className='pl-frame'+(v.tall?' tall':'');
+  fr.className='pl-frame'+((v.tall||v.portrait)?' tall':'');
   if(v.yt){
     fr.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+encodeURIComponent(v.yt)+'?autoplay=1&rel=0&modestbranding=1&iv_load_policy=3&playsinline=1&color=white" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="'+esc(v.title)+'"></iframe>';
   }else{
