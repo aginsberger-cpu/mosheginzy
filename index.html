@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=Frank+Ruhl+Libre:wght@500;700&display=swap" rel="stylesheet">
 <title>משה גינזי — שאלות על החיים שאתה שואל בלילה</title>
 <meta name="description" content="מחפש משמעות? שואל שאלות שאין עליהן תשובות פשוטות? משה גינזי מציע שיחה פתוחה — בלי דת, בלי לחץ, בלי שיפוט.">
 <meta name="keywords" content="משמעות החיים, שאלות קיומיות, רוחניות מודרנית, יהדות בלי לחץ, חיפוש עצמי, שאלות על אמונה, מה אני עושה פה">
@@ -13,6 +16,7 @@
   <link rel="canonical" href="https://mosheginzy.com/">
 <link rel="icon" type="image/png" sizes="48x48" href="favicon.png">
 <link rel="apple-touch-icon" sizes="180x180" href="moshe-icon-180.png">
+<meta name="apple-itunes-app" content="app-id=6786922851">
 <meta property="og:image" content="https://mosheginzy.com/og-image.jpg">
 <meta property="og:locale" content="he_IL">
 <meta property="og:type" content="website">
@@ -528,6 +532,225 @@ footer{background:linear-gradient(135deg,#0d1b2a,#0a1320);padding:3rem 5vw 2rem;
 .mg-slide img{animation:none!important;transform:none!important;object-position:center center!important;transform-origin:center center!important}
 #hero-btn-wa{color:#25D366!important;border-color:rgba(37,211,102,.6)!important;background:rgba(37,211,102,.15)!important}
 }
+
+/* ===== תפריט עליון + אזור אפליקציה (נוסף אוקטובר 2026) ===== */
+.mg-menu{display:flex;gap:.15rem;list-style:none;margin:0 1.5rem 0 auto;padding:0}
+html[dir="ltr"] .mg-menu{margin:0 auto 0 1.5rem}
+.mg-menu a{display:block;padding:.5rem .75rem;border-radius:8px;font-family:var(--font-body);font-size:.9rem;color:#e6e6e6;text-decoration:none;transition:color .2s,background .2s;white-space:nowrap}
+.mg-menu a:hover{color:var(--gold3);background:rgba(212,175,55,.1)}
+.mg-menu a.mg-hot{color:#0a1320;background:linear-gradient(135deg,var(--gold3),var(--gold2));font-weight:700}
+.mg-menu a.mg-hot:hover{color:#0a1320;filter:brightness(1.08)}
+.mg-burger{display:none;background:none;border:1px solid var(--border);color:var(--gold3);border-radius:8px;width:40px;height:38px;font-size:1.1rem;cursor:pointer;margin:0 .6rem}
+@media(max-width:980px){
+  .mg-menu{display:none;position:absolute;top:68px;left:0;right:0;flex-direction:column;background:#0a1320;border-bottom:2px solid var(--border);padding:.4rem 5vw 1rem;margin:0}
+  html[dir="ltr"] .mg-menu{margin:0}
+  .mg-menu.open{display:flex}
+  .mg-menu a{padding:.85rem .4rem;font-size:1rem;border-bottom:1px solid rgba(212,175,55,.12);border-radius:0}
+  .mg-menu a.mg-hot{margin-top:.5rem;border-radius:10px;text-align:center;border-bottom:none}
+  .mg-burger{display:block;margin-inline-start:auto}
+}
+.mg-topics{display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem;margin:-1.5rem auto 2.2rem;max-width:900px}
+.mg-topics a{display:inline-flex;align-items:center;gap:.35rem;padding:.55rem 1rem;border-radius:999px;border:1px solid rgba(212,175,55,.35);background:rgba(255,255,255,.04);color:#e6e6e6;font-family:var(--font-body);font-size:.9rem;text-decoration:none;transition:all .2s}
+.mg-topics a:hover{background:var(--gold);border-color:var(--gold);color:#0a1320}
+.mg-all-btn{display:inline-block;padding:.9rem 1.8rem;border-radius:10px;background:linear-gradient(135deg,var(--gold3),var(--gold2));color:#0a1320;font-weight:700;font-family:var(--font-body);text-decoration:none}
+.mg-appbar{display:flex;align-items:center;justify-content:center;gap:1.1rem 1.6rem;flex-wrap:wrap;padding:1.5rem 5vw;background:linear-gradient(90deg,rgba(212,175,55,.10),rgba(15,45,82,.7),rgba(212,175,55,.10));border-top:2px solid var(--border);border-bottom:1px solid rgba(212,175,55,.25)}
+.mg-appbar img{width:56px;height:56px;border-radius:14px;border:2px solid var(--gold)}
+.mg-appbar-txt{display:flex;flex-direction:column;text-align:start;font-family:var(--font-body)}
+.mg-appbar-txt b{font-size:1.2rem;color:#fff}
+.mg-appbar-txt b em{font-style:normal;color:var(--gold3)}
+.mg-appbar-txt span{font-size:.88rem;color:var(--muted)}
+.mg-appbar .mg-app-btns{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center}
+.mg-appbar .mg-store{min-width:0;padding:.6rem 1rem}
+@media(max-width:700px){.mg-appbar{flex-direction:column;text-align:center}.mg-appbar-txt{text-align:center}}
+#mg-new{max-width:1100px;margin:0 auto 2.6rem}
+.mg-new-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1rem;font-family:var(--font-body)}
+.mg-new-h span{font-size:1.25rem;font-weight:700;color:#fff}
+.mg-new-h a{font-size:.9rem;color:var(--gold3);text-decoration:none}
+.mg-new-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1.1rem}
+.mg-new-card{display:block;text-decoration:none;color:#f0ede8;font-family:var(--font-body);transition:transform .25s}
+.mg-new-card:hover{transform:translateY(-4px)}
+.mg-new-thumb{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#05090f;border:1px solid rgba(212,175,55,.35)}
+.mg-new-card:hover .mg-new-thumb{border-color:var(--gold)}
+.mg-new-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.mg-new-thumb i{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-style:normal}
+.mg-new-thumb i b{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--gold3),var(--gold2));color:#0a1320;display:flex;align-items:center;justify-content:center;font-size:1rem;padding-left:3px}
+.mg-new-badge{position:absolute;top:8px;inset-inline-end:8px;background:var(--gold);color:#0a1320;font-size:.68rem;font-weight:700;padding:.15rem .55rem;border-radius:999px}
+.mg-new-title{margin-top:.55rem;font-size:.98rem;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.mg-new-spk{font-size:.78rem;color:var(--muted);margin-top:.15rem}
+@media(max-width:600px){.mg-new-grid{grid-template-columns:1fr 1fr;gap:.8rem}.mg-new-title{font-size:.85rem}}
+.mg-app{padding:4.5rem 5vw;text-align:center;background:linear-gradient(135deg,#0d1b2a 0%,#0a1320 100%);border-top:2px solid var(--border)}
+.mg-app-box{max-width:820px;margin:0 auto;border:1px solid var(--border);border-radius:20px;padding:2.4rem 1.6rem;background:linear-gradient(135deg,rgba(15,45,82,.55),rgba(10,25,41,.45));box-shadow:0 0 40px rgba(212,175,55,.15)}
+.mg-app-icon{width:84px;height:84px;border-radius:20px;border:2px solid var(--gold);margin-bottom:1rem}
+.mg-app h2{font-family:var(--font-body);font-size:clamp(1.5rem,3.5vw,2.1rem);color:#fff;margin-bottom:.5rem;font-weight:700}
+.mg-app h2 em{font-style:normal;color:var(--gold3)}
+.mg-app p{color:var(--muted);font-size:1rem;line-height:1.7;max-width:34em;margin:0 auto 1.6rem}
+.mg-app-btns{display:flex;justify-content:center;gap:.8rem;flex-wrap:wrap}
+.mg-store{display:inline-flex;align-items:center;gap:.6rem;padding:.8rem 1.4rem;border-radius:12px;background:#000;border:1px solid rgba(255,255,255,.35);color:#fff;text-decoration:none;font-family:var(--font-body);min-width:200px;justify-content:center;transition:transform .2s,border-color .2s}
+.mg-store:hover{transform:translateY(-2px);border-color:var(--gold)}
+.mg-store svg{width:26px;height:26px;fill:#fff;flex-shrink:0}
+.mg-store span{display:flex;flex-direction:column;line-height:1.15;text-align:start}
+.mg-store small{font-size:.68rem;opacity:.8}
+.mg-store b{font-size:1.05rem}
+.mg-app-note{margin-top:1rem;font-size:.82rem;color:var(--muted);opacity:.8}
+
+/* =====================================================================
+   שכבת עיצוב — אוקטובר 2026. גופנים: Frank Ruhl Libre (כותרות) + Assistant (טקסט)
+   ===================================================================== */
+:root{--ink:#0B1A2C;--ink2:#0F2236;--ink3:#08141F;--line:rgba(200,162,74,.26);--hair:rgba(255,255,255,.09);--gld:#C8A24A;--gld-hi:#D9B762;--text:#EDE6D6;--soft:#A9B2BC;--serif:'Frank Ruhl Libre','David Libre',Georgia,serif;--sans:'Assistant','Segoe UI',Arial,sans-serif}
+html body{font-family:var(--sans)!important;background:var(--ink)!important;color:var(--text);font-size:17px;line-height:1.75;-webkit-font-smoothing:antialiased}
+body::before{display:none!important}
+h1,h2,h3,.sec-title,.bot-title,.about h2,.form-inner h2,.nav-name,.fn,.verse-text,.verse-q,.quote-block,.mg-welcome-title,.mg-header-name{font-family:var(--serif)!important;letter-spacing:0!important;text-shadow:none!important}
+.nav-sub,.sec-eyebrow,.bot-eyebrow,.about-eyebrow,.vcard2-tag,.fs,.hero-eyebrow{letter-spacing:0!important;text-transform:none!important}
+.sec-eyebrow,.bot-eyebrow,.about-eyebrow{display:none!important}
+.bot-title em,.about h2 em,.form-inner h2 em,.sec-title em{font-style:normal!important;color:inherit!important}
+.gd{display:none!important}
+.videos,.about,.bot-section,.form-section,.mg-appbar,.hero-new,footer{overflow-x:clip}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--gld-hi);outline-offset:3px}
+
+/* nav */
+nav{background:rgba(11,26,44,.94)!important;border-bottom:1px solid var(--line)!important;box-shadow:none!important;backdrop-filter:blur(12px)!important;height:72px!important}
+nav::after{display:none!important}
+.nav-name{font-size:1.5rem!important;font-weight:700!important;color:var(--gld-hi)!important}
+.nav-sub{font-size:.74rem!important;color:var(--soft)!important}
+.lang-btn-fancy{border:1px solid var(--hair)!important;color:var(--soft)!important;font-size:.78rem!important;letter-spacing:0!important;border-radius:4px!important;padding:.32rem .7rem!important;background:transparent!important;box-shadow:none!important}
+.lang-btn-fancy.active{color:var(--text)!important;border-color:var(--gld)!important}
+.mg-menu a{font-family:var(--sans)!important;font-size:.98rem!important;color:var(--soft)!important;border-radius:4px!important}
+.mg-menu a:hover{color:var(--text)!important;background:transparent!important}
+.mg-menu a.mg-hot{background:var(--gld)!important;color:var(--ink)!important;font-weight:700!important;padding:.5rem 1rem!important}
+.mg-menu a.mg-hot:hover{background:var(--gld-hi)!important;filter:none!important}
+@media(max-width:980px){.mg-menu{top:72px!important;background:var(--ink)!important;border-bottom:1px solid var(--line)!important}.mg-menu a{border-bottom:1px solid var(--hair)!important;color:var(--text)!important}.mg-burger{border-color:var(--hair)!important;color:var(--text)!important;border-radius:4px!important}}
+
+/* hero */
+.hero-new{min-height:88vh!important;flex-direction:column!important;justify-content:center!important;align-items:flex-start!important}
+.hero-new::before{display:none!important}
+.mgx-overlay{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(270deg,rgba(11,26,44,.95) 0%,rgba(11,26,44,.86) 30%,rgba(11,26,44,.42) 60%,rgba(11,26,44,.12) 100%),linear-gradient(0deg,rgba(11,26,44,.85) 0%,rgba(11,26,44,0) 28%)}
+html[dir="ltr"] .mgx-overlay{background:linear-gradient(90deg,rgba(11,26,44,.95) 0%,rgba(11,26,44,.86) 30%,rgba(11,26,44,.42) 60%,rgba(11,26,44,.12) 100%),linear-gradient(0deg,rgba(11,26,44,.85) 0%,rgba(11,26,44,0) 28%)}
+.mgx-hero-content{position:relative;z-index:2;max-width:640px;margin-inline-start:7vw;padding:150px 0 100px;text-align:start}
+.mgx-hero-content::before{content:'';display:block;width:56px;height:2px;background:var(--gld);margin-bottom:1.7rem}
+.hero-new .mgx-h1{font-family:var(--serif)!important;font-weight:500!important;font-size:clamp(2.3rem,3.9vw,3.5rem)!important;line-height:1.16!important;text-wrap:balance;color:#fff!important;margin:0 0 1.3rem!important}
+.hero-new .mgx-lead{font-size:1.16rem!important;line-height:1.8!important;color:rgba(237,230,214,.9)!important;max-width:33em;margin:0 0 2.2rem!important}
+.mgx-hero-actions{display:flex;gap:.8rem;flex-wrap:wrap}
+.mgx-btn{display:inline-flex;align-items:center;justify-content:center;padding:.95rem 1.7rem;border-radius:4px;font-family:var(--sans);font-weight:700;font-size:1.04rem;text-decoration:none;transition:background-color .2s,border-color .2s,color .2s}
+.mgx-btn-primary{background:var(--gld);color:var(--ink)}
+.mgx-btn-primary:hover{background:var(--gld-hi)}
+.mgx-btn-ghost{border:1px solid rgba(237,230,214,.55);color:#fff}
+.mgx-btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.06)}
+#hero-btn-wa.mgx-hero-link{display:inline-block;align-self:flex-start;padding:0!important;box-shadow:none!important;margin-top:1.2rem;color:var(--soft)!important;background:none!important;border:none!important;font-size:.98rem;text-decoration:underline;text-underline-offset:5px;text-decoration-color:rgba(200,162,74,.6)}
+#hero-btn-wa.mgx-hero-link:hover{color:var(--text)!important}
+#mg-hero-dots{left:auto!important;inset-inline-start:7vw;transform:none!important;bottom:28px!important}
+@media(max-width:900px){
+  .hero-new{min-height:auto!important;justify-content:flex-start!important;align-items:stretch!important;background:var(--ink)!important}
+  .hero-new .mg-slide{top:0!important;bottom:auto!important;height:58vh!important;width:100%!important;left:0!important;right:0!important}
+  .hero-new .mg-slide img{object-position:center 22%!important}
+  .mgx-overlay,html[dir="ltr"] .mgx-overlay{inset:0 0 auto 0!important;height:58vh!important;background:linear-gradient(0deg,var(--ink) 0%,rgba(11,26,44,.55) 22%,rgba(11,26,44,0) 50%)!important}
+  .mgx-hero-content{margin:0 22px;padding:calc(58vh - 40px) 0 56px}
+  .hero-new .mgx-h1{font-size:2rem!important}
+  .hero-new .mgx-lead{font-size:1.02rem!important}
+  .mgx-btn{flex:1 1 100%}
+  #mg-hero-dots{top:calc(58vh - 70px)!important;bottom:auto!important;left:50%!important;inset-inline-start:auto!important;transform:translateX(-50%)!important}
+}
+}
+
+@media(min-width:901px){
+  .hero-new .mg-slide{left:0!important;right:auto!important;width:44%!important}
+  html[dir="ltr"] .hero-new .mg-slide{left:auto!important;right:0!important}
+  .hero-new .mg-slide img{object-position:center 18%!important}
+  .hero-new{background:var(--ink)!important}
+  .mgx-overlay{background:linear-gradient(270deg,var(--ink) 0%,var(--ink) 55%,rgba(11,26,44,.55) 59%,rgba(11,26,44,0) 66%),linear-gradient(0deg,rgba(11,26,44,.6) 0%,rgba(11,26,44,0) 22%)!important}
+  html[dir="ltr"] .mgx-overlay{background:linear-gradient(90deg,var(--ink) 0%,var(--ink) 55%,rgba(11,26,44,.55) 59%,rgba(11,26,44,0) 66%),linear-gradient(0deg,rgba(11,26,44,.6) 0%,rgba(11,26,44,0) 22%)!important}
+  #mg-hero-dots{inset-inline-start:auto!important;left:22%!important;transform:translateX(-50%)!important}
+  html[dir="ltr"] #mg-hero-dots{left:auto!important;right:22%!important;transform:translateX(50%)!important}
+}
+/* app bar */
+.mg-appbar{background:var(--ink2)!important;border-top:1px solid var(--line)!important;border-bottom:1px solid var(--line)!important;padding:1.4rem 5vw!important;gap:1rem 2rem!important}
+.mg-appbar img{border:1px solid var(--line)!important;border-radius:12px!important}
+.mg-appbar-txt b{font-family:var(--serif)!important;font-weight:500!important;font-size:1.3rem!important;color:var(--text)!important}
+.mg-appbar-txt span{color:var(--soft)!important;font-size:.95rem!important}
+.mg-store{border-radius:8px!important;border:1px solid rgba(255,255,255,.22)!important;transform:none!important}
+.mg-store:hover{border-color:var(--gld)!important}
+
+/* videos */
+.videos{background:var(--ink)!important;padding:6rem 6vw 5.5rem!important}
+.videos::before{display:none!important}
+.videos .mgx-sec-title{font-weight:500!important;font-size:clamp(2rem,3.4vw,2.8rem)!important;color:var(--text)!important;line-height:1.25!important;margin:0 auto 1.6rem!important;max-width:1200px;text-align:start}
+.mg-topics{justify-content:flex-start!important;max-width:1200px!important;margin:0 auto 3rem!important;gap:.5rem!important}
+.mg-topics a{border-radius:4px!important;border:1px solid var(--line)!important;background:transparent!important;color:var(--text)!important;font-family:var(--sans)!important;font-size:.98rem!important;padding:.5rem 1.05rem!important}
+.mg-topics a:hover{background:rgba(200,162,74,.12)!important;border-color:var(--gld)!important;color:#fff!important}
+#mg-new,.mgx-rec-h{max-width:1200px!important}
+.mgx-rec-h{margin:0 auto 1rem!important}
+.mg-new-h span{font-family:var(--serif)!important;font-weight:500!important;font-size:1.4rem!important;color:var(--text)!important}
+.mg-new-h a{color:var(--soft)!important;text-decoration:underline!important;text-underline-offset:4px;text-decoration-color:rgba(200,162,74,.6)!important}
+.mg-new-thumb{border-radius:6px!important;border:1px solid var(--hair)!important}
+.mg-new-card:hover{transform:none!important}
+.mg-new-card:hover .mg-new-thumb{border-color:var(--gld)!important}
+.mg-new-thumb i b{background:rgba(11,26,44,.75)!important;color:#fff!important;border:1px solid rgba(255,255,255,.6);width:46px!important;height:46px!important}
+.mg-new-badge{border-radius:3px!important;background:var(--gld)!important}
+.mg-new-title{font-weight:600}
+.vcards-grid{grid-template-columns:repeat(6,1fr)!important;gap:1.1rem!important;max-width:1200px!important;margin:0 auto!important}
+@media(max-width:1000px){.vcards-grid{grid-template-columns:repeat(3,1fr)!important}}
+@media(max-width:560px){.vcards-grid{grid-template-columns:repeat(2,1fr)!important}}
+.vcard2{border:none!important;box-shadow:none!important;border-radius:0!important;transform:none!important;backdrop-filter:none!important;background:transparent!important}
+.vcard2-thumb{aspect-ratio:3/4!important;border-radius:6px!important;border:1px solid var(--hair)}
+.vcard2:hover .vcard2-thumb{border-color:var(--gld)}
+.vcard2-play{opacity:0!important;font-size:1.3rem!important;background:rgba(11,26,44,.35)!important;transition:opacity .2s}
+.vcard2:hover .vcard2-play{opacity:1!important}
+.vcard2-meta{padding:.65rem .1rem 0!important}
+.vcard2-tag{font-size:.8rem!important;color:var(--gld)!important;margin-bottom:.15rem!important}
+.vcard2-title{font-family:var(--sans)!important;font-size:1rem!important;font-weight:600!important;color:var(--text)!important;line-height:1.4!important}
+.videos > div[style*="text-align:center"]{margin-top:3rem!important}
+.mg-all-btn{background:transparent!important;border:1px solid var(--gld)!important;color:var(--gld-hi)!important;border-radius:4px!important;font-weight:700!important;padding:.85rem 1.8rem!important}
+.mg-all-btn:hover{background:rgba(200,162,74,.1)!important}
+
+/* chat */
+.bot-section{background:var(--ink2)!important;border-top:1px solid var(--line)!important}
+.bot-section::before{display:none!important}
+.bot-header{padding:6rem 6vw 2.5rem!important}
+.bot-title,.about h2,.form-inner h2,.videos .mgx-sec-title{text-wrap:balance}
+.bot-title{font-weight:500!important;font-size:clamp(1.9rem,3.2vw,2.6rem)!important;color:var(--text)!important;line-height:1.3!important}
+.bot-intro{font-size:1.05rem!important;color:var(--soft)!important;line-height:1.85!important}
+.bot-intro strong{color:var(--text)!important}
+#mg-bot{border:1px solid var(--line)!important;border-radius:10px!important;box-shadow:0 24px 60px rgba(0,0,0,.35)!important;background:var(--ink)!important}
+#mg-bot::before{display:none!important}
+.mg-avatar-lg{box-shadow:none!important;border:1px solid var(--line)!important}
+.mg-header-name{color:var(--text)!important;font-weight:500!important;font-size:1.1rem!important}
+.mg-name-screen{border:1px solid var(--hair)!important;background:rgba(255,255,255,.02)!important;box-shadow:none!important}
+.mg-start-btn,.mg-send-btn{background:var(--gld)!important;box-shadow:none!important}
+.mg-start-btn{border-radius:4px!important}
+.mg-gender-btn{border-radius:4px!important;border-color:var(--line)!important;color:var(--text)!important}
+
+/* about */
+.about{background:var(--ink)!important;padding:6.5rem 6vw!important}
+.about::before{display:none!important}
+.about h2{font-weight:500!important;font-size:clamp(2rem,3.4vw,2.7rem)!important;color:var(--text)!important;line-height:1.25!important}
+.about p{font-size:1.06rem!important;color:var(--soft)!important;line-height:1.9!important}
+.about p strong{color:var(--text)!important}
+.quote-block{font-size:1.3rem!important;color:var(--text)!important;border-color:var(--gld)!important;font-style:normal!important}
+.verse-card{background:var(--ink2)!important;border:1px solid var(--line)!important;box-shadow:none!important;border-radius:6px!important}
+.verse-text{font-size:1.45rem!important;color:var(--text)!important;font-style:normal!important}
+.verse-big{color:var(--gld)!important;text-shadow:none!important}
+
+/* form */
+.form-section{background:var(--ink2)!important;border-top:1px solid var(--line)!important}
+.form-section::before{display:none!important}
+.form-inner h2{font-weight:500!important;font-size:clamp(2rem,3.4vw,2.7rem)!important;color:var(--text)!important}
+.form-inner > p{color:var(--soft)!important;font-size:1.06rem!important}
+.form-card{background:var(--ink)!important;border:1px solid var(--line)!important;box-shadow:none!important;border-radius:8px!important}
+.field label{letter-spacing:0!important;text-transform:none!important;font-size:.92rem!important;color:var(--soft)!important}
+.field input{background:rgba(255,255,255,.03)!important;border:1px solid rgba(255,255,255,.16)!important;border-radius:4px!important;font-family:var(--sans)!important;font-size:1rem!important;box-shadow:none!important}
+.field input:focus{border-color:var(--gld)!important}
+.submit-btn{background:var(--gld)!important;color:var(--ink)!important;box-shadow:none!important;border-radius:4px!important;letter-spacing:0!important;text-transform:none!important;font-size:1.08rem!important;font-weight:700!important;font-family:var(--sans)!important}
+.submit-btn:hover{background:var(--gld-hi)!important;transform:none!important}
+
+/* form width */
+.form-inner{max-width:660px!important;margin:0 auto!important;text-align:center}
+.form-card{text-align:start}
+#mg-name-input{border-radius:4px!important;border:1px solid rgba(255,255,255,.18)!important;box-shadow:none!important}
+.bot-header::before,.bot-header::after{display:none!important}
+/* footer */
+footer{background:var(--ink3)!important;border-top:1px solid var(--line)!important}
+.fn{color:var(--gld-hi)!important;text-shadow:none!important}
+.footer-links a{color:var(--soft)!important;letter-spacing:0!important;text-transform:none!important}
+.footer-links a:hover{color:var(--text)!important}
 </style>
   <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#1a3a6b">
@@ -555,6 +778,14 @@ footer{background:linear-gradient(135deg,#0d1b2a,#0a1320);padding:3rem 5vw 2rem;
     <span class="nav-name">משה גינזי</span>
     <span class="nav-sub">מחשבה במסלול מחדש</span>
   </div>
+  <button class="mg-burger" onclick="document.getElementById('mg-menu').classList.toggle('open')" aria-label="תפריט">☰</button>
+  <ul class="mg-menu" id="mg-menu">
+    <li><a href="videos.html" data-he="שיעורים" data-en="Videos">שיעורים</a></li>
+    <li><a href="#bot-section" data-he="שאל את משה" data-en="Ask Moshe">שאל את משה</a></li>
+    <li><a href="#chavruta" data-he="חברותא אישית" data-en="Personal Chavruta">חברותא אישית</a></li>
+    <li><a href="community.html" data-he="קהילה" data-en="Community">קהילה</a></li>
+    <li><a href="getapp.html" class="mg-hot" onclick="try{gtag('event','app_nav_click')}catch(e){}" data-he="הורדת האפליקציה" data-en="Get the App">הורדת האפליקציה</a></li>
+  </ul>
   <div id="nav-lang" style="display:flex;align-items:center;gap:8px;direction:ltr">
     <button class="lang-btn-fancy active" onclick="setLang('he')" id="btn-lang-he">עברית</button>
     <button class="lang-btn-fancy" onclick="setLang('en')" id="btn-lang-en">English</button>
@@ -564,24 +795,22 @@ footer{background:linear-gradient(135deg,#0d1b2a,#0a1320);padding:3rem 5vw 2rem;
 <!-- HERO WITH SLIDESHOW -->
 <div class="hero-new" style="position:relative;min-height:85vh;display:flex;align-items:center;justify-content:center;overflow:hidden">
 <!-- Slideshow background -->
-<div class="mg-slide active" style="position:absolute;inset:0;z-index:0;opacity:0;transition:opacity 1.5s"><img src="mg-photo1.png" style="width:100%;height:100%;object-fit:cover;object-position:center 20%;animation:mgKen 8s ease-in-out forwards"></div>
+<div class="mg-slide active" style="position:absolute;inset:0;z-index:0;opacity:0;transition:opacity 1.5s"><img src="mg-photo4.jpg" style="width:100%;height:100%;object-fit:cover;object-position:center 20%;animation:mgKen 8s ease-in-out forwards"></div>
 <div class="mg-slide" style="position:absolute;inset:0;z-index:0;opacity:0;transition:opacity 1.5s"><img src="mg-photo2.jpg" style="width:100%;height:100%;object-fit:cover;object-position:center 20%;animation:mgKen 8s ease-in-out forwards"></div>
 <div class="mg-slide" style="position:absolute;inset:0;z-index:0;opacity:0;transition:opacity 1.5s"><img src="mg-photo3.jpg" style="width:100%;height:100%;object-fit:cover;object-position:center 20%;animation:mgKen 8s ease-in-out forwards"></div>
-<div class="mg-slide" style="position:absolute;inset:0;z-index:0;opacity:0;transition:opacity 1.5s"><img src="mg-photo4.jpg" style="width:100%;height:100%;object-fit:cover;object-position:center 20%;animation:mgKen 8s ease-in-out forwards"></div>
-<div class="mg-slide" style="position:absolute;inset:0;z-index:0;opacity:0;transition:opacity 1.5s"><img src="mg-photo5.png" style="width:100%;height:100%;object-fit:cover;object-position:center 20%;animation:mgKen 8s ease-in-out forwards"></div>
 <!-- Dark overlay -->
-<div style="position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(13,27,42,.75) 0%,rgba(13,27,42,.45) 40%,rgba(13,27,42,.45) 60%,rgba(13,27,42,.82) 100%)"></div>
+<div class="mgx-overlay"></div>
 <!-- Dots -->
 <div id="mg-hero-dots" style="position:absolute;bottom:20px;left:50%;transform:translateX(-50%);z-index:3;display:flex;gap:7px"></div>
 <!-- Content on top -->
-<div style="position:relative;z-index:2;text-align:center;padding:120px 24px 60px;max-width:700px">
-    <h1 style="font-family:'Cormorant Garamond','Frank Ruhl Libre',serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;color:#fff;margin-bottom:16px;line-height:1.3">מגלים את היהדות בקצב שלך.<br>בלי פילטרים, בלי כפייה.</h1>
-    <p style="font-size:1rem;color:rgba(232,224,208,.7);max-width:580px;margin:0 auto 28px;line-height:1.9">רוצה להכיר את השורשים, לשאול את השאלות הקשות או פשוט לנהל שיחה פתוחה על משמעות החיים? אנחנו נתאים לך שותף אישי לשיחה שבועית ומרתקת – בגובה העיניים, בזמן שלך וללא כל עלות.</p>
-    <div style="display:flex;flex-direction:column;gap:10px;width:100%;max-width:360px;margin:0 auto;">
-    <a id="hero-btn-chavruta" href="#chavruta" style="display:block;text-align:center;padding:15px 20px;font-size:.95rem;font-weight:700;font-family:'Heebo',sans-serif;border-radius:8px;text-decoration:none;background:rgba(212,175,55,0.15);color:var(--gold);border:1.5px solid rgba(212,175,55,0.5);box-shadow:0 4px 15px rgba(212,175,55,.15);backdrop-filter:blur(8px)">👥 הצטרף לחונכות אישית — חינם</a>
-      <a id="hero-btn-wa" href="https://wa.me/972584094045" target="_blank" style="display:block;text-align:center;padding:15px 20px;font-size:.95rem;font-weight:700;font-family:'Heebo',sans-serif;border-radius:8px;text-decoration:none;background:rgba(37,211,102,0.12);color:#2d8a4e;border:1.5px solid rgba(37,211,102,0.5);box-shadow:0 4px 15px rgba(37,211,102,.12);backdrop-filter:blur(8px)">💬 שלח הודעה בוואטסאפ</a>
-     <a id="hero-btn-bot" href="#bot-section" style="display:block;text-align:center;padding:15px 20px;font-size:.95rem;font-weight:700;font-family:'Heebo',sans-serif;border-radius:8px;text-decoration:none;background:rgba(212,175,55,0.1);color:var(--gold);border:1.5px solid rgba(212,175,55,0.4);box-shadow:0 4px 15px rgba(212,175,55,.1);backdrop-filter:blur(8px)">📖 שאל שאלה — דבר עם משה</a>
-    </div>
+<div class="mgx-hero-content">
+  <h1 class="mgx-h1">מגלים את היהדות בקצב שלך.<br>בלי פילטרים, בלי כפייה.</h1>
+  <p class="mgx-lead">רוצה להכיר את השורשים, לשאול את השאלות הקשות או פשוט לנהל שיחה פתוחה על משמעות החיים? נתאים לך שותף אישי לשיחה שבועית, בגובה העיניים, בזמן שלך וללא כל עלות.</p>
+  <div class="mgx-hero-actions">
+    <a id="hero-btn-chavruta" class="mgx-btn mgx-btn-primary" href="#chavruta">הצטרפו לחברותא אישית</a>
+    <a id="hero-btn-bot" class="mgx-btn mgx-btn-ghost" href="#bot-section">שאלו את משה</a>
+  </div>
+  <a id="hero-btn-wa" class="mgx-hero-link" href="https://wa.me/972584094045" target="_blank" rel="noopener">או כתבו לנו בוואטסאפ</a>
 </div>
 </div>
 <style>
@@ -610,10 +839,161 @@ var nimg=slides[cur].querySelector('img');if(nimg){nimg.style.animation='none';n
 setInterval(function(){goS((cur+1)%slides.length)},4000);
 })();
 </script>
+<!-- APP BAR (נוסף אוקטובר 2026) -->
+<section class="mg-appbar" id="app">
+  <img src="moshe-icon-180.png" alt="אפליקציית משה גינזי" width="56" height="56">
+  <div class="mg-appbar-txt">
+    <b data-he="האפליקציה של משה גינזי" data-en="The Moshe Ginzy app">האפליקציה של משה גינזי</b>
+    <span data-he="שאלות בכתב או בקול, סרטונים וחידון יומי. חינם לאייפון ולאנדרואיד." data-en="Ask by text or voice, watch videos, take the daily quiz. Free on iPhone and Android.">שאלות בכתב או בקול, סרטונים וחידון יומי. חינם לאייפון ולאנדרואיד.</span>
+  </div>
+  <div class="mg-app-btns">
+      <a class="mg-store" href="https://apps.apple.com/app/id6786922851" target="_blank" rel="noopener" onclick="try{gtag('event','store_click',{store:'app_store',location:'home_top'})}catch(e){}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.6c-.02-2.3 1.88-3.4 1.97-3.46-1.07-1.57-2.74-1.78-3.33-1.8-1.42-.14-2.77.83-3.49.83-.72 0-1.83-.81-3.01-.79-1.55.02-2.98.9-3.78 2.29-1.61 2.8-.41 6.94 1.16 9.21.77 1.11 1.68 2.36 2.88 2.31 1.16-.05 1.59-.75 2.99-.75 1.4 0 1.79.75 3.01.72 1.24-.02 2.03-1.13 2.79-2.25.88-1.29 1.24-2.54 1.26-2.6-.03-.01-2.42-.93-2.45-3.71zM14.08 5.85c.64-.77 1.07-1.85.95-2.92-.92.04-2.03.61-2.69 1.38-.59.68-1.11 1.77-.97 2.82 1.03.08 2.07-.52 2.71-1.28z"/></svg><span><small data-he="להורדה ב-" data-en="Download on the">להורדה ב-</small><b>App Store</b></span></a>
+      <a class="mg-store" href="https://play.google.com/store/apps/details?id=com.mosheginzy.app" target="_blank" rel="noopener" onclick="try{gtag('event','store_click',{store:'google_play',location:'home_top'})}catch(e){}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 1.8c-.3.3-.5.8-.5 1.4v17.6c0 .6.2 1.1.5 1.4l.1.1 9.9-9.9v-.2L3.7 1.7l-.1.1zm13.3 13.4l-3.3-3.3v-.2l3.3-3.3.1.1 3.9 2.2c1.1.6 1.1 1.7 0 2.3l-3.9 2.2h-.1zm-.1.1L13.4 12 3.6 21.8c.4.4.9.4 1.6.1l11.6-6.6M16.8 8.7L5.2 2.1c-.7-.4-1.2-.3-1.6.1L13.4 12l3.4-3.3z"/></svg><span><small data-he="זמין ב-" data-en="Get it on">זמין ב-</small><b>Google Play</b></span></a>
+    </div>
+</section>
+
+<!-- VIDEOS -->
+<section class="videos" id="videos">
+  <div class="sec-eyebrow">ספריית השיעורים</div>
+  <h2 class="sec-title mgx-sec-title">רגע אחד של מחשבה, לכל נושא בחיים</h2>
+  <div class="mg-topics">
+    <a href="videos.html?cat=family">משפחה וחינוך</a>
+    <a href="videos.html?cat=emuna">אמונה וביטחון</a>
+    <a href="videos.html?cat=meaning">משמעות החיים</a>
+    <a href="videos.html?cat=shabbat">שבת וחגים</a>
+    <a href="videos.html?cat=money">כסף והצלחה</a>
+    <a href="videos.html">כל הנושאים</a>
+  </div>
+  <!-- סרטונים חדשים מהדשבורד — מתעדכן אוטומטית -->
+  <div id="mg-new" style="display:none">
+    <div class="mg-new-h"><span data-he="חדש בספרייה" data-en="New in the library">חדש בספרייה</span><a href="videos.html" data-he="לכל הסרטונים" data-en="All videos">לכל הסרטונים</a></div>
+    <div class="mg-new-grid" id="mg-new-grid"></div>
+  </div>
+
+  <div class="mg-new-h mgx-rec-h"><span data-he="מומלצים" data-en="Featured">מומלצים</span></div>
+  <div class="vcards-grid">
+    <div class="vcard2 vid-he" onclick="openVideoLocal(this,'pilot.mp4')">
+      <div class="vcard2-thumb">
+        <img src="pilot.jpg" alt="למה אתם מנסים לנהל את הטייס?">
+        <div class="vcard2-play">▶</div>
+      </div>
+      <div class="vcard2-meta">
+        <div class="vcard2-tag">אמונה · ביטחון</div>
+        <div class="vcard2-title">למה אתם מנסים לנהל את הטייס?</div>
+      </div>
+    </div>
+
+    <div class="vcard2 vid-he" onclick="openVideoLocal(this,'mom.mp4')">
+      <div class="vcard2-thumb">
+        <img src="mom.jpg" alt="אמא פולניה על פרק כף היד שלי">
+        <div class="vcard2-play">▶</div>
+      </div>
+      <div class="vcard2-meta">
+        <div class="vcard2-tag">השגחה · חיים</div>
+        <div class="vcard2-title">אמא פולניה על פרק כף היד שלי</div>
+      </div>
+    </div>
+
+    <div class="vcard2 vid-he" onclick="openVideoLocal(this,'plastic.mp4')">
+      <div class="vcard2-thumb">
+        <img src="plastic.jpg" alt="החיים הם לא פלסטיק">
+        <div class="vcard2-play">▶</div>
+      </div>
+      <div class="vcard2-meta">
+        <div class="vcard2-tag">משמעות · אמת</div>
+        <div class="vcard2-title">החיים הם לא פלסטיק</div>
+      </div>
+    </div>
+
+    <div class="vcard2 vid-he" onclick="openVideoLocal(this,'shabbat.mp4')">
+      <div class="vcard2-thumb">
+        <img src="shabbat.jpg" alt="הנוסחה הדיגיטלית והשקט של שבת">
+        <div class="vcard2-play">▶</div>
+      </div>
+      <div class="vcard2-meta">
+        <div class="vcard2-tag">שבת · שקט</div>
+        <div class="vcard2-title">הנוסחה הדיגיטלית והשקט של שבת</div>
+      </div>
+    </div>
+
+    <div class="vcard2 vid-he" onclick="openVideoLocal(this,'money.mp4')">
+      <div class="vcard2-thumb">
+        <img src="money.jpg" alt="המנהל הסמוי של הכיס שלנו">
+        <div class="vcard2-play">▶</div>
+      </div>
+      <div class="vcard2-meta">
+        <div class="vcard2-tag">כסף · שליטה</div>
+        <div class="vcard2-title">המנהל הסמוי של הכיס שלנו</div>
+      </div>
+    </div>
+
+    <div class="vcard2 vid-he" onclick="openVideoLocal(this,'keys.mp4')">
+      <div class="vcard2-thumb">
+        <img src="keys.jpg" alt="איפה המפתחות שלי">
+        <div class="vcard2-play">▶</div>
+      </div>
+      <div class="vcard2-meta">
+        <div class="vcard2-tag">מודעות · יומיום</div>
+        <div class="vcard2-title">איפה המפתחות שלי</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="extra-videos" style="display:none;margin-top:1rem">
+    <div class="vcards-grid">
+    <div class="vcard2 vid-he" onclick="openVideoLocal(this,'butterfly.mp4')">
+      <div class="vcard2-thumb">
+        <img src="butterfly.jpg" alt="אפקט הפרפר">
+        <div class="vcard2-play">▶</div>
+      </div>
+      <div class="vcard2-meta">
+        <div class="vcard2-tag">השגחה · מעשים קטנים</div>
+        <div class="vcard2-title">אפקט הפרפר</div>
+      </div>
+    </div>
+    <div class="vcard2 vid-he" onclick="openVideoLocal(this,'jerusalem.mp4')">
+      <div class="vcard2-thumb">
+        <img src="jerusalem.jpg" alt="דירה בירושלים">
+        <div class="vcard2-play">▶</div>
+      </div>
+      <div class="vcard2-meta">
+        <div class="vcard2-tag">משל · תכלית</div>
+        <div class="vcard2-title">דירה בירושלים</div>
+      </div>
+    </div>
+    <div class="vcard2 vid-he" onclick="openVideoLocal(this,'history.mp4')">
+      <div class="vcard2-thumb">
+        <img src="history.jpg" alt="האירוע החשוב בהיסטוריה">
+        <div class="vcard2-play">▶</div>
+      </div>
+      <div class="vcard2-meta">
+        <div class="vcard2-tag">אמונה · מסורת</div>
+        <div class="vcard2-title">האירוע החשוב בהיסטוריה</div>
+      </div>
+    </div>
+    <div class="vcard2 vid-he" onclick="openVideoLocal(this,'waiter.mp4')">
+      <div class="vcard2-thumb">
+        <img src="waiter.jpg" alt="המלצר והחשבון">
+        <div class="vcard2-play">▶</div>
+      </div>
+      <div class="vcard2-meta">
+        <div class="vcard2-tag">משל · חשבון נפש</div>
+        <div class="vcard2-title">המלצר והחשבון</div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:2.5rem">
+    <a href="videos.html" class="mg-all-btn" data-he="לכל השיעורים בספרייה" data-en="All videos in the library">לכל השיעורים בספרייה</a>
+  </div>
+</section>
+
+<div class="gd"></div>
+
 <div id="bot-section" class="bot-section">
   <div class="bot-header">
     <div class="bot-eyebrow">שאל את משה</div>
-    <h2 class="bot-title">השאלות שאתה שואל בלב —<br><em>אפשר לשאול אותן בקול</em> 👇</h2>
+    <h2 class="bot-title">השאלות שאתה שואל בלב —<br><em>אפשר לשאול אותן בקול</em></h2>
     <p class="bot-intro">למה לי לחיות בצורה מסוימת? מה אני חייב לעולם? האם יש טעם לכל זה? אלה לא שאלות של "דתיים" — אלה השאלות שכל אדם שואל את עצמו. <strong>כאן אפשר לשאול הכל</strong>, בלי לחשוש, בלי לחץ.</p>
   </div>
 
@@ -682,127 +1062,6 @@ setInterval(function(){goS((cur+1)%slides.length)},4000);
 
 <div class="gd"></div>
 
-<!-- VIDEOS -->
-<section class="videos" id="videos">
-  <div class="sec-eyebrow">שיעורים</div>
-  <div class="sec-title" style="color:var(--gold2)">צפה ו<em style="color:var(--gold3)">התחבר</em></div>
-
-  <div class="vcards-grid">
-    <div class="vcard2 vid-he" onclick="openVideoLocal(this,'pilot.mp4')">
-      <div class="vcard2-thumb">
-        <img src="pilot.jpg" alt="למה אתם מנסים לנהל את הטייס? ✈️">
-        <div class="vcard2-play">▶</div>
-      </div>
-      <div class="vcard2-meta">
-        <div class="vcard2-tag">אמונה · ביטחון</div>
-        <div class="vcard2-title">למה אתם מנסים לנהל את הטייס? ✈️</div>
-      </div>
-    </div>
-
-    <div class="vcard2 vid-he" onclick="openVideoLocal(this,'mom.mp4')">
-      <div class="vcard2-thumb">
-        <img src="mom.jpg" alt="אמא פולניה על פרק כף היד שלי">
-        <div class="vcard2-play">▶</div>
-      </div>
-      <div class="vcard2-meta">
-        <div class="vcard2-tag">השגחה · חיים</div>
-        <div class="vcard2-title">אמא פולניה על פרק כף היד שלי</div>
-      </div>
-    </div>
-
-    <div class="vcard2 vid-he" onclick="openVideoLocal(this,'plastic.mp4')">
-      <div class="vcard2-thumb">
-        <img src="plastic.jpg" alt="החיים הם לא פלסטיק">
-        <div class="vcard2-play">▶</div>
-      </div>
-      <div class="vcard2-meta">
-        <div class="vcard2-tag">משמעות · אמת</div>
-        <div class="vcard2-title">החיים הם לא פלסטיק</div>
-      </div>
-    </div>
-
-    <div class="vcard2 vid-he" onclick="openVideoLocal(this,'shabbat.mp4')">
-      <div class="vcard2-thumb">
-        <img src="shabbat.jpg" alt="הנוסחה הדיגיטלית והשקט של שבת">
-        <div class="vcard2-play">▶</div>
-      </div>
-      <div class="vcard2-meta">
-        <div class="vcard2-tag">שבת · שקט</div>
-        <div class="vcard2-title">הנוסחה הדיגיטלית והשקט של שבת</div>
-      </div>
-    </div>
-
-    <div class="vcard2 vid-he" onclick="openVideoLocal(this,'money.mp4')">
-      <div class="vcard2-thumb">
-        <img src="money.jpg" alt="המנהל הסמוי של הכיס שלנו">
-        <div class="vcard2-play">▶</div>
-      </div>
-      <div class="vcard2-meta">
-        <div class="vcard2-tag">כסף · שליטה</div>
-        <div class="vcard2-title">המנהל הסמוי של הכיס שלנו</div>
-      </div>
-    </div>
-
-    <div class="vcard2 vid-he" onclick="openVideoLocal(this,'keys.mp4')">
-      <div class="vcard2-thumb">
-        <img src="keys.jpg" alt="איפה המפתחות שלי">
-        <div class="vcard2-play">▶</div>
-      </div>
-      <div class="vcard2-meta">
-        <div class="vcard2-tag">מודעות · יומיום</div>
-        <div class="vcard2-title">איפה המפתחות שלי</div>
-      </div>
-    </div>
-  </div>
-
-  <div id="extra-videos" style="display:none;margin-top:1rem">
-    <div class="vcards-grid">
-    <div class="vcard2 vid-he" onclick="openVideoLocal(this,'butterfly.mp4')">
-      <div class="vcard2-thumb">
-        <img src="butterfly.jpg" alt="אפקט הפרפר 🦋">
-        <div class="vcard2-play">▶</div>
-      </div>
-      <div class="vcard2-meta">
-        <div class="vcard2-tag">השגחה · מעשים קטנים</div>
-        <div class="vcard2-title">אפקט הפרפר 🦋</div>
-      </div>
-    </div>
-    <div class="vcard2 vid-he" onclick="openVideoLocal(this,'jerusalem.mp4')">
-      <div class="vcard2-thumb">
-        <img src="jerusalem.jpg" alt="דירה בירושלים 🏠">
-        <div class="vcard2-play">▶</div>
-      </div>
-      <div class="vcard2-meta">
-        <div class="vcard2-tag">משל · תכלית</div>
-        <div class="vcard2-title">דירה בירושלים 🏠</div>
-      </div>
-    </div>
-    <div class="vcard2 vid-he" onclick="openVideoLocal(this,'history.mp4')">
-      <div class="vcard2-thumb">
-        <img src="history.jpg" alt="האירוע החשוב בהיסטוריה 📜">
-        <div class="vcard2-play">▶</div>
-      </div>
-      <div class="vcard2-meta">
-        <div class="vcard2-tag">אמונה · מסורת</div>
-        <div class="vcard2-title">האירוע החשוב בהיסטוריה 📜</div>
-      </div>
-    </div>
-    <div class="vcard2 vid-he" onclick="openVideoLocal(this,'waiter.mp4')">
-      <div class="vcard2-thumb">
-        <img src="waiter.jpg" alt="המלצר והחשבון 🍽️">
-        <div class="vcard2-play">▶</div>
-      </div>
-      <div class="vcard2-meta">
-        <div class="vcard2-tag">משל · חשבון נפש</div>
-        <div class="vcard2-title">המלצר והחשבון 🍽️</div>
-      </div>
-    </div>
-    </div>
-  </div>
-  <div style="text-align:center;margin-top:2.5rem">
-    <button id="more-videos-btn" onclick="toggleExtraVideos()" class="btn-out" style="border:1px solid var(--gold);cursor:pointer;font-family:var(--font-body)">לעוד שיעורים ←</button>
-  </div>
-</section>
 
 <!-- VIDEO POPUP -->
 <div id="video-popup" onclick="closeVideo(event)">
@@ -832,7 +1091,7 @@ setInterval(function(){goS((cur+1)%slides.length)},4000);
       <div class="field"><label>עיר מגורים</label><input type="text" name="city" placeholder="העיר שלך"></div>
       <input type="hidden" name="_next" value="https://www.netivotny.org/thanks.html">
      
-      <button type="submit" class="submit-btn">קבע לימוד חינמי ←</button>
+      <button type="submit" class="submit-btn">קבעו לימוד אישי</button>
       <div class="privacy">הפרטים שלך נשמרים בצנעה ולא יועברו לאף גורם</div>
     </form>
   </div>
@@ -924,6 +1183,33 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 const analytics = firebase.analytics();
+</script>
+<script>/* סגירת התפריט בנייד אחרי לחיצה */document.querySelectorAll('#mg-menu a').forEach(function(a){a.addEventListener('click',function(){var m=document.getElementById('mg-menu');if(m)m.classList.remove('open');});});</script>
+<script>
+/* סרטונים חדשים מהדשבורד בראש חלק השיעורים. אם אין חיבור — פשוט לא מוצג, ושאר הדף עובד כרגיל. */
+(function(){
+  var URL_='https://script.google.com/macros/s/AKfycbx1IJHkaBhhmqmPIvyPEY8Xr_-OYRZf3KNrRRezqeDUgkJP3IkTLPGUt_y1Hx811avx/exec?action=getVideos';
+  var all=[];
+  function esc(t){return String(t||'').replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+  function render(){
+    var lang=(typeof currentLang!=='undefined'&&currentLang==='en')?'en':'he';
+    var list=all.filter(function(v){return (v.language==='en'?'en':'he')===lang;}).slice(0,6);
+    var box=document.getElementById('mg-new'),grid=document.getElementById('mg-new-grid');
+    if(!box||!grid)return;
+    if(!list.length){box.style.display='none';return;}
+    grid.innerHTML=list.map(function(v,i){
+      var id=String(v.youtubeId).trim(),m=String(v.tag||'').match(/(?:מרצה|speaker)\s*:\s*([^·,|]+)/i);
+      return '<a class="mg-new-card" href="videos.html?v='+encodeURIComponent('yt:'+id)+'"><div class="mg-new-thumb"><img loading="lazy" src="https://i.ytimg.com/vi/'+encodeURIComponent(id)+'/hqdefault.jpg" alt="'+esc(v.title)+'" onerror="this.style.opacity=0"><i><b>&#9654;</b></i>'+(i<3?'<span class="mg-new-badge">'+(lang==='en'?'New':'חדש')+'</span>':'')+'</div><div class="mg-new-title">'+esc(v.title)+'</div>'+(m?'<div class="mg-new-spk">🎙️ '+esc(m[1].trim())+'</div>':'')+'</a>';
+    }).join('');
+    box.style.display='';
+  }
+  fetch(URL_).then(function(r){return r.json();}).then(function(d){
+    if(!d||!d.success||!Array.isArray(d.videos))return;
+    all=d.videos.filter(function(v){return v.active==='yes'&&v.youtubeId;}).reverse();
+    render();
+  }).catch(function(){});
+  ['btn-lang-he','btn-lang-en'].forEach(function(id){var b=document.getElementById(id);if(b)b.addEventListener('click',function(){setTimeout(render,50);});});
+})();
 </script>
 </body>
 </html>
