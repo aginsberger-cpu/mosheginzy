@@ -346,6 +346,13 @@ function cardHTML(v){
   return '<div class="card" data-k="'+esc(key(v))+'"><div class="thumb'+(v.yt?' wide':'')+'"><div class="bgblur" style="background-image:url(\''+esc(th)+'\')"></div><img loading="lazy" src="'+esc(th)+'" alt="'+esc(v.title)+'" onerror="this.style.opacity=0"><div class="play"><i><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21"/></svg></i></div>'+(v.isNew?'<span class="badge">'+(state.lang==='en'?'New':'חדש')+'</span>':'')+'</div><div class="meta"><div class="cat">'+esc(v.cat==='guest'?catLabel('guest'):catLabel(v.cat))+'</div><div class="ttl">'+esc(v.title)+'</div>'+(v.speaker?'<div class="spk">'+esc(v.speaker)+'</div>':'')+'</div></div>';
 }
 
+/* חיפוש: מחפש בשם, בתגית, בשם המרצה ובשם הנושא ומילות המפתח שלו. כמה מילים = כולן צריכות להופיע, בכל סדר. */
+function normQ(t){return String(t||'').toLowerCase().replace(/[\u0591-\u05C7]/g,'').replace(/["'`\u05F3\u05F4\u2019\u201C\u201D.,!?:;()\-–—·|]/g,' ').replace(/\s+/g,' ').trim();}
+function searchMatch(v,words){
+  var c=CATS.filter(function(x){return x.id===v.cat;})[0];
+  var hay=normQ([v.title,v.tag||'',v.speaker||'',c?c.he:'',c?c.en:'',c?c.kw.join(' '):'',v.speaker?'מרצה מרצים אורחים guest speaker':''].join(' '));
+  return words.every(function(w){return hay.indexOf(w)>-1;});
+}
 function render(){
   var all=langVideos();
   // chips
@@ -361,8 +368,8 @@ function render(){
   document.getElementById('st-cats').textContent=ids.length;
 
   // grid
-  var q=state.q.trim().toLowerCase();
-  var list=all.filter(function(v){return (state.cat==='all'||v.cat===state.cat||(state.cat==='guest'&&v.speaker))&&(!q||(v.title+' '+(v.tag||'')+' '+(v.speaker||'')).toLowerCase().indexOf(q)>-1);});
+  var words=normQ(state.q).split(' ').filter(Boolean);
+  var list=all.filter(function(v){return (state.cat==='all'||v.cat===state.cat||(state.cat==='guest'&&v.speaker))&&(!words.length||searchMatch(v,words));});
   document.getElementById('grid-title').innerHTML=state.cat==='all'?(state.lang==='en'?'All <span>videos</span>':'כל <span>הסרטונים</span>'):'<span>'+esc(catLabel(state.cat))+'</span>';
   document.getElementById('grid-count').textContent=list.length+(state.lang==='en'?' videos':' סרטונים');
   document.getElementById('grid').innerHTML=list.length?list.map(cardHTML).join(''):'<div class="empty" style="grid-column:1/-1"><b>'+(state.lang==='en'?'No videos found':'לא נמצאו סרטונים')+'</b>'+(state.lang==='en'?'Try another word or topic.':'נסו מילה אחרת או נושא אחר.')+'</div>';
