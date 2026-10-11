@@ -142,6 +142,15 @@ textarea{font-family:var(--font)}
 .from-site .site-back{display:inline-flex;align-items:center;gap:4px;color:var(--gold);text-decoration:none;font-size:14px;font-weight:600;padding:6px 10px 6px 4px;border:1px solid var(--gold-b);border-radius:8px;margin-inline-end:4px}
 .from-site .bottom-nav{display:none}
 .from-site{padding-bottom:0}
+/* ערכת צבעים: כחול לילה וזהב, כמו באתר ובאפליקציה */
+body:not(.light){
+  --bg:#0B1A2C; --card:rgba(15,34,54,0.88); --input:rgba(22,44,68,0.65);
+  --gold:#C8A24A; --gold-l:#E6C77A; --gold-dim:rgba(200,162,74,0.15); --gold-b:rgba(200,162,74,0.28);
+  --white:#EDE6D6; --pri:#E6E1D6; --sec:#A9B2BC; --muted:#7D8996;
+  --border:rgba(255,255,255,0.08);
+  background:radial-gradient(ellipse 900px 500px at 80% -10%,rgba(200,162,74,.10),transparent 70%),#0B1A2C;
+}
+body:not(.light) .bottom-nav{background:rgba(8,20,31,0.97);}
 </style>
 </head>
 <body>
