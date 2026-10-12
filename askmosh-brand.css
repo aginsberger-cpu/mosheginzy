@@ -14,6 +14,12 @@
 
 /* Larger logo on computer screens (phones keep the size above) */
 @media (min-width:900px){
-  .nav-name .am-logo{font-size:2.1rem;margin-top:.2em}
+  .nav-brand .nav-name{display:flex;line-height:1!important}
+  .nav-name .am-logo{font-size:2.8rem}
+  .nav-brand .nav-sub{margin-top:5px;line-height:1.2!important}
+  nav .nav-brand{padding:0}
   .brand-name .am-logo,a.brand .am-logo,.top-bar-title .am-logo{font-size:2.3rem}
+}
+@media (min-width:981px){
+  nav:has(.nav-brand){height:86px!important}
 }
