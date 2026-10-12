@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>משה גינזי — קהילה</title>
+<title>AskMosh — קהילה</title>
 <style>
 :root {
   --bg:#0d0d0d; --card:rgba(25,25,28,0.85); --input:rgba(45,45,50,0.6);
@@ -152,6 +152,7 @@ body:not(.light){
 }
 body:not(.light) .bottom-nav{background:rgba(8,20,31,0.97);}
 </style>
+<link rel="stylesheet" href="askmosh-brand.css">
 </head>
 <body>
   <script>if(/; wv\)/.test(navigator.userAgent)||window.Android){document.body.classList.add('in-app');}</script>
@@ -161,7 +162,7 @@ body:not(.light) .bottom-nav{background:rgba(8,20,31,0.97);}
     <a class="site-back" href="index.html" aria-label="חזרה לאתר"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg><span>לאתר</span></a>
     <img id="moshePhoto" src="" alt="Moshe Ginzy">
     <div>
-      <h1 id="headerTitle">משה גינזי</h1>
+      <h1 id="headerTitle"><span class="am-logo" dir="ltr" aria-label="AskMosh"><span class="am-ask">Ask</span><span class="am-mosh">M<span class="am-o">o</span>sh</span></span></h1>
       <div class="sub" id="headerSub">קהילת לימוד · שאל · ענה · למד</div>
     </div>
   </div>
@@ -567,7 +568,7 @@ function setLang(l) {
   document.documentElement.lang = l === "he" ? "he" : "en";
   document.getElementById("btnHe").classList.toggle("active", l === "he");
   document.getElementById("btnEn").classList.toggle("active", l === "en");
-  document.getElementById("headerTitle").textContent = t().header;
+  document.getElementById("headerTitle").innerHTML = '<span class="am-logo" dir="ltr" aria-label="AskMosh"><span class="am-ask">Ask</span><span class="am-mosh">M<span class="am-o">o</span>sh</span></span>';
  var hs = document.getElementById("headerSub"); if (hs) hs.textContent = t().sub;
   document.querySelectorAll("[data-i]").forEach(function(el) {
     var key = el.getAttribute("data-i");

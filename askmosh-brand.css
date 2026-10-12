@@ -1,0 +1,13 @@
+/* AskMosh logo — "Ask" gold serif, "Mosh" ivory sans, red dot over the o.
+   Markup: <span class="am-logo" dir="ltr"><span class="am-ask">Ask</span><span class="am-mosh">M<span class="am-o">o</span>sh</span></span>
+   Size it with font-size on .am-logo (or its parent). */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Jost:wght@500&display=swap');
+
+.am-logo{display:inline-flex;align-items:baseline;line-height:1;direction:ltr;white-space:nowrap;text-shadow:none;letter-spacing:0;text-transform:none;font-style:normal}
+.am-ask{font-family:'Playfair Display',Georgia,serif;font-weight:700;color:#D4AF5E}
+.am-mosh{font-family:'Jost','Segoe UI',Arial,sans-serif;font-weight:500;color:#F4F1EA;margin-left:.05em}
+.am-o{position:relative;display:inline-block}
+.am-o::after{content:'';position:absolute;left:50%;top:.125em;width:.15em;height:.15em;margin-left:-.075em;border-radius:50%;background:#D7372F}
+/* on light backgrounds */
+.am-logo.am-light .am-ask{color:#A9832B}
+.am-logo.am-light .am-mosh{color:#0F2236}
