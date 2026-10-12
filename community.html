@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
+<script src="askmosh-migrate.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>AskMosh — קהילה</title>
@@ -796,7 +797,7 @@ function reactToResp(id, emoji) {
 
 function shareWhatsApp() {
   var s = t();
-  var text = encodeURIComponent(s.qTitle + "\n\n" + s.qBody + "\n\nhttps://mosheginzy.com/community.html");
+  var text = encodeURIComponent(s.qTitle + "\n\n" + s.qBody + "\n\nhttps://askmosh.com/community.html");
   window.open("https://wa.me/?text=" + text, "_blank");
 }
 
@@ -974,7 +975,7 @@ function renderQuizResults() {
 
 function shareQuiz() {
   var QQ = getQQ();
-  var text = encodeURIComponent((lang === 'he' ? 'קיבלתי ' + qScore + ' מתוך ' + QQ.length + ' בחידון של משה גינזי! נסה גם:' : 'I scored ' + qScore + '/' + QQ.length + " on Moshe Ginzy's quiz! Try it:") + "\nhttps://mosheginzy.com/community.html");
+  var text = encodeURIComponent((lang === 'he' ? 'קיבלתי ' + qScore + ' מתוך ' + QQ.length + ' בחידון של משה גינזי! נסה גם:' : 'I scored ' + qScore + '/' + QQ.length + " on Moshe Ginzy's quiz! Try it:") + "\nhttps://askmosh.com/community.html");
   window.open("https://wa.me/?text=" + text, "_blank");
 }
 

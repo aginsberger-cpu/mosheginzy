@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
+<script src="askmosh-migrate.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#0B1A2C">
@@ -386,7 +387,7 @@ fbq('track','PageView',{content_category:platform});
 <!-- HOME -->
 <div class="screen active" id="screen-home">
   <div class="home-photo-wrap">
-    <img src="https://aginsberger-cpu.github.io/mosheginzy/%D7%AA%D7%9E%D7%95%D7%A0%D7%94%20%D7%9E%D7%A6%D7%95%D7%99%D7%A0%D7%AA%20%D7%9E%D7%A9%D7%94%20%D7%92%D7%99%D7%A0%D7%96%D7%99.png" alt="משה גינזי"
+    <img src="%D7%AA%D7%9E%D7%95%D7%A0%D7%94%20%D7%9E%D7%A6%D7%95%D7%99%D7%A0%D7%AA%20%D7%9E%D7%A9%D7%94%20%D7%92%D7%99%D7%A0%D7%96%D7%99.png" alt="משה גינזי"
       onerror="this.style.display='none'" />
     <div class="home-photo-overlay"></div>
   </div>
@@ -462,7 +463,7 @@ updateMuteBtn();
     <div class="chat-avatar-wrap">
       <div class="chat-avatar-ring">
         <div class="chat-avatar-inner">
-          <img src="https://aginsberger-cpu.github.io/mosheginzy/%D7%AA%D7%9E%D7%95%D7%A0%D7%94%20%D7%9E%D7%A6%D7%95%D7%99%D7%A0%D7%AA%20%D7%9E%D7%A9%D7%94%20%D7%92%D7%99%D7%A0%D7%96%D7%99.png" alt="משה גינזי"
+          <img src="%D7%AA%D7%9E%D7%95%D7%A0%D7%94%20%D7%9E%D7%A6%D7%95%D7%99%D7%A0%D7%AA%20%D7%9E%D7%A9%D7%94%20%D7%92%D7%99%D7%A0%D7%96%D7%99.png" alt="משה גינזי"
             onerror="this.parentElement.innerHTML='<div class=\'chat-avatar-fallback\'>מ</div>'" />
         </div>
       </div>
@@ -551,7 +552,7 @@ updateMuteBtn();
   </div>
   <div class="about-hero">
     <div class="about-avatar">
-      <img src="https://aginsberger-cpu.github.io/mosheginzy/%D7%AA%D7%9E%D7%95%D7%A0%D7%94%20%D7%9E%D7%A6%D7%95%D7%99%D7%A0%D7%AA%20%D7%9E%D7%A9%D7%94%20%D7%92%D7%99%D7%A0%D7%96%D7%99.png" alt="משה גינזי"
+      <img src="%D7%AA%D7%9E%D7%95%D7%A0%D7%94%20%D7%9E%D7%A6%D7%95%D7%99%D7%A0%D7%AA%20%D7%9E%D7%A9%D7%94%20%D7%92%D7%99%D7%A0%D7%96%D7%99.png" alt="משה גינזי"
         onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,var(--gold),var(--gold2))'" />
     </div>
     <div class="about-name">משה גינזי</div>
@@ -567,12 +568,12 @@ updateMuteBtn();
       <div class="verse-src">— <span data-he="משנה סנהדרין" data-en="Mishnah Sanhedrin">משנה סנהדרין</span></div>
     </div>
    <div class="about-links">
-  <button class="about-link" onclick="openSite('https://mosheginzy.com','mosheginzy.com')">mosheginzy.com →</button>
+  <button class="about-link" onclick="openSite('https://askmosh.com','askmosh.com')">askmosh.com →</button>
   <button class="about-link" id="link-tikva" onclick="openSite(currentLang==='en'?'https://tikva.netivotny.org/en/':'https://tikva.netivotny.org','אבני תקווה')"><span data-he="אבני תקווה ←" data-en="Avnei Tikva →">אבני תקווה ←</span></button>
   <button class="about-link" onclick="openSite('https://netivotny.org','ארגון נתיבות')"><span data-he="ארגון נתיבות ←" data-en="Netivot Organization →">ארגון נתיבות ←</span></button>
 </div> 
     <button class="change-btn" onclick="changeUser()" data-he="החלף משתמש / התחל מחדש" data-en="Switch User / Start Over">החלף משתמש / התחל מחדש</button>
-    <div class="footer-copy">© 2026 משה גינזי<br><a href="https://mosheginzy.com/privacy.html" class="footer-link" data-he="מדיניות פרטיות" data-en="Privacy Policy">מדיניות פרטיות</a> | <a href="https://netivotny.org" class="footer-link">Netivot</a></div>
+    <div class="footer-copy">© 2026 משה גינזי<br><a href="https://askmosh.com/privacy.html" class="footer-link" data-he="מדיניות פרטיות" data-en="Privacy Policy">מדיניות פרטיות</a> | <a href="https://netivotny.org" class="footer-link">Netivot</a></div>
   </div>
 </div>
 
@@ -656,8 +657,8 @@ function showHistory(){
   else{content.textContent=h.slice(-1000);}
   popup.style.display='flex';
 }
-  function shareApp(){var link='https://mosheginzy.com/app.html';var txt=(currentLang==='en'?'Moshe Ginzy - ask, learn and grow 👇':'היכנסו לאפליקציה של משה גינזי 👇');var msg=txt+' '+link;if(window.Android&&window.Android.shareApp){window.Android.shareApp(msg);}else if(navigator.share){navigator.share({title:(currentLang==='en'?'Moshe Ginzy':'משה גינזי'),text:txt,url:link}).catch(function(){});}else{window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');}}
-  function shareAnswer(txt){var msg=(currentLang==='en'?'Moshe answered: ':'משה ענה לי: ')+txt+(currentLang==='en'?' 💛 Download the app: ':' 💛 הורד את האפליקציה: ')+'https://mosheginzy.com/getapp';if(window.Android&&window.Android.shareApp){window.Android.shareApp(msg);}else if(navigator.share){navigator.share({title:'משה גינזי',text:msg}).catch(function(){});}else{window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');}}
+  function shareApp(){var link='https://askmosh.com/app.html';var txt=(currentLang==='en'?'Moshe Ginzy - ask, learn and grow 👇':'היכנסו לאפליקציה של משה גינזי 👇');var msg=txt+' '+link;if(window.Android&&window.Android.shareApp){window.Android.shareApp(msg);}else if(navigator.share){navigator.share({title:(currentLang==='en'?'Moshe Ginzy':'משה גינזי'),text:txt,url:link}).catch(function(){});}else{window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');}}
+  function shareAnswer(txt){var msg=(currentLang==='en'?'Moshe answered: ':'משה ענה לי: ')+txt+(currentLang==='en'?' 💛 Download the app: ':' 💛 הורד את האפליקציה: ')+'https://askmosh.com/getapp';if(window.Android&&window.Android.shareApp){window.Android.shareApp(msg);}else if(navigator.share){navigator.share({title:'משה גינזי',text:msg}).catch(function(){});}else{window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');}}
 // מקרב: מנוע הצ'אט הוחלף מ-Dify לשרת של מקרב (Netivot) - העיצוב וכל
 // שאר האפליקציה נשארו בדיוק אותו דבר, לפי בקשת יצחק. MEKAREV_UID הוא
 // מזהה קבוע פר-מכשיר (כמו USER_ID באתר/אפליקציית מקרב עצמה) - נשמר
@@ -784,15 +785,16 @@ function changeUser(){localStorage.removeItem('mg-app-name');localStorage.remove
 // CHAT
 // מקרב (יצחק: "הוא לא שם לי לינק שאני יכול ללחוץ עליו בקלות ולשתף אותו
 // עם כל החברים") - כשהבוט עצמו כותב בתשובה את קישור השיתוף
-// (https://mosheginzy.com/getapp, לפי הכלל ב-systemPrompt.js), הטקסט
+// (https://askmosh.com/getapp, לפי הכלל ב-systemPrompt.js), הטקסט
 // עד עכשיו הופיע כמחרוזת רגילה בתוך הבועה (textContent) - לא לחיץ
 // בכלל, ואפילו אם היה לחיץ הוא רק פותח את דף ה-getapp (שמעביר אוטומטית
 // לחנות), לא את תפריט השיתוף האמיתי. הפונקציה הזו מזהה את הקישור הזה
 // בתוך טקסט תשובת הבוט ומחליפה אותו בכפתור אמיתי שפותח את תפריט השיתוף
 // (shareApp, אותה פונקציה בדיוק כמו כפתור השיתוף בסרגל הכלים).
 function enhanceBotBubbleShareLink(bubbleEl,text){
-  var marker='https://mosheginzy.com/getapp';
+  var marker='https://askmosh.com/getapp';
   var idx=text.indexOf(marker);
+  if(idx===-1){marker='https://mosheginzy.com/getapp';idx=text.indexOf(marker);}
   if(idx===-1||!bubbleEl)return;
   bubbleEl.textContent='';
   var before=text.slice(0,idx);
@@ -816,7 +818,7 @@ function enhanceBotBubbleShareLink(bubbleEl,text){
 function addMsg(txt,who){
   var w=document.getElementById('chat-msgs');
   var row=document.createElement('div');row.className='msg-row '+(who==='user'?'user':'');
- var av=document.createElement('div');av.className='msg-av';if(who==='bot'){av.style.backgroundImage="url('https://aginsberger-cpu.github.io/mosheginzy/%D7%AA%D7%9E%D7%95%D7%A0%D7%94%20%D7%9E%D7%A6%D7%95%D7%99%D7%A0%D7%AA%20%D7%9E%D7%A9%D7%94%20%D7%92%D7%99%D7%A0%D7%96%D7%99.png')";av.style.backgroundSize='cover';av.style.backgroundPosition='center';}else{av.textContent='☺';}
+ var av=document.createElement('div');av.className='msg-av';if(who==='bot'){av.style.backgroundImage="url('%D7%AA%D7%9E%D7%95%D7%A0%D7%94%20%D7%9E%D7%A6%D7%95%D7%99%D7%A0%D7%AA%20%D7%9E%D7%A9%D7%94%20%D7%92%D7%99%D7%A0%D7%96%D7%99.png')";av.style.backgroundSize='cover';av.style.backgroundPosition='center';}else{av.textContent='☺';}
   var bubble=document.createElement('div');bubble.className='msg-bubble '+(who==='bot'?'bot':'user');bubble.textContent=txt;
 row.appendChild(av);row.appendChild(bubble);if(who==='bot'){var sb=document.createElement('button');sb.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>';sb.style.cssText='background:none;border:none;color:var(--gold);cursor:pointer;padding:4px 8px;flex-shrink:0;';sb.onclick=function(){shareAnswer(bubble.textContent);};row.appendChild(sb);}w.appendChild(row);  w.scrollTop=w.scrollHeight;document.getElementById('screen-chat').scrollTop=99999;
   return bubble;
@@ -824,7 +826,7 @@ row.appendChild(av);row.appendChild(bubble);if(who==='bot'){var sb=document.crea
 function showTyping(){
   var w=document.getElementById('chat-msgs');
   var row=document.createElement('div');row.className='msg-row';row.id='typing-row';
-var av=document.createElement('div');av.className='msg-av';av.style.backgroundImage="url('https://aginsberger-cpu.github.io/mosheginzy/%D7%AA%D7%9E%D7%95%D7%A0%D7%94%20%D7%9E%D7%A6%D7%95%D7%99%D7%A0%D7%AA%20%D7%9E%D7%A9%D7%94%20%D7%92%D7%99%D7%A0%D7%96%D7%99.png')";av.style.backgroundSize='cover';av.style.backgroundPosition='center';
+var av=document.createElement('div');av.className='msg-av';av.style.backgroundImage="url('%D7%AA%D7%9E%D7%95%D7%A0%D7%94%20%D7%9E%D7%A6%D7%95%D7%99%D7%A0%D7%AA%20%D7%9E%D7%A9%D7%94%20%D7%92%D7%99%D7%A0%D7%96%D7%99.png')";av.style.backgroundSize='cover';av.style.backgroundPosition='center';
   var t=document.createElement('div');t.className='typing-dots';t.innerHTML='<span></span><span></span><span></span>';
   row.appendChild(av);row.appendChild(t);w.appendChild(row);document.getElementById('screen-chat').scrollTop=99999;
 }
@@ -1222,7 +1224,7 @@ var lessonsEN = [
   {id:'ous_1zjURhg', tag:'Life', title:'Travelling Soon? ✈️', type:'yt'}
 ];
 
-var BASE_URL = 'https://aginsberger-cpu.github.io/mosheginzy/';
+var BASE_URL = '';
 
 function renderLessons(){
   var grid = document.getElementById('lessons-grid');
