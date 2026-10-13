@@ -1307,6 +1307,7 @@ function closeVideo(){
     params=params||{};
     try{var p={};for(var k in params)p[k]=params[k];p.app_platform=window.mgPlatform||'web';gtag('event',name,p);}catch(e){}
     try{if(window.Android&&typeof window.Android.logEvent==='function')window.Android.logEvent(String(name),JSON.stringify(params));}catch(e){}
+    try{if(window.webkit&&window.webkit.messageHandlers&&window.webkit.messageHandlers.mgEvent)window.webkit.messageHandlers.mgEvent.postMessage({name:String(name),params:params});}catch(e){}
   }
   function wrap(fn,before){var orig=window[fn];if(typeof orig!=='function')return;window[fn]=function(){try{before.apply(this,arguments);}catch(e){}return orig.apply(this,arguments);};}
   var qNum=0;try{qNum=parseInt(localStorage.getItem('mg-question-count')||'0',10)||0;}catch(e){}
