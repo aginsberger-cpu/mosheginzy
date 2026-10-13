@@ -1301,10 +1301,20 @@ function closeVideo(){
 <script>
 /* Google Analytics: ספירת פעולות באפליקציה. עוטף את הפונקציות הקיימות בלי לשנות אותן. */
 (function(){
-  function t(name,params){try{params=params||{};params.app_platform=window.mgPlatform||'web';gtag('event',name,params);}catch(e){}}
+  /* כל אירוע נשלח ל-Google Analytics, וגם לאפליקציית האנדרואיד אם יש בה את הגשר window.Android.logEvent
+     (שם הוא נשלח ל-Firebase Analytics). באפליקציה ישנה בלי הגשר, רק Google Analytics. בלי טקסט של המשתמש. */
+  function t(name,params){
+    params=params||{};
+    try{var p={};for(var k in params)p[k]=params[k];p.app_platform=window.mgPlatform||'web';gtag('event',name,p);}catch(e){}
+    try{if(window.Android&&typeof window.Android.logEvent==='function')window.Android.logEvent(String(name),JSON.stringify(params));}catch(e){}
+  }
   function wrap(fn,before){var orig=window[fn];if(typeof orig!=='function')return;window[fn]=function(){try{before.apply(this,arguments);}catch(e){}return orig.apply(this,arguments);};}
-  wrap('goScreen',function(n){t('app_screen',{screen_name:String(n)});});
-  wrap('sendMsg',function(){var i=document.getElementById('chat-input');if(i&&i.value&&i.value.trim())t('ask_question');});
+  var qNum=0;try{qNum=parseInt(localStorage.getItem('mg-question-count')||'0',10)||0;}catch(e){}
+  var screenNames={home:'home',chat:'ask_moshe',lessons:'lessons',chavruta:'chavruta',about:'about',thanks:'chavruta_thanks'};
+  function screen(n){n=String(n);var s=screenNames[n]||n;t('app_screen',{screen_name:s});try{if(window.Android&&typeof window.Android.logEvent==='function')window.Android.logEvent('screen_view',JSON.stringify({screen_name:s,screen_class:'AskMosh'}));}catch(e){}}
+  wrap('goScreen',function(n){screen(n);});
+  wrap('sendMsg',function(){var i=document.getElementById('chat-input');if(i&&i.value&&i.value.trim()&&!window.isSending){qNum++;try{localStorage.setItem('mg-question-count',String(qNum));}catch(e){}t('ask_question',{question_number:qNum});}});
+  wrap('enhanceBotBubbleShareLink',function(){t('answer_received',{question_number:qNum});});
   wrap('openVideo',function(id,title){t('video_play',{video_title:String(title||id||'')});});
   wrap('openMP4',function(url){t('video_play',{video_title:String(url||'').split('/').pop()});});
   wrap('submitForm',function(){var n=document.getElementById('f-name'),ph=document.getElementById('f-phone');if(n&&ph&&n.value.trim()&&ph.value.trim())t('generate_lead',{form:'chavruta'});});
