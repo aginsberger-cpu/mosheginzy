@@ -91,8 +91,14 @@ header a{text-decoration:none}
 h1{font-size:clamp(1.8rem,4.5vw,2.6rem);line-height:1.25;margin:18px 0 10px}
 h1 span{color:var(--gold)}
 .lead{color:var(--muted);font-size:1.08rem;max-width:36em;margin:0 auto 26px}
-.badges{display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap}
-.badges img{height:56px;display:block}
+.badges{display:flex;justify-content:center;align-items:stretch;gap:16px;flex-wrap:wrap}
+.sbtn{display:flex;align-items:center;justify-content:center;gap:14px;width:250px;max-width:100%;height:76px;padding:0 22px;border-radius:18px;text-decoration:none;direction:ltr;color:#0a1320;background:linear-gradient(135deg,#F3D27A,#D4AF37 55%,#B8892A);box-shadow:0 10px 28px rgba(212,175,55,.35),inset 0 1px 0 rgba(255,255,255,.5);transition:transform .15s ease,box-shadow .15s ease}
+.sbtn:hover,.sbtn:focus-visible{transform:translateY(-3px);box-shadow:0 16px 36px rgba(212,175,55,.5),inset 0 1px 0 rgba(255,255,255,.5);outline:none}
+.sbtn:active{transform:translateY(0)}
+.sbtn svg{width:38px;height:38px;fill:#0a1320;flex:none}
+.sbtn span{display:flex;flex-direction:column;align-items:flex-start;line-height:1.1;text-align:left}
+.sbtn small{font-size:.8rem;font-weight:600;opacity:.75}
+.sbtn b{font-size:1.45rem;font-weight:800;letter-spacing:.01em}
 .free{color:var(--faint);font-size:.88rem;margin-top:12px}
 h2{font-size:1.5rem;margin:44px 0 16px;color:var(--gold2)}
 .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
@@ -122,8 +128,8 @@ footer a{color:var(--gold2)}
     <h1>אפליקציית משה גינזי<br><span>לימוד יהדות בגובה העיניים</span></h1>
     <p class="lead">שואלים כל שאלה על יהדות, שבת, חגים ומשמעות החיים — ומקבלים תשובה מיד. בלי פילטרים, בלי הטפה ובלי שיפוט.</p>
     <div class="badges">
-      <a href="https://apps.apple.com/app/id6786922851" onclick="try{gtag('event','store_click',{store:'app_store'});gtag('event','conversion',{'send_to':'AW-944658564/PdYkCNi6tYsdEISxucID','transport_type':'beacon'});}catch(e){}"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/he-il?size=250x83" alt="הורדה מ-App Store" height="56"></a>
-      <a href="https://play.google.com/store/apps/details?id=com.mosheginzy.app" onclick="try{gtag('event','store_click',{store:'google_play'});gtag('event','conversion',{'send_to':'AW-944658564/PdYkCNi6tYsdEISxucID','transport_type':'beacon'});}catch(e){}"><img src="https://play.google.com/intl/en_us/badges/static/images/badges/he_badge_web_generic.png" alt="הורדה מ-Google Play" style="height:82px;margin:-13px 0"></a>
+      <a class="sbtn" aria-label="הורדה מ-App Store" href="https://apps.apple.com/app/id6786922851" onclick="try{gtag('event','store_click',{store:'app_store'});gtag('event','conversion',{'send_to':'AW-944658564/PdYkCNi6tYsdEISxucID','transport_type':'beacon'});}catch(e){}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.64c-.02-2.2 1.8-3.26 1.88-3.31-1.02-1.5-2.62-1.7-3.19-1.72-1.36-.14-2.65.8-3.34.8-.69 0-1.75-.78-2.88-.76-1.48.02-2.85.86-3.61 2.19-1.54 2.67-.39 6.62 1.11 8.79.73 1.06 1.6 2.25 2.75 2.2 1.1-.04 1.52-.71 2.85-.71 1.33 0 1.71.71 2.88.69 1.19-.02 1.94-1.08 2.67-2.14.84-1.23 1.19-2.42 1.21-2.48-.03-.01-2.32-.89-2.33-3.55zM14.18 6.2c.61-.74 1.02-1.76.91-2.78-.88.04-1.94.59-2.57 1.32-.56.65-1.06 1.69-.93 2.69.98.08 1.98-.5 2.59-1.23z"/></svg><span><small>Download on the</small><b>App Store</b></span></a>
+      <a class="sbtn" aria-label="הורדה מ-Google Play" href="https://play.google.com/store/apps/details?id=com.mosheginzy.app" onclick="try{gtag('event','store_click',{store:'google_play'});gtag('event','conversion',{'send_to':'AW-944658564/PdYkCNi6tYsdEISxucID','transport_type':'beacon'});}catch(e){}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 2.2c-.23.25-.36.63-.36 1.12v17.36c0 .49.13.87.37 1.11l.06.05 9.72-9.72v-.23L3.66 2.15l-.6.05zm12.99 13.07-3.24-3.24v-.23l3.24-3.24.07.04 3.84 2.18c1.1.62 1.1 1.64 0 2.27l-3.84 2.18-.07.04zm-.08.04L13.2 12 3.6 21.6c.36.38.94.42 1.6.05l11.31-6.43zm0-6.62L5.2 2.26c-.66-.37-1.24-.33-1.6.05L13.2 12l3.31-3.31z"/></svg><span><small>GET IT ON</small><b>Google Play</b></span></a>
     </div>
     <p class="free">חינם לגמרי · אייפון ואנדרואיד · עברית ואנגלית</p>
   </section>
