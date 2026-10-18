@@ -846,7 +846,7 @@ inp.value='';inp.style.height='40px';isSending=true;addMsg(txt,'user');showTypin
 // יצחק ביקש שזה יתחיל להיכתב מייד). שאר הזרימה (הודעת "מקליד...",
 // שמירת היסטוריה מקומית, סנכרון ל-Google Sheets, הקראה בקול) נשארה
 // בדיוק אותו דבר, רק בסוף ההזרמה במקום מיד.
-var fullText='';var bubbleEl=null;var finalNoAnswer=false;var finalIsHalacha=false;var finalVideos=[];var finalShowRatingPrompt=false;var finalOfferPush=null;
+var fullText='';var bubbleEl=null;var finalNoAnswer=false;var finalIsHalacha=false;var finalVideos=[];var finalShowRatingPrompt=false;var finalOfferPush=null;var finalSoftware=null;
 fetch(MEKAREV_API+'/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getMekarevUserId(),message:txt,lang:currentLang==='en'?'en':'he'})}).then(function(res){
   if(!res.ok||!res.body)throw new Error('http '+res.status);
   var reader=res.body.getReader();var decoder=new TextDecoder('utf-8');var buffer='';
@@ -886,6 +886,8 @@ fetch(MEKAREV_API+'/api/chat',{method:'POST',headers:{'Content-Type':'applicatio
           // רק ברגעים שבאמת שווה להציע (ראה shouldOfferPush ב-server.js),
           // ורק אם התלמיד/ה עוד לא רשום/ה ולא סירב/ה בעבר.
           finalOfferPush=payload.offerPush||null;
+          // מקרב: מילת קוד של תוכנה להורדה -> כרטיס עם כפתורים (ראה addSoftwareCard)
+          finalSoftware=payload.software||null;
         }
       }
       return pump();
@@ -896,6 +898,7 @@ fetch(MEKAREV_API+'/api/chat',{method:'POST',headers:{'Content-Type':'applicatio
   isSending=false;
   if(fullText){
     enhanceBotBubbleShareLink(bubbleEl,fullText);
+    linkifyBubble(bubbleEl);
     var h=localStorage.getItem('mg-history-'+userName)||'';var newH=h+(h?'\n':'')+fullText.substring(0,200);localStorage.setItem('mg-history-'+userName,newH);fetch(SHEET_URL+'?action=saveHistory&name='+encodeURIComponent(userName)+'&history='+encodeURIComponent(fullText)+'&t='+Date.now())
 .then(function(r){
   return r.text();
@@ -913,10 +916,88 @@ fetch(MEKAREV_API+'/api/chat',{method:'POST',headers:{'Content-Type':'applicatio
     if(finalVideos&&finalVideos.length)addVideoSuggestions(finalVideos);
     if(finalShowRatingPrompt)addRatingPrompt();
     if(finalOfferPush)addPushOfferPrompt(finalOfferPush);
+    if(finalSoftware)addSoftwareCard(finalSoftware);
   }else{
     rmTyping();addMsg(currentLang==='en'?'Moshe could not respond — please try again 🙏':'משה לא הצליח לענות — נסה שוב 🙏','bot');
   }
 }).catch(function(){rmTyping();isSending=false;addMsg(currentLang==='en'?'Moshe could not respond — please try again 🙏':'משה לא הצליח לענות — נסה שוב 🙏','bot');});
+}
+// מקרב: הופך כתובות (https://...) בתשובת הבוט לקישורים לחיצים.
+function linkifyBubble(bubbleEl){
+  if(!bubbleEl)return;
+  var re=/https?:\/\/[^\s<>"']+/g;
+  var walker=document.createTreeWalker(bubbleEl,NodeFilter.SHOW_TEXT,null);
+  var nodes=[];var n;while((n=walker.nextNode()))nodes.push(n);
+  nodes.forEach(function(node){
+    var text=node.nodeValue;re.lastIndex=0;
+    if(!re.test(text))return;re.lastIndex=0;
+    var frag=document.createDocumentFragment();var last=0;var m;
+    while((m=re.exec(text))){
+      var url=m[0].replace(/[.,!?:;)\]״"'׳]+$/,'');
+      if(m.index>last)frag.appendChild(document.createTextNode(text.slice(last,m.index)));
+      var a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener';a.textContent=url;
+      a.style.cssText='color:var(--gold);text-decoration:underline;word-break:break-all;';
+      frag.appendChild(a);last=m.index+url.length;re.lastIndex=last;
+    }
+    if(last<text.length)frag.appendChild(document.createTextNode(text.slice(last)));
+    node.parentNode.replaceChild(frag,node);
+  });
+}
+// מקרב: כרטיס "תוכנה להורדה" - מופיע כשהשרת מחזיר software (מילת קוד, ראה software.js בשרת).
+// במחשב: כפתור הורדה. בטלפון: העתקת כתובת האתר / שליחה לעצמי בוואטסאפ / במייל / שיתוף.
+function addSoftwareCard(sw){
+  if(!sw||!sw.name)return;
+  var en=currentLang==='en';
+  var w=document.getElementById('chat-msgs');
+  var ua=navigator.userAgent||'';
+  var isMobile=Boolean(window.Android)||/Android|iPhone|iPad|iPod|Mobile/i.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1);
+  var div=document.createElement('div');div.className='referral-suggestion software-card';div.style.maxWidth='92%';
+  var t=document.createElement('div');t.style.cssText='font-weight:700;font-size:.95rem;';t.textContent='💻 '+sw.name;div.appendChild(t);
+  if(sw.description){var d=document.createElement('div');d.style.cssText='opacity:.8;margin-top:2px;';d.textContent=sw.description;div.appendChild(d);}
+  var info=document.createElement('div');info.style.cssText='margin-top:8px;';div.appendChild(info);
+  var actions=document.createElement('div');actions.style.cssText='display:flex;flex-direction:column;gap:8px;margin-top:10px;';
+  function mkBtn(label,bg,fg,fn){
+    var b=document.createElement('button');b.type='button';b.className='referral-btn';
+    b.style.cssText='width:100%;justify-content:center;padding:11px 14px;font-size:.9rem;font-weight:700;border-radius:12px;background:'+bg+';color:'+(fg||'#fff')+';';
+    b.textContent=label;b.onclick=function(e){e.preventDefault();fn(b);};actions.appendChild(b);return b;
+  }
+  if(!isMobile){
+    if(sw.downloadUrl){
+      info.textContent=en?'After downloading, open the file. If Windows shows a blue window, click "More info" and then "Run anyway".':'אחרי ההורדה פותחים את הקובץ. אם Windows מציג חלון כחול - לוחצים "More info" ואז "Run anyway".';
+      mkBtn(en?'⬇ Download to computer':'⬇ הורדה למחשב','var(--gold2)','#141210',function(){window.location.href=sw.downloadUrl;});
+    }else{
+      info.textContent=en?'The download link will be available here soon.':'הקישור להורדה יהיה זמין כאן בקרוב.';
+    }
+  }else{
+    var site=sw.siteUrl||'https://askmosh.com';
+    var host=site.replace(/^https?:\/\//,'');
+    var msg=(en?'On a computer, go to ':'להיכנס מהמחשב ל-')+site+(sw.code?(en?' and type in the chat: ':" ולכתוב בצ'אט: ")+sw.code:'')+(en?' - to download ':' - ולהוריד את ')+sw.name;
+    info.textContent=en?('This program is for computers. When you are at a computer, go to '+host+(sw.code?' and type in the chat: '+sw.code:'')+'. So you don\'t forget, send yourself the site address:'):('התוכנה מיועדת למחשב. כשתהיו ליד המחשב, היכנסו ל-'+host+(sw.code?" וכתבו בצ'אט: "+sw.code:'')+'. כדי לא לשכוח, שלחו לעצמכם את כתובת האתר:');
+    var copyLabel=en?'📋 Copy site address':'📋 העתקת כתובת האתר';
+    mkBtn(copyLabel,'var(--gold2)','#141210',function(b){
+      function done(){b.textContent=en?'✓ Copied':'✓ הכתובת הועתקה';setTimeout(function(){b.textContent=copyLabel;},3000);}
+      function fallback(){var ta=document.createElement('textarea');ta.value=site;ta.setAttribute('readonly','');ta.style.cssText='position:fixed;opacity:0;';document.body.appendChild(ta);ta.select();ta.setSelectionRange(0,site.length);var ok=false;try{ok=document.execCommand('copy');}catch(e){}document.body.removeChild(ta);if(ok)done();}
+      if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(site).then(done,fallback);else fallback();
+    });
+    mkBtn(en?'💬 Send to myself on WhatsApp':'💬 שליחה לעצמי בוואטסאפ','#25D366','#fff',function(){
+      var waUrl='https://wa.me/?text='+encodeURIComponent(msg);
+      if(/Android/i.test(ua)&&!window.Android){
+        // דפדפן באנדרואיד: לפתוח את וואטסאפ הרגיל (ולא ביזנס); אם לא מותקן - wa.me
+        window.location.href='intent://send?text='+encodeURIComponent(msg)+'#Intent;scheme=whatsapp;package=com.whatsapp;S.browser_fallback_url='+encodeURIComponent(waUrl)+';end';
+      }else{window.open(waUrl,'_blank');}
+    });
+    mkBtn(en?'✉️ Send to my email':'✉️ שליחה למייל שלי','#6b4fa3','#fff',function(){
+      window.location.href='mailto:?subject='+encodeURIComponent(en?'AskMosh - open on a computer':'AskMosh - להיכנס מהמחשב')+'&body='+encodeURIComponent(msg);
+    });
+    if((window.Android&&window.Android.shareApp)||navigator.share){
+      mkBtn(en?'📤 Share another way':'📤 שיתוף בדרך אחרת','#4a5568','#fff',function(){
+        if(window.Android&&window.Android.shareApp){window.Android.shareApp(msg);}
+        else{navigator.share({title:'AskMosh',text:msg}).catch(function(){});}
+      });
+    }
+  }
+  div.appendChild(actions);
+  w.appendChild(div);w.scrollTop=w.scrollHeight;
 }
 // מקרב: תיבת הצעה שמופיעה אחרי תשובה שהמנוע סימן שלא כיסתה את השאלה
 // במדויק - מקבילה בדיוק ל-addReferralSuggestion באתר מקרב עצמו
