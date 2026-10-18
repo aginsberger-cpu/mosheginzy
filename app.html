@@ -1010,7 +1010,10 @@ function addSoftwareCard(sw){
     });
     btn('wa',en?'Send to myself on WhatsApp':'שליחה לעצמי בוואטסאפ','#1f8f4e',function(){
       var waUrl='https://wa.me/?text='+encodeURIComponent(msg);
-      if(/Android/i.test(ua)&&!window.Android){
+      // באפליקציה המותקנת: wa.me נפתח בוואטסאפ שמוגדר כברירת מחדל (אצל חלק - ביזנס),
+      // ולכן פותחים את תפריט השיתוף, ושם בוחרים את וואטסאפ הרגיל.
+      if(window.Android&&window.Android.shareApp){window.Android.shareApp(msg);return;}
+      if(/Android/i.test(ua)){
         // דפדפן באנדרואיד: לפתוח את וואטסאפ הרגיל (ולא ביזנס); אם לא מותקן - wa.me
         window.location.href='intent://send?text='+encodeURIComponent(msg)+'#Intent;scheme=whatsapp;package=com.whatsapp;S.browser_fallback_url='+encodeURIComponent(waUrl)+';end';
       }else{window.open(waUrl,'_blank');}
@@ -1020,10 +1023,10 @@ function addSoftwareCard(sw){
       if(window.Android&&window.Android.shareApp){window.Android.shareApp(msg);return;}
       window.location.href='mailto:?subject='+encodeURIComponent(en?'AskMosh - open on a computer':'AskMosh - להיכנס מהמחשב')+'&body='+encodeURIComponent(msg);
     });
-    if((window.Android&&window.Android.shareApp)||navigator.share){
+    // באפליקציה המותקנת כפתורי הוואטסאפ והמייל כבר פותחים את תפריט השיתוף - אין צורך בכפתור נוסף
+    if(!window.Android&&navigator.share){
       btn('share',en?'Share another way':'שיתוף בדרך אחרת','#4a5568',function(){
-        if(window.Android&&window.Android.shareApp){window.Android.shareApp(msg);}
-        else{navigator.share({title:'AskMosh',text:msg}).catch(function(){});}
+        navigator.share({title:'AskMosh',text:msg}).catch(function(){});
       });
     }
     main.appendChild(acts);
