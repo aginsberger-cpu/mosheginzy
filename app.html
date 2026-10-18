@@ -944,60 +944,91 @@ function linkifyBubble(bubbleEl){
   });
 }
 // מקרב: כרטיס "תוכנה להורדה" - מופיע כשהשרת מחזיר software (מילת קוד, ראה software.js בשרת).
-// במחשב: כפתור הורדה. בטלפון: העתקת כתובת האתר / שליחה לעצמי בוואטסאפ / במייל / שיתוף.
+// עיצוב זהה לדף tools.askmosh.com/d/... : כרטיס פרטי התוכנה, ומתחתיו -
+// בטלפון: הסבר + כתובת האתר + העתקה / וואטסאפ לעצמי / מייל / שיתוף; במחשב: כפתור הורדה.
 function addSoftwareCard(sw){
   if(!sw||!sw.name)return;
   var en=currentLang==='en';
   var w=document.getElementById('chat-msgs');
   var ua=navigator.userAgent||'';
   var isMobile=Boolean(window.Android)||/Android|iPhone|iPad|iPod|Mobile/i.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1);
-  var div=document.createElement('div');div.className='referral-suggestion software-card';div.style.maxWidth='92%';
-  var t=document.createElement('div');t.style.cssText='font-weight:700;font-size:.95rem;';t.textContent='💻 '+sw.name;div.appendChild(t);
-  if(sw.description){var d=document.createElement('div');d.style.cssText='opacity:.8;margin-top:2px;';d.textContent=sw.description;div.appendChild(d);}
-  var info=document.createElement('div');info.style.cssText='margin-top:8px;';div.appendChild(info);
-  var actions=document.createElement('div');actions.style.cssText='display:flex;flex-direction:column;gap:8px;margin-top:10px;';
-  function mkBtn(label,bg,fg,fn){
-    var b=document.createElement('button');b.type='button';b.className='referral-btn';
-    b.style.cssText='width:100%;justify-content:center;padding:11px 14px;font-size:.9rem;font-weight:700;border-radius:12px;background:'+bg+';color:'+(fg||'#fff')+';';
-    b.textContent=label;b.onclick=function(e){e.preventDefault();fn(b);};actions.appendChild(b);return b;
+  var C={card:'#1b2029',line:'#2c3340',ink:'#e8ebf1',muted:'#a3abba',accent:'#6ea0e8',bg:'#12151c'};
+  var wrap=document.createElement('div');wrap.className='software-card';wrap.dir='rtl';
+  wrap.style.cssText='align-self:stretch;max-width:520px;width:92%;margin:4px auto 8px;font-family:inherit;line-height:1.6;color:'+C.ink+';';
+  function box(){var d=document.createElement('div');d.style.cssText='background:'+C.card+';border:1px solid '+C.line+';border-radius:14px;padding:18px 16px;margin-bottom:12px;';wrap.appendChild(d);return d;}
+  function el(tag,css,text,parent){var e=document.createElement(tag);if(css)e.style.cssText=css;if(text!=null)e.textContent=text;(parent||wrap).appendChild(e);return e;}
+  // כרטיס 1: פרטי התוכנה
+  var top=box();
+  el('div','font-size:1.35rem;font-weight:700;margin:0 0 4px;',sw.name,top);
+  if(sw.description)el('div','color:'+C.muted+';margin:0 0 4px;',sw.description,top);
+  el('div','font-size:.8rem;color:'+C.muted+';',(en?'Windows program':'תוכנה למחשב Windows')+(sw.size?' · '+sw.size:''),top);
+  var main=box();
+  var ICON={
+    copy:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>',
+    wa:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.5A8.4 8.4 0 1 1 21 11.5z"/></svg>',
+    mail:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>',
+    share:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v13"/></svg>',
+    dl:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>'
+  };
+  var acts=document.createElement('div');acts.style.cssText='display:grid;gap:10px;margin-top:4px;';
+  function btn(icon,label,bg,fn){
+    var b=document.createElement('button');b.type='button';
+    b.style.cssText='display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;font-size:1.02rem;font-weight:600;border:0;border-radius:11px;color:#fff;cursor:pointer;font-family:inherit;touch-action:manipulation;background:'+bg+';';
+    b.innerHTML=ICON[icon];var sp=document.createElement('span');sp.textContent=label;b.appendChild(sp);
+    b.onclick=function(e){e.preventDefault();fn(b,sp);};acts.appendChild(b);return b;
   }
   if(!isMobile){
     if(sw.downloadUrl){
-      info.textContent=en?'After downloading, open the file. If Windows shows a blue window, click "More info" and then "Run anyway".':'אחרי ההורדה פותחים את הקובץ. אם Windows מציג חלון כחול - לוחצים "More info" ואז "Run anyway".';
-      mkBtn(en?'⬇ Download to computer':'⬇ הורדה למחשב','var(--gold2)','#141210',function(){window.location.href=sw.downloadUrl;});
+      btn('dl',en?'Download to computer':'הורדה למחשב',C.accent,function(){window.location.href=sw.downloadUrl;});
+      main.appendChild(acts);
+      el('div','font-size:.85rem;color:'+C.muted+';margin-top:12px;',en?'After downloading, open the file. If a blue "Windows protected your PC" window appears, click "More info" and then "Run anyway".':'אחרי ההורדה פותחים את הקובץ. אם מופיע חלון כחול "Windows protected your PC" - לוחצים על More info ואז על Run anyway. זה קורה בכל תוכנה חדשה שעדיין לא מוכרת ל-Windows.',main);
     }else{
-      info.textContent=en?'The download link will be available here soon.':'הקישור להורדה יהיה זמין כאן בקרוב.';
+      el('div','color:'+C.muted+';',en?'The download link will be available here soon.':'הקישור להורדה יהיה זמין כאן בקרוב.',main);
     }
   }else{
     var site=sw.siteUrl||'https://askmosh.com';
     var host=site.replace(/^https?:\/\//,'');
     var msg=(en?'On a computer, go to ':'להיכנס מהמחשב ל-')+site+(sw.code?(en?' and type in the chat: ':" ולכתוב בצ'אט: ")+sw.code:'')+(en?' - to download ':' - ולהוריד את ')+sw.name;
-    info.textContent=en?('This program is for computers. When you are at a computer, go to '+host+(sw.code?' and type in the chat: '+sw.code:'')+'. So you don\'t forget, send yourself the site address:'):('התוכנה מיועדת למחשב. כשתהיו ליד המחשב, היכנסו ל-'+host+(sw.code?" וכתבו בצ'אט: "+sw.code:'')+'. כדי לא לשכוח, שלחו לעצמכם את כתובת האתר:');
-    var copyLabel=en?'📋 Copy site address':'📋 העתקת כתובת האתר';
-    mkBtn(copyLabel,'var(--gold2)','#141210',function(b){
-      function done(){b.textContent=en?'✓ Copied':'✓ הכתובת הועתקה';setTimeout(function(){b.textContent=copyLabel;},3000);}
+    el('div','font-size:1.05rem;font-weight:700;margin:0 0 8px;',en?'This program is for computers':'התוכנה הזו מיועדת למחשב',main);
+    var p=el('div','font-size:1rem;margin:0;',null,main);
+    p.appendChild(document.createTextNode(en?'When you are at a computer, go to ':'כשתהיו ליד המחשב, היכנסו לאתר '));
+    var hb=document.createElement('b');hb.dir='ltr';hb.textContent=host;p.appendChild(hb);
+    if(sw.code){
+      p.appendChild(document.createTextNode(en?' and type in the chat ':" וכתבו בצ'אט "));
+      var chip=document.createElement('span');chip.textContent=sw.code;
+      chip.style.cssText='background:'+C.bg+';border:1px solid '+C.line+';border-radius:6px;padding:1px 7px;white-space:nowrap;';
+      p.appendChild(chip);
+    }
+    p.appendChild(document.createTextNode(en?' - and you will get a direct download button.':' - ותקבלו כפתור להורדה ישירה למחשב.'));
+    el('div','font-size:.85rem;color:'+C.muted+';margin-top:14px;',en?'So you don\'t forget, send yourself the site address:':'כדי לא לשכוח, שלחו לעצמכם את כתובת האתר:',main);
+    el('div','direction:ltr;text-align:center;font-size:.95rem;background:'+C.bg+';border:1px dashed '+C.line+';border-radius:9px;padding:10px;margin:10px 0 14px;word-break:break-all;user-select:all;',site,main);
+    var copyLabel=en?'Copy site address':'העתקת כתובת האתר';
+    btn('copy',copyLabel,C.accent,function(b,sp){
+      function done(){b.style.background='#1a7f37';sp.textContent=en?'✓ Copied':'✓ הכתובת הועתקה';setTimeout(function(){b.style.background=C.accent;sp.textContent=copyLabel;},3000);}
       function fallback(){var ta=document.createElement('textarea');ta.value=site;ta.setAttribute('readonly','');ta.style.cssText='position:fixed;opacity:0;';document.body.appendChild(ta);ta.select();ta.setSelectionRange(0,site.length);var ok=false;try{ok=document.execCommand('copy');}catch(e){}document.body.removeChild(ta);if(ok)done();}
       if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(site).then(done,fallback);else fallback();
     });
-    mkBtn(en?'💬 Send to myself on WhatsApp':'💬 שליחה לעצמי בוואטסאפ','#25D366','#fff',function(){
+    btn('wa',en?'Send to myself on WhatsApp':'שליחה לעצמי בוואטסאפ','#1f8f4e',function(){
       var waUrl='https://wa.me/?text='+encodeURIComponent(msg);
       if(/Android/i.test(ua)&&!window.Android){
         // דפדפן באנדרואיד: לפתוח את וואטסאפ הרגיל (ולא ביזנס); אם לא מותקן - wa.me
         window.location.href='intent://send?text='+encodeURIComponent(msg)+'#Intent;scheme=whatsapp;package=com.whatsapp;S.browser_fallback_url='+encodeURIComponent(waUrl)+';end';
       }else{window.open(waUrl,'_blank');}
     });
-    mkBtn(en?'✉️ Send to my email':'✉️ שליחה למייל שלי','#6b4fa3','#fff',function(){
+    btn('mail',en?'Send to my email':'שליחה למייל שלי','#6b4fa3',function(){
+      // באפליקציה המותקנת (WebView) קישור mailto עלול לא להיפתח - שם פותחים את תפריט השיתוף (כולל Gmail)
+      if(window.Android&&window.Android.shareApp){window.Android.shareApp(msg);return;}
       window.location.href='mailto:?subject='+encodeURIComponent(en?'AskMosh - open on a computer':'AskMosh - להיכנס מהמחשב')+'&body='+encodeURIComponent(msg);
     });
     if((window.Android&&window.Android.shareApp)||navigator.share){
-      mkBtn(en?'📤 Share another way':'📤 שיתוף בדרך אחרת','#4a5568','#fff',function(){
+      btn('share',en?'Share another way':'שיתוף בדרך אחרת','#4a5568',function(){
         if(window.Android&&window.Android.shareApp){window.Android.shareApp(msg);}
         else{navigator.share({title:'AskMosh',text:msg}).catch(function(){});}
       });
     }
+    main.appendChild(acts);
   }
-  div.appendChild(actions);
-  w.appendChild(div);w.scrollTop=w.scrollHeight;
+  w.appendChild(wrap);w.scrollTop=w.scrollHeight;
 }
 // מקרב: תיבת הצעה שמופיעה אחרי תשובה שהמנוע סימן שלא כיסתה את השאלה
 // במדויק - מקבילה בדיוק ל-addReferralSuggestion באתר מקרב עצמו
