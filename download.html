@@ -55,6 +55,7 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js',new Date());
   gtag('config','AW-944658564');
+  gtag('config','AW-684611415');
   gtag('config','G-4RW51LT65M');
 </script>
 
@@ -64,7 +65,8 @@
    אפשר לבטל את המעבר עם ?stay=1 בכתובת. */
 (function(){
   var ios="https://apps.apple.com/app/id6786922851";
-  var android="https://play.google.com/store/apps/details?id=com.mosheginzy.app";
+  var keep=location.search.slice(1).split("&").filter(function(p){return /^(utm_[a-z]+|gclid|gbraid|wbraid)=/.test(p)}).join("&");
+  var android="https://play.google.com/store/apps/details?id=com.mosheginzy.app"+(keep?"&referrer="+encodeURIComponent(keep):"");
   var ua=navigator.userAgent||"";
   var isBot=/bot|crawl|spider|slurp|lighthouse|google|bing|yandex|duckduck|facebookexternalhit|whatsapp|preview/i.test(ua);
   var stay=true; // download page: never auto-redirect, show the buttons
@@ -130,8 +132,8 @@ footer a{color:var(--gold2)}
     <h1>אפליקציית משה גינזי<br><span>לימוד יהדות בגובה העיניים</span></h1>
     <p class="lead">שואלים כל שאלה על יהדות, שבת, חגים ומשמעות החיים — ומקבלים תשובה מיד. בלי פילטרים, בלי הטפה ובלי שיפוט.</p>
     <div class="badges">
-      <a class="sbtn" aria-label="הורדה מ-App Store" href="https://apps.apple.com/app/id6786922851" onclick="try{gtag('event','store_click',{store:'app_store'});gtag('event','conversion',{'send_to':'AW-944658564/PdYkCNi6tYsdEISxucID','transport_type':'beacon'});}catch(e){}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.64c-.02-2.2 1.8-3.26 1.88-3.31-1.02-1.5-2.62-1.7-3.19-1.72-1.36-.14-2.65.8-3.34.8-.69 0-1.75-.78-2.88-.76-1.48.02-2.85.86-3.61 2.19-1.54 2.67-.39 6.62 1.11 8.79.73 1.06 1.6 2.25 2.75 2.2 1.1-.04 1.52-.71 2.85-.71 1.33 0 1.71.71 2.88.69 1.19-.02 1.94-1.08 2.67-2.14.84-1.23 1.19-2.42 1.21-2.48-.03-.01-2.32-.89-2.33-3.55zM14.18 6.2c.61-.74 1.02-1.76.91-2.78-.88.04-1.94.59-2.57 1.32-.56.65-1.06 1.69-.93 2.69.98.08 1.98-.5 2.59-1.23z"/></svg><span><small>Download on the</small><b>App Store</b></span></a>
-      <a class="sbtn" aria-label="הורדה מ-Google Play" href="https://play.google.com/store/apps/details?id=com.mosheginzy.app" onclick="try{gtag('event','store_click',{store:'google_play'});gtag('event','conversion',{'send_to':'AW-944658564/PdYkCNi6tYsdEISxucID','transport_type':'beacon'});}catch(e){}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 2.2c-.23.25-.36.63-.36 1.12v17.36c0 .49.13.87.37 1.11l.06.05 9.72-9.72v-.23L3.66 2.15l-.6.05zm12.99 13.07-3.24-3.24v-.23l3.24-3.24.07.04 3.84 2.18c1.1.62 1.1 1.64 0 2.27l-3.84 2.18-.07.04zm-.08.04L13.2 12 3.6 21.6c.36.38.94.42 1.6.05l11.31-6.43zm0-6.62L5.2 2.26c-.66-.37-1.24-.33-1.6.05L13.2 12l3.31-3.31z"/></svg><span><small>GET IT ON</small><b>Google Play</b></span></a>
+      <a class="sbtn" aria-label="הורדה מ-App Store" href="https://apps.apple.com/app/id6786922851" onclick="try{gtag('event','store_click',{store:'app_store'});gtag('event','conversion',{'send_to':'AW-944658564/PdYkCNi6tYsdEISxucID','transport_type':'beacon'});gtag('event','conversion',{'send_to':'AW-684611415/GXA_COGqyaIdENeuucYC','transport_type':'beacon'});}catch(e){}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.64c-.02-2.2 1.8-3.26 1.88-3.31-1.02-1.5-2.62-1.7-3.19-1.72-1.36-.14-2.65.8-3.34.8-.69 0-1.75-.78-2.88-.76-1.48.02-2.85.86-3.61 2.19-1.54 2.67-.39 6.62 1.11 8.79.73 1.06 1.6 2.25 2.75 2.2 1.1-.04 1.52-.71 2.85-.71 1.33 0 1.71.71 2.88.69 1.19-.02 1.94-1.08 2.67-2.14.84-1.23 1.19-2.42 1.21-2.48-.03-.01-2.32-.89-2.33-3.55zM14.18 6.2c.61-.74 1.02-1.76.91-2.78-.88.04-1.94.59-2.57 1.32-.56.65-1.06 1.69-.93 2.69.98.08 1.98-.5 2.59-1.23z"/></svg><span><small>Download on the</small><b>App Store</b></span></a>
+      <a class="sbtn" aria-label="הורדה מ-Google Play" href="https://play.google.com/store/apps/details?id=com.mosheginzy.app" onclick="try{gtag('event','store_click',{store:'google_play'});gtag('event','conversion',{'send_to':'AW-944658564/PdYkCNi6tYsdEISxucID','transport_type':'beacon'});gtag('event','conversion',{'send_to':'AW-684611415/GXA_COGqyaIdENeuucYC','transport_type':'beacon'});}catch(e){}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 2.2c-.23.25-.36.63-.36 1.12v17.36c0 .49.13.87.37 1.11l.06.05 9.72-9.72v-.23L3.66 2.15l-.6.05zm12.99 13.07-3.24-3.24v-.23l3.24-3.24.07.04 3.84 2.18c1.1.62 1.1 1.64 0 2.27l-3.84 2.18-.07.04zm-.08.04L13.2 12 3.6 21.6c.36.38.94.42 1.6.05l11.31-6.43zm0-6.62L5.2 2.26c-.66-.37-1.24-.33-1.6.05L13.2 12l3.31-3.31z"/></svg><span><small>GET IT ON</small><b>Google Play</b></span></a>
     </div>
     <p class="free">חינם לגמרי · אייפון ואנדרואיד · עברית ואנגלית</p>
   </section>
@@ -165,5 +167,14 @@ footer a{color:var(--gold2)}
   פרויקט של <a href="https://netivotny.org">Congregation Netivot of New York Inc.</a> · <a href="privacy.html">מדיניות פרטיות</a> · <a href="terms.html">תנאי שימוש</a>
 </footer>
 
+<script>
+/* מעביר את פרטי הפרסומת (utm / gclid) לקישור של Google Play, כדי שהאפליקציה תדע מאיזו פרסומת הגיעה ההתקנה */
+(function(){
+  var keep=location.search.slice(1).split("&").filter(function(p){return /^(utm_[a-z]+|gclid|gbraid|wbraid)=/.test(p)}).join("&");
+  if(!keep)return;
+  var ref="&referrer="+encodeURIComponent(keep);
+  document.querySelectorAll('a[href*="play.google.com/store/apps/details"]').forEach(function(a){a.href+=ref;});
+})();
+</script>
 </body>
 </html>
