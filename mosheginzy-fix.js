@@ -207,6 +207,69 @@ function mgAddReferralSuggestion(question, isHalacha) {
 // מקרב: השאלה נשלחת עכשיו לשרת של מקרב, בהזרמה (streaming, /api/chat) -
 // כדי שהתשובה תיכתב בזמן אמת. שאר הזרימה (הודעת "משה חושב...", שמירת
 // היסטוריה מקומית) נשארה בדיוק אותו דבר, רק בסוף ההזרמה במקום מיד.
+// מקרב: כרטיס תהילים / תפילה (PRAYER_CARD_V1) - השרת שולח אירוע type:'prayer' עם קטעים נפרדים.
+// כל פרק מוצג בנפרד (עם כפתורי מספרי פרקים + הקודם/הבא), אותיות גדולות בגופן תנ"כי, בלי הקראה קולית.
+function mgAddPrayerCard(pr){
+  if(!pr||!pr.sections||!pr.sections.length)return null;
+  var w=document.getElementById('mg-msgs');if(!w)return null;
+  if(!document.getElementById('prayer-font-link')){try{var lk=document.createElement('link');lk.id='prayer-font-link';lk.rel='stylesheet';lk.href='https://fonts.googleapis.com/css2?family=Noto+Serif+Hebrew:wght@400;700&display=swap';document.head.appendChild(lk);}catch(e){}}
+  var P={bg:'#fbf5e6',line:'#e3d2a4',ink:'#2a2114',gold:'#a8822f',hl:'#f4e3a5',muted:'#8a7650'};
+  var SERIF="'Noto Serif Hebrew','Frank Ruhl Libre','David','Times New Roman',serif";
+  var secs=pr.sections,many=secs.length>1,cur=0;
+  var size=1.3;try{var sv=parseFloat(localStorage.getItem('mg-prayer-size'));if(sv>=1&&sv<=2.2)size=sv;}catch(e){}
+  function heb(n){var o='';var H=[[400,'ת'],[300,'ש'],[200,'ר'],[100,'ק'],[90,'צ'],[80,'פ'],[70,'ע'],[60,'ס'],[50,'נ'],[40,'מ'],[30,'ל'],[20,'כ'],[10,'י'],[9,'ט'],[8,'ח'],[7,'ז'],[6,'ו'],[5,'ה'],[4,'ד'],[3,'ג'],[2,'ב'],[1,'א']];
+    for(var i=0;i<H.length;i++){while(n>=H[i][0]){if(n===15){o+='טו';n=0;break;}if(n===16){o+='טז';n=0;break;}o+=H[i][1];n-=H[i][0];}}return o;}
+  function el(tag,css,text,parent){var e=document.createElement(tag);if(css)e.style.cssText=css;if(text!=null)e.textContent=text;if(parent)parent.appendChild(e);return e;}
+  var wrap=el('div','align-self:stretch;width:94%;max-width:660px;margin:6px auto 14px;direction:rtl;text-align:right;scroll-margin-top:90px;');
+  wrap.className='prayer-card';wrap.dir='rtl';wrap.setAttribute('data-nospeak','1');
+  // כותרת
+  var head=el('div','display:flex;align-items:center;justify-content:center;gap:10px;margin:2px 0 10px;flex-wrap:wrap;',null,wrap);
+  el('div','font-family:'+SERIF+';font-size:1.25rem;font-weight:700;color:#c9a24e;text-align:center;letter-spacing:.3px;','❦ '+(pr.title||'')+' ❦',head);
+  var sz=el('div','display:flex;gap:4px;',null,head);
+  function szBtn(t,d){var b=el('button','background:transparent;border:1px solid #c9a24e;color:#c9a24e;border-radius:8px;padding:2px 9px;font-size:.85rem;cursor:pointer;font-family:inherit;',t,sz);b.type='button';b.title=d>0?'הגדלת אותיות':'הקטנת אותיות';b.onclick=function(){size=Math.max(1,Math.min(2.2,Math.round((size+d)*100)/100));try{localStorage.setItem('mg-prayer-size',String(size));}catch(e){}body.style.fontSize=size+'rem';};}
+  szBtn('א+',0.15);szBtn('א−',-0.15);
+  // מספרי פרקים
+  var chips=[];
+  if(many){
+    var cr=el('div','display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:0 0 12px;',null,wrap);
+    secs.forEach(function(s,i){var c=el('button','min-width:40px;padding:6px 9px;border-radius:10px;border:1px solid '+P.line+';background:#fffaf0;color:'+P.ink+';font-family:'+SERIF+';font-size:1rem;font-weight:700;cursor:pointer;',s.chip||String(i+1),cr);c.type='button';c.onclick=function(){show(i,true);};chips.push(c);});
+  }
+  // כרטיס הפרק
+  var card=el('div','background:'+P.bg+';border:1px solid '+P.line+';border-radius:16px;padding:22px 20px 18px;box-shadow:0 2px 10px rgba(0,0,0,.18);color:'+P.ink+';scroll-margin-top:90px;',null,wrap);
+  var label=el('div','display:inline-block;background:'+P.hl+';color:'+P.ink+';font-family:'+SERIF+';font-weight:700;font-size:1.15rem;padding:4px 16px;border-radius:9px;margin:0 0 16px;',null,card);
+  var body=el('div','font-family:'+SERIF+';font-size:'+size+'rem;line-height:2.2;text-align:right;color:'+P.ink+';word-spacing:1px;',null,card);
+  var nav=null,prevB=null,nextB=null,cnt=null;
+  if(many){
+    nav=el('div','display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:18px;padding-top:12px;border-top:1px solid '+P.line+';',null,card);
+    var nb='padding:9px 16px;border-radius:10px;border:none;background:'+P.gold+';color:#fff;font-size:.95rem;font-weight:700;cursor:pointer;font-family:inherit;';
+    prevB=el('button',nb,'› הפרק הקודם',nav);prevB.type='button';prevB.onclick=function(){show(cur-1,true);};
+    cnt=el('div','color:'+P.muted+';font-size:.9rem;',null,nav);
+    nextB=el('button',nb,'הפרק הבא ‹',nav);nextB.type='button';nextB.onclick=function(){show(cur+1,true);};
+  }
+  function show(i,scroll){
+    if(i<0||i>=secs.length)return;cur=i;var s=secs[i];
+    label.textContent=s.label||s.title||'';
+    body.innerHTML='';
+    if(s.chip){
+      body.style.whiteSpace='normal';
+      String(s.text||'').split('\n').forEach(function(v,vi){v=v.trim();if(!v)return;
+        var sp=el('span','margin-left:.45em;',null,body);
+        el('span','font-size:.62em;color:'+P.gold+';font-weight:700;margin-left:.25em;vertical-align:.2em;',heb(vi+1),sp);
+        sp.appendChild(document.createTextNode(v+(/[׃:]$/.test(v)?'':':')+' '));
+      });
+    }else{
+      body.style.whiteSpace='pre-wrap';body.textContent=s.text||'';
+    }
+    chips.forEach(function(c,ci){c.style.background=ci===i?P.gold:'#fffaf0';c.style.color=ci===i?'#fff':P.ink;c.style.borderColor=ci===i?P.gold:P.line;});
+    if(many){cnt.textContent=(i+1)+' / '+secs.length;prevB.style.visibility=i>0?'visible':'hidden';nextB.style.visibility=i<secs.length-1?'visible':'hidden';}
+    if(scroll){try{card.scrollIntoView({behavior:'smooth',block:'start'});}catch(e){}}
+  }
+  show(0,false);
+  w.appendChild(wrap);
+  try{wrap.scrollIntoView({block:'start'});}catch(e){w.scrollTop=w.scrollHeight;}
+  return wrap;
+}
+
 function mgSend() {
   var inp = document.getElementById('mg-inp');
   var txt = inp ? inp.value.trim() : '';
@@ -223,6 +286,7 @@ function mgSend() {
   var bubbleEl = null;
   var finalNoAnswer = false;
   var finalIsHalacha = false;
+  var prayerData = null;
   fetch(MEKAREV_API + '/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ userId: getMekarevUserId(), message: txt, lang: (typeof currentLang !== 'undefined' && currentLang === 'en') ? 'en' : 'he' }) }).then(function (res) {
     if (!res.ok || !res.body) throw new Error('http ' + res.status);
     var reader = res.body.getReader();
@@ -238,8 +302,11 @@ function mgSend() {
           var line = frame.split('\n').filter(function (l) { return l.indexOf('data: ') === 0; })[0];
           if (!line) continue;
           var payload; try { payload = JSON.parse(line.slice(6)); } catch (e) { continue; }
-          if (payload.type === 'delta') {
+          if (payload.type === 'prayer') {
+            if (typeof window.mgAddPrayerCard === 'function') { prayerData = payload; mgRemoveTyping(); window.mgAddPrayerCard(payload); }
+          } else if (payload.type === 'delta') {
             fullText += payload.text;
+            if (prayerData) continue;
             if (!bubbleEl) { mgRemoveTyping(); bubbleEl = mgAddMsg('', 'bot'); }
             bubbleEl.textContent = fullText;
             var w = document.getElementById('mg-msgs'); if (w) w.scrollTop = w.scrollHeight;
@@ -254,6 +321,10 @@ function mgSend() {
     return pump();
   }).then(function () {
     mgSending = false;
+    if (prayerData) {
+      try { var ph = localStorage.getItem('mg-history-' + mgUserName) || ''; localStorage.setItem('mg-history-' + mgUserName, ph + (ph ? '\n' : '') + (prayerData.title || '')); } catch (e) {}
+      return;
+    }
     if (fullText) {
       var h = localStorage.getItem('mg-history-' + mgUserName) || '';
       var newH = h + (h ? '\n' : '') + fullText.substring(0, 200);
@@ -394,3 +465,6 @@ function mgSend() {
     obs.observe(chatEl, { childList: true, subtree: true, characterData: true });
   }
 })();
+
+// מקרב: תוספות לצ'אט שנטענות מהשרת (CHAT_ADDONS_V1) - כך שינויי תצוגה בצ'אט נעשים מהשרת בלי לגעת בגיטהאב
+(function(){try{var s=document.createElement('script');s.src='https://hirabbi.com/chat-addons.js?t='+Math.floor(Date.now()/300000);s.async=true;document.head.appendChild(s);}catch(e){}})();
