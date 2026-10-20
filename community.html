@@ -717,7 +717,7 @@ function renderQuestion() {
     '<div class="glass" style="padding:0;overflow:hidden"><button class="vid-toggle" onclick="toggleVideo()"><span>🎬 ' + (showVideo ? s.hideVid : s.watchVid) + '</span><span style="transform:' + (showVideo ? 'rotate(90deg)' : 'none') + ';transition:0.2s;display:inline-block">›</span></button>' + videoHtml + '</div>' +
     '<div class="glass"><h3 style="font-size:15px;font-weight:600;color:var(--white);margin-bottom:10px">' + s.whatThink + '</h3><div class="input-area"><textarea id="respInput" rows="3" placeholder="' + s.placeholder + '" dir="' + s.dir + '"></textarea></div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px"><button class="gold-btn" style="width:auto" onclick="submitResponse()">' + s.send + '</button><span id="sentMsg" style="color:var(--ok);font-size:13px;font-weight:500" class="hidden">✓ ' + s.sent + '</span></div></div>' +
    '<div class="responses-header"><span>' + (shownResponses.length || responses.length) + ' ' + s.responses + '</span><span>' + s.sortBy + '</span></div>' +
-    (shownResponses.length > 0 ? shownResponses : responses).map(function(r, i) {
+    (shownResponses.length > 0 ? shownResponses : responses).filter(function(r){ return r && r.text && String(r.text).trim() && r.text !== 'undefined'; }).map(function(r, i) {
       var emojis = ['👍','❤️','🔥','🙏','💡'];
       var reacts = r.reactions || {};
       var emojiBar = emojis.map(function(e) {
@@ -795,10 +795,21 @@ function reactToResp(id, emoji) {
 }
 
 
+function shareText(msg) {
+  try {
+    if (window.Android && window.Android.shareApp) { window.Android.shareApp(msg); return; }
+    if (navigator.share && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) { navigator.share({ text: msg }).catch(function(){}); return; }
+  } catch (e) {}
+  window.open("https://wa.me/?text=" + encodeURIComponent(msg), "_blank");
+}
 function shareWhatsApp() {
   var s = t();
-  var text = encodeURIComponent(s.qTitle + "\n\n" + s.qBody + "\n\nhttps://askmosh.com/community.html");
-  window.open("https://wa.me/?text=" + text, "_blank");
+  var title = s.qTitle, body = s.qBody;
+  if (currentDailyQuestion) {
+    title = (lang === "en" && currentDailyQuestion.titleEn) || currentDailyQuestion.title || title;
+    body = (lang === "en" && currentDailyQuestion.bodyEn) || currentDailyQuestion.body || body;
+  }
+  shareText((title || "") + "\n\n" + (body || "") + "\n\nhttps://askmosh.com/community.html");
 }
 
 /* 2. FORUM */
@@ -976,7 +987,7 @@ function renderQuizResults() {
 function shareQuiz() {
   var QQ = getQQ();
   var text = encodeURIComponent((lang === 'he' ? 'קיבלתי ' + qScore + ' מתוך ' + QQ.length + ' בחידון של משה גינזי! נסה גם:' : 'I scored ' + qScore + '/' + QQ.length + " on Moshe Ginzy's quiz! Try it:") + "\nhttps://askmosh.com/community.html");
-  window.open("https://wa.me/?text=" + text, "_blank");
+  shareText(decodeURIComponent(text));
 }
 
 /* FIND USER RANK */
