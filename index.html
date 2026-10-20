@@ -852,6 +852,81 @@ setInterval(function(){goS((cur+1)%slides.length)},4000);
       <a class="mg-store" href="https://play.google.com/store/apps/details?id=com.mosheginzy.app" target="_blank" rel="noopener" onclick="try{gtag('event','store_click',{store:'google_play',location:'home_top'})}catch(e){}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 1.8c-.3.3-.5.8-.5 1.4v17.6c0 .6.2 1.1.5 1.4l.1.1 9.9-9.9v-.2L3.7 1.7l-.1.1zm13.3 13.4l-3.3-3.3v-.2l3.3-3.3.1.1 3.9 2.2c1.1.6 1.1 1.7 0 2.3l-3.9 2.2h-.1zm-.1.1L13.4 12 3.6 21.8c.4.4.9.4 1.6.1l11.6-6.6M16.8 8.7L5.2 2.1c-.7-.4-1.2-.3-1.6.1L13.4 12l3.4-3.3z"/></svg><span><small data-he="זמין ב-" data-en="Get it on">זמין ב-</small><b>Google Play</b></span></a>
     </div>
 </section>
+<!-- SHABBAT + BIG QUESTIONS (נוסף אוקטובר 2026) -->
+<style>
+.mgs{background:#0B1A2C;padding:28px 20px 34px;direction:rtl;text-align:center;font-family:'Heebo',sans-serif}
+.mgs-in{max-width:980px;margin:0 auto}
+#shabbat-strip{display:none;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap;margin:0 auto 26px;max-width:560px;padding:9px 16px;border:1px solid rgba(232,196,104,.45);border-radius:999px;background:rgba(212,168,67,.08);color:#F0D894;font-size:.95rem;cursor:pointer;box-shadow:0 0 18px rgba(232,192,64,.12)}
+#shabbat-strip b{font-weight:700}#shabbat-strip .sep{opacity:.45}#shabbat-strip .chg{opacity:.75;font-size:.8rem;text-decoration:underline}
+#sh-bg{position:fixed;inset:0;z-index:950;background:rgba(4,10,18,.6);display:none}#sh-bg.on{display:block}
+#sh-sheet{position:fixed;left:0;right:0;bottom:0;z-index:951;max-height:75vh;overflow-y:auto;background:linear-gradient(180deg,rgba(18,40,66,.98),rgba(11,26,44,.99));border-top:1px solid rgba(232,196,104,.5);border-radius:20px 20px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px));transform:translateY(105%);transition:transform .25s;direction:rtl;max-width:600px;margin:0 auto;font-family:'Heebo',sans-serif}
+#sh-sheet.on{transform:none}
+.sh-t{color:#E8C468;font-size:1.2rem;margin:0 0 10px;text-align:center}
+.sh-c{display:block;width:100%;text-align:right;background:none;border:none;border-bottom:1px solid rgba(232,196,104,.12);color:#F0D894;font-family:inherit;font-size:1rem;padding:12px 6px;cursor:pointer}
+.sh-c.loc{color:#E8C468;font-weight:700}.sh-g{color:#9fb0c8;font-size:.8rem;margin:12px 6px 2px;text-align:right}
+.mgs-h{display:flex;align-items:center;gap:12px;color:#E8C468;font-size:1.5rem;font-weight:700;margin:0 0 6px;text-shadow:0 0 18px rgba(232,192,64,.35)}
+.mgs-h::before,.mgs-h::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(232,196,104,0),rgba(232,196,104,.75),rgba(232,196,104,0))}
+.mgs-sub{color:#b9c2d6;font-size:.98rem;margin:0 0 16px}
+.mgs-row{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.mgs-card{display:flex;flex-direction:column;gap:8px;text-decoration:none}
+.mgs-img{position:relative;aspect-ratio:9/13;border-radius:14px;overflow:hidden;border:1.5px solid rgba(212,168,67,.55);box-shadow:0 4px 18px rgba(212,168,67,.15);background:#0F2236;transition:transform .15s}
+.mgs-card:hover .mgs-img{transform:translateY(-3px)}
+.mgs-img img{width:100%;height:100%;object-fit:cover;display:block}
+.mgs-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#F3D27A,#C99A3C);box-shadow:0 0 16px rgba(232,192,64,.5);display:flex;align-items:center;justify-content:center}
+.mgs-t{font-size:1rem;font-weight:700;color:#F0D894}
+.mgs-all{display:inline-block;margin-top:16px;color:#E8C468;text-decoration:none;border:1px solid rgba(232,196,104,.5);border-radius:999px;padding:8px 20px;font-size:.95rem}
+@media(max-width:700px){.mgs-row{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -20px;padding:4px 20px 6px;scrollbar-width:none}.mgs-row::-webkit-scrollbar{display:none}.mgs-card{flex:0 0 140px;scroll-snap-align:start}.mgs-row::after{content:"";flex:0 0 1px}}
+</style>
+<section class="mgs" id="big-questions">
+  <div class="mgs-in">
+    <div id="shabbat-strip"></div>
+    <h2 class="mgs-h">שאלות גדולות</h2>
+    <p class="mgs-sub">משה גינזי עונה בדקה על השאלות שכולם שואלים</p>
+    <div class="mgs-row"><a class="mgs-card" href="shealot/lama-yesh-sevel.html"><div class="mgs-img"><img src="https://i.ytimg.com/vi/fkSkpRoEzpQ/hqdefault.jpg" alt="" loading="lazy"><span class="mgs-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="mgs-t">למה יש סבל?</span></a><a class="mgs-card" href="shealot/achrei-hamavet.html"><div class="mgs-img"><img src="https://i.ytimg.com/vi/JOEBBrYtEyA/hqdefault.jpg" alt="" loading="lazy"><span class="mgs-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="mgs-t">אחרי המוות?</span></a><a class="mgs-card" href="shealot/shtifat-moach.html"><div class="mgs-img"><img src="https://i.ytimg.com/vi/UKUuazWL7sU/hqdefault.jpg" alt="" loading="lazy"><span class="mgs-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="mgs-t">שטיפת מוח?</span></a><a class="mgs-card" href="shealot/mada-veemuna.html"><div class="mgs-img"><img src="https://i.ytimg.com/vi/HNc_6HBawX0/hqdefault.jpg" alt="" loading="lazy"><span class="mgs-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="mgs-t">מדע ואמונה</span></a><a class="mgs-card" href="shealot/lo-dati-yahadut.html"><div class="mgs-img"><img src="https://i.ytimg.com/vi/Z20H_iAlQSc/hqdefault.jpg" alt="" loading="lazy"><span class="mgs-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="mgs-t">לא דתי?</span></a></div>
+    <a class="mgs-all" href="shealot/">לכל השאלות ←</a>
+  </div>
+</section>
+<script>/* Shabbat strip: times by city (Hebcal), city saved per user */
+(function(){try{
+var C=[['ישראל',[['ירושלים',31.7683,35.2137,'Asia/Jerusalem',40],['תל אביב',32.0853,34.7818,'Asia/Jerusalem',20],['חיפה',32.7940,34.9896,'Asia/Jerusalem',30],['בני ברק',32.0807,34.8338,'Asia/Jerusalem',20],['פתח תקווה',32.0840,34.8878,'Asia/Jerusalem',20],['בית שמש',31.7470,34.9881,'Asia/Jerusalem',20],['אשדוד',31.8014,34.6435,'Asia/Jerusalem',20],['נתניה',32.3215,34.8532,'Asia/Jerusalem',20],['באר שבע',31.2518,34.7913,'Asia/Jerusalem',20]]],
+['צפון אמריקה',[['ניו יורק',40.7128,-74.0060,'America/New_York',18],['לייקווד',40.0821,-74.2097,'America/New_York',18],['מיאמי',25.7617,-80.1918,'America/New_York',18],['שיקגו',41.8781,-87.6298,'America/Chicago',18],['לוס אנג׳לס',34.0522,-118.2437,'America/Los_Angeles',18],['טורונטו',43.6532,-79.3832,'America/Toronto',18],['מונטריאול',45.5017,-73.5673,'America/Toronto',18],['מקסיקו סיטי',19.4326,-99.1332,'America/Mexico_City',18]]],
+['דרום אמריקה',[['בואנוס איירס',-34.6037,-58.3816,'America/Argentina/Buenos_Aires',18],['סנטיאגו',-33.4489,-70.6693,'America/Santiago',18],['סאו פאולו',-23.5505,-46.6333,'America/Sao_Paulo',18]]],
+['אירופה',[['לונדון',51.5074,-0.1278,'Europe/London',18],['פריז',48.8566,2.3522,'Europe/Paris',18],['אנטוורפן',51.2194,4.4025,'Europe/Brussels',18],['מוסקבה',55.7558,37.6173,'Europe/Moscow',18]]],
+['עוד',[['יוהנסבורג',-26.2041,28.0473,'Africa/Johannesburg',18],['סידני',-33.8688,151.2093,'Australia/Sydney',18],['מלבורן',-37.8136,144.9631,'Australia/Melbourne',18]]]];
+var ALL=[];C.forEach(function(g){g[1].forEach(function(c){ALL.push(c);});});
+var el=document.getElementById('shabbat-strip');if(!el)return;
+function get(){try{var v=JSON.parse(localStorage.getItem('mg-shabbat-city')||'null');if(v&&v.length===5)return v;}catch(e){}
+ var tz='';try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||'';}catch(e){}
+ for(var i=0;i<ALL.length;i++){if(ALL[i][3]===tz)return ALL[i];}return ALL[0];}
+function save(c){try{localStorage.setItem('mg-shabbat-city',JSON.stringify(c));}catch(e){}}
+function t(x){var m=(x&&x.date||'').match(/T(\d\d:\d\d)/);return m?m[1]:'';}
+function load(c){
+ var u='https://www.hebcal.com/shabbat?cfg=json&geo=pos&latitude='+c[1]+'&longitude='+c[2]+'&tzid='+encodeURIComponent(c[3])+'&M=on&lg=he&b='+c[4];
+ fetch(u).then(function(r){return r.json()}).then(function(d){
+  var cn=null,h=null,p=null;(d.items||[]).forEach(function(it){if(it.category==='candles'&&!cn)cn=it;if(it.category==='havdalah'&&!h)h=it;if(it.category==='parashat'&&!p)p=it;});
+  if(!cn)return;var html='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D4AF5E" stroke-width="1.8" stroke-linecap="round"><path d="M12 3c1.3 1.5 1.6 2.6 0 4.2-1.6-1.6-1.3-2.7 0-4.2z"/><rect x="9.5" y="9" width="5" height="11" rx="1"/></svg><span>כניסת שבת <b>'+c[0]+' '+t(cn)+'</b></span>';
+  if(h)html+='<span class="sep">·</span><span>יציאה <b>'+t(h)+'</b></span>';
+  if(p&&p.hebrew)html+='<span class="sep">·</span><span>'+p.hebrew+'</span>';
+  html+='<span class="chg">שינוי עיר</span>';
+  el.innerHTML=html;el.style.display='flex';}).catch(function(){});}
+var bg=document.createElement('div');bg.id='sh-bg';var sh=document.createElement('div');sh.id='sh-sheet';
+document.body.appendChild(bg);document.body.appendChild(sh);
+function close(){bg.classList.remove('on');sh.classList.remove('on');}
+function pick(c){save(c);close();load(c);}
+var h='<div class="sh-t">זמני שבת לפי עיר</div><button class="sh-c loc" data-loc="1">📍 לפי המיקום שלי</button>';
+C.forEach(function(g,gi){h+='<div class="sh-g">'+g[0]+'</div>';g[1].forEach(function(c,ci){h+='<button class="sh-c" data-g="'+gi+'" data-c="'+ci+'">'+c[0]+'</button>';});});
+sh.innerHTML=h;
+sh.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
+ if(b.getAttribute('data-loc')){if(!navigator.geolocation){close();return;}b.textContent='מאתר מיקום...';
+  navigator.geolocation.getCurrentPosition(function(pos){var tz='Asia/Jerusalem';try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||tz;}catch(e){}
+   pick(['המיקום שלך',pos.coords.latitude.toFixed(4),pos.coords.longitude.toFixed(4),tz,tz==='Asia/Jerusalem'?20:18]);b.textContent='📍 לפי המיקום שלי';},
+   function(){b.textContent='📍 לא הצלחנו לאתר מיקום. בחרו עיר';},{timeout:10000,maximumAge:3600000});return;}
+ pick(C[+b.getAttribute('data-g')][1][+b.getAttribute('data-c')]);});
+bg.addEventListener('click',close);
+el.addEventListener('click',function(){bg.classList.add('on');sh.classList.add('on');});
+load(get());
+}catch(e){}})();</script>
+
 
 <!-- VIDEOS -->
 <section class="videos" id="videos">
