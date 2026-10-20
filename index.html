@@ -1160,18 +1160,22 @@ load(get());
     <div class="sec-eyebrow" style="display:flex;justify-content:center">הצטרף עכשיו</div>
     <h2>לימוד אישי —<br><em>חינמי ובלי מחויבות.</em></h2>
     <p>אם משהו כאן דיבר אליך — השאר פרטים ומשה יחזור אליך לקבוע פגישת לימוד אישית, חינמית, ובלי שום מחויבות.</p>
-    <form class="form-card" action="https://formspree.io/f/xnjwdeyd" method="POST">
+    <form class="form-card" action="https://fac4fac.com/web_lead.php" method="POST">
       <div class="field"><label>שם מלא *</label><input type="text" name="name" placeholder="השם שלך" required></div>
       <div class="field"><label>טלפון *</label><input type="tel" name="phone" placeholder="050-0000000" required></div>
       <div class="field"><label>מייל</label><input type="email" name="email" placeholder="האימייל שלך"></div>
       <div class="field"><label>עיר מגורים</label><input type="text" name="city" placeholder="העיר שלך"></div>
-      <input type="hidden" name="_next" value="https://www.netivotny.org/thanks.html">
+      <input type="hidden" name="gclid" id="chavruta-gclid" value="">
+      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" aria-hidden="true">
      
       <button type="submit" class="submit-btn">קבעו לימוד אישי</button>
       <div class="privacy">הפרטים שלך נשמרים בצנעה ולא יועברו לאף גורם</div>
     </form>
   </div>
 </section>
+<script>
+(function(){try{var m=location.search.match(/[?&]gclid=([^&]+)/);var g=m?decodeURIComponent(m[1]):'';if(g){localStorage.setItem('gclid',g)}else{g=localStorage.getItem('gclid')||''}var f=document.getElementById('chavruta-gclid');if(f)f.value=g;}catch(e){}})();
+</script>
 
 <!-- FOOTER -->
 <footer>
