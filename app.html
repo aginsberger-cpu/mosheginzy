@@ -343,6 +343,44 @@ body:not(.light){
 body:not(.light) .top-bar{background:linear-gradient(180deg,rgba(8,20,31,.98),rgba(11,26,44,.96));}
 body:not(.light) .bottom-nav,body:not(.light) .chat-input-bar,body:not(.light) .page-header{background:rgba(8,20,31,.97);}
 body:not(.light) .msg-bubble.user{background:linear-gradient(135deg,rgba(200,162,74,.22),rgba(200,162,74,.14));border-color:rgba(200,162,74,.35);}
+
+.home-headline h1{font-family:'Cormorant Garamond','Times New Roman','Times',serif!important;}
+/* ══ NEW HOME (Oct 2026) ══ */
+.bq-row{justify-content:flex-start}
+
+body:not(.light) .cta-wa{background:linear-gradient(135deg,rgba(212,168,67,0.15),rgba(212,168,67,0.07));border:1.5px solid rgba(212,168,67,0.5);color:var(--gold3);box-shadow:0 4px 15px rgba(212,168,67,0.12);}
+.shabbat-strip{flex-shrink:0;box-shadow:0 0 18px rgba(232,192,64,.12);text-shadow:0 0 12px rgba(232,192,64,.35);display:none;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap;margin:.9rem 1.2rem 0;padding:7px 12px;border:1px solid rgba(232,196,104,.45);border-radius:999px;background:rgba(212,168,67,.08);color:#F0D894;font-size:.8rem;text-align:center}
+.shabbat-strip b{font-weight:700}.shabbat-strip .sep{opacity:.45}
+.bq-lbl{text-shadow:0 0 18px rgba(232,192,64,.45);display:flex;align-items:center;gap:10px;color:#E8C468;font-family:var(--font-display);font-size:1.05rem;margin:1rem 0 .2rem}
+.bq-lbl::before,.bq-lbl::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(232,196,104,0),rgba(232,196,104,.75),rgba(232,196,104,0))}
+.bq-row{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -1.2rem;padding:4px 1.2rem 6px;scroll-padding-inline:1.2rem;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.bq-row::-webkit-scrollbar{display:none}
+.bq-row::after{content:"";flex:0 0 1px}
+.bq-card{flex:0 0 140px;min-width:0;scroll-snap-align:start;display:flex;flex-direction:column;gap:6px;text-decoration:none}
+.bq-img{position:relative;height:200px;border-radius:14px;overflow:hidden;border:1.5px solid rgba(212,168,67,.55);box-shadow:0 4px 18px rgba(212,168,67,.15);background:#0F2236}
+.bq-img img{width:100%;height:100%;object-fit:cover;display:block}
+.bq-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,26,44,0) 55%,rgba(11,26,44,.7))}
+.bq-play{position:absolute;z-index:1;left:50%;top:50%;transform:translate(-50%,-50%);width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#F3D27A,#C99A3C);box-shadow:0 0 16px rgba(232,192,64,.5);display:flex;align-items:center;justify-content:center}
+.bq-t{font-size:.85rem;font-weight:700;color:#F0D894;text-shadow:0 0 10px rgba(232,192,64,.3);line-height:1.3}
+.bq-all{align-self:flex-end;color:#C9A24C;font-size:.85rem;text-decoration:none;margin-top:-2px}
+.mini-row{display:flex;gap:10px;margin-top:.4rem}
+@media(min-width:700px){#screen-home>*{width:100%;max-width:600px;margin-left:auto!important;margin-right:auto!important;box-sizing:border-box}
+#screen-home>.home-photo-wrap{width:calc(100% - 2.4rem);max-width:560px}
+#screen-home>.shabbat-strip{max-width:560px;width:calc(100% - 2.4rem)}
+.bq-row{justify-content:flex-start!important;margin:0 -1.2rem!important;padding:4px 1.2rem 6px!important}
+.top-bar{padding-left:max(16px,calc(50% - 300px))!important;padding-right:max(16px,calc(50% - 300px))!important}
+.bottom-nav{left:50%!important;right:auto!important;width:100%;max-width:600px;transform:translateX(-50%)}}
+.mini-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;font-size:.82rem;font-weight:700;color:#e8d48b;border:1px solid rgba(212,168,67,.4);border-radius:999px;padding:10px 6px;background:linear-gradient(135deg,rgba(212,168,67,0.1),rgba(212,168,67,0.03));box-shadow:0 3px 12px rgba(212,168,67,.08);font-family:var(--font);cursor:pointer}
+#dr-bg{position:fixed;inset:0;z-index:900;background:rgba(4,10,18,.55);opacity:0;pointer-events:none;transition:opacity .25s}
+#drawer{position:fixed;top:0;bottom:0;right:0;z-index:901;width:78%;max-width:320px;background:linear-gradient(180deg,rgba(18,40,66,.97),rgba(11,26,44,.98));backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-left:1px solid rgba(232,196,104,.45);box-shadow:-10px 0 40px rgba(0,0,0,.5);transform:translateX(105%);transition:transform .28s ease;padding:calc(env(safe-area-inset-top,0px) + 14px) 16px 20px;box-sizing:border-box;direction:rtl}
+body.dr-open #dr-bg{opacity:1;pointer-events:auto}body.dr-open #drawer{transform:none}
+.dr-hd{display:flex;align-items:center;justify-content:space-between;padding-bottom:12px;border-bottom:1px solid rgba(232,196,104,.3);margin-bottom:8px}
+.dr-t{font-family:var(--font-display);color:#E8C468;font-size:1.3rem;text-shadow:0 0 14px rgba(232,192,64,.4)}
+.dr-x{background:none;border:1px solid rgba(232,196,104,.45);color:#E8C468;width:34px;height:34px;border-radius:50%;font-size:14px;cursor:pointer}
+.dr-list{display:flex;flex-direction:column}
+.dr-it{display:flex;align-items:center;gap:12px;padding:14px 6px;border:none;border-bottom:1px solid rgba(232,196,104,.12);background:none;color:#F0D894;font-family:var(--font);font-size:1rem;font-weight:700;text-decoration:none;text-align:right;width:100%;cursor:pointer}
+.src-line{text-align:center;font-size:.85rem;color:var(--muted);margin-top:1rem;line-height:1.9}
+.src-line b{color:#E8C468;font-weight:700;margin-left:4px}.src-line a{color:#F0D894;text-decoration:none}.src-line .d{opacity:.45;margin:0 6px}
 </style>
 <!-- Google Analytics: מדידת שימוש באפליקציה, מופרד לפי פלטפורמה (ios / android / web) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-4RW51LT65M"></script>
@@ -382,10 +420,11 @@ fbq('track','PageView',{content_category:platform});
     <button class="lang-btn active" id="lang-he" onclick="setLang('he')">עב</button>
     <button class="lang-btn" id="lang-en" onclick="setLang('en')">EN</button>
   </div>
-<button class="theme-btn" id="history-btn" onclick="showHistory()" title="שיחה קודמת"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg><button class="theme-btn" id="share-btn" onclick="shareApp()" title="שתף"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button><button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="בהיר/כהה">🌙</button></div>
+<button class="theme-btn" id="menu-btn" onclick="openMenu()" title="תפריט" aria-label="תפריט"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><button class="theme-btn" id="history-btn" onclick="showHistory()" title="שיחה קודמת"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg><button class="theme-btn" id="share-btn" onclick="shareApp()" title="שתף"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button><button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="בהיר/כהה">🌙</button></div>
 
 <!-- HOME -->
 <div class="screen active" id="screen-home">
+  <div class="shabbat-strip" id="shabbat-strip"></div>
   <div class="home-photo-wrap">
     <img src="%D7%AA%D7%9E%D7%95%D7%A0%D7%94%20%D7%9E%D7%A6%D7%95%D7%99%D7%A0%D7%AA%20%D7%9E%D7%A9%D7%94%20%D7%92%D7%99%D7%A0%D7%96%D7%99.png" alt="משה גינזי"
       onerror="this.style.display='none'" />
@@ -403,20 +442,6 @@ fbq('track','PageView',{content_category:platform});
     </p>
   </div>
 
-  <div class="steps-row">
-    <div class="step-card">
-      <div class="step-num">1</div>
-      <div class="step-text" data-he="נרשמים בטופס קצר" data-en="Fill out a short form">נרשמים בטופס קצר</div>
-    </div>
-    <div class="step-card">
-      <div class="step-num">2</div>
-      <div class="step-text" data-he="מתאימים לך שותף אישי" data-en="We match you with a partner">מתאימים לך שותף אישי</div>
-    </div>
-    <div class="step-card">
-      <div class="step-num">3</div>
-      <div class="step-text" data-he="שיחה שבועית בזמן שנוח לך" data-en="Weekly call on your schedule">שיחה שבועית בזמן שנוח לך</div>
-    </div>
-  </div>
 
   <div class="home-actions">
     <button class="cta-main" onclick="goToChat()">
@@ -431,24 +456,15 @@ fbq('track','PageView',{content_category:platform});
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
       <span data-he="הצטרף לחברותא — לימוד אישי חינמי" data-en="Join Chavruta — Free Personal Study">הצטרף לחברותא — לימוד אישי חינמי</span>
      </button>
-    <div style="text-align:center;margin:18px 0 8px;font-size:11px;color:rgba(201,168,76,0.4);letter-spacing:2px">NEW ↓</div>
-    <button class="cta-chavruta" onclick="window.location.href='community.html?tab=question&lang='+currentLang" style="background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.2)">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1.8" stroke-linecap="round"><path d="M9 21h6M12 3a6 6 0 00-3 11.19V17h6v-2.81A6 6 0 0012 3z"/></svg>
-      <span data-he="שאלת היום" data-en="Question of the Day" style="color:#e8d48b">שאלת היום</span>
-    </button>
-    <button class="cta-chavruta" onclick="window.location.href='community.html?tab=quiz&lang='+currentLang" style="background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.2)">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1.8" stroke-linecap="round"><path d="M12 15l-2 5l9-11h-5l2-5l-9 11h5z"/></svg>
-      <span data-he="חידון שבועי" data-en="Weekly Quiz" style="color:#e8d48b">חידון שבועי</span>
-    </button>
-    <button class="cta-chavruta" onclick="window.location.href='community.html?tab=forum&lang='+currentLang" style="background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.2)">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1.8" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-      <span data-he="פורום הקהילה" data-en="Community Forum" style="color:#e8d48b">פורום הקהילה</span>
-    </button>
-    <button class="cta-chavruta" onclick="window.location.href='community.html?tab=leaderboard&lang='+currentLang" style="background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.2)">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1.8" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-      <span data-he="דירוג" data-en="Rankings" style="color:#e8d48b">דירוג</span>
-    </button>
+    <div class="bq-lbl" data-he="שאלות גדולות" data-en="Big Questions">שאלות גדולות</div>
+    <div class="bq-row"><a class="bq-card" href="shealot/lama-yesh-sevel.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/fkSkpRoEzpQ/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">למה יש סבל?</span></a><a class="bq-card" href="shealot/achrei-hamavet.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/JOEBBrYtEyA/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">אחרי המוות?</span></a><a class="bq-card" href="shealot/shtifat-moach.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/UKUuazWL7sU/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">שטיפת מוח?</span></a><a class="bq-card" href="shealot/mada-veemuna.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/HNc_6HBawX0/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">מדע ואמונה</span></a><a class="bq-card" href="shealot/lo-dati-yahadut.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/Z20H_iAlQSc/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">לא דתי?</span></a></div>
+    <a class="bq-all" href="shealot/">לכל השאלות ←</a>
+    <div class="mini-row">
+      <button class="mini-btn" onclick="window.location.href='community.html?tab=question&lang='+currentLang"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1.8" stroke-linecap="round"><path d="M9 21h6M12 3a6 6 0 00-3 11.19V17h6v-2.81A6 6 0 0012 3z"/></svg><span data-he="שאלת היום" data-en="Question of the Day">שאלת היום</span></button>
+      <button class="mini-btn" onclick="window.location.href='community.html?tab=quiz&lang='+currentLang"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1.8" stroke-linecap="round"><path d="M12 15l-2 5l9-11h-5l2-5l-9 11h5z"/></svg><span data-he="חידון שבועי" data-en="Weekly Quiz">חידון שבועי</span></button>
+    </div>
   </div>
+    <div class="src-line"><b>מהמקורות:</b><a href="brachot/">ברכות</a><span class="d">·</span><a href="tefilot/">סגולות ותפילות</a><span class="d">·</span><a href="brachot/ma-mevarchim.html">מה מברכים</a><span class="d">·</span><a href="tehilim/">תהילים</a></div>
 </div>
 <!-- CHAT -->
 <div class="screen" id="screen-chat">
@@ -1511,5 +1527,16 @@ function closeVideo(){
 // מקרב: תוספות לצ'אט שנטענות מהשרת (CHAT_ADDONS_V1) - כך שינויי תצוגה בצ'אט נעשים מהשרת בלי לגעת בגיטהאב
 (function(){try{var s=document.createElement('script');s.src='https://hirabbi.com/chat-addons.js?t='+Math.floor(Date.now()/300000);s.async=true;document.head.appendChild(s);}catch(e){}})();
 </script>
+<script>/* Shabbat strip: Jerusalem times from Hebcal */
+(function(){try{var el=document.getElementById('shabbat-strip');if(!el)return;
+fetch('https://www.hebcal.com/shabbat?cfg=json&geonameid=281184&M=on&lg=he').then(function(r){return r.json()}).then(function(d){
+var c=null,h=null,p=null;(d.items||[]).forEach(function(it){if(it.category==='candles'&&!c)c=it;if(it.category==='havdalah'&&!h)h=it;if(it.category==='parashat'&&!p)p=it;});
+function t(x){var m=(x.date||'').match(/T(\d\d:\d\d)/);return m?m[1]:'';}
+if(!c)return;var html='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D4AF5E" stroke-width="1.8" stroke-linecap="round"><path d="M12 3c1.3 1.5 1.6 2.6 0 4.2-1.6-1.6-1.3-2.7 0-4.2z"/><rect x="9.5" y="9" width="5" height="11" rx="1"/></svg><span>כניסת שבת <b>ירושלים '+t(c)+'</b></span>';
+if(h)html+='<span class="sep">·</span><span>יציאה <b>'+t(h)+'</b></span>';
+if(p&&p.hebrew)html+='<span class="sep">·</span><span>'+p.hebrew+'</span>';
+el.innerHTML=html;el.style.display='flex';}).catch(function(){});}catch(e){}})();</script>
+<div id="dr-bg" onclick="closeMenu()"></div><aside id="drawer" aria-label="תפריט"><div class="dr-hd"><span class="dr-t">תפריט</span><button class="dr-x" onclick="closeMenu()" aria-label="סגירה">✕</button></div><nav class="dr-list"><a class="dr-it" href="shealot/"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8C468" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7M12 17h.01"/></svg><span>שאלות גדולות</span></a><a class="dr-it" href="brachot/"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8C468" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 5.5 10.5 3l1.5 2 1.5-2 1 2.5"/><path d="M12 5.5c-4.4 0-8 3.4-8 7.6S7.6 21 12 21s8-3.7 8-7.9-3.6-7.6-8-7.6z"/></svg><span>ברכות</span></a><a class="dr-it" href="brachot/ma-mevarchim.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8C468" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h10M4 18h6"/></svg><span>מה מברכים על...?</span></a><a class="dr-it" href="tefilot/"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8C468" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.5C10 5 7 4.5 3 5v13c4-.5 7 0 9 1.5 2-1.5 5-2 9-1.5V5c-4-.5-7 0-9 1.5z"/><path d="M12 6.5V19"/></svg><span>סגולות ותפילות</span></a><a class="dr-it" href="tehilim/"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8C468" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h10v14a2 2 0 0 1-2 2H7"/><path d="M7 20a2 2 0 0 1-2-2V6h4"/><path d="M12 8h4M12 12h4M12 16h2"/></svg><span>תהילים</span></a><a class="dr-it" href="tehilim/tikun-haklali.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8C468" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h10v14a2 2 0 0 1-2 2H7"/><path d="M7 20a2 2 0 0 1-2-2V6h4"/><path d="M12 8h4M12 12h4M12 16h2"/></svg><span>תיקון הכללי</span></a><a class="dr-it" href="tehilim/mizmor-letoda.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8C468" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h10v14a2 2 0 0 1-2 2H7"/><path d="M7 20a2 2 0 0 1-2-2V6h4"/><path d="M12 8h4M12 12h4M12 16h2"/></svg><span>מזמור לתודה</span></a><button class="dr-it" onclick="closeMenu();goScreen('about');setNav('about')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8C468" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg><span>אודות</span></button></nav></aside>
+<script>function openMenu(){document.body.classList.add('dr-open')}function closeMenu(){document.body.classList.remove('dr-open')}</script>
 </body>
 </html>
