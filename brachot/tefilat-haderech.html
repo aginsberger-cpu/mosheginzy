@@ -45,15 +45,18 @@ p.pr{font-family:'Frank Ruhl Libre',serif;font-size:calc(1.3rem * var(--fs,1));l
 p.pr b{color:var(--gold)}
 p.instr{font-size:.95rem;color:var(--muted);margin:0 0 10px}
 p.pr small{font-family:Assistant,sans-serif;font-size:.8rem;color:var(--muted)}
+p.pr sup{font-family:Assistant,sans-serif;font-size:.6em;color:#C9A24C;margin:0 2px 0 4px}
 .toc{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0}
 .toc a{font-size:.9rem;padding:4px 12px;border:1px solid var(--line);border-radius:999px;text-decoration:none}
 .tabs{position:sticky;top:0;background:var(--navy);padding:10px 0;z-index:5;flex-wrap:wrap}
 .size{margin-inline-start:auto;display:flex;gap:6px}
+.homebtn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#E8C468;border:1px solid rgba(232,196,104,.5);border-radius:999px;padding:6px 14px;font-size:.9rem;font-weight:700}.crumb{display:inline-block;margin:6px 0 0;font-size:.9rem;color:var(--muted);text-decoration:none}.crumb:hover{color:#F0D894}
 .times{display:inline-block;font-family:Assistant,sans-serif;font-size:.8rem;font-weight:700;color:#1a1408;background:var(--gold);border-radius:999px;padding:1px 10px;vertical-align:middle;margin-inline-end:6px}
 .blk.small p.pr{font-size:calc(1.02rem * var(--fs,1));line-height:1.8}.blk.small .sec{font-size:1.05rem}
 .blk.big p.pr{font-size:calc(1.5rem * var(--fs,1));line-height:2.05}
 </style></head><body><div class="wrap" id="wrap">
-<div class="top"><a class="home" href="/"><span class="am-logo" dir="ltr" aria-label="AskMosh"><span class="am-ask">Ask</span><span class="am-mosh">M<span class="am-o">o</span>sh</span></span></a><a href="/brachot/" class="small">כל הברכות ←</a></div>
+<div class="top"><a class="home" href="/app.html"><span class="am-logo" dir="ltr" aria-label="AskMosh"><span class="am-ask">Ask</span><span class="am-mosh">M<span class="am-o">o</span>sh</span></span></a><a href="/app.html" class="homebtn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9h-6v-6H9v6H3z"/></svg>לדף הראשי</a></div>
+<a class="crumb" href="/brachot/">→ כל הברכות</a>
 <h1>תפילת הדרך</h1><p class="lead">תפילה לשמירה בדרך, לפני נסיעה או טיסה.</p>
 
 <div class="tabs" role="tablist"><button data-n="sf" class="on">ספרד</button><button data-n="em" class="">עדות המזרח</button><button data-n="as" class="">אשכנז</button><span class="size"><button id="am" aria-label="הגדלת אותיות">א+</button><button id="as" aria-label="הקטנת אותיות">א-</button></span></div>
@@ -116,7 +119,7 @@ p.pr small{font-family:Assistant,sans-serif;font-size:.8rem;color:var(--muted)}
 <p class="pr"><b>וְיְהִי</b> רָצוֹן מִלְפָנֶיךָ שֶׁתִּשְׁמְרֵנוּ מֵרוּחַ סוֹעָה וְסַעַר וּמִצַּעַר. וְתוֹצִיא רוּחַ טוֹב מֵאוֹצְרוֹתֶיךָ לְהַנְהִיג אֶת סְפִינַת הָאֲוִיר, וְחַזֵּק כָּל מַנְהִיגֶיהָ שֶׁיִּנְהֲגוּ אוֹתָהּ כָּרָאוּי וְהַגִּיעֵנוּ אֶל מְחוֹז חֶפְצֵנוּ לְחַיִּים וּלְשָׁלוֹם בְּלִי שׁוּם פַּחַד. שָׁמְרָה נַפְשִׁי וְהַצִּילֵנִי, אַל אֵבוֹשׁ כִּי חָסִיתִי בָּךְ, וַאֲנַחְנוּ נְבָרֵךְ יָהּ מֵעַתָּה וְעַד עוֹלָם הַלְלוּיָהּ:</p>
 </div></div>
 <a class="cta" href="/app.html">יש לכם שאלה? שאלו את משה ←</a>
-<p class="small" style="margin-top:24px">נוסח התפילה לקוח מהסידורים בספרייה הפתוחה "ספריא" (מהדורת תורת אמת ואחרות).</p>
+<p class="small" style="margin-top:24px">הנוסח מבוסס על סידורים מהספרייה הפתוחה "ספריא".</p>
 </div>
 <script>(function(){var bs=[].slice.call(document.querySelectorAll('.tabs button[data-n]'));bs.forEach(function(b){b.addEventListener('click',function(){bs.forEach(function(x){x.classList.toggle('on',x===b)});[].slice.call(document.querySelectorAll('.nusach')).forEach(function(n){n.classList.toggle('on',n.id==='n-'+b.getAttribute('data-n'))});try{localStorage.setItem('nusach',b.getAttribute('data-n'))}catch(e){}})});
 try{var s=localStorage.getItem('nusach');bs.forEach(function(b){if(b.getAttribute('data-n')===s)b.click()})}catch(e){}
