@@ -205,6 +205,28 @@ html,body{overflow-x:clip;max-width:100%}
 .pl-frame.tall{aspect-ratio:9/16;width:auto;height:min(68vh,calc((92vw)*16/9));max-height:none;margin-inline:auto}
 .pl-info>div:first-child{min-width:0;flex:1 1 220px}
 @media(max-width:600px){.pl-title{font-size:1.1rem}.pl-actions{width:100%}.pl-actions .btn{flex:1;justify-content:center}}
+
+/* ===== כרטיסי סרטונים ונגן בעיצוב "שאלות גדולות" (אוקטובר 2026) - CSS בלבד ===== */
+.grid{gap:1.6rem 1.1rem}
+.thumb{aspect-ratio:3/4!important;border-radius:14px!important;border:1.5px solid rgba(212,168,67,.55)!important;box-shadow:0 4px 18px rgba(212,168,67,.15)!important;background:#0F2236}
+.card:hover .thumb{border-color:#E8C468!important;box-shadow:0 6px 24px rgba(212,168,67,.3)!important}
+.thumb img,.thumb.wide img{object-fit:cover!important}
+.thumb .bgblur{display:none}
+.thumb::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,26,44,0) 55%,rgba(11,26,44,.7));pointer-events:none}
+.thumb .play{opacity:1!important;background:transparent!important;z-index:1}
+.thumb .play i{width:42px!important;height:42px!important;background:linear-gradient(135deg,#F3D27A,#C99A3C)!important;border:none!important;box-shadow:0 0 16px rgba(232,192,64,.5)}
+.thumb .play svg{fill:#1a1408!important;width:14px!important;height:14px!important}
+.thumb .badge{z-index:2}
+.meta{padding:.6rem .15rem 0}
+.cat{color:#C9A24C!important}
+.ttl{font-weight:700!important;color:#F0D894!important;text-shadow:0 0 10px rgba(232,192,64,.3)}
+.row .thumb{aspect-ratio:3/4!important}
+@media(max-width:600px){.thumb .play i{width:36px!important;height:36px!important}.thumb .play svg{width:12px!important;height:12px!important}}
+#player{background:radial-gradient(120% 60% at 50% 0%,rgba(22,48,79,.97) 0%,rgba(11,26,44,.97) 60%,rgba(8,20,36,.98) 100%)!important}
+.pl-frame{border-radius:18px!important;border:1.5px solid rgba(212,168,67,.55)!important;box-shadow:0 8px 30px rgba(0,0,0,.45),0 0 26px rgba(212,168,67,.18)!important;background:#06101C!important}
+.pl-close{background:rgba(11,26,44,.6)!important;color:#E8C468!important;border:1.5px solid rgba(232,196,104,.7)!important;box-shadow:0 0 14px rgba(232,192,64,.25)}
+.pl-title{color:#F0D894!important;font-weight:700;text-shadow:0 0 10px rgba(232,192,64,.3)}
+.pl-cat{color:#C9A24C!important}
 </style>
 <link rel="stylesheet" href="askmosh-brand.css">
 </head>
