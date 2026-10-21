@@ -417,7 +417,14 @@ function gtag(){dataLayer.push(arguments);}
 </style>
 <style id="lessons-bq-style">
 /* ספריית שיעורים בעיצוב "שאלות גדולות" (אוקטובר 2026) - CSS בלבד */
-.lessons-grid{gap:16px 12px;padding:14px}
+.lessons-grid{gap:16px 12px;padding:14px;grid-template-columns:repeat(2,minmax(0,1fr))!important;align-items:start;overflow-x:hidden}
+#screen-lessons{overflow-x:hidden;touch-action:pan-y}
+.lesson-card,.lesson-meta{min-width:0;max-width:100%}
+.lesson-thumb{width:100%}
+.lesson-thumb img{max-width:100%}
+@supports not (aspect-ratio:1/1){.lesson-thumb{height:0;padding-top:133.33%}.lesson-thumb img{position:absolute;inset:0}}
+.lesson-title{overflow-wrap:anywhere;word-break:break-word}
+.lesson-tag[style]{display:inline-block;padding:1px 8px;border-radius:999px;background:rgba(201,168,76,.18)!important}
 .lesson-card{background:transparent!important;border:none!important;border-radius:0!important;overflow:visible!important;display:flex;flex-direction:column;gap:7px}
 .lesson-thumb{aspect-ratio:3/4!important;border-radius:14px;overflow:hidden;border:1.5px solid rgba(212,168,67,.55);box-shadow:0 4px 18px rgba(212,168,67,.15);background:#0F2236!important}
 .lesson-thumb img{display:block;object-fit:cover!important}
