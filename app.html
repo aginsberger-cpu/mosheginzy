@@ -17,7 +17,7 @@
   --bg:#141210;--card:#1e1b17;--card2:#252118;
   --border:rgba(212,168,67,0.25);--border2:rgba(212,168,67,0.45);
   --txt:#f0e8d8;--muted:#9a8a72;
-  --font:'Heebo',sans-serif;--font-display:'Cormorant Garamond',serif;
+  --font:'Heebo',sans-serif;--font-display:'Cormorant Garamond','Heebo',sans-serif;
 --nav-h:64px;--top-bar:50px;--safe-top:env(safe-area-inset-top, 0px);
 }
 /* LIGHT MODE */
@@ -344,7 +344,8 @@ body:not(.light) .top-bar{background:linear-gradient(180deg,rgba(8,20,31,.98),rg
 body:not(.light) .bottom-nav,body:not(.light) .chat-input-bar,body:not(.light) .page-header{background:rgba(8,20,31,.97);}
 body:not(.light) .msg-bubble.user{background:linear-gradient(135deg,rgba(200,162,74,.22),rgba(200,162,74,.14));border-color:rgba(200,162,74,.35);}
 
-.home-headline h1{font-family:'Cormorant Garamond','Times New Roman','Times',serif!important;}
+.home-headline h1{font-family:'Cormorant Garamond','Heebo',sans-serif!important;font-weight:300;}
+html[lang="he"] .bq-lbl,html[lang="he"] .page-title,html[lang="he"] .chavruta-title,html[lang="he"] .about-name,html[lang="he"] .dr-t,html[lang="he"] .sh-t{font-weight:400}
 /* ══ NEW HOME (Oct 2026) ══ */
 .bq-row{justify-content:flex-start}
 
