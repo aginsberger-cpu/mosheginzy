@@ -1620,7 +1620,7 @@ sh.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)r
 bg.addEventListener('click',close);
 el.addEventListener('click',function(){bg.classList.add('on');sh.classList.add('on');});
 /* re-render Shabbat strip + city list + menu links when the language changes */
-function onLang(){buildSheet();render();try{var en=L()==='en',a=document.getElementById('dr-shealot');if(a)a.setAttribute('href',en?'shealot/en-all.html':'shealot/');var dr=document.getElementById('drawer');if(dr){dr.style.direction=en?'ltr':'rtl';dr.querySelectorAll('.dr-it').forEach(function(x){x.style.textAlign=en?'left':'right';});dr.setAttribute('aria-label',en?'Menu':'תפריט');}}catch(e){}}
+function onLang(){buildSheet();render();try{var en=L()==='en',a=document.getElementById('dr-shealot');if(a)a.setAttribute('href',en?'shealot/en-all.html':'shealot/');[].slice.call(document.querySelectorAll('#drawer a.dr-it[href^="brachot/"],#drawer a.dr-it[href^="tefilot/"],#drawer a.dr-it[href^="tehilim/"]')).forEach(function(x){var h=x.getAttribute('href').replace(/\?lang=(en|he)$/,'');x.setAttribute('href',h+'?lang='+(en?'en':'he'));});var dr=document.getElementById('drawer');if(dr){dr.style.direction=en?'ltr':'rtl';dr.querySelectorAll('.dr-it').forEach(function(x){x.style.textAlign=en?'left':'right';});dr.setAttribute('aria-label',en?'Menu':'תפריט');}}catch(e){}}
 if(typeof window.setLang==='function'){var _sl=window.setLang;window.setLang=function(l){var r=_sl.apply(this,arguments);try{onLang();}catch(e){}return r;};}
 onLang();
 load(get());
