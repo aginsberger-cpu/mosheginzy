@@ -1529,11 +1529,26 @@ function closeVideo(){
   // SWIPE BETWEEN SCREENS
 (function(){
   var screens = ['home','chat','lessons','chavruta','about'];
-  var startX = 0;
-  document.addEventListener('touchstart', function(e){ startX = e.touches[0].clientX; }, {passive:true});
+  var startX = 0, startY = 0, skip = false;
+  /* don't switch screens when the finger is on a sideways-scrolling row (Big Questions, lessons, etc.) */
+  function inHScroll(el){
+    for(; el && el !== document.body; el = el.parentElement){
+      if(el.scrollWidth > el.clientWidth + 2){
+        var ox = getComputedStyle(el).overflowX;
+        if(ox === 'auto' || ox === 'scroll') return true;
+      }
+    }
+    return false;
+  }
+  document.addEventListener('touchstart', function(e){
+    startX = e.touches[0].clientX; startY = e.touches[0].clientY;
+    skip = e.touches.length > 1 || inHScroll(e.target);
+  }, {passive:true});
   document.addEventListener('touchend', function(e){
+    if(skip) return;
     var diff = startX - e.changedTouches[0].clientX;
-    if(Math.abs(diff) < 60) return;
+    var dy = Math.abs(startY - e.changedTouches[0].clientY);
+    if(Math.abs(diff) < 60 || dy > Math.abs(diff)) return;
     var current = screens.indexOf(document.querySelector('.screen.active').id.replace('screen-',''));
     if(current === -1) return;
     if(diff > 0 && current < screens.length-1) goScreen(screens[current+1]);
