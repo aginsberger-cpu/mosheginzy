@@ -13,7 +13,9 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-4RW51LT65M');
+  gtag('config','G-QMVFWXLFP4'); // 26.10.2026: גם לנכס Analytics שהמערכת קוראת (משפך החברותא)
   gtag('config', 'AW-944658564');
+  gtag('config', 'AW-684611415');
 </script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -48,6 +50,10 @@ p strong{color:#ccc4b0;font-weight:400}
 <script>
   // המרה בגוגל אדס: "שליחת טופס חברותא" (חשבון המענק) - נספרת רק אחרי שליחת הטופס באתר
   gtag('event', 'conversion', { 'send_to': 'AW-944658564/kn7XCK3l9aMdEISxucID' });
+  // 26.10.2026: אותה הרשמה גם לחשבון הראשי (בתשלום) - קמפיין החברותא בתשלום. רק כשהשליחה הצליחה (s=ok)
+  if (!/[?&]s=err/.test(location.search)) {
+    gtag('event', 'conversion', { 'send_to': 'AW-684611415/THqjCLbGu6odENeuucYC', 'value': 1.0, 'currency': 'USD' });
+  }
   gtag('event', 'conversion', {
     'send_to': 'G-4RW51LT65M',
     'event_category': 'chavruta',

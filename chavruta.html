@@ -58,6 +58,7 @@
   gtag('config','AW-944658564');
   gtag('config','AW-684611415');
   gtag('config','G-4RW51LT65M');
+  gtag('config','G-QMVFWXLFP4'); // 26.10.2026: גם לנכס Analytics שהמערכת קוראת (משפך החברותא)
 </script>
 
 <script>
@@ -123,6 +124,11 @@ h2{font-size:1.5rem;margin:44px 0 16px;color:var(--gold2)}
 .mz-t{font-family:'Heebo',sans-serif;font-weight:300;font-size:1.4rem;line-height:2.05;text-align:center;margin:0;color:#F4F1EA}
 .mz-t sup{font-family:'Heebo',sans-serif;font-size:.55em;color:var(--gold);margin:0 2px 0 4px}
 @media(max-width:560px){.mz-t{font-size:1.25rem;line-height:2}}
+.lf{border:1px solid var(--border);border-radius:18px;padding:22px 20px;background:rgba(15,45,82,.35);max-width:520px;margin:0 auto}
+.lf label{display:block;font-weight:700;margin:10px 0 4px}
+.lf input[type=text],.lf input[type=tel]{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--border);background:#0b1a2c;color:var(--txt);font:inherit;font-size:1rem}
+.lf button{width:100%;margin-top:16px;padding:14px;border:0;border-radius:14px;font:inherit;font-weight:800;font-size:1.1rem;color:#0a1320;background:linear-gradient(135deg,#F3D27A,#D4AF37 55%,#B8892A);cursor:pointer}
+.lf .pv{color:var(--faint);font-size:.82rem;text-align:center;margin-top:8px}
 footer{text-align:center;color:var(--faint);font-size:.85rem;padding:40px 20px 30px;margin-top:40px;border-top:1px solid rgba(212,175,55,.15)}
 footer a{color:var(--gold2)}
 </style>
@@ -157,6 +163,22 @@ footer a{color:var(--gold2)}
     </div>
     <p class="free">חינם לגמרי · אייפון ואנדרואיד · עברית ואנגלית</p>
   </section>
+
+  <!-- טופס הרשמה ישיר (26.10.2026): שולח ל-CRM כמו הטופס בדף הבית, ומשם לדף התודה שסופר המרה בגוגל אדס -->
+  <h2 id="register">או השאירו שם וטלפון — ומשה יחזור אליכם</h2>
+  <form class="lf" action="https://fac4fac.com/web_lead.php" method="POST" onsubmit="try{gtag('event','chavruta_form_submit',{transport_type:'beacon'})}catch(e){}">
+    <label for="lf-name">שם מלא *</label>
+    <input id="lf-name" type="text" name="name" placeholder="השם שלך" required autocomplete="name">
+    <label for="lf-phone">טלפון *</label>
+    <input id="lf-phone" type="tel" name="phone" placeholder="050-0000000" required autocomplete="tel">
+    <input type="hidden" name="gclid" id="lf-gclid" value="">
+    <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" aria-hidden="true">
+    <button type="submit">קבעו חברותא</button>
+    <div class="pv">הפרטים נשמרים בצנעה ולא יועברו לאף גורם</div>
+  </form>
+  <script>
+  (function(){try{var m=location.search.match(/[?&]gclid=([^&]+)/);var g=m?decodeURIComponent(m[1]):'';if(g){localStorage.setItem('gclid',g)}else{g=localStorage.getItem('gclid')||''}var f=document.getElementById('lf-gclid');if(f)f.value=g;}catch(e){}})();
+  </script>
 
   <h2>מה עוד יש באפליקציה</h2>
   <div class="features">
