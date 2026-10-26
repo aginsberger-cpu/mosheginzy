@@ -1168,7 +1168,7 @@ load(get());
       <div class="field"><label>טלפון *</label><input type="tel" name="phone" placeholder="050-0000000" required></div>
       <div class="field"><label>מייל</label><input type="email" name="email" placeholder="האימייל שלך"></div>
       <div class="field"><label>עיר מגורים</label><input type="text" name="city" placeholder="העיר שלך"></div>
-      <input type="hidden" name="gclid" id="chavruta-gclid" value="">
+      <input type="hidden" name="gclid" id="chavruta-gclid" value=""><input type="hidden" name="utm_source" id="chv-utm_source" value=""><input type="hidden" name="utm_medium" id="chv-utm_medium" value=""><input type="hidden" name="utm_campaign" id="chv-utm_campaign" value=""><input type="hidden" name="page" id="chv-page" value="">
       <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" aria-hidden="true">
      
       <button type="submit" class="submit-btn">קבעו לימוד אישי</button>
@@ -1178,6 +1178,8 @@ load(get());
 </section>
 <script>
 (function(){try{var m=location.search.match(/[?&]gclid=([^&]+)/);var g=m?decodeURIComponent(m[1]):'';if(g){localStorage.setItem('gclid',g)}else{g=localStorage.getItem('gclid')||''}var f=document.getElementById('chavruta-gclid');if(f)f.value=g;}catch(e){}})();
+/* 26.10.2026: מקור הליד ל-CRM (utm מהמודעה, נשמר 30 יום) + הדף */
+(function(){try{var q=new URLSearchParams(location.search);var keys=['utm_source','utm_medium','utm_campaign'];var saved={};try{saved=JSON.parse(localStorage.getItem('utm')||'{}')}catch(e){}if(q.get('utm_source')){saved={t:Date.now()};keys.forEach(function(k){saved[k]=q.get(k)||''});localStorage.setItem('utm',JSON.stringify(saved))}if(saved.t&&Date.now()-saved.t>30*864e5)saved={};keys.forEach(function(k){var f=document.getElementById('chv-'+k);if(f)f.value=saved[k]||''});var pg=document.getElementById('chv-page');if(pg)pg.value=location.pathname.replace(/^\//,'').replace(/\.html$/,'')||'home';}catch(e){}})();
 </script>
 
 <!-- FOOTER -->

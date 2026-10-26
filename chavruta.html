@@ -171,13 +171,15 @@ footer a{color:var(--gold2)}
     <input id="lf-name" type="text" name="name" placeholder="השם שלך" required autocomplete="name">
     <label for="lf-phone">טלפון *</label>
     <input id="lf-phone" type="tel" name="phone" placeholder="050-0000000" required autocomplete="tel">
-    <input type="hidden" name="gclid" id="lf-gclid" value="">
+    <input type="hidden" name="gclid" id="lf-gclid" value=""><input type="hidden" name="utm_source" id="lf-utm_source" value=""><input type="hidden" name="utm_medium" id="lf-utm_medium" value=""><input type="hidden" name="utm_campaign" id="lf-utm_campaign" value=""><input type="hidden" name="page" id="lf-page" value="">
     <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" aria-hidden="true">
     <button type="submit">קבעו חברותא</button>
     <div class="pv">הפרטים נשמרים בצנעה ולא יועברו לאף גורם</div>
   </form>
   <script>
   (function(){try{var m=location.search.match(/[?&]gclid=([^&]+)/);var g=m?decodeURIComponent(m[1]):'';if(g){localStorage.setItem('gclid',g)}else{g=localStorage.getItem('gclid')||''}var f=document.getElementById('lf-gclid');if(f)f.value=g;}catch(e){}})();
+/* 26.10.2026: מקור הליד ל-CRM (utm מהמודעה, נשמר 30 יום) + הדף */
+(function(){try{var q=new URLSearchParams(location.search);var keys=['utm_source','utm_medium','utm_campaign'];var saved={};try{saved=JSON.parse(localStorage.getItem('utm')||'{}')}catch(e){}if(q.get('utm_source')){saved={t:Date.now()};keys.forEach(function(k){saved[k]=q.get(k)||''});localStorage.setItem('utm',JSON.stringify(saved))}if(saved.t&&Date.now()-saved.t>30*864e5)saved={};keys.forEach(function(k){var f=document.getElementById('lf-'+k);if(f)f.value=saved[k]||''});var pg=document.getElementById('lf-page');if(pg)pg.value=location.pathname.replace(/^\//,'').replace(/\.html$/,'')||'home';}catch(e){}})();
   </script>
 
   <h2>מה עוד יש באפליקציה</h2>
