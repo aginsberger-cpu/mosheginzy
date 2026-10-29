@@ -704,7 +704,6 @@ fetch(MEKAREV_API+'/api/config').then(function(r){return r.json();}).then(functi
   cachedVapidPublicKey=data.vapidPublicKey||'';
 }).catch(function(){});
 var isSending=false;
-  var EL_KEY='sk_0a386a44903ba282d03e112390d1e87774ce751bf08a4749';
 var EL_VOICE='jSyAO1W1N4S7u904a6Z3';
 var currentAudio=null;
 var audioCtx=null;
@@ -1340,7 +1339,7 @@ function subscribeMekarevPush(){
     })();
   });
 }
-function speakText(txt){if(isMuted())return;if(currentAudio){try{currentAudio.stop();}catch(e){}currentAudio=null;}var sentences=txt.match(/[^.!?؟]+[.!?؟]+/g)||[txt];var shortTxt=sentences[0].trim();if(!shortTxt||shortTxt.length<5)shortTxt=txt.substring(0,120);if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();fetch('https://api.elevenlabs.io/v1/text-to-speech/'+EL_VOICE,{method:'POST',headers:{'xi-api-key':EL_KEY,'Content-Type':'application/json'},body:JSON.stringify({text:shortTxt,model_id:'eleven_v3',voice_settings:{stability:.65,similarity_boost:.85}})}).then(function(r){if(!r.ok)throw new Error('EL status '+r.status);return r.arrayBuffer();}).then(function(buf){return audioCtx.decodeAudioData(buf);}).then(function(decoded){var src=audioCtx.createBufferSource();src.buffer=decoded;src.connect(audioCtx.destination);src.start(0);currentAudio=src;}).catch(function(e){console.warn('speakText error:',e);});}
+function speakText(txt){if(isMuted())return;if(currentAudio){try{currentAudio.stop();}catch(e){}currentAudio=null;}var sentences=txt.match(/[^.!?؟]+[.!?؟]+/g)||[txt];var shortTxt=sentences[0].trim();if(!shortTxt||shortTxt.length<5)shortTxt=txt.substring(0,120);if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();fetch(MEKAREV_API+'/api/speak',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:shortTxt,lang:currentLang==='en'?'en':'he'})}).then(function(r){if(!r.ok)throw new Error('speak status '+r.status);return r.arrayBuffer();}).then(function(buf){return audioCtx.decodeAudioData(buf);}).then(function(decoded){var src=audioCtx.createBufferSource();src.buffer=decoded;src.connect(audioCtx.destination);src.start(0);currentAudio=src;}).catch(function(e){console.warn('speakText error:',e);});}
 
 // MIC
 (function(){

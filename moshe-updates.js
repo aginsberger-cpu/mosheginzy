@@ -1,8 +1,6 @@
 // moshe-updates.js — שיפוצים לאתר משה גינזי
 (function () {
 
-  var EL_API_KEY = 'sk_0a386a44903ba282d03e112390d1e87774ce751bf08a4749';
-  var EL_VOICE_ID = 'jSyAO1W1N4S7u904a6Z3';
 
   // ─── CSS ───────────────────────────────────────────────────────────────────
   var style = document.createElement('style');
@@ -96,25 +94,7 @@
 
   // ─── ELEVENLABS TTS ────────────────────────────────────────────────────────
   var currentAudio=null;
-  function speakText(text){
-    return;
-    if(currentAudio){currentAudio.pause();currentAudio=null;}
-    fetch('https://api.elevenlabs.io/v1/text-to-speech/'+EL_VOICE_ID,{
-      method:'POST',
-      headers:{'xi-api-key':EL_API_KEY,'Content-Type':'application/json'},
-      body:JSON.stringify({
-        text:text,
-        model_id:'eleven_multilingual_v2',
-        voice_settings:{stability:.5,similarity_boost:.75}
-      })
-    })
-    .then(function(r){return r.blob();})
-    .then(function(blob){
-      var url=URL.createObjectURL(blob);
-      currentAudio=new Audio(url);
-      currentAudio.play();
-    }).catch(function(){});
-  }
+  function speakText(text){ return; }
 
   // ─── DOM READY ─────────────────────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', function(){

@@ -422,21 +422,16 @@ function mgSend() {
 // ELEVENLABS TTS (Text-to-Speech)
 // =============================================
 (function() {
-  var EL_API_KEY = 'sk_0a386a44903ba282d03e112390d1e87774ce751bf08a4749';
-  var EL_VOICE_ID = 'jSyAO1W1N4S7u904a6Z3';
   var currentAudio = null;
 
   function speakText(text) {
     if (!text || text.length < 5) return;
     if (currentAudio) { currentAudio.pause(); currentAudio = null; }
-    fetch('https://api.elevenlabs.io/v1/text-to-speech/' + EL_VOICE_ID, {
+    var lang = (typeof currentLang !== 'undefined' && currentLang === 'en') ? 'en' : 'he';
+    fetch(MEKAREV_API + '/api/speak', {
       method: 'POST',
-      headers: { 'xi-api-key': EL_API_KEY, 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        text: text.substring(0, 500),
-        model_id: 'eleven_multilingual_v2',
-        voice_settings: { stability: 0.5, similarity_boost: 0.75 }
-      })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: text.substring(0, 500), lang: lang })
     })
     .then(function(r) { if (!r.ok) throw new Error('TTS error'); return r.blob(); })
     .then(function(blob) {
