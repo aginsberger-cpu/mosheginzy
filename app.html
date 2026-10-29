@@ -692,6 +692,17 @@ updateMuteBtn();
 
 
 <script>
+// גשר התראות לאפליקציה (אנדרואיד / אייפון)
+window.mgHasNativePush=function(){try{return !!((window.Android&&typeof window.Android.requestPushPermission==='function')||(window.webkit&&window.webkit.messageHandlers&&window.webkit.messageHandlers.iosPush));}catch(e){return false;}};
+window.mgOnPushResult=function(granted,token,platform){
+  if(window._mgPushResolve){window._mgPushResolve(!!granted&&!!token);window._mgPushResolve=null;}
+  if(granted&&token){try{fetch(MEKAREV_API+'/api/push/native-register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getMekarevUserId(),token:token,platform:platform||''})}).catch(function(){});}catch(e){}}
+};
+window.mgRequestNativePush=function(){return new Promise(function(res){
+  window._mgPushResolve=res;
+  setTimeout(function(){if(window._mgPushResolve){window._mgPushResolve(false);window._mgPushResolve=null;}},60000);
+  try{if(window.Android&&window.Android.requestPushPermission)window.Android.requestPushPermission();else window.webkit.messageHandlers.iosPush.postMessage('request');}catch(e){res(false);}
+});};
 function openSite(url, title) {
   var iframe = document.getElementById('vpop-iframe');
   var vid = document.getElementById('vpop-video');
@@ -1308,8 +1319,11 @@ var PUSH_OFFER_TEXTS={
   offer:{he:'רוצה שנעדכן אותך בהתראה כדי שלא נשכח מזה יחד?',en:'Want us to send you a gentle reminder about this?'}
 };
 function addPushOfferPrompt(reason){
-  if(!('serviceWorker' in navigator)||!('PushManager' in window))return;
-  if(typeof Notification!=='undefined'&&Notification.permission==='denied')return;
+  var nativePush=window.mgHasNativePush&&window.mgHasNativePush();
+  if(!nativePush){
+    if(!('serviceWorker' in navigator)||!('PushManager' in window))return;
+    if(typeof Notification!=='undefined'&&Notification.permission==='denied')return;
+  }
   var w=document.getElementById('chat-msgs');
   var div=document.createElement('div');div.className='referral-suggestion';
   var texts=PUSH_OFFER_TEXTS[reason]||PUSH_OFFER_TEXTS.question;
@@ -1324,7 +1338,7 @@ function addPushOfferPrompt(reason){
   yesBtn.onclick=function(){
     yesBtn.disabled=true;noBtn.disabled=true;
     yesBtn.textContent=currentLang==='en'?'One moment…':'רגע…';
-    subscribeMekarevPush().then(function(ok){
+    (nativePush?window.mgRequestNativePush():subscribeMekarevPush()).then(function(ok){
       if(ok){
         p.textContent=currentLang==='en'?"Great - we'll update you when there's something important 🙂":'מעולה - נעדכן אותך כשיש משהו חשוב 🙂';
       }else{
