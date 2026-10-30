@@ -48,7 +48,7 @@ h2{font-family:'Frank Ruhl Libre',serif;color:var(--gold);font-size:1.45rem;marg
 </head>
 <body>
 <div class="wrap">
-<div class="top"><a class="home" href="/app.html"><span class="am-logo" dir="ltr" aria-label="AskMosh"><span class="am-ask">Ask</span><span class="am-mosh">M<span class="am-o">o</span>sh</span></span></a><a href="/app.html" class="homebtn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9h-6v-6H9v6H3z"/></svg>לדף הראשי</a></div>
+<div class="top"><a class="home" href="/"><span class="am-logo" dir="ltr" aria-label="AskMosh"><span class="am-ask">Ask</span><span class="am-mosh">M<span class="am-o">o</span>sh</span></span></a><a href="/" class="homebtn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9h-6v-6H9v6H3z"/></svg>לדף הראשי</a></div>
 <a data-en="← All blessings" class="crumb" href="/brachot/">→ כל הברכות</a>
 
 <h1 data-en="Which blessing on...?">מה מברכים על...?</h1>
@@ -245,5 +245,5 @@ h2{font-family:'Frank Ruhl Libre',serif;color:var(--gold);font-size:1.45rem;marg
   })});
 })();
 </script>
-</body>
+<script>/* כפתור "לדף הראשי": באתר מוביל לעמוד הבית, ובתוך האפליקציה חוזר לאפליקציה */(function(){try{var w=window,inApp=(w.webkit&&w.webkit.messageHandlers&&(w.webkit.messageHandlers.iosMic||w.webkit.messageHandlers.iosPush))||w.Android||/\/app(-new|-old)?\.html/.test(document.referrer);try{if(inApp)sessionStorage.setItem("mg-in-app","1");else inApp=sessionStorage.getItem("mg-in-app")==="1";}catch(e){}if(inApp){[].slice.call(document.querySelectorAll("a.home,a.homebtn")).forEach(function(a){a.href="/app.html";});}}catch(e){}})();</script></body>
 </html>
