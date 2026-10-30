@@ -975,7 +975,7 @@ inp.value='';inp.style.height='40px';isSending=true;addMsg(txt,'user');showTypin
 // יצחק ביקש שזה יתחיל להיכתב מייד). שאר הזרימה (הודעת "מקליד...",
 // שמירת היסטוריה מקומית, סנכרון ל-Google Sheets, הקראה בקול) נשארה
 // בדיוק אותו דבר, רק בסוף ההזרמה במקום מיד.
-var fullText='';var bubbleEl=null;var finalNoAnswer=false;var finalIsHalacha=false;var finalVideos=[];var finalShowRatingPrompt=false;var finalOfferPush=null;var finalSoftware=null;var prayerData=null;var isPrayer=false;
+var fullText='';var bubbleEl=null;var finalNoAnswer=false;var finalIsHalacha=false;var finalVideos=[];var finalShowRatingPrompt=false;var finalOfferPush=null;var finalSoftware=null;var prayerData=null;var isPrayer=false;var spokeEarly=false;
 fetch(MEKAREV_API+'/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getMekarevUserId(),message:txt,lang:currentLang==='en'?'en':'he'})}).then(function(res){
   if(!res.ok||!res.body)throw new Error('http '+res.status);
   var reader=res.body.getReader();var decoder=new TextDecoder('utf-8');var buffer='';
@@ -997,6 +997,8 @@ fetch(MEKAREV_API+'/api/chat',{method:'POST',headers:{'Content-Type':'applicatio
           if(prayerData)continue;
           if(!bubbleEl){rmTyping();bubbleEl=addMsg('','bot');}
           bubbleEl.textContent=fullText;
+          // הקראה מוקדמת: ברגע שהמשפט הראשון שלם (ואחריו כבר מגיע טקסט), שולחים אותו לקול בלי לחכות לסוף התשובה
+          if(!spokeEarly&&!isPrayer){var fm=fullText.match(/^\s*([^.!?؟]+[.!?؟]+)\s/);if(fm&&fm[1].trim().length>=5){spokeEarly=true;speakText(fm[1]);}}
           var w=document.getElementById('chat-msgs');w.scrollTop=w.scrollHeight;
         }else if(payload.type==='done'){
           finalNoAnswer=Boolean(payload.noAnswer);
@@ -1032,6 +1034,7 @@ fetch(MEKAREV_API+'/api/chat',{method:'POST',headers:{'Content-Type':'applicatio
   isSending=false;
   if(isPrayer&&(prayerData||fullText)){
     // תהילים/תפילה: בלי הקראה קולית (ElevenLabs), ובהיסטוריה נשמרת רק הכותרת
+    if(spokeEarly&&currentAudio){try{currentAudio.stop();}catch(e){}currentAudio=null;}
     var pt=(prayerData&&prayerData.title)||fullText.split('\n')[0].substring(0,80);
     try{var ph=localStorage.getItem('mg-history-'+userName)||'';localStorage.setItem('mg-history-'+userName,ph+(ph?'\n':'')+pt);}catch(e){}
     fetch(SHEET_URL+'?action=saveHistory&name='+encodeURIComponent(userName)+'&history='+encodeURIComponent('['+pt+']')+'&t='+Date.now()).catch(function(){});
@@ -1049,7 +1052,7 @@ fetch(MEKAREV_API+'/api/chat',{method:'POST',headers:{'Content-Type':'applicatio
 })
 .catch(function(e){
   console.log('SHEET ERROR:',e);
-}); window._shcb=function(){};speakText(fullText);
+}); window._shcb=function(){};if(!spokeEarly)speakText(fullText);
     // מקרב: בדיוק כמו באתר/אפליקציית מקרב עצמה - אם המנוע סימן שהתשובה
     // לא כיסתה את השאלה במדויק (noAnswer), מציעים בנוסף פנייה ישירה
     // למשה בוואטסאפ, או להשאיר את השאלה לבירור עם התראה בהמשך.
