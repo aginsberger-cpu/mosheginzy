@@ -751,6 +751,17 @@ footer{background:var(--ink3)!important;border-top:1px solid var(--line)!importa
 .fn{color:var(--gld-hi)!important;text-shadow:none!important}
 .footer-links a{color:var(--soft)!important;letter-spacing:0!important;text-transform:none!important}
 .footer-links a:hover{color:var(--text)!important}
+
+/* נגן בתוך הדף לסרטונים בעמוד הבית (מומלצים + חדש בספרייה) */
+.mgv-ov{position:fixed;inset:0;z-index:9999;background:rgba(5,10,18,.94);display:none;flex-direction:column;align-items:center;justify-content:center;padding:16px}
+.mgv-ov.open{display:flex}
+.mgv-box{position:relative;width:min(92vw,calc(78vh*9/16));aspect-ratio:9/16;background:#000;border-radius:14px;overflow:hidden;border:1px solid rgba(200,162,74,.45)}
+.mgv-box.wide{width:min(94vw,960px);aspect-ratio:16/9}
+.mgv-box iframe,.mgv-box video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
+.mgv-title{margin-top:12px;max-width:min(92vw,960px);text-align:center;color:#EDE6D6;font-family:'Assistant','Segoe UI',Arial,sans-serif;font-size:1.05rem;font-weight:600;line-height:1.4}
+.mgv-x{position:absolute;top:14px;inset-inline-end:14px;width:44px;height:44px;border-radius:50%;border:1px solid rgba(200,162,74,.6);background:rgba(11,26,44,.85);color:#D9B762;font-size:1.4rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.mg-yt .vcard2-thumb img{background:#05090f}
+@media(max-width:560px){#mg-new-grid .vcard2:nth-child(n+5){display:none}}
 </style>
   <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#1a3a6b">
@@ -946,7 +957,7 @@ load(get());
   <!-- סרטונים חדשים מהדשבורד — מתעדכן אוטומטית -->
   <div id="mg-new" style="display:none">
     <div class="mg-new-h"><span data-he="חדש בספרייה" data-en="New in the library">חדש בספרייה</span><a href="videos.html" data-he="לכל הסרטונים" data-en="All videos">לכל הסרטונים</a></div>
-    <div class="mg-new-grid" id="mg-new-grid"></div>
+    <div class="vcards-grid" id="mg-new-grid"></div>
   </div>
 
   <div class="mg-new-h mgx-rec-h"><span data-he="מומלצים" data-en="Featured">מומלצים</span></div>
@@ -1285,7 +1296,8 @@ const analytics = firebase.analytics();
     if(!list.length){box.style.display='none';return;}
     grid.innerHTML=list.map(function(v,i){
       var id=String(v.youtubeId).trim(),m=String(v.tag||'').match(/(?:מרצה|speaker)\s*:\s*([^·,|]+)/i);
-      return '<a class="mg-new-card" href="videos.html?v='+encodeURIComponent('yt:'+id)+'"><div class="mg-new-thumb"><img loading="lazy" src="https://i.ytimg.com/vi/'+encodeURIComponent(id)+'/hqdefault.jpg" alt="'+esc(clean(v.title))+'" onerror="this.style.opacity=0"><i><b>&#9654;</b></i>'+(i<3?'<span class="mg-new-badge">'+(lang==='en'?'New':'חדש')+'</span>':'')+'</div><div class="mg-new-title">'+esc(clean(v.title))+'</div>'+(m?'<div class="mg-new-spk">🎙️ '+esc(m[1].trim())+'</div>':'')+'</a>';
+      var tag=String(v.tag||'').replace(m?m[0]:'','').replace(/^[\s·,|]+|[\s·,|]+$/g,'');
+      return '<div class="vcard2 mg-yt" data-yt="'+esc(id)+'"><div class="vcard2-thumb"><img loading="lazy" src="https://i.ytimg.com/vi/'+encodeURIComponent(id)+'/oar2.jpg" alt="'+esc(clean(v.title))+'" onload="mgThumbLoad(this)" onerror="mgThumbErr(this)"><div class="vcard2-play">▶</div>'+(i<3?'<span class="mg-new-badge">'+(lang==='en'?'New':'חדש')+'</span>':'')+'</div><div class="vcard2-meta">'+((m||tag)?'<div class="vcard2-tag">'+esc(m?m[1].trim():tag)+'</div>':'')+'<div class="vcard2-title">'+esc(clean(v.title))+'</div></div></div>';
     }).join('');
     box.style.display='';
   }
@@ -1296,6 +1308,33 @@ const analytics = firebase.analytics();
   }).catch(function(){});
   ['btn-lang-he','btn-lang-en'].forEach(function(id){var b=document.getElementById(id);if(b)b.addEventListener('click',function(){setTimeout(render,50);});});
 })();
+</script>
+<div class="mgv-ov" id="mgv" onclick="if(event.target===this)mgCloseVideo()"><button class="mgv-x" type="button" aria-label="סגירה" onclick="mgCloseVideo()">✕</button><div class="mgv-box" id="mgv-box"></div><div class="mgv-title" id="mgv-title"></div></div>
+<script>
+/* נגן בתוך הדף: מומלצים (קובץ מקומי) וחדש בספרייה (יוטיוב). סרטון לאורך מוצג לאורך, ולרוחב מוצג לרוחב */
+function mgThumbLoad(img){
+  if(img.naturalWidth<=120&&img.src.indexOf('/oar2.jpg')>-1){img.src=img.src.replace('/oar2.jpg','/hqdefault.jpg');return;}
+  var c=img.closest('.mg-yt');if(c&&img.src.indexOf('/oar2.jpg')>-1)c.setAttribute('data-wide',img.naturalWidth>img.naturalHeight?'1':'0');
+}
+function mgThumbErr(img){if(img.src.indexOf('/oar2.jpg')>-1)img.src=img.src.replace('/oar2.jpg','/hqdefault.jpg');else img.style.opacity=0;}
+function mgOpenVideo(html,title,wide){
+  var ov=document.getElementById('mgv'),box=document.getElementById('mgv-box');
+  box.className='mgv-box'+(wide?' wide':'');box.innerHTML=html;
+  document.getElementById('mgv-title').textContent=title||'';
+  ov.classList.add('open');document.body.style.overflow='hidden';
+  try{gtag('event','video_open',{video_title:title||'',location:'home'});}catch(e){}
+}
+function mgCloseVideo(){var ov=document.getElementById('mgv');ov.classList.remove('open');document.getElementById('mgv-box').innerHTML='';document.body.style.overflow='';}
+function openVideoLocal(el,src){
+  var t=el&&el.querySelector('.vcard2-title');
+  mgOpenVideo('<video src="'+src+'" controls autoplay playsinline controlslist="nodownload"></video>',t?t.textContent:'',false);
+}
+document.addEventListener('click',function(e){
+  var c=e.target.closest('.mg-yt');if(!c)return;
+  var id=c.getAttribute('data-yt'),t=c.querySelector('.vcard2-title');
+  mgOpenVideo('<iframe src="https://www.youtube-nocookie.com/embed/'+encodeURIComponent(id)+'?autoplay=1&rel=0&modestbranding=1&playsinline=1" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>',t?t.textContent:'',c.getAttribute('data-wide')==='1');
+});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')mgCloseVideo();});
 </script>
 </body>
 </html>
