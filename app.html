@@ -63,7 +63,7 @@ body.light .top-bar{background:linear-gradient(135deg,rgba(250,246,235,0.99),rgb
 .screen.active{display:flex;z-index:2;}
 
 /* ══ HOME ══ */
-#screen-home{background:var(--bg);}
+#screen-home{background:var(--bg);padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom,0px) + 16px);}
 
 .home-photo-wrap{
   margin:1.2rem 1.2rem .8rem;
@@ -386,7 +386,7 @@ body.dr-open #dr-bg{opacity:1;pointer-events:auto}body.dr-open #drawer{transform
 .dr-ver{margin-top:auto;padding:18px 6px calc(env(safe-area-inset-bottom,0px) + 4px);font-size:.78rem;color:rgba(240,216,148,.45);text-align:center;letter-spacing:.3px;direction:rtl}
 #drawer{display:flex;flex-direction:column;overflow-y:auto}
 .dr-it{display:flex;align-items:center;gap:12px;padding:14px 6px;border:none;border-bottom:1px solid rgba(232,196,104,.12);background:none;color:#F0D894;font-family:var(--font);font-size:1rem;font-weight:700;text-decoration:none;text-align:right;width:100%;cursor:pointer}
-.src-line{text-align:center;font-size:.85rem;color:var(--muted);margin-top:1rem;line-height:1.9}
+.src-line{text-align:center;font-size:.85rem;color:var(--muted);margin-top:1rem;margin-bottom:28px;line-height:1.9}
 .src-line b{color:#E8C468;font-weight:700;margin-inline-end:4px}.src-line a{color:#F0D894;text-decoration:none}.src-line .d{opacity:.45;margin:0 6px}
 </style>
 <!-- Google Analytics: מדידת שימוש באפליקציה, מופרד לפי פלטפורמה (ios / android / web) -->
