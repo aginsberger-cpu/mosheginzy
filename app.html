@@ -386,8 +386,17 @@ body.dr-open #dr-bg{opacity:1;pointer-events:auto}body.dr-open #drawer{transform
 .dr-ver{margin-top:auto;padding:18px 6px calc(env(safe-area-inset-bottom,0px) + 4px);font-size:.78rem;color:rgba(240,216,148,.45);text-align:center;letter-spacing:.3px;direction:rtl}
 #drawer{display:flex;flex-direction:column;overflow-y:auto}
 .dr-it{display:flex;align-items:center;gap:12px;padding:14px 6px;border:none;border-bottom:1px solid rgba(232,196,104,.12);background:none;color:#F0D894;font-family:var(--font);font-size:1rem;font-weight:700;text-decoration:none;text-align:right;width:100%;cursor:pointer}
-.src-line{text-align:center;font-size:.85rem;color:var(--muted);margin-top:1rem;margin-bottom:28px;line-height:1.9}
-.src-line b{color:#E8C468;font-weight:700;margin-inline-end:4px}.src-line a{color:#F0D894;text-decoration:none}.src-line .d{opacity:.45;margin:0 6px}
+.src-wrap{padding:0 1.2rem;margin-bottom:28px}
+.src-lbl{margin:1.4rem 0 .7rem}
+.src-line{display:flex;gap:10px;overflow-x:auto;margin:0 -1.2rem;padding:4px 1.2rem 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.src-line::-webkit-scrollbar{display:none}
+.src-chip{flex:none;display:flex;align-items:center;gap:8px;padding:8px 16px 8px 8px;border-radius:999px;text-decoration:none;border:1px solid transparent;background-image:linear-gradient(rgba(14,32,52,.96),rgba(14,32,52,.96)),linear-gradient(120deg,#F5DC8C,#B8862E 45%,#F0D894);background-origin:border-box;background-clip:padding-box,border-box;box-shadow:0 4px 16px rgba(232,196,104,.12);transition:transform .15s}
+html[dir="rtl"] .src-chip{padding:8px 8px 8px 16px}
+.src-chip:active{transform:scale(.96)}
+.src-chip b{font-family:var(--font);font-size:.9rem;font-weight:500;color:#F5E6B8;white-space:nowrap}
+.src-dot{width:30px;height:30px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#F0D894,#B8862E)}
+body.light .src-chip{background-image:linear-gradient(#fffaf0,#fffaf0),linear-gradient(120deg,#E8C468,#B8862E 45%,#E8C468)}
+body.light .src-chip b{color:#5a4410}
 </style>
 <!-- Google Analytics: מדידת שימוש באפליקציה, מופרד לפי פלטפורמה (ios / android / web) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-4RW51LT65M"></script>
@@ -505,7 +514,10 @@ fbq('track','PageView',{content_category:platform});
       <button class="mini-btn" onclick="window.location.href='community.html?tab=quiz&lang='+currentLang"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1.8" stroke-linecap="round"><path d="M12 15l-2 5l9-11h-5l2-5l-9 11h5z"/></svg><span data-he="חידון שבועי" data-en="Weekly Quiz">חידון שבועי</span></button>
     </div>
   </div>
-    <div class="src-line"><b data-he="מהמקורות:" data-en="From the sources:">מהמקורות:</b><a href="brachot/" data-he="ברכות" data-en="Blessings">ברכות</a><span class="d">·</span><a href="tefilot/" data-he="סגולות ותפילות" data-en="Prayers &amp; Segulot">סגולות ותפילות</a><span class="d">·</span><a href="brachot/ma-mevarchim.html" data-he="מה מברכים" data-en="Which blessing?">מה מברכים</a><span class="d">·</span><a href="tehilim/" data-he="תהילים" data-en="Tehillim">תהילים</a></div>
+    <div class="src-wrap">
+    <div class="bq-lbl src-lbl" data-he="מהמקורות" data-en="From the Sources">מהמקורות</div>
+    <div class="src-line"><a class="src-chip" href="brachot/"><span class="src-dot"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#14223a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-1.5 2.5-4 4-4 7a4 4 0 0 0 8 0c0-3-2.5-4.5-4-7z"/><path d="M12 14v7M9 21h6"/></svg></span><b data-he="ברכות" data-en="Blessings">ברכות</b></a><a class="src-chip" href="tefilot/"><span class="src-dot"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#14223a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.2 6.6H21l-5.5 4 2.1 6.6L12 15.2 6.4 19.2l2.1-6.6L3 8.6h6.8z"/></svg></span><b data-he="סגולות ותפילות" data-en="Prayers &amp; Segulot">סגולות ותפילות</b></a><a class="src-chip" href="brachot/ma-mevarchim.html"><span class="src-dot"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#14223a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7c-4-2-8 1-7 6s4 8 7 7c3 1 6-2 7-7s-3-8-7-6z"/><path d="M12 7c0-2 1-4 3-4"/></svg></span><b data-he="מה מברכים" data-en="Which blessing?">מה מברכים</b></a><a class="src-chip" href="tehilim/"><span class="src-dot"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#14223a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h11a3 3 0 0 1 3 3v11H7a3 3 0 0 1-3-3z"/><path d="M18 8h1a1 1 0 0 1 1 1v10M8 9h6M8 13h6"/></svg></span><b data-he="תהילים" data-en="Tehillim">תהילים</b></a></div>
+    </div>
 </div>
 <!-- CHAT -->
 <div class="screen" id="screen-chat">
