@@ -1,0 +1,23 @@
+{
+ "name": "AskMosh – שאלו את משה גינזי",
+ "short_name": "AskMosh",
+ "lang": "he",
+ "dir": "rtl",
+ "start_url": "/app.html",
+ "scope": "/",
+ "display": "standalone",
+ "background_color": "#0B1A2C",
+ "theme_color": "#1a3a6b",
+ "icons": [
+  {
+   "src": "/askmosh-icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "/askmosh-icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  }
+ ]
+}
