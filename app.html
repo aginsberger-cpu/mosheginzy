@@ -751,6 +751,8 @@ window.mgRequestNativePush=function(){return new Promise(function(res){
   try{if(window.Android&&window.Android.requestPushPermission)window.Android.requestPushPermission();else window.webkit.messageHandlers.iosPush.postMessage('request');}catch(e){res(false);}
 });};
 function openSite(url, title) {
+  /* במחשב (לא בתוך אפליקציית הטלפון) אתר שלם נפתח בלשונית חדשה, כי בחלון הקטן הוא נדחס ונראה מבולגן */
+  try{var w=window,native=w.Android||(w.webkit&&w.webkit.messageHandlers&&(w.webkit.messageHandlers.iosMic||w.webkit.messageHandlers.iosPush));if(!native&&(w.innerWidth||0)>=700){var nw=w.open(url,'_blank','noopener');return;}}catch(e){}
   var iframe = document.getElementById('vpop-iframe');
   var vid = document.getElementById('vpop-video');
   if(vid){ vid.pause(); vid.src=''; vid.style.display='none'; }
