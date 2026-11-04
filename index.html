@@ -762,6 +762,27 @@ footer{background:var(--ink3)!important;border-top:1px solid var(--line)!importa
 .mgv-x{position:absolute;top:14px;inset-inline-end:14px;width:44px;height:44px;border-radius:50%;border:1px solid rgba(200,162,74,.6);background:rgba(11,26,44,.85);color:#D9B762;font-size:1.4rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .mg-yt .vcard2-thumb img{background:#05090f}
 @media(max-width:560px){#mg-new-grid .vcard2:nth-child(n+5){display:none}}
+
+@media(min-width:981px) and (max-width:1260px){
+ .mg-menu{margin-inline:.6rem!important}
+ .mg-menu a,.mg-sub-btn{padding:.45rem .42rem!important;font-size:.88rem!important}
+ .mg-menu a.mg-hot{padding:.45rem .7rem!important}
+ .nav-sub{display:none}
+ #nav-lang .lang-btn-fancy{padding:.3rem .55rem}
+}
+/* תפריט האתר: "ברכות ותפילות" עם תת-רשימה, כמו בתפריט של האפליקציה */
+.mg-sub{position:relative}
+.mg-sub-btn{display:block;padding:.5rem .75rem;background:none;border:0;font-family:var(--sans,inherit);font-size:.98rem;color:var(--soft,#e6e6e6);cursor:pointer;white-space:nowrap}
+.mg-sub-btn:hover{color:var(--text,#fff)}
+.mg-sub-list{display:none;position:absolute;top:100%;inset-inline-start:0;min-width:210px;list-style:none;margin:6px 0 0;padding:6px;background:var(--ink,#0a1320);border:1px solid var(--line,rgba(212,175,55,.3));border-radius:10px;box-shadow:0 12px 30px rgba(0,0,0,.45);z-index:50}
+.mg-sub:hover .mg-sub-list,.mg-sub:focus-within .mg-sub-list,.mg-sub.open .mg-sub-list{display:block}
+.mg-sub-list a{padding:.55rem .8rem!important;border-bottom:0!important}
+@media(max-width:980px){
+ .mg-menu{max-height:calc(100vh - 72px);overflow-y:auto}
+ .mg-sub-btn{width:100%;text-align:start;padding:.85rem .4rem;font-size:1rem;color:var(--gold3,#D4AF37);cursor:default;border-bottom:1px solid var(--hair,rgba(212,175,55,.12))}
+ .mg-caret{display:none}
+ .mg-sub-list{display:block;position:static;margin:0;padding:0 1rem 0 0;border:0;box-shadow:none;background:none;min-width:0}
+}
 </style>
   <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#1a3a6b">
@@ -794,7 +815,7 @@ footer{background:var(--ink3)!important;border-top:1px solid var(--line)!importa
   <button class="mg-burger" onclick="document.getElementById('mg-menu').classList.toggle('open')" aria-label="תפריט">☰</button>
   <ul class="mg-menu" id="mg-menu">
     <li><a href="videos.html" data-he="שיעורים" data-en="Videos">שיעורים</a></li>
-    <li><a href="#bot-section" data-he="שאל את משה" data-en="Ask Moshe">שאל את משה</a></li>
+    <li><a href="shealot/" data-he="שאלות גדולות" data-en="Big Questions">שאלות גדולות</a></li><li class="mg-sub"><button type="button" class="mg-sub-btn" aria-haspopup="true" onclick="this.parentElement.classList.toggle('open')"><span data-he="ברכות ותפילות" data-en="Prayers">ברכות ותפילות</span> <span class="mg-caret">▾</span></button><ul class="mg-sub-list"><li><a href="brachot/" data-he="ברכות" data-en="Blessings">ברכות</a></li><li><a href="brachot/ma-mevarchim.html" data-he="מה מברכים על...?" data-en="Which blessing on...?">מה מברכים על...?</a></li><li><a href="tefilot/" data-he="סגולות ותפילות" data-en="Prayers &amp; Segulot">סגולות ותפילות</a></li><li><a href="tehilim/" data-he="תהילים" data-en="Psalms (Tehillim)">תהילים</a></li><li><a href="tehilim/tikun-haklali.html" data-he="תיקון הכללי" data-en="Tikkun HaKlali">תיקון הכללי</a></li><li><a href="tehilim/mizmor-letoda.html" data-he="מזמור לתודה" data-en="Psalm of Thanksgiving">מזמור לתודה</a></li></ul></li><li><a href="#bot-section" data-he="שאל את משה" data-en="Ask Moshe">שאל את משה</a></li>
     <li><a href="#chavruta" data-he="חברותא אישית" data-en="Personal Chavruta">חברותא אישית</a></li>
     <li><a href="community.html?from=site" data-he="קהילה" data-en="Community">קהילה</a></li>
     <li><a href="getapp.html" class="mg-hot" onclick="try{gtag('event','app_nav_click')}catch(e){}" data-he="הורדת האפליקציה" data-en="Get the App">הורדת האפליקציה</a></li>
