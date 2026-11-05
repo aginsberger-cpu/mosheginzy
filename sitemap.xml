@@ -211,6 +211,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://askmosh.com/parasha/</loc>
+    <lastmod>2026-11-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://askmosh.com/brachot/birkot-hashachar.html</loc>
     <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
