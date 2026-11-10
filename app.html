@@ -776,7 +776,7 @@ function showHistory(){
   popup.style.display='flex';
 }
   function shareApp(){var link='https://askmosh.com/app.html';var txt=(currentLang==='en'?'Moshe Ginzy - ask, learn and grow 👇':'היכנסו לאפליקציה של משה גינזי 👇');var msg=txt+' '+link;if(window.Android&&window.Android.shareApp){window.Android.shareApp(msg);}else if(navigator.share){navigator.share({title:(currentLang==='en'?'Moshe Ginzy':'משה גינזי'),text:txt,url:link}).catch(function(){});}else{window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');}}
-  function shareAnswer(txt){var msg=(currentLang==='en'?'Moshe answered: ':'משה ענה לי: ')+txt+(currentLang==='en'?' 💛 Download the app: ':' 💛 הורד את האפליקציה: ')+'https://askmosh.com/getapp';if(window.Android&&window.Android.shareApp){window.Android.shareApp(msg);}else if(navigator.share){navigator.share({title:'משה גינזי',text:msg}).catch(function(){});}else{window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');}}
+  function shareAnswer(txt,q){var msg=(q?(currentLang==='en'?'I asked: ':'שאלתי: ')+q+'\n\n':'')+(currentLang==='en'?'Moshe answered: ':'משה ענה לי: ')+txt+(currentLang==='en'?' 💛 Download the app: ':' 💛 הורד את האפליקציה: ')+'https://askmosh.com/getapp';if(window.Android&&window.Android.shareApp){window.Android.shareApp(msg);}else if(navigator.share){navigator.share({title:'משה גינזי',text:msg}).catch(function(){});}else{window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');}}
 // מקרב: מנוע הצ'אט הוחלף מ-Dify לשרת של מקרב (Netivot) - העיצוב וכל
 // שאר האפליקציה נשארו בדיוק אותו דבר, לפי בקשת יצחק. MEKAREV_UID הוא
 // מזהה קבוע פר-מכשיר (כמו USER_ID באתר/אפליקציית מקרב עצמה) - נשמר
@@ -932,12 +932,12 @@ function enhanceBotBubbleShareLink(bubbleEl,text){
   btnWrap.appendChild(shareBtn);
   bubbleEl.appendChild(btnWrap);
 }
-function addMsg(txt,who){
+var lastUserQ='';/* share: question + answer */function addMsg(txt,who){if(who==='user')lastUserQ=txt;var askedQ=lastUserQ;
   var w=document.getElementById('chat-msgs');
   var row=document.createElement('div');row.className='msg-row '+(who==='user'?'user':'');
  var av=document.createElement('div');av.className='msg-av';if(who==='bot'){av.style.backgroundImage="url('%D7%AA%D7%9E%D7%95%D7%A0%D7%94%20%D7%9E%D7%A6%D7%95%D7%99%D7%A0%D7%AA%20%D7%9E%D7%A9%D7%94%20%D7%92%D7%99%D7%A0%D7%96%D7%99.png')";av.style.backgroundSize='cover';av.style.backgroundPosition='center';}else{av.textContent='☺';}
   var bubble=document.createElement('div');bubble.className='msg-bubble '+(who==='bot'?'bot':'user');bubble.textContent=txt;
-row.appendChild(av);row.appendChild(bubble);if(who==='bot'){var sb=document.createElement('button');sb.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>';sb.style.cssText='background:none;border:none;color:var(--gold);cursor:pointer;padding:4px 8px;flex-shrink:0;';sb.onclick=function(){shareAnswer(bubble.textContent);};row.appendChild(sb);}w.appendChild(row);  w.scrollTop=w.scrollHeight;document.getElementById('screen-chat').scrollTop=99999;
+row.appendChild(av);row.appendChild(bubble);if(who==='bot'){var sb=document.createElement('button');sb.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>';sb.style.cssText='background:none;border:none;color:var(--gold);cursor:pointer;padding:4px 8px;flex-shrink:0;';sb.onclick=function(){shareAnswer(bubble.textContent,askedQ);};row.appendChild(sb);}w.appendChild(row);  w.scrollTop=w.scrollHeight;document.getElementById('screen-chat').scrollTop=99999;
   return bubble;
 }
 function showTyping(){
