@@ -1365,7 +1365,7 @@ function addRatingPrompt(){
 // למעלה. מוצג רק כשהשרת מחזיר offerPush (ראה shouldOfferPush ב-
 // server.js) - כלומר רק ברגעים קונקרטיים ששווה להציע, לא בכל תשובה.
 var PUSH_OFFER_TEXTS={
-  video:{he:'רוצה שנעדכן אותך בהתראה כשעולה סרטון חדש שרלוונטי לך?',en:'Want us to notify you when a new relevant video is posted?'},
+  video:{he:'רוצה שנעדכן אותך בהתראה כשיש לנו בשבילך משהו חשוב - סרטון מעניין, הודעה אישית או תשובה לשאלה שלך?',en:'Want us to notify you when we have something important for you - an interesting video, a personal message or an answer to your question?'},
   question:{he:'השאלה הזו דורשת קצת בירור - רוצה שנעדכן אותך בהתראה ברגע שיש לנו תשובה?',en:'This question needs a bit more digging - want us to notify you the moment we have an answer?'},
   callback:{he:'ביקשת שנחזור אליך - רוצה שנעדכן אותך בהתראה כשזה קורה?',en:'You asked for a call back - want us to notify you when that happens?'},
   offer:{he:'רוצה שנעדכן אותך בהתראה כדי שלא נשכח מזה יחד?',en:'Want us to send you a gentle reminder about this?'}
@@ -1380,7 +1380,7 @@ function addPushOfferPrompt(reason){
   var div=document.createElement('div');div.className='referral-suggestion';
   var texts=PUSH_OFFER_TEXTS[reason]||PUSH_OFFER_TEXTS.question;
   var p=document.createElement('div');
-  p.textContent=(currentLang==='en'?texts.en:texts.he)+' '+(currentLang==='en'?"(don't worry - we won't spam you, only for things that matter to you)":'(בלי לדאוג - לא נציף אותך, רק בדברים שבאמת חשובים לך)');
+  p.textContent=(currentLang==='en'?texts.en:texts.he)+' '+(currentLang==='en'?"(we're not here to bother you - we'll only send something when it's really important)":'(אנחנו לא כאן כדי להטריד אותך - נשלח רק כשיש משהו באמת חשוב בשבילך)');
   div.appendChild(p);
   var actions=document.createElement('div');actions.className='referral-actions';
   var yesBtn=document.createElement('button');yesBtn.type='button';yesBtn.className='referral-btn followup';
