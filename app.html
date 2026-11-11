@@ -1025,7 +1025,7 @@ inp.value='';inp.style.height='40px';isSending=true;addMsg(txt,'user');showTypin
 // יצחק ביקש שזה יתחיל להיכתב מייד). שאר הזרימה (הודעת "מקליד...",
 // שמירת היסטוריה מקומית, סנכרון ל-Google Sheets, הקראה בקול) נשארה
 // בדיוק אותו דבר, רק בסוף ההזרמה במקום מיד.
-var fullText='';var bubbleEl=null;var finalNoAnswer=false;var finalIsHalacha=false;var finalVideos=[];var finalShowRatingPrompt=false;var finalOfferPush=null;var finalSoftware=null;var prayerData=null;var isPrayer=false;var spokeEarly=false;
+var fullText='';var bubbleEl=null;var finalNoAnswer=false;var finalIsHalacha=false;var finalVideos=[];var finalShowRatingPrompt=false;var finalOfferPush=null;var finalSoftware=null;var finalChavruta=null;var prayerData=null;var isPrayer=false;var spokeEarly=false;
 fetch(MEKAREV_API+'/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getMekarevUserId(),message:txt,lang:currentLang==='en'?'en':'he'})}).then(function(res){
   if(!res.ok||!res.body)throw new Error('http '+res.status);
   var reader=res.body.getReader();var decoder=new TextDecoder('utf-8');var buffer='';
@@ -1073,7 +1073,7 @@ fetch(MEKAREV_API+'/api/chat',{method:'POST',headers:{'Content-Type':'applicatio
           // ורק אם התלמיד/ה עוד לא רשום/ה ולא סירב/ה בעבר.
           finalOfferPush=payload.offerPush||null;
           // מקרב: מילת קוד של תוכנה להורדה -> כרטיס עם כפתורים (ראה addSoftwareCard)
-          finalSoftware=payload.software||null;
+          finalSoftware=payload.software||null;finalChavruta=payload.chavrutaSignup||null;
         }
       }
       return pump();
@@ -1111,6 +1111,7 @@ fetch(MEKAREV_API+'/api/chat',{method:'POST',headers:{'Content-Type':'applicatio
     if(finalShowRatingPrompt)addRatingPrompt();
     if(finalOfferPush)addPushOfferPrompt(finalOfferPush);
     if(finalSoftware)addSoftwareCard(finalSoftware);
+    if(finalChavruta)addChavrutaSignupCard(finalChavruta);
   }else{
     rmTyping();addMsg(currentLang==='en'?'Moshe could not respond — please try again 🙏':'משה לא הצליח לענות — נסה שוב 🙏','bot');
   }
@@ -1370,6 +1371,65 @@ var PUSH_OFFER_TEXTS={
   callback:{he:'ביקשת שנחזור אליך - רוצה שנעדכן אותך בהתראה כשזה קורה?',en:'You asked for a call back - want us to notify you when that happens?'},
   offer:{he:'רוצה שנעדכן אותך בהתראה כדי שלא נשכח מזה יחד?',en:'Want us to send you a gentle reminder about this?'}
 };
+// מקרב (CHAVRUTA_FORM_V1): התלמיד הסכים לחברותא -> כפתור שפותח חלונית הרשמה (שם ממולא מראש, טלפון, מייל, עיר).
+// השליחה נכנסת לרשימת המעוניינים בחברותא בשרת של מקרב, ומשם ל-CRM.
+function addChavrutaSignupCard(d){
+  var en=currentLang==='en';
+  var w=document.getElementById('chat-msgs');
+  var div=document.createElement('div');div.className='referral-suggestion';
+  var p=document.createElement('div');
+  p.textContent=en?'Want to sign up for a free personal chavruta? It takes half a minute.':'רוצה להירשם לחברותא אישית, בחינם? זה לוקח חצי דקה.';
+  div.appendChild(p);
+  var actions=document.createElement('div');actions.className='referral-actions';
+  var openBtn=document.createElement('button');openBtn.type='button';openBtn.className='referral-btn followup';
+  openBtn.textContent=en?'📝 Sign up for a chavruta':'📝 הרשמה לחברותא';
+  openBtn.onclick=function(){openChavrutaSignup(d,function(){p.textContent=en?"Thank you! You're signed up - we'll contact you soon 🙏":'תודה! נרשמת לחברותא, ניצור איתך קשר בהקדם 🙏';actions.remove();});};
+  actions.appendChild(openBtn);div.appendChild(actions);
+  w.appendChild(div);w.scrollTop=w.scrollHeight;
+}
+function openChavrutaSignup(d,onDone){
+  var en=currentLang==='en';
+  var ov=document.createElement('div');
+  ov.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px;';
+  var box=document.createElement('form');box.dir=en?'ltr':'rtl';box.noValidate=true;
+  box.style.cssText='background:var(--card);color:var(--txt);border:1px solid var(--border2);border-radius:16px;padding:20px 18px;width:100%;max-width:400px;max-height:90vh;overflow-y:auto;font-family:var(--font);';
+  var h=document.createElement('div');h.style.cssText='font-size:1.2rem;font-weight:700;margin-bottom:4px;color:var(--gold);';
+  h.textContent=en?'Sign up for a chavruta':'הרשמה לחברותא';box.appendChild(h);
+  var sub=document.createElement('div');sub.style.cssText='font-size:.88rem;color:var(--muted);margin-bottom:14px;';
+  sub.textContent=en?'Free, at a time that suits you, also by phone.':'בחינם לגמרי, בזמן שנוח לך, גם בטלפון.';box.appendChild(sub);
+  function field(label,type,val,ac,req){
+    var l=document.createElement('label');l.style.cssText='display:block;font-size:.9rem;margin-bottom:10px;';
+    l.textContent=label+(req?' *':'');
+    var i=document.createElement('input');i.type=type;i.value=val||'';i.autocomplete=ac;if(req)i.required=true;
+    i.style.cssText='display:block;width:100%;box-sizing:border-box;margin-top:4px;padding:11px 12px;font-size:1rem;border-radius:10px;border:1px solid var(--border2);background:var(--card2);color:var(--txt);font-family:inherit;';
+    l.appendChild(i);box.appendChild(l);return i;
+  }
+  var fName=field(en?'Name':'שם','text',d.name||(typeof userName!=='undefined'?userName:''),'name',false);
+  var fPhone=field(en?'Phone':'טלפון','tel',d.phone,'tel',true);fPhone.inputMode='tel';fPhone.dir='ltr';
+  var fEmail=field(en?'Email':'מייל','email',d.email,'email',false);fEmail.dir='ltr';
+  var fCity=field(en?'City':'עיר','text',d.city,'address-level2',false);
+  var err=document.createElement('div');err.setAttribute('role','alert');err.style.cssText='color:#e05a4f;font-size:.88rem;min-height:1.2em;margin-bottom:8px;';box.appendChild(err);
+  var row=document.createElement('div');row.style.cssText='display:flex;gap:10px;';
+  var send=document.createElement('button');send.type='submit';send.className='referral-btn followup';send.style.flex='1';send.textContent=en?'Send':'שליחה';
+  var cancel=document.createElement('button');cancel.type='button';cancel.className='referral-btn';cancel.style.background='rgba(120,120,120,0.35)';cancel.textContent=en?'Cancel':'ביטול';
+  row.appendChild(send);row.appendChild(cancel);box.appendChild(row);
+  function close(){ov.remove();document.removeEventListener('keydown',onKey);}
+  function onKey(e){if(e.key==='Escape')close();}
+  cancel.onclick=close;ov.onclick=function(e){if(e.target===ov)close();};document.addEventListener('keydown',onKey);
+  box.onsubmit=function(e){
+    e.preventDefault();
+    var digits=fPhone.value.replace(/\D/g,'');
+    if(digits.length<9||digits.length>13){err.textContent=en?'Please enter a valid phone number':'נא לכתוב מספר טלפון תקין';fPhone.focus();return;}
+    if(fEmail.value.trim()&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fEmail.value.trim())){err.textContent=en?'Please check the email address':'נא לבדוק את כתובת המייל';fEmail.focus();return;}
+    send.disabled=true;send.textContent=en?'Sending…':'שולח…';err.textContent='';
+    fetch(MEKAREV_API+'/api/chavruta/signup',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getMekarevUserId(),name:fName.value,phone:fPhone.value,email:fEmail.value,city:fCity.value})})
+      .then(function(r){return r.json().then(function(j){return {ok:r.ok,j:j};});})
+      .then(function(x){if(!x.ok){var er=new Error('');er.srv=x.j&&x.j.error;throw er;}close();onDone();})
+      .catch(function(e2){send.disabled=false;send.textContent=en?'Send':'שליחה';err.textContent=(e2&&e2.srv)||(en?'Could not send, please try again':'לא הצלחנו לשלוח, נסה שוב');});
+  };
+  ov.appendChild(box);document.body.appendChild(ov);
+  (fPhone.value?fName:fPhone).focus();
+}
 function addPushOfferPrompt(reason){
   var nativePush=window.mgHasNativePush&&window.mgHasNativePush();
   if(!nativePush){
