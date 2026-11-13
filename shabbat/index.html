@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>השבת הראשונה שלי | AskMosh</title>
-<meta name="description" content="מדריך פשוט למתחילים לליל שבת: הדלקת נרות, לכה דודי, שלום עליכם, קידוש והמוציא — צעד אחר צעד, עם הנוסח המלא.">
+<meta name="description" content="מדריך פשוט למתחילים לשבת: הכנות, הדלקת נרות, לכה דודי, שלום עליכם, קידוש, המוציא, שלוש סעודות, הבדלה ומלווה מלכה — צעד אחר צעד.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800&family=Frank+Ruhl+Libre:wght@400;500;700&display=swap" rel="stylesheet">
@@ -223,6 +223,10 @@ footer{color:#6f7a93;font-size:12.5px;text-align:center;padding:10px 0 40px}
   <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2.5 5 13.5h6l-1 8 8-11h-6z"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
   <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 6.5C10 5 7 4.5 3.5 5v14c3.5-.5 6.5 0 8.5 1.5 2-1.5 5-2 8.5-1.5V5C17 4.5 14 5 12 6.5z"/><path d="M12 6.5v14"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M18.7 5.3l-1.4 1.4M6.7 17.3l-1.4 1.4"/></symbol>
+  <symbol id="i-sunset" viewBox="0 0 24 24"><path d="M7 16a5 5 0 0 1 10 0"/><path d="M2.5 16h19M5 20h14M12 4.5V8M4.6 8.6l1.8 1.8M19.4 8.6l-1.8 1.8"/></symbol>
+  <symbol id="i-havdalah" viewBox="0 0 24 24"><path d="M12 2.5c1.6 1.8 1.6 3.4 0 4.6-1.6-1.2-1.6-2.8 0-4.6z"/><path d="M9.5 8.5h5l-.6 12h-3.8z"/><path d="M9.8 11.5l4.4 2.5M9.7 15l4.5 2.5"/></symbol>
+  <symbol id="i-crown" viewBox="0 0 24 24"><path d="M3.5 8l4 4 4.5-6.5 4.5 6.5 4-4-1.8 10H5.3z"/><path d="M5.3 20.5h13.4"/></symbol>
 </svg>
 
 <header class="topbar">
@@ -242,8 +246,8 @@ footer{color:#6f7a93;font-size:12.5px;text-align:center;padding:10px 0 40px}
     <div class="cap">
       <span class="chip"><svg class="i"><use href="#i-star"/></svg><span data-lang="he">מדריך למתחילים</span><span data-lang="en">Beginner's guide</span></span>
       <h1><span data-lang="he">השבת <span>הראשונה</span> שלי</span><span data-lang="en">My <span>First</span> Shabbat</span></h1>
-      <p data-lang="he">ליל שבת, צעד אחר צעד — לאט לאט, בשמחה ובנחת.</p>
-      <p data-lang="en">Friday night, step by step — slowly, with joy and calm.</p>
+      <p data-lang="he">כל השבת, צעד אחר צעד — מיום שישי ועד מוצאי שבת. לאט לאט, בשמחה ובנחת.</p>
+      <p data-lang="en">All of Shabbat, step by step — from Friday to Saturday night. Slowly, with joy and calm.</p>
     </div>
   </section>
 
@@ -271,7 +275,7 @@ footer{color:#6f7a93;font-size:12.5px;text-align:center;padding:10px 0 40px}
     <p class="lead" style="margin-top:14px" data-lang="en">For thousands of years, everywhere and in every situation, Jews have paused once a week — and lit a candle. Shabbat is the secret of the Jewish people's survival: a day of delight, calm and serenity, of family, and of connection to the Creator.</p>
   </section>
 
-  <div class="order-title"><span data-lang="he">סדר ליל שבת</span><span data-lang="en">THE FRIDAY NIGHT ORDER</span></div>
+  <div class="order-title"><span data-lang="he">סדר השבת</span><span data-lang="en">THE SHABBAT ORDER</span></div>
   <nav class="tabs">
     <button class="tab on" data-tab="prep"><svg class="i"><use href="#i-list"/></svg><span data-lang="he">הכנות</span><span data-lang="en">Prepare</span><small data-lang="he">יום שישי</small><small data-lang="en">Friday</small></button>
     <button class="tab" data-tab="candles"><svg class="i"><use href="#i-candle"/></svg><span data-lang="he">נרות</span><span data-lang="en">Candles</span><small data-lang="he">לפני השקיעה</small><small data-lang="en">Before sunset</small></button>
@@ -279,7 +283,11 @@ footer{color:#6f7a93;font-size:12.5px;text-align:center;padding:10px 0 40px}
     <button class="tab" data-tab="shalom"><svg class="i"><use href="#i-home"/></svg><span data-lang="he">שלום עליכם</span><span data-lang="en">Shalom Aleichem</span><small data-lang="he">חוזרים הביתה</small><small data-lang="en">Coming home</small></button>
     <button class="tab" data-tab="kiddush"><svg class="i"><use href="#i-cup"/></svg><span data-lang="he">קידוש</span><span data-lang="en">Kiddush</span><small data-lang="he">על היין</small><small data-lang="en">Over wine</small></button>
     <button class="tab" data-tab="hamotzi"><svg class="i"><use href="#i-bread"/></svg><span data-lang="he">המוציא</span><span data-lang="en">Hamotzi</span><small data-lang="he">על החלות</small><small data-lang="en">Over challah</small></button>
-  </nav>
+      <button class="tab" data-tab="morning"><svg class="i"><use href="#i-sun"/></svg><span data-lang="he">שבת בבוקר</span><span data-lang="en">Shabbat Day</span><small data-lang="he">סעודה שנייה</small><small data-lang="en">Second meal</small></button>
+    <button class="tab" data-tab="third"><svg class="i"><use href="#i-sunset"/></svg><span data-lang="he">סעודה שלישית</span><span data-lang="en">Third Meal</span><small data-lang="he">אחר הצהריים</small><small data-lang="en">Afternoon</small></button>
+    <button class="tab" data-tab="havdalah"><svg class="i"><use href="#i-havdalah"/></svg><span data-lang="he">הבדלה</span><span data-lang="en">Havdalah</span><small data-lang="he">צאת השבת</small><small data-lang="en">Shabbat ends</small></button>
+    <button class="tab" data-tab="melave"><svg class="i"><use href="#i-crown"/></svg><span data-lang="he">מלווה מלכה</span><span data-lang="en">Melave Malka</span><small data-lang="he">מוצאי שבת</small><small data-lang="en">Saturday night</small></button>
+</nav>
 
   <!-- ===================== 0. PREPARATIONS ===================== -->
   <section class="panel on" id="prep">
@@ -647,11 +655,188 @@ footer{color:#6f7a93;font-size:12.5px;text-align:center;padding:10px 0 40px}
       <div data-lang="en"><b>Why salt?</b> Our table is compared to the altar in the Holy Temple, where every offering was salted. That's how an ordinary meal at home becomes something holy.</div>
     </div>
 
+    <div class="tip"><svg class="i"><use href="#i-music"/></svg>
+      <div data-lang="he"><b>שמחה סביב השולחן.</b> בכל סעודת שבת כדאי לשיר — שיר שבת, או כל שיר שמח שאתם אוהבים. השירה מכניסה לבית אווירה טובה וחמה. אפשר גם לספר סיפור קצר, ואם יש ילדים — לשאול אותם שאלות על הסיפור, כמו חידון קטן, ולתת פרס קטן או ממתק למי שעונה. כשלילדים כיף ושמח בשבת — הם מחכים לה כל השבוע.</div>
+      <div data-lang="en"><b>Joy around the table.</b> At every Shabbat meal, sing — a Shabbat song, or any happy song you love. Singing fills the home with warmth. You can also tell a short story, and if there are children — ask them questions about it like a little quiz, with a small prize or treat for the answers. When children have fun on Shabbat, they look forward to it all week.</div>
+    </div>
     <div class="slow"><svg class="i"><use href="#i-heart"/></svg>
       <div class="t" data-lang="he">לאט לאט, בשמחה ובנחת</div><div class="t" data-lang="en">Slowly, with joy and calm</div>
-      <p data-lang="he">זהו — השבת שלך התחילה! עכשיו הזמן ליהנות: אוכל טוב, שיחה טובה, ומשפחה סביב השולחן. שבת שלום!</p>
-      <p data-lang="en">That's it — your Shabbat has begun! Now enjoy: good food, good conversation, and family around the table. Shabbat Shalom!</p>
-      <div class="next"><button class="btn" data-go="candles"><span data-lang="he">חזרה להתחלה</span><span data-lang="en">Back to the start</span></button></div>
+      <p data-lang="he">זהו — השבת שלך התחילה! עכשיו הזמן ליהנות: אוכל טוב, שיחה טובה, ומשפחה סביב השולחן.</p>
+      <p data-lang="en">That's it — your Shabbat has begun! Now enjoy: good food, good conversation, and family around the table.</p>
+      <div class="next"><button class="btn" data-go="morning"><span data-lang="he">הצעד הבא: שבת בבוקר ←</span><span data-lang="en">Next: Shabbat day →</span></button></div>
+    </div>
+  </section>
+
+
+  <!-- ===================== 6. SHABBAT MORNING ===================== -->
+  <section class="panel" id="morning">
+    <h2><svg class="i lg"><use href="#i-sun"/></svg><span data-lang="he">שבת בבוקר — הסעודה השנייה</span><span data-lang="en">Shabbat Morning — the Second Meal</span></h2>
+    <p class="lead" data-lang="he">בשבת אוכלים שלוש סעודות: בליל שבת, בצהרי שבת ואחר הצהריים. הסעודה השנייה היא הסעודה המרכזית של יום השבת — רגועה, ארוכה ומשפחתית.</p>
+    <p class="lead" data-lang="en">On Shabbat we eat three meals: Friday night, Shabbat lunch and in the afternoon. The second meal is the main meal of Shabbat day — relaxed, long and family-centered.</p>
+
+    <div class="card when">
+      <div class="iconbox"><svg class="i"><use href="#i-book"/></svg></div>
+      <div>
+        <h3 data-lang="he">תפילת שחרית</h3><h3 data-lang="en">Morning prayers</h3>
+        <p data-lang="he">בבוקר מתפללים תפילת שחרית של שבת — בבית הכנסת או בבית. אחרי התפילה חוזרים הביתה לסעודה.</p>
+        <p data-lang="en">In the morning we pray the Shabbat morning prayer (Shacharit) — in synagogue or at home. After prayers, we come home for the meal.</p>
+      </div>
+    </div>
+
+    <h2 data-lang="he">סדר הסעודה</h2><h2 data-lang="en">The order of the meal</h2>
+    <ol class="steps">
+      <li><h3 data-lang="he">קידוש של יום</h3><h3 data-lang="en">Daytime Kiddush</h3>
+        <p data-lang="he">גם בבוקר עושים קידוש על כוס יין או מיץ ענבים — אבל הוא קצר הרבה יותר מהקידוש של הלילה.</p>
+        <p data-lang="en">In the morning we also make Kiddush over wine or grape juice — but it's much shorter than the Friday night Kiddush.</p></li>
+      <li><h3 data-lang="he">נטילת ידיים והמוציא</h3><h3 data-lang="en">Hand washing &amp; Hamotzi</h3>
+        <p data-lang="he">בדיוק כמו בליל שבת: נוטלים ידיים, ומברכים "המוציא" על שתי חלות.</p>
+        <p data-lang="en">Just like Friday night: wash hands, and say "Hamotzi" over two challahs.</p></li>
+      <li><h3 data-lang="he">נהנים מהסעודה</h3><h3 data-lang="en">Enjoy the meal</h3>
+        <p data-lang="he">זה הזמן לחמין החם, לשירי שבת ולשיחה טובה. רעיון יפה: לספר ליד השולחן משהו מפרשת השבוע.</p>
+        <p data-lang="en">Time for warm cholent, Shabbat songs and good conversation. A lovely idea: share something from the weekly Torah portion at the table.</p>
+        <a class="btn" href="/parasha/"><svg class="i sm"><use href="#i-book"/></svg><span data-lang="he">פרשת השבוע עם משה</span><span data-lang="en">The weekly portion with Moshe</span></a></li>
+    </ol>
+
+    <div class="blessing">
+      <div class="label"><span data-lang="he">קידוש של יום</span><span data-lang="en">DAYTIME KIDDUSH</span></div>
+      <div class="heb">
+        <span class="quiet">(יש מוסיפים לפני כן פסוקים נוספים — לפי המנהג)</span><br>
+        עַל כֵּן בֵּרַךְ יְיָ אֶת יוֹם הַשַּׁבָּת וַיְקַדְּשֵׁהוּ.<br>
+        <span style="display:block;margin-top:14px">סַבְרִי מָרָנָן<span class="resp">(המסובים עונים: לְחַיִּים!)</span></span>
+        בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, בּוֹרֵא פְּרִי הַגָּפֶן.<span class="resp">אָמֵן</span>
+      </div>
+      <div class="translit" data-lang="en">Al ken beirach Adonai et yom haShabbat vayekadsheihu. Savri maranan (all: L'chaim!) — Baruch atah Adonai, Eloheinu melech ha'olam, borei pri hagafen. (Amen)</div>
+      <div class="transl" data-lang="en">Therefore the Lord blessed the Shabbat day and made it holy. Blessed are You, Lord our God, King of the universe, who creates the fruit of the vine. (Some add more verses before this, according to custom.)</div>
+      <div class="tools"></div>
+    </div>
+
+    <div class="tip"><svg class="i"><use href="#i-music"/></svg>
+      <div data-lang="he"><b>שמחה סביב השולחן.</b> בכל סעודת שבת כדאי לשיר — שיר שבת, או כל שיר שמח שאתם אוהבים. השירה מכניסה לבית אווירה טובה וחמה. אפשר גם לספר סיפור קצר, ואם יש ילדים — לשאול אותם שאלות על הסיפור, כמו חידון קטן, ולתת פרס קטן או ממתק למי שעונה. כשלילדים כיף ושמח בשבת — הם מחכים לה כל השבוע.</div>
+      <div data-lang="en"><b>Joy around the table.</b> At every Shabbat meal, sing — a Shabbat song, or any happy song you love. Singing fills the home with warmth. You can also tell a short story, and if there are children — ask them questions about it like a little quiz, with a small prize or treat for the answers. When children have fun on Shabbat, they look forward to it all week.</div>
+    </div>
+    <div class="slow"><svg class="i"><use href="#i-heart"/></svg>
+      <div class="t" data-lang="he">לאט לאט, בשמחה ובנחת</div><div class="t" data-lang="en">Slowly, with joy and calm</div>
+      <p data-lang="he">לא צריך להספיק הכל. סעודה רגועה עם המשפחה, בלי טלפון — זה כבר שבת אמיתית.</p>
+      <p data-lang="en">You don't have to do it all. A calm meal with family, without a phone — that's already a real Shabbat.</p>
+      <div class="next"><button class="btn" data-go="third"><span data-lang="he">הצעד הבא: סעודה שלישית ←</span><span data-lang="en">Next: the third meal →</span></button></div>
+    </div>
+  </section>
+
+  <!-- ===================== 7. THIRD MEAL ===================== -->
+  <section class="panel" id="third">
+    <h2><svg class="i lg"><use href="#i-sunset"/></svg><span data-lang="he">סעודה שלישית</span><span data-lang="en">The Third Meal (Seudah Shlishit)</span></h2>
+    <p class="lead" data-lang="he">הסעודה השלישית נאכלת בשבת אחר הצהריים — כשהשבת מתחילה להיפרד. זו סעודה קטנה וקלה, אבל יש בה אווירה מיוחדת: שקטה, מרגשת ומלאת געגוע.</p>
+    <p class="lead" data-lang="en">The third meal is eaten on Shabbat afternoon — as Shabbat begins to take its leave. It's a small, light meal, but with a special atmosphere: quiet, moving and full of longing.</p>
+    <ol class="steps">
+      <li><h3 data-lang="he">מתי?</h3><h3 data-lang="en">When?</h3>
+        <p data-lang="he">אפשר כבר מהצהריים, וטוב אחרי תפילת מנחה. חשוב <b>ליטול ידיים ולהתחיל לפני השקיעה</b> — ואת הסעודה עצמה אפשר להמשיך גם אחרי השקיעה, עד צאת השבת.</p>
+        <p data-lang="en">From midday on — ideally after the Mincha prayer. It's important to <b>wash hands and begin before sunset</b> — and the meal itself may continue after sunset, until Shabbat ends.</p></li>
+      <li><h3 data-lang="he">מה אוכלים?</h3><h3 data-lang="en">What do we eat?</h3>
+        <p data-lang="he">נוהגים לאכול חלה — נוטלים ידיים ומברכים "המוציא" (עדיף על שתי חלות). לצד זה משהו קל: סלטים, דגים, עוגה.</p>
+        <p data-lang="en">The custom is to eat challah — wash hands and say "Hamotzi" (ideally over two challahs) — with something light: salads, fish, cake.</p></li>
+      <li><h3 data-lang="he">שירים בין הערביים</h3><h3 data-lang="en">Songs at twilight</h3>
+        <p data-lang="he">רבים נוהגים לשיר בסעודה הזו שירים שקטים ומרגשים, כמו "ידיד נפש" — לאור היום שהולך ונגמר.</p>
+        <p data-lang="en">Many sing quiet, soulful songs at this meal, like "Yedid Nefesh" — as the daylight fades.</p></li>
+    </ol>
+    <div class="tip"><svg class="i"><use href="#i-light"/></svg>
+      <div data-lang="he"><b>למה זה חשוב?</b> חז"ל אמרו שמי שמקיים שלוש סעודות בשבת — זוכה לברכה גדולה. הסעודה השלישית קשה יותר (כבר שבעים מהצהריים…), ולכן דווקא היא מראה כמה השבת יקרה לנו.</div>
+      <div data-lang="en"><b>Why does it matter?</b> Our Sages said that one who keeps the three Shabbat meals merits great blessing. The third meal is the hardest (we're still full from lunch…) — which is exactly why it shows how precious Shabbat is to us.</div>
+    </div>
+    <div class="tip"><svg class="i"><use href="#i-music"/></svg>
+      <div data-lang="he"><b>שמחה סביב השולחן.</b> בכל סעודת שבת כדאי לשיר — שיר שבת, או כל שיר שמח שאתם אוהבים. השירה מכניסה לבית אווירה טובה וחמה. אפשר גם לספר סיפור קצר, ואם יש ילדים — לשאול אותם שאלות על הסיפור, כמו חידון קטן, ולתת פרס קטן או ממתק למי שעונה. כשלילדים כיף ושמח בשבת — הם מחכים לה כל השבוע.</div>
+      <div data-lang="en"><b>Joy around the table.</b> At every Shabbat meal, sing — a Shabbat song, or any happy song you love. Singing fills the home with warmth. You can also tell a short story, and if there are children — ask them questions about it like a little quiz, with a small prize or treat for the answers. When children have fun on Shabbat, they look forward to it all week.</div>
+    </div>
+    <div class="slow"><svg class="i"><use href="#i-heart"/></svg>
+      <div class="t" data-lang="he">לאט לאט, בשמחה ובנחת</div><div class="t" data-lang="en">Slowly, with joy and calm</div>
+      <p data-lang="he">גם חלה ומשהו קטן לצידה, עם המשפחה סביב השולחן — זו סעודה שלישית.</p>
+      <p data-lang="en">Even a slice of challah and something small, with family around the table — that's a third meal.</p>
+      <div class="next"><button class="btn" data-go="havdalah"><span data-lang="he">הצעד הבא: הבדלה ←</span><span data-lang="en">Next: Havdalah →</span></button></div>
+    </div>
+  </section>
+
+  <!-- ===================== 8. HAVDALAH ===================== -->
+  <section class="panel" id="havdalah">
+    <h2><svg class="i lg"><use href="#i-havdalah"/></svg><span data-lang="he">הבדלה — נפרדים מהשבת</span><span data-lang="en">Havdalah — Saying Goodbye to Shabbat</span></h2>
+    <p class="lead" data-lang="he">כמו שהכנסנו את השבת בקידוש — כך נפרדים ממנה ב"הבדלה". "הבדלה" פירושה הפרדה: מבדילים בין היום הקדוש לבין ימי החול שמתחילים.</p>
+    <p class="lead" data-lang="en">Just as we welcomed Shabbat with Kiddush — we part from it with "Havdalah", which means "separation": we separate between the holy day and the weekdays now beginning.</p>
+
+    <div class="card when">
+      <div class="iconbox"><svg class="i"><use href="#i-clock"/></svg></div>
+      <div>
+        <h3 data-lang="he">מתי עושים הבדלה?</h3><h3 data-lang="en">When is Havdalah?</h3>
+        <p data-lang="he">כשהשבת יוצאת. השבת לא יוצאת בשקיעה — אלא רק <b>בצאת הכוכבים</b>, כשכבר חשוך ורואים שלושה כוכבים.</p>
+        <p data-lang="en">When Shabbat ends. Shabbat does not end at sunset — only at <b>nightfall</b>, when it's dark and three stars can be seen.</p>
+        <div class="times" id="times2" hidden><div class="trow"><span class="tl"><span data-lang="he">צאת השבת השבוע ב</span><span data-lang="en">Shabbat ends this week in </span><span id="cityName2"></span></span><b class="tv" id="tOut2">—</b></div>
+          <p style="font-size:13px;color:var(--muted);margin-top:6px"><span data-lang="he">יש הנוהגים לחכות יותר (למשל 72 דקות אחרי השקיעה) — כל אחד לפי מנהגו.</span><span data-lang="en">Some wait longer (e.g. 72 minutes after sunset) — follow your custom.</span></p>
+          <button class="btn" data-go="candles" style="margin-top:6px"><svg class="i sm"><use href="#i-home"/></svg><span data-lang="he">לא העיר שלך? לשינוי עיר</span><span data-lang="en">Not your city? Change it</span></button></div>
+      </div>
+    </div>
+
+    <h2 data-lang="he">מה יש בהבדלה?</h2><h2 data-lang="en">What's in Havdalah?</h2>
+    <ol class="steps">
+      <li><h3 data-lang="he">כוס יין</h3><h3 data-lang="en">A cup of wine</h3>
+        <p data-lang="he">כמו בקידוש — מברכים על כוס יין או מיץ ענבים.</p>
+        <p data-lang="en">As in Kiddush — a blessing over a cup of wine or grape juice.</p></li>
+      <li><h3 data-lang="he">בשמים</h3><h3 data-lang="en">Fragrant spices</h3>
+        <p data-lang="he">מריחים בשמים (כמו ציפורן או הדסים). בשבת יש לנו "נשמה יתרה", וכשהיא נפרדת — הריח הטוב משיב את הנפש.</p>
+        <p data-lang="en">We smell fragrant spices (like cloves or myrtle). On Shabbat we receive an "extra soul" — and as it departs, the sweet scent refreshes us.</p></li>
+      <li><h3 data-lang="he">נר הבדלה</h3><h3 data-lang="en">The Havdalah candle</h3>
+        <p data-lang="he">מברכים על נר עם כמה פתילות (נר קלוע). זה הדבר הראשון שעושים עם אש אחרי השבת — זכר לאדם הראשון, שלפי המסורת גילה את האש במוצאי השבת הראשונה.</p>
+        <p data-lang="en">We bless a candle with several wicks (a braided candle). It's the first use of fire after Shabbat — recalling Adam, who according to tradition discovered fire at the end of the very first Shabbat.</p></li>
+      <li><h3 data-lang="he">"המבדיל"</h3><h3 data-lang="en">"Hamavdil"</h3>
+        <p data-lang="he">בסוף מברכים ברכה שמודה לה' על ההבדלה בין קודש לחול. <b>רק מי שעשה את ההבדלה שותה מהכוס</b> — בהבדלה לא מחלקים לכולם. שבוע טוב!</p>
+        <p data-lang="en">Finally, a blessing thanking God for separating the holy from the everyday. <b>Only the person who made Havdalah drinks from the cup</b> — it isn't passed around. Shavua Tov — have a good week!</p></li>
+    </ol>
+    <div class="tip"><svg class="i"><use href="#i-light"/></svg>
+      <div data-lang="he"><b>אחרי צאת הכוכבים — השבת יצאה.</b> מאותו רגע אפשר להדליק אור ולהשתמש בטלפון, גם לפני ההבדלה (אומרים קודם "בָּרוּךְ הַמַּבְדִּיל בֵּין קֹדֶשׁ לְחֹל"). ובכל זאת — טוב לעשות הבדלה קודם, ורק אחר כך להתחיל את השבוע.</div>
+      <div data-lang="en"><b>After nightfall — Shabbat is over.</b> From then on you may turn on lights and use your phone, even before Havdalah (first say "Baruch hamavdil bein kodesh l'chol" — blessed is He who separates the holy from the everyday). Still — it's best to make Havdalah first, and only then begin the week.</div>
+    </div>
+    <div class="slow"><svg class="i"><use href="#i-heart"/></svg>
+      <div class="t" data-lang="he">לאט לאט, בשמחה ובנחת</div><div class="t" data-lang="en">Slowly, with joy and calm</div>
+      <p data-lang="he">אפשר להתחיל פשוט: לשמוע הבדלה ממישהו אחר, או לבקש ממשה להסביר יותר. בשבוע הבא — אולי כבר תעשו לבד.</p>
+      <p data-lang="en">You can start simply: listen to someone else make Havdalah, or ask Moshe to explain more. Next week — maybe you'll make it yourself.</p>
+      <div class="next"><button class="btn" data-go="melave"><span data-lang="he">הצעד הבא: מלווה מלכה ←</span><span data-lang="en">Next: Melave Malka →</span></button></div>
+    </div>
+  </section>
+
+  <!-- ===================== 9. MELAVE MALKA ===================== -->
+  <section class="panel" id="melave">
+    <h2><svg class="i lg"><use href="#i-crown"/></svg><span data-lang="he">מלווה מלכה</span><span data-lang="en">Melave Malka</span></h2>
+    <p class="lead" data-lang="he">השבת היא מלכה. וכמו שמלווים מלך בכבוד גדול כשהוא יוצא מן העיר — כך אנחנו מלווים את השבת ביציאתה, בסעודה מיוחדת במוצאי שבת. לכן היא נקראת "מלווה מלכה": מלווים את שבת המלכה.</p>
+    <p class="lead" data-lang="en">Shabbat is a queen. And just as a king is escorted with great honor as he leaves the city — we escort Shabbat as she departs, with a special meal on Saturday night. That's why it's called "Melave Malka": escorting the Shabbat Queen.</p>
+
+    <ol class="steps">
+      <li><h3 data-lang="he">מתי?</h3><h3 data-lang="en">When?</h3>
+        <p data-lang="he">במוצאי שבת, אחרי ההבדלה.</p>
+        <p data-lang="en">On Saturday night, after Havdalah.</p></li>
+      <li><h3 data-lang="he">סעודה של כבוד</h3><h3 data-lang="en">A meal of honor</h3>
+        <p data-lang="he">חשוב ליטול ידיים ולערוך סעודה של ממש — ולבשל משהו חם במיוחד לכבוד מלווה מלכה.</p>
+        <p data-lang="en">It's important to wash hands and hold a real meal — and to cook something warm especially in honor of Melave Malka.</p></li>
+      <li><h3 data-lang="he">אין תיאבון לסעודה?</h3><h3 data-lang="en">Not hungry for a meal?</h3>
+        <p data-lang="he">מכינים לפחות שתייה חמה, ואומרים עליה שלוש פעמים:<br><b style="font-family:'Frank Ruhl Libre',serif;font-size:19px;color:var(--gold-soft)">"חַמִּימֵי בְּמוֹצָאֵי שַׁבְּתָא — מְלוּגְמָא"</b><br>כלומר: משהו חם במוצאי שבת הוא מרפא. חז"ל אמרו זאת, וזו סגולה לרפואה.</p>
+        <p data-lang="en">At least prepare a hot drink, and say three times:<br><b style="font-family:'Frank Ruhl Libre',serif;font-size:19px;color:var(--gold-soft)">"Chamimei b'motza'ei Shabta — melugma"</b><br>— "Something warm on Saturday night is healing." Our Sages said this, and it's a segulah (spiritual remedy) for healing.</p></li>
+    </ol>
+
+    <div class="tip"><svg class="i"><use href="#i-light"/></svg>
+      <div data-lang="he"><b>עצם הלוז.</b> המסורת מספרת שיש בגוף האדם עצם אחת קטנה, "עצם הלוז", שניזונה רק מסעודת מלווה מלכה. כשאדם נפטר, כל גופו כלה — מלבד העצם הזו, שנשארת שלמה. וממנה ייבנה הגוף מחדש בתחיית המתים.</div>
+      <div data-lang="en"><b>The "luz" bone.</b> Tradition teaches that there is one small bone in the body, the "luz", which is nourished only by the Melave Malka meal. When a person passes away, the whole body returns to dust — except this bone, which remains whole. From it, the body will be rebuilt at the Resurrection.</div>
+    </div>
+
+    <div class="tip"><svg class="i"><use href="#i-crown"/></svg>
+      <div data-lang="he"><b>אליהו הנביא, דוד המלך והבעל שם טוב.</b> במוצאי שבת טוב להזכיר את אליהו הנביא — מבשר הגאולה — ולשיר עליו. זו גם השעה לספר סיפורים על דוד המלך, שהסעודה הזו קשורה אליו ("סעודתא דדוד מלכא משיחא"), ועל הבעל שם טוב הקדוש.</div>
+      <div data-lang="en"><b>Elijah the Prophet, King David and the Baal Shem Tov.</b> On Saturday night it's good to remember Elijah the Prophet — herald of the Redemption — and sing about him. It's also the time to tell stories of King David, to whom this meal is connected ("the meal of David, the King Messiah"), and of the holy Baal Shem Tov.</div>
+    </div>
+
+    <div class="tip"><svg class="i"><use href="#i-candle"/></svg>
+      <div data-lang="he"><b>נר לזכות הצדיקים.</b> יש הנוהגים להדליק במוצאי שבת נרות לזכות הצדיקים — לדוד המלך, לאליהו הנביא, ולכל צדיק שאתם מרגישים שטוב להדליק לו נר.</div>
+      <div data-lang="en"><b>A candle for the righteous.</b> Some have the custom of lighting candles on Saturday night in honor of the tzaddikim — for King David, for Elijah the Prophet, and for any tzaddik you feel connected to.</div>
+    </div>
+
+    <div class="slow"><svg class="i"><use href="#i-heart"/></svg>
+      <div class="t" data-lang="he">לאט לאט, בשמחה ובנחת</div><div class="t" data-lang="en">Slowly, with joy and calm</div>
+      <p data-lang="he">השבת יצאה — אבל האור שלה נשאר איתנו כל השבוע. שבוע טוב, ונתראה בשבת הבאה!</p>
+      <p data-lang="en">Shabbat has gone — but its light stays with us all week. Have a good week, and see you next Shabbat!</p>
+      <div class="next"><button class="btn" data-go="prep"><span data-lang="he">חזרה להתחלה</span><span data-lang="en">Back to the start</span></button></div>
     </div>
   </section>
 
@@ -747,7 +932,7 @@ footer{color:#6f7a93;font-size:12.5px;text-align:center;padding:10px 0 40px}
     if(cur&&!found)h='<option value="x" selected>'+(en?'Your location':cur[0])+'</option>'+h;
     sel.innerHTML=h}
   function render(){if(!tdata)return;var cn=null,hv=null;(tdata.items||[]).forEach(function(it){if(it.category==='candles'&&!cn)cn=it;if(it.category==='havdalah'&&!hv)hv=it});
-    if(!cn)return;document.getElementById('tIn').textContent=fmt(cn);document.getElementById('tOut').textContent=fmt(hv);box.hidden=false}
+    if(!cn)return;document.getElementById('tIn').textContent=fmt(cn);document.getElementById('tOut').textContent=fmt(hv);box.hidden=false;var b2=document.getElementById('times2');if(b2&&hv){document.getElementById('tOut2').textContent=fmt(hv);var cn2=cur[0];CITIES.forEach(function(c){if(c[0]===cur[0]&&isEn())cn2=c[1]});if(cur[0]==='המיקום שלך'&&isEn())cn2='your location';document.getElementById('cityName2').textContent=cn2;b2.hidden=false}}
   function load(c){cur=c;fill();var u='https://www.hebcal.com/shabbat?cfg=json&geo=pos&latitude='+c[1]+'&longitude='+c[2]+'&tzid='+encodeURIComponent(c[3])+'&M=on&lg=s&b='+c[4];
     fetch(u).then(function(r){return r.json()}).then(function(d){tdata=d;render()}).catch(function(){})}
   if(sel){sel.addEventListener('change',function(){var c=CITIES[+sel.value];if(!c)return;var v=[c[0],c[2],c[3],c[4],c[5]];try{localStorage.setItem('mg-shabbat-city',JSON.stringify(v))}catch(e){}load(v)});
