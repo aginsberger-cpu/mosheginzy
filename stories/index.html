@@ -51,7 +51,7 @@ h1{font-size:clamp(38px,9vw,58px);font-weight:800;line-height:1.1;letter-spacing
 @keyframes bob{50%{transform:translateY(5px)}}
 
 /* filters */
-.filters{position:sticky;top:58px;z-index:10;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:12px 0 14px;background:linear-gradient(180deg,var(--navy-900) 75%,transparent)}
+.filters{position:sticky;top:calc(58px + env(safe-area-inset-top,0px));z-index:10;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:12px 0 14px;background:linear-gradient(180deg,var(--navy-900) 75%,transparent)}
 .filters::-webkit-scrollbar{display:none}
 .chip{flex:none;display:inline-flex;align-items:center;gap:7px;border:1px solid var(--glass-b);background:var(--glass);color:var(--ink);font-weight:600;font-size:14px;padding:9px 15px;border-radius:999px;cursor:pointer}
 .chip .i{width:17px;height:17px}
@@ -113,6 +113,13 @@ body.lang-en .s-text{font-size:calc(17px * var(--fs,1));line-height:1.85}
 .pop-bg.on{display:block}
 footer{color:#6f7a93;font-size:12.5px;text-align:center;padding:10px 0 40px}
 @media (prefers-reduced-motion:reduce){.book,.listen .arrow{animation:none}}
+
+/* safe area (iPhone status bar) + back button */
+.topbar{padding-top:env(safe-area-inset-top,0px)}
+.tb-start{display:flex;align-items:center;gap:10px}
+.back-btn{display:inline-flex;align-items:center;gap:4px;height:36px;padding:0 12px 0 10px;border-radius:999px;border:1px solid rgba(214,178,94,.35);background:rgba(255,255,255,.05);color:#ecd9a3;font:600 14px 'Heebo',system-ui,sans-serif;text-decoration:none;cursor:pointer}
+.back-btn svg{width:18px;height:18px;stroke:#d6b25e;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+body.lang-en .back-btn svg,html[dir="ltr"] .back-btn svg{transform:scaleX(-1)}
 </style>
 </head>
 <body class="lang-he">
@@ -129,7 +136,7 @@ footer{color:#6f7a93;font-size:12.5px;text-align:center;padding:10px 0 40px}
 </svg>
 
 <header class="topbar"><div class="wrap">
-  <a class="brand home" href="/"><b>Ask</b>M<span class="o">o</span>sh</a>
+  <div class="tb-start"><a class="back-btn" id="backBtn" href="/"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg><span data-lang="he">חזרה</span><span data-lang="en">Back</span></a><a class="brand home" href="/"><b>Ask</b>M<span class="o">o</span>sh</a></div>
   <div class="lang"><button id="bHe" class="on" onclick="setLang('he')">עברית</button><button id="bEn" onclick="setLang('en')">English</button></div>
 </div></header>
 
@@ -257,5 +264,9 @@ var STORIES=[
   setLang(sv==='en'?'en':'he');
 })();
 </script>
+<script>(function(){try{var b=document.getElementById('backBtn');if(!b)return;var w=window,inApp=!!((w.webkit&&w.webkit.messageHandlers&&(w.webkit.messageHandlers.iosMic||w.webkit.messageHandlers.iosPush))||w.Android)||sessionStorage.getItem('mg-in-app')==='1'||/\/app(-new|-old)?(\.html)?([?#]|$)/.test(document.referrer);
+var same=document.referrer&&document.referrer.indexOf(location.origin)===0;
+b.href=inApp?'/app.html':'/';
+b.addEventListener('click',function(e){if(same&&history.length>1){e.preventDefault();history.back()}});}catch(e){}})();</script>
 </body>
 </html>
