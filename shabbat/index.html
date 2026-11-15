@@ -71,7 +71,7 @@ h1 span{background:linear-gradient(90deg,var(--gold-soft),var(--gold));-webkit-b
 
 /* evening order tabs */
 .order-title{font-size:13px;color:var(--gold);font-weight:700;letter-spacing:1px;margin:6px 0 0}
-.tabs{position:sticky;top:58px;z-index:15;display:flex;gap:8px;padding:10px 0 14px;overflow-x:auto;scrollbar-width:none;
+.tabs{position:sticky;top:calc(58px + env(safe-area-inset-top,0px));z-index:15;display:flex;gap:8px;padding:10px 0 14px;overflow-x:auto;scrollbar-width:none;
   background:linear-gradient(180deg,var(--navy-900) 75%,transparent)}
 .tabs::-webkit-scrollbar{display:none}
 .tab{flex:none;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:86px;border:1px solid var(--glass-b);
@@ -194,6 +194,13 @@ footer{color:#6f7a93;font-size:12.5px;text-align:center;padding:10px 0 40px}
   .i{stroke:#8a6a1e}
 }
 @media (prefers-reduced-motion:reduce){.hero img{animation:none}}
+
+/* safe area (iPhone status bar) + back button */
+.topbar{padding-top:env(safe-area-inset-top,0px)}
+.tb-start{display:flex;align-items:center;gap:10px}
+.back-btn{display:inline-flex;align-items:center;gap:4px;height:36px;padding:0 12px 0 10px;border-radius:999px;border:1px solid rgba(214,178,94,.35);background:rgba(255,255,255,.05);color:#ecd9a3;font:600 14px 'Heebo',system-ui,sans-serif;text-decoration:none;cursor:pointer}
+.back-btn svg{width:18px;height:18px;stroke:#d6b25e;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+body.lang-en .back-btn svg,html[dir="ltr"] .back-btn svg{transform:scaleX(-1)}
 </style>
 </head>
 <body class="lang-he">
@@ -231,7 +238,7 @@ footer{color:#6f7a93;font-size:12.5px;text-align:center;padding:10px 0 40px}
 
 <header class="topbar">
   <div class="wrap">
-    <a class="brand home" href="/" style="text-decoration:none;color:inherit"><b>Ask</b>M<span class="o">o</span>sh</a>
+    <div class="tb-start"><a class="back-btn" id="backBtn" href="/"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg><span data-lang="he">חזרה</span><span data-lang="en">Back</span></a><a class="brand home" href="/" style="text-decoration:none;color:inherit"><b>Ask</b>M<span class="o">o</span>sh</a></div>
     <div class="lang" role="group" aria-label="Language">
       <button id="bHe" class="on" onclick="setLang('he')">עברית</button>
       <button id="bEn" onclick="setLang('en')">English</button>
@@ -948,5 +955,9 @@ footer{color:#6f7a93;font-size:12.5px;text-align:center;padding:10px 0 40px}
   };
 })();
 </script>
+<script>(function(){try{var b=document.getElementById('backBtn');if(!b)return;var w=window,inApp=!!((w.webkit&&w.webkit.messageHandlers&&(w.webkit.messageHandlers.iosMic||w.webkit.messageHandlers.iosPush))||w.Android)||sessionStorage.getItem('mg-in-app')==='1'||/\/app(-new|-old)?(\.html)?([?#]|$)/.test(document.referrer);
+var same=document.referrer&&document.referrer.indexOf(location.origin)===0;
+b.href=inApp?'/app.html':'/';
+b.addEventListener('click',function(e){if(same&&history.length>1){e.preventDefault();history.back()}});}catch(e){}})();</script>
 </body>
 </html>
