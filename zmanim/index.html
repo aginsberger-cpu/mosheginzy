@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>זמני היום | AskMosh</title>
+<meta name="description" content="זמני היום לפי עיר: עלות השחר, הנץ החמה, סוף זמן קריאת שמע ותפילה, חצות, מנחה, שקיעה וצאת הכוכבים — וזמני השבת הקרובה.">
+<link rel="canonical" href="https://askmosh.com/zmanim/">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<!--
+  zmanim/index.html — "זמני היום". עמוד חדש ועצמאי.
+  זמנים: Hebcal.com (חינמי, דורש קרדיט — מופיע בתחתית). עיר שמורה: mg-shabbat-city (משותף עם פס השבת באפליקציה).
+  מג"א מחושב לפי 72 דקות (עלות השחר = הנץ פחות 72 דק', צאת = שקיעה ועוד 72 דק').
+-->
+<style>
+:root{--navy-900:#060d1f;--navy-800:#0a1530;--navy-700:#0f1f45;--navy-600:#16295a;--gold:#d6b25e;--gold-soft:#ecd9a3;
+  --ink:#f3efe4;--muted:#a9b3c9;--glass:rgba(255,255,255,.05);--glass-b:rgba(214,178,94,.22);--sans:'Heebo',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);color:var(--ink);line-height:1.6;min-height:100vh;
+  background:radial-gradient(1100px 600px at 80% -10%,rgba(214,178,94,.12),transparent 60%),radial-gradient(900px 500px at -10% 40%,rgba(60,90,180,.16),transparent 60%),linear-gradient(180deg,var(--navy-800),var(--navy-900) 70%)}
+button,select{font-family:var(--sans)}
+body.lang-he [data-lang="en"],body.lang-en [data-lang="he"]{display:none!important}
+body.lang-en{direction:ltr}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px}
+.i{width:20px;height:20px;flex:none;stroke:var(--gold);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+
+.topbar{position:sticky;top:0;z-index:20;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);background:rgba(6,13,31,.78);border-bottom:1px solid rgba(214,178,94,.15)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:58px}
+.brand{font-weight:800;font-size:19px;direction:ltr;text-decoration:none;color:var(--ink)}
+.brand b{color:var(--gold)}.brand .o{position:relative}
+.brand .o::after{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#e2453c;top:1px;left:50%;transform:translateX(-50%)}
+.lang{display:flex;background:var(--glass);border:1px solid var(--glass-b);border-radius:999px;padding:3px}
+.lang button{border:0;background:transparent;color:var(--muted);font-weight:600;font-size:13px;padding:6px 13px;border-radius:999px;cursor:pointer}
+.lang button.on{background:linear-gradient(135deg,var(--gold-soft),var(--gold));color:var(--navy-900)}
+
+.head{text-align:center;padding:26px 0 8px}
+h1{font-size:clamp(32px,8vw,44px);font-weight:800;letter-spacing:-.5px;background:linear-gradient(180deg,#fff6dc,var(--gold-soft) 50%,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hdate{font-size:20px;font-weight:700;color:var(--ink);margin-top:4px}
+.gdate{color:var(--muted);font-size:14.5px}
+
+.controls{display:flex;gap:10px;margin:16px 0 6px;flex-wrap:wrap}
+.ctl{flex:1 1 200px;display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:16px;border:1px solid transparent;
+  background-image:linear-gradient(rgba(14,32,52,.96),rgba(14,32,52,.96)),linear-gradient(120deg,#F5DC8C,#B8862E 45%,#F0D894);background-origin:border-box;background-clip:padding-box,border-box}
+.ctl select{flex:1;background:transparent;border:0;color:var(--gold-soft);font-size:16px;font-weight:700;outline:0;cursor:pointer;min-width:0}
+.ctl select option{background:var(--navy-800);color:var(--ink)}
+.days{display:flex;align-items:center;justify-content:space-between;gap:8px;flex:1 1 220px}
+.days button{border:1px solid var(--glass-b);background:var(--glass);color:var(--gold-soft);font-weight:700;font-size:15px;border-radius:14px;padding:10px 14px;cursor:pointer}
+.days button.today{flex:1}
+.days button[disabled]{opacity:.35;cursor:default}
+.locbtn{font-size:13px;color:var(--gold-soft);background:none;border:0;text-decoration:underline;cursor:pointer;margin:2px 4px 0}
+
+/* next zman hero */
+.next{margin:16px 0;padding:18px;border-radius:22px;text-align:center;background:radial-gradient(380px 140px at 50% 0,rgba(214,178,94,.22),transparent),linear-gradient(160deg,var(--navy-600),var(--navy-800));border:1px solid var(--glass-b)}
+.next .lbl{font-size:13px;font-weight:700;letter-spacing:1px;color:var(--gold)}
+.next .nm{font-size:22px;font-weight:800;margin-top:2px}
+.next .tm{font-size:44px;font-weight:800;color:var(--gold-soft);direction:ltr;line-height:1.1}
+.next .in{color:var(--muted);font-size:14.5px}
+
+.grid{display:grid;grid-template-columns:1fr;gap:18px;margin:6px 0 20px}
+@media(min-width:760px){.grid{grid-template-columns:1fr 1fr}}
+.card{border-radius:22px;padding:6px 16px 8px;background:var(--glass);border:1px solid rgba(255,255,255,.08)}
+.card h2{display:flex;align-items:center;gap:8px;font-size:17px;font-weight:800;color:var(--gold-soft);padding:12px 0 8px;border-bottom:1px solid rgba(214,178,94,.18)}
+.row{display:flex;align-items:center;gap:12px;padding:11px 2px;border-bottom:1px solid rgba(255,255,255,.05)}
+.row:last-child{border-bottom:0}
+.row .ic{width:34px;height:34px;flex:none;border-radius:11px;display:grid;place-items:center;background:linear-gradient(160deg,var(--navy-600),var(--navy-800));border:1px solid var(--glass-b)}
+.row .ic .i{width:17px;height:17px}
+.row .nm{flex:1;min-width:0}
+.row .nm b{display:block;font-size:16px;font-weight:700}
+.row .nm small{display:block;color:var(--muted);font-size:12.5px;line-height:1.35}
+.row .tm{font-size:19px;font-weight:800;color:var(--ink);direction:ltr;font-variant-numeric:tabular-nums}
+.row.past .tm,.row.past .nm b{opacity:.45}
+.row.now{background:linear-gradient(90deg,rgba(214,178,94,.14),transparent);border-radius:12px}
+.row.now .tm{color:var(--gold-soft)}
+.row.key .tm{color:var(--gold-soft)}
+
+.shab .parasha{font-size:19px;font-weight:800;margin:10px 0 2px}
+.shab .sd{color:var(--muted);font-size:13.5px;margin-bottom:4px}
+
+.note{color:var(--muted);font-size:13px;text-align:center;margin:6px 0 4px}
+.cta{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:18px 0 10px}
+.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--glass-b);background:rgba(214,178,94,.08);color:var(--gold-soft);font-weight:700;font-size:14.5px;padding:11px 16px;border-radius:14px;text-decoration:none;cursor:pointer}
+.btn.main{background:linear-gradient(135deg,var(--gold-soft),var(--gold));color:var(--navy-900);border:0}
+.btn.main .i{stroke:var(--navy-900)}
+footer{color:#6f7a93;font-size:12.5px;text-align:center;padding:14px 0 40px}
+footer a{color:#8d97b0}
+.err{display:none;text-align:center;color:#f0b3a8;margin:14px 0}
+.skel .tm{color:transparent!important;background:rgba(255,255,255,.06);border-radius:8px;min-width:60px}
+</style>
+</head>
+<body class="lang-he">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-dawn" viewBox="0 0 24 24"><path d="M5 17a7 7 0 0 1 14 0"/><path d="M2.5 17h19M12 4v3M4.9 8.9l1.6 1.6M19.1 8.9l-1.6 1.6"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M18.7 5.3l-1.4 1.4M6.7 17.3l-1.4 1.4"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 6.5C10 5 7 4.5 3.5 5v14c3.5-.5 6.5 0 8.5 1.5 2-1.5 5-2 8.5-1.5V5C17 4.5 14 5 12 6.5z"/><path d="M12 6.5v14"/></symbol>
+  <symbol id="i-tallit" viewBox="0 0 24 24"><path d="M4 6h16v12H4z"/><path d="M4 9h16M4 15h16M7 18v3M10 18v3M14 18v3M17 18v3"/></symbol>
+  <symbol id="i-noon" viewBox="0 0 24 24"><circle cx="12" cy="9" r="4"/><path d="M12 1.5v1.5M5 9H3.5M20.5 9H19M3 20h18"/></symbol>
+  <symbol id="i-sunset" viewBox="0 0 24 24"><path d="M7 16a5 5 0 0 1 10 0"/><path d="M2.5 16h19M5 20h14M12 4.5V8M4.6 8.6l1.8 1.8M19.4 8.6l-1.8 1.8"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/><path d="M17 3.5l.6 1.4 1.4.6-1.4.6-.6 1.4-.6-1.4-1.4-.6 1.4-.6z"/></symbol>
+  <symbol id="i-pray" viewBox="0 0 24 24"><path d="M12 3c-1.5 2.5-4 5-4 9a4 4 0 0 0 8 0c0-4-2.5-6.5-4-9z"/><path d="M12 16v5"/></symbol>
+  <symbol id="i-candles" viewBox="0 0 24 24"><path d="M8.5 2.5c1.3 1.5 1.3 2.8 0 3.8-1.3-1-1.3-2.3 0-3.8zM15.5 2.5c1.3 1.5 1.3 2.8 0 3.8-1.3-1-1.3-2.3 0-3.8z"/><rect x="6.5" y="8" width="4" height="10.5" rx="1"/><rect x="13.5" y="8" width="4" height="10.5" rx="1"/><path d="M4 21.5h16"/></symbol>
+  <symbol id="i-havdalah" viewBox="0 0 24 24"><path d="M12 2.5c1.6 1.8 1.6 3.4 0 4.6-1.6-1.2-1.6-2.8 0-4.6z"/><path d="M9.5 8.5h5l-.6 12h-3.8z"/><path d="M9.8 11.5l4.4 2.5M9.7 15l4.5 2.5"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M20.5 12a8 8 0 0 1-11.8 7L4 20.5l1.5-4.3A8 8 0 1 1 20.5 12z"/></symbol>
+  <symbol id="i-guide" viewBox="0 0 24 24"><rect x="4.5" y="3.5" width="15" height="17.5" rx="2"/><path d="M9 3.5V2h6v1.5"/><path d="m8 10 1.5 1.5L12 9M8 16l1.5 1.5L12 15M14 10.5h3M14 16.5h3"/></symbol>
+</svg>
+
+<header class="topbar"><div class="wrap">
+  <a class="brand home" href="/"><b>Ask</b>M<span class="o">o</span>sh</a>
+  <div class="lang"><button id="bHe" class="on" onclick="setLang('he')">עברית</button><button id="bEn" onclick="setLang('en')">English</button></div>
+</div></header>
+
+<main class="wrap">
+  <section class="head">
+    <h1><span data-lang="he">זמני היום</span><span data-lang="en">Daily Zmanim</span></h1>
+    <div class="hdate" id="hdate">&nbsp;</div>
+    <div class="gdate" id="gdate">&nbsp;</div>
+  </section>
+
+  <div class="controls">
+    <label class="ctl"><svg class="i"><use href="#i-pin"/></svg><select id="city" aria-label="city"></select></label>
+    <div class="days">
+      <button id="prev" aria-label="prev">›</button>
+      <button id="today" class="today"><span data-lang="he">היום</span><span data-lang="en">Today</span></button>
+      <button id="next" aria-label="next">‹</button>
+    </div>
+  </div>
+  <button class="locbtn" id="loc"><span data-lang="he">📍 לפי המיקום שלי</span><span data-lang="en">📍 Use my location</span></button>
+
+  <section class="next" id="nextBox" hidden>
+    <div class="lbl"><span data-lang="he">הזמן הבא</span><span data-lang="en">NEXT ZMAN</span></div>
+    <div class="nm" id="nextName"></div>
+    <div class="tm" id="nextTime"></div>
+    <div class="in" id="nextIn"></div>
+  </section>
+
+  <p class="err" id="err"><span data-lang="he">לא הצלחנו לטעון את הזמנים. בדקו את החיבור לאינטרנט ונסו שוב.</span><span data-lang="en">Couldn't load the times. Check your connection and try again.</span></p>
+
+  <div class="grid">
+    <section class="card" id="dayCard">
+      <h2><svg class="i"><use href="#i-clock"/></svg><span data-lang="he">זמני היום</span><span data-lang="en">Today's times</span></h2>
+      <div id="rows"></div>
+    </section>
+    <section class="card shab">
+      <h2><svg class="i"><use href="#i-candles"/></svg><span data-lang="he">השבת הקרובה</span><span data-lang="en">This Shabbat</span></h2>
+      <div class="parasha" id="parasha">&nbsp;</div>
+      <div class="sd" id="shabDate">&nbsp;</div>
+      <div id="shabRows"></div>
+    </section>
+  </div>
+
+  <p class="note"><span data-lang="he">הזמנים מחושבים לפי המיקום. הבדלים של 1–2 דקות בין לוחות שונים הם רגילים — מומלץ לא להשאיר לרגע האחרון.</span><span data-lang="en">Times are calculated by location. Differences of 1–2 minutes between calendars are normal — don't leave things to the last minute.</span></p>
+
+  <div class="cta">
+    <a class="btn main" href="/app.html?open=chat"><svg class="i"><use href="#i-chat"/></svg><span data-lang="he">שאלו את משה</span><span data-lang="en">Ask Mosh</span></a>
+    <a class="btn" href="/shabbat/"><svg class="i"><use href="#i-guide"/></svg><span data-lang="he">השבת הראשונה שלי</span><span data-lang="en">My First Shabbat</span></a>
+  </div>
+  <footer><span data-lang="he">חישוב הזמנים: </span><span data-lang="en">Zmanim by </span><a href="https://www.hebcal.com/" target="_blank" rel="noopener">Hebcal.com</a> · AskMosh</footer>
+</main>
+
+<script>
+(function(){
+  function store(k,v){try{if(v!==undefined)localStorage.setItem(k,v);return localStorage.getItem(k)}catch(e){return null}}
+  var CITIES=[['ירושלים','Jerusalem',31.7683,35.2137,'Asia/Jerusalem',40],['תל אביב','Tel Aviv',32.0853,34.7818,'Asia/Jerusalem',20],['חיפה','Haifa',32.7940,34.9896,'Asia/Jerusalem',30],['בני ברק','Bnei Brak',32.0807,34.8338,'Asia/Jerusalem',20],['פתח תקווה','Petah Tikva',32.0840,34.8878,'Asia/Jerusalem',20],['בית שמש','Beit Shemesh',31.7470,34.9881,'Asia/Jerusalem',20],['אשדוד','Ashdod',31.8014,34.6435,'Asia/Jerusalem',20],['נתניה','Netanya',32.3215,34.8532,'Asia/Jerusalem',20],['באר שבע','Beersheba',31.2518,34.7913,'Asia/Jerusalem',20],
+   ['ניו יורק','New York',40.7128,-74.0060,'America/New_York',18],['ברוקלין','Brooklyn',40.6782,-73.9442,'America/New_York',18],['לייקווד','Lakewood',40.0821,-74.2097,'America/New_York',18],['מיאמי','Miami',25.7617,-80.1918,'America/New_York',18],['שיקגו','Chicago',41.8781,-87.6298,'America/Chicago',18],['לוס אנג׳לס','Los Angeles',34.0522,-118.2437,'America/Los_Angeles',18],['טורונטו','Toronto',43.6532,-79.3832,'America/Toronto',18],['מונטריאול','Montreal',45.5017,-73.5673,'America/Toronto',18],['מקסיקו סיטי','Mexico City',19.4326,-99.1332,'America/Mexico_City',18],
+   ['בואנוס איירס','Buenos Aires',-34.6037,-58.3816,'America/Argentina/Buenos_Aires',18],['סנטיאגו','Santiago',-33.4489,-70.6693,'America/Santiago',18],['סאו פאולו','São Paulo',-23.5505,-46.6333,'America/Sao_Paulo',18],
+   ['לונדון','London',51.5074,-0.1278,'Europe/London',18],['פריז','Paris',48.8566,2.3522,'Europe/Paris',18],['אנטוורפן','Antwerp',51.2194,4.4025,'Europe/Brussels',18],['מוסקבה','Moscow',55.7558,37.6173,'Europe/Moscow',18],
+   ['יוהנסבורג','Johannesburg',-26.2041,28.0473,'Africa/Johannesburg',18],['סידני','Sydney',-33.8688,151.2093,'Australia/Sydney',18],['מלבורן','Melbourne',-37.8136,144.9631,'Australia/Melbourne',18]];
+  var L='he',cur=null,offset=0,Z=null,S=null,timer=null;
+  function en(){return L==='en'}
+
+  var DEF=[
+   {k:'alot72',ic:'dawn',he:'עלות השחר',hs:'72 דקות לפני הנץ — תחילת היום',en:'Dawn (Alot HaShachar)',es:'72 minutes before sunrise'},
+   {k:'misheyakir',ic:'tallit',he:'משיכיר',hs:'הזמן המוקדם להנחת טלית ותפילין',en:'Misheyakir',es:'Earliest time for tallit & tefillin'},
+   {k:'sunrise',ic:'sun',he:'הנץ החמה',hs:'זריחה — הזמן המובחר לתפילת עמידה',en:'Sunrise (Netz)',es:'Ideal time for the Amidah'},
+   {k:'shmaMGA',ic:'book',he:'סוף זמן קריאת שמע (מג״א)',hs:'לפי שיטת המגן אברהם',en:'Latest Shema (MGA)',es:'According to the Magen Avraham'},
+   {k:'sofZmanShma',ic:'book',he:'סוף זמן קריאת שמע (גר״א)',hs:'לפי שיטת הגר״א',en:'Latest Shema (GRA)',es:'According to the Vilna Gaon',key:1},
+   {k:'tfilaMGA',ic:'pray',he:'סוף זמן תפילה (מג״א)',hs:'סוף זמן תפילת שחרית',en:'Latest Shacharit (MGA)',es:'Latest morning prayer'},
+   {k:'sofZmanTfilla',ic:'pray',he:'סוף זמן תפילה (גר״א)',hs:'סוף זמן תפילת שחרית',en:'Latest Shacharit (GRA)',es:'Latest morning prayer'},
+   {k:'chatzot',ic:'noon',he:'חצות היום',hs:'אמצע היום',en:'Midday (Chatzot)',es:'Halachic midday'},
+   {k:'minchaGedola',ic:'pray',he:'מנחה גדולה',hs:'הזמן המוקדם לתפילת מנחה',en:'Mincha Gedola',es:'Earliest time for Mincha'},
+   {k:'minchaKetana',ic:'pray',he:'מנחה קטנה',hs:'הזמן המובחר לתפילת מנחה',en:'Mincha Ketana',es:'Preferred time for Mincha'},
+   {k:'plagHaMincha',ic:'sunset',he:'פלג המנחה',hs:'שעה ורבע זמנית לפני השקיעה',en:'Plag HaMincha',es:'1¼ halachic hours before sunset'},
+   {k:'sunset',ic:'sunset',he:'שקיעה',hs:'סוף זמן תפילת מנחה',en:'Sunset (Shkiah)',es:'End of time for Mincha',key:1},
+   {k:'tzeit85deg',ic:'star',he:'צאת הכוכבים',hs:'תחילת הלילה',en:'Nightfall (Tzeit)',es:'Three stars visible',key:1},
+   {k:'tzeit72min',ic:'star',he:'צאת הכוכבים (ר״ת)',hs:'72 דקות אחרי השקיעה — רבנו תם',en:'Nightfall (Rabbeinu Tam)',es:'72 minutes after sunset'}];
+
+  function gem(n){var L=[[400,'ת'],[300,'ש'],[200,'ר'],[100,'ק'],[90,'צ'],[80,'פ'],[70,'ע'],[60,'ס'],[50,'נ'],[40,'מ'],[30,'ל'],[20,'כ'],[10,'י'],[9,'ט'],[8,'ח'],[7,'ז'],[6,'ו'],[5,'ה'],[4,'ד'],[3,'ג'],[2,'ב'],[1,'א']],s='';
+    while(n>0){if(n===15){s+='טו';break}if(n===16){s+='טז';break}for(var i=0;i<L.length;i++){if(L[i][0]<=n){s+=L[i][1];n-=L[i][0];break}}}
+    return s.length>1?s.slice(0,-1)+'״'+s.slice(-1):s+'׳'}
+  function pad(n){return (n<10?'0':'')+n}
+  function ymd(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())}
+  function hm(iso){if(!iso)return '—';var m=String(iso).match(/T(\d\d):(\d\d)/);if(!m)return '—';if(!en())return m[1]+':'+m[2];var h=+m[1];return (h%12||12)+':'+m[2]+(h>=12?' PM':' AM')}
+  function addMin(iso,min){ // keep the city's UTC offset from the ISO string
+    var m=String(iso).match(/^(.*T)(\d\d):(\d\d)(?::(\d\d))?(.*)$/);var off=(String(iso).match(/([+-]\d\d:\d\d|Z)$/)||['Z'])[0];
+    var t=Math.round((new Date(iso).getTime()+min*60000)/60000)*60000;
+    var oh=off==='Z'?0:(off[0]==='-'?-1:1)*(parseInt(off.substr(1,2))*60+parseInt(off.substr(4,2)));
+    var d=new Date(t+oh*60000);return d.toISOString().replace(/\.\d+Z$/,'').replace('Z','')+off}
+  function day(){var d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()+offset);return d}
+
+  function getCity(){try{var v=JSON.parse(localStorage.getItem('mg-shabbat-city')||'null');if(v&&v.length===5)return v}catch(e){}
+    var tz='';try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||''}catch(e){}
+    for(var i=0;i<CITIES.length;i++){if(CITIES[i][4]===tz)return [CITIES[i][0],CITIES[i][2],CITIES[i][3],CITIES[i][4],CITIES[i][5]]}
+    var c=CITIES[0];return [c[0],c[2],c[3],c[4],c[5]]}
+  function fillCities(){var s=document.getElementById('city'),h='',found=false;
+    CITIES.forEach(function(c,i){var on=cur&&c[0]===cur[0];if(on)found=true;h+='<option value="'+i+'"'+(on?' selected':'')+'>'+(en()?c[1]:c[0])+'</option>'});
+    if(cur&&!found)h='<option value="x" selected>'+(en()?'Your location':(cur[0]||'המיקום שלך'))+'</option>'+h;s.innerHTML=h}
+
+  function dates(){var d=day();
+    try{if(en())document.getElementById('hdate').textContent=new Intl.DateTimeFormat('en-u-ca-hebrew',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(d);
+      else{var P={};new Intl.DateTimeFormat('he-u-ca-hebrew',{day:'numeric',month:'long',year:'numeric'}).formatToParts(d).forEach(function(p){P[p.type]=p.value});
+        var wd=new Intl.DateTimeFormat('he-IL',{weekday:'long'}).format(d);
+        document.getElementById('hdate').textContent=wd+' · '+gem(+P.day)+' '+P.month.replace(/^ב/,'')+' '+gem(+P.year%1000);}}catch(e){}
+    document.getElementById('gdate').textContent=new Intl.DateTimeFormat(en()?'en-US':'he-IL',{day:'numeric',month:'long',year:'numeric'}).format(d);
+    document.getElementById('prev').disabled=offset<=-1;}
+
+  function compute(t){var o={};for(var k in t)o[k]=t[k];
+    if(t.sunrise&&t.sunset){o.alot72=addMin(t.sunrise,-72);var a=new Date(o.alot72).getTime(),tz=new Date(addMin(t.sunset,72)).getTime(),h=(tz-a)/12/60000;
+      o.shmaMGA=addMin(o.alot72,3*h);o.tfilaMGA=addMin(o.alot72,4*h);}
+    return o}
+
+  function render(){if(!Z)return;var t=compute(Z.times||{}),now=Date.now(),isToday=offset===0,h='',nx=null;
+    DEF.forEach(function(d){var iso=t[d.k];if(!iso)return;var ms=new Date(iso).getTime(),cls='row'+(d.key?' key':'');
+      if(isToday&&ms<now)cls+=' past';if(isToday&&!nx&&ms>=now){nx={d:d,iso:iso,ms:ms};cls+=' now'}
+      h+='<div class="'+cls+'"><span class="ic"><svg class="i"><use href="#i-'+d.ic+'"/></svg></span><span class="nm"><b>'+(en()?d.en:d.he)+'</b><small>'+(en()?d.es:d.hs)+'</small></span><span class="tm">'+hm(iso)+'</span></div>'});
+    document.getElementById('rows').innerHTML=h;
+    var box=document.getElementById('nextBox');
+    if(nx){box.hidden=false;document.getElementById('nextName').textContent=en()?nx.d.en:nx.d.he;document.getElementById('nextTime').textContent=hm(nx.iso);
+      var mins=Math.round((nx.ms-now)/60000),hh=Math.floor(mins/60),mm=mins%60;
+      document.getElementById('nextIn').textContent=en()?('in '+(hh?hh+' h ':'')+mm+' min'):('בעוד '+(hh?hh+' שעות ו־':'')+mm+' דקות');}
+    else box.hidden=true;
+    renderShab();}
+
+  function renderShab(){if(!S)return;var cn=null,hv=null,p=null;(S.items||[]).forEach(function(it){if(it.category==='candles'&&!cn)cn=it;if(it.category==='havdalah'&&!hv)hv=it;if(it.category==='parashat'&&!p)p=it});
+    document.getElementById('parasha').textContent=p?(en()?p.title:p.hebrew):'';
+    var d=cn?new Date(cn.date):null;
+    document.getElementById('shabDate').textContent=d?new Intl.DateTimeFormat(en()?'en-US':'he-IL',{weekday:'long',day:'numeric',month:'long'}).format(d):'';
+    var rows=[['candles',en()?'Candle lighting':'הדלקת נרות',en()?(cur[4]+' minutes before sunset'):(cur[4]+' דקות לפני השקיעה'),cn&&cn.date],
+      ['havdalah',en()?'Shabbat ends':'צאת השבת',en()?'Nightfall':'צאת הכוכבים',hv&&hv.date],
+      ['star',en()?'Rabbeinu Tam':'צאת השבת (ר״ת)',en()?'72 minutes after sunset':'72 דקות אחרי השקיעה',S.rt]],h='';
+    rows.forEach(function(r){if(!r[3])return;h+='<div class="row key"><span class="ic"><svg class="i"><use href="#i-'+r[0]+'"/></svg></span><span class="nm"><b>'+r[1]+'</b><small>'+r[2]+'</small></span><span class="tm">'+hm(r[3])+'</span></div>'});
+    document.getElementById('shabRows').innerHTML=h;}
+
+  function q(c){return 'latitude='+c[1]+'&longitude='+c[2]+'&tzid='+encodeURIComponent(c[3])}
+  var req=0;
+  function load(){var my=++req,c=cur;dates();fillCities();document.getElementById('err').style.display='none';
+    document.getElementById('rows').innerHTML=DEF.map(function(d){return '<div class="row skel"><span class="ic"></span><span class="nm"><b>'+(en()?d.en:d.he)+'</b></span><span class="tm">00:00</span></div>'}).join('');
+    fetch('https://www.hebcal.com/zmanim?cfg=json&'+q(c)+'&date='+ymd(day())).then(function(r){return r.json()}).then(function(d){if(my!==req)return;Z=d;render()})
+      .catch(function(){if(my===req)document.getElementById('err').style.display='block'});
+    fetch('https://www.hebcal.com/shabbat?cfg=json&geo=pos&'+q(c)+'&M=on&lg=s&b='+c[4]+'&gy='+day().getFullYear()+'&gm='+(day().getMonth()+1)+'&gd='+day().getDate()).then(function(r){return r.json()}).then(function(d){if(my!==req)return;S=d;
+      var sat=null;(d.items||[]).forEach(function(it){if(it.category==='havdalah'&&!sat)sat=it.date.slice(0,10)});
+      if(sat)return fetch('https://www.hebcal.com/zmanim?cfg=json&'+q(c)+'&date='+sat).then(function(r){return r.json()}).then(function(z){if(my!==req)return;S.rt=z.times&&z.times.tzeit72min;renderShab()});
+      renderShab()}).catch(function(){});}
+
+  function save(c){cur=c;try{localStorage.setItem('mg-shabbat-city',JSON.stringify(c))}catch(e){}load()}
+  document.getElementById('city').addEventListener('change',function(){var c=CITIES[+this.value];if(c)save([c[0],c[2],c[3],c[4],c[5]])});
+  document.getElementById('prev').onclick=function(){if(offset>-1){offset--;load()}};
+  document.getElementById('next').onclick=function(){offset++;load()};
+  document.getElementById('today').onclick=function(){offset=0;load()};
+  document.getElementById('loc').onclick=function(){if(!navigator.geolocation)return;var b=this;b.style.opacity=.5;
+    navigator.geolocation.getCurrentPosition(function(p){b.style.opacity=1;var tz='America/New_York';try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||tz}catch(e){}
+      save(['המיקום שלך',+p.coords.latitude.toFixed(4),+p.coords.longitude.toFixed(4),tz,tz==='Asia/Jerusalem'?20:18])},function(){b.style.opacity=1},{timeout:10000,maximumAge:3600000})};
+
+  window.setLang=function(l){L=l;document.body.classList.remove('lang-he','lang-en');document.body.classList.add('lang-'+l);
+    document.documentElement.lang=l;document.documentElement.dir=l==='he'?'rtl':'ltr';
+    document.getElementById('bHe').classList.toggle('on',l==='he');document.getElementById('bEn').classList.toggle('on',l==='en');
+    store('mg-app-lang',l);if(cur){dates();fillCities();render()}};
+
+  try{var w=window,inApp=!!((w.webkit&&w.webkit.messageHandlers&&(w.webkit.messageHandlers.iosMic||w.webkit.messageHandlers.iosPush))||w.Android||/\/app(-new|-old)?(\.html)?([?#]|$)/.test(document.referrer));
+    if(inApp)sessionStorage.setItem('mg-in-app','1');else inApp=sessionStorage.getItem('mg-in-app')==='1';if(inApp)document.querySelector('a.home').href='/app.html';}catch(e){}
+
+  var ql=(location.search.match(/[?&]lang=(en|he)\b/)||[])[1];setLang(ql||(store('mg-app-lang')==='en'?'en':'he'));
+  cur=getCity();load();
+  setInterval(function(){if(offset===0)render()},60000);
+})();
+</script>
+</body>
+</html>
