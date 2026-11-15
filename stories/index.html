@@ -51,7 +51,7 @@ h1{font-size:clamp(38px,9vw,58px);font-weight:800;line-height:1.1;letter-spacing
 @keyframes bob{50%{transform:translateY(5px)}}
 
 /* filters */
-.filters{position:sticky;top:calc(58px + env(safe-area-inset-top,0px));z-index:10;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:12px 0 14px;background:linear-gradient(180deg,var(--navy-900) 75%,transparent)}
+.filters{position:sticky;top:calc(58px + max(env(safe-area-inset-top,0px),var(--sat-fb,0px)));z-index:10;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:12px 0 14px;background:linear-gradient(180deg,var(--navy-900) 75%,transparent)}
 .filters::-webkit-scrollbar{display:none}
 .chip{flex:none;display:inline-flex;align-items:center;gap:7px;border:1px solid var(--glass-b);background:var(--glass);color:var(--ink);font-weight:600;font-size:14px;padding:9px 15px;border-radius:999px;cursor:pointer}
 .chip .i{width:17px;height:17px}
@@ -115,7 +115,7 @@ footer{color:#6f7a93;font-size:12.5px;text-align:center;padding:10px 0 40px}
 @media (prefers-reduced-motion:reduce){.book,.listen .arrow{animation:none}}
 
 /* safe area (iPhone status bar) + back button */
-.topbar{padding-top:env(safe-area-inset-top,0px)}
+.topbar{padding-top:max(env(safe-area-inset-top,0px),var(--sat-fb,0px))}
 .tb-start{display:flex;align-items:center;gap:10px}
 .back-btn{display:inline-flex;align-items:center;gap:4px;height:36px;padding:0 12px 0 10px;border-radius:999px;border:1px solid rgba(214,178,94,.35);background:rgba(255,255,255,.05);color:#ecd9a3;font:600 14px 'Heebo',system-ui,sans-serif;text-decoration:none;cursor:pointer}
 .back-btn svg{width:18px;height:18px;stroke:#d6b25e;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
@@ -268,5 +268,10 @@ var STORIES=[
 var same=document.referrer&&document.referrer.indexOf(location.origin)===0;
 b.href=inApp?'/app.html':'/';
 b.addEventListener('click',function(e){if(same&&history.length>1){e.preventDefault();history.back()}});}catch(e){}})();</script>
+<script>/* Android app (edge-to-edge): if the WebView reports no status-bar inset, add a fallback so the header isn't under the clock */
+(function(){try{var w=window,and=!!w.Android||/Android/i.test(navigator.userAgent);if(!and)return;
+var inApp=!!w.Android||sessionStorage.getItem('mg-in-app')==='1'||/; wv\)/.test(navigator.userAgent);if(!inApp)return;
+var p=document.createElement('div');p.style.cssText='position:fixed;top:0;height:env(safe-area-inset-top,0px);visibility:hidden';document.body.appendChild(p);
+if(p.getBoundingClientRect().height<1)document.documentElement.style.setProperty('--sat-fb','28px');p.remove();}catch(e){}})();</script>
 </body>
 </html>
