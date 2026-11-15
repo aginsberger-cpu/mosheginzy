@@ -114,6 +114,9 @@ body.lang-en .s-text{font-size:calc(17px * var(--fs,1));line-height:1.85}
 .pop-bg.on{display:block}
 footer{color:#6f7a93;font-size:12.5px;text-align:center;padding:10px 0 40px}
 @media (prefers-reduced-motion:reduce){.book,.listen .arrow{animation:none}}
+/* smooth video playback: no blur/animations while a video is playing */
+body.vplay .topbar,body.vplay .tag{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(6,13,31,.96)}
+body.vplay *{animation-play-state:paused!important}
 
 /* safe area (iPhone status bar) + back button */
 .topbar{padding-top:max(env(safe-area-inset-top,0px),var(--sat-fb,0px))}
@@ -178,6 +181,29 @@ body.lang-en .back-btn svg,html[dir="ltr"] .back-btn svg{transform:scaleX(-1)}
    text: paragraphs; wrap a word as [[term]] to make it a clickable explanation (term must be in words)
 */
 var STORIES=[
+ {id:'haniggun', series:'melave', video:'media/haniggun.mp4', img:'media/haniggun.jpg',
+  title:{he:'הניגון שפתח את השערים',en:'The Melody That Opened the Gates'},
+  desc:{he:'רועה צאן פשוט עם חליל עץ — והבעל שם טוב אומר: "אל תיגעו בו".',en:'A simple shepherd with a wooden flute — and the Baal Shem Tov says: "Don\'t touch him."'},
+  kind:{he:'הבעל שם טוב',en:'The Baal Shem Tov'},
+  text:{he:[
+   'פעם אחת, במוצאי שבת, ישב [[הבעל שם טוב]] עם תלמידיו, ופניו היו רציניות מאוד. התלמידים הבינו שבשמיים יש דין קשה על הקהילה, וחיכו לראות איזו תפילה עמוקה הוא יאמר.',
+   'פתאום, נכנס לבית המדרש רועה צאן פשוט, שלא ידע לקרוא אפילו אות אחת בסידור. הרועה הסתכל על כולם, הוציא מכיסו חליל עץ קטן, והתחיל לנגן מנגינה פשוטה ומתוקה, שיצאה ישר מעומק הלב שלו.',
+   'התלמידים נבהלו ורצו לעצור אותו, אבל הבעל שם טוב סימן להם בידו:<span class="quote">"אל תיגעו בו."</span>',
+   'כשהרועה סיים לנגן, אור גדול עלה על פניו של הבעל שם טוב. הוא הסתובב לתלמידיו ואמר:<span class="quote">"התפילות והמילים הגבוהות שלנו עמדו בחוץ, אבל הניגון הפשוט והאמיתי של הרועה הזה – הוא זה שפתח את כל השערים."</span>',
+   'לפעמים אנחנו חושבים שצריך מילים גדולות או מעשים מסובכים כדי להצליח. אבל האמת היא שכל מה שצריך לשבוע החדש, זה <b>לב נקי וכוונה אמיתית</b>.',
+   'שיהיה לכולנו שבוע טוב, מבורך ומלא באור.'],
+  en:[
+   'Once, on Motzaei Shabbat, [[the Baal Shem Tov]] sat with his students, his face very serious. The students understood that a harsh judgment hung over the community in Heaven, and waited to hear what deep prayer he would say.',
+   'Suddenly a simple shepherd walked into the study hall — a man who couldn\'t read a single letter in the siddur. He looked at everyone, took a small wooden flute from his pocket, and began to play a simple, sweet melody that came straight from the depths of his heart.',
+   'The students were alarmed and rushed to stop him, but the Baal Shem Tov signaled with his hand:<span class="quote">"Don\'t touch him."</span>',
+   'When the shepherd finished playing, a great light shone on the Baal Shem Tov\'s face. He turned to his students and said:<span class="quote">"Our prayers and lofty words stood outside — but this shepherd\'s simple, sincere melody is what opened all the gates."</span>',
+   'Sometimes we think we need grand words or complicated deeds to succeed. But the truth is, all we need for the new week is <b>a pure heart and a sincere intention</b>.',
+   'May we all have a good week, blessed and full of light.']},
+  lesson:{he:'לא המילים הגבוהות פותחות את השערים — אלא לב נקי וכוונה אמיתית.',en:'It\'s not lofty words that open the gates — it\'s a pure heart and a sincere intention.'},
+  question:{he:'מה ה"ניגון" הפשוט שלכם — הדבר הקטן שאתם עושים מכל הלב? איך תכניסו אותו לשבוע החדש?',en:'What is your simple "melody" — the small thing you do with all your heart? How will you bring it into the new week?'},
+  words:{he:{'הבעל שם טוב':'רבי ישראל בן אליעזר (1698–1760), מייסד תנועת החסידות. לימד שעבודת ה\' בשמחה ובלב תמים חשובה לא פחות מלמדנות.'},
+         en:{'the Baal Shem Tov':'Rabbi Israel ben Eliezer (1698–1760), founder of the Chassidic movement. He taught that serving God with joy and a simple heart is as precious as scholarship.'}}
+ },
  {id:'hashulchan', series:'shabbat', video:'media/hashulchan.mp4', img:'media/hashulchan.jpg',
   title:{he:'השולחן שתמיד היה בו מקום לעוד אחד',en:'The Table That Always Had Room for One More'},
   desc:{he:'סערה בליל שבת, רחוב ריק — ורבי זושא בכל זאת יוצא לחפש אורח.',en:'A stormy Shabbat night, an empty street — and Rabbi Zusha still goes out to find a guest.'},
@@ -269,7 +295,7 @@ var STORIES=[
   function openStory(s){var a=document.getElementById('story'),w=s.words[L]||{},h='';
     h+='<button class="back" id="back">'+(L==='he'?'→ לכל הסיפורים':'← All stories')+'</button>';
     h+='<div class="s-tag">'+SER[s.series][L]+(s.kind?' · '+esc(s.kind[L]):'')+'</div><h2 class="s-title">'+esc(s.title[L])+'</h2>';
-    if(s.video)h+='<div class="video"><video src="'+s.video+'" poster="'+s.img+'" controls playsinline preload="metadata"></video></div>';else if(s.yt)h+='<div class="video"><iframe src="https://www.youtube-nocookie.com/embed/'+s.yt+'?rel=0&modestbranding=1&playsinline=1" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="'+esc(s.title[L])+'"></iframe></div>';
+    if(s.video)h+='<div class="video"><video src="'+s.video+'" poster="'+s.img+'" controls playsinline preload="auto"></video></div>';else if(s.yt)h+='<div class="video"><iframe src="https://www.youtube-nocookie.com/embed/'+s.yt+'?rel=0&modestbranding=1&playsinline=1" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="'+esc(s.title[L])+'"></iframe></div>';
     else h+='<img class="s-img" src="'+s.img+'" alt="">';
     h+='<div class="tools"><button class="tool" id="fsUp">A+</button><button class="tool" id="fsDn">A−</button></div>';
     h+='<div class="s-text" id="sText">'+s.text[L].map(function(p){return '<p>'+termify(p,w)+'</p>'}).join('')+'</div>';
@@ -312,5 +338,8 @@ b.addEventListener('click',function(e){if(same&&history.length>1){e.preventDefau
 var inApp=!!w.Android||sessionStorage.getItem('mg-in-app')==='1'||/; wv\)/.test(navigator.userAgent);if(!inApp)return;
 var p=document.createElement('div');p.style.cssText='position:fixed;top:0;height:env(safe-area-inset-top,0px);visibility:hidden';document.body.appendChild(p);
 if(p.getBoundingClientRect().height<1)document.documentElement.style.setProperty('--sat-fb','28px');p.remove();}catch(e){}})();</script>
+<script>/* smooth video playback */
+document.addEventListener('play',function(e){if(e.target.tagName==='VIDEO')document.body.classList.add('vplay')},true);
+['pause','ended'].forEach(function(ev){document.addEventListener(ev,function(e){if(e.target.tagName==='VIDEO')document.body.classList.remove('vplay')},true)});</script>
 </body>
 </html>
