@@ -84,6 +84,10 @@ body.reading .story{display:block}
 .s-title{font-size:clamp(30px,7vw,42px);font-weight:800;line-height:1.15;margin:4px 0 14px}
 .video{position:relative;aspect-ratio:9/16;max-height:72vh;margin:0 auto 20px;border-radius:22px;overflow:hidden;border:1px solid var(--glass-b);background:#000}
 .video iframe,.video video{position:absolute;inset:0;width:100%;height:100%;border:0;object-fit:contain;background:#000}
+.yt-face{cursor:pointer}.yt-face img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.yt-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:78px;height:78px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--gold-soft),var(--gold));box-shadow:0 10px 30px rgba(0,0,0,.5);transition:transform .2s}
+.yt-face:hover .yt-play{transform:translate(-50%,-50%) scale(1.06)}
+.yt-play svg{width:28px;height:28px;fill:var(--navy-900);margin-inline-start:4px}
 .s-img{width:100%;border-radius:22px;border:1px solid var(--glass-b);margin-bottom:20px;max-height:380px;object-fit:cover}
 .s-text{font-family:var(--sans);font-size:calc(18px * var(--fs,1));line-height:1.9;color:#f6f1e4;font-weight:400}
 body.lang-en .s-text{font-size:calc(17px * var(--fs,1));line-height:1.85}
@@ -250,7 +254,7 @@ var STORIES=[
   words:{he:{'נושא בעול עם חברו':'אחת מ-48 הדרכים שבהן נקנית התורה (פרקי אבות ו). להשתתף באמת בצער ובקושי של האחר.'},
          en:{'bearing the burden with a friend':'"Nosei b\'ol im chaveiro" — one of the 48 ways Torah is acquired (Ethics of the Fathers 6). Truly sharing in another\'s struggle.'}}
  },
- {id:'hagabai', series:'chachamim', video:'media/hagabai-hashaket.mp4', img:'media/hagabai.jpg',
+ {id:'hagabai', series:'chachamim', yt:'uqNtJX8Jncw', video:'media/hagabai-hashaket.mp4', img:'media/hagabai.jpg',
   title:{he:'הסוד של הגבאי השקט',en:'The Quiet Gabbai\'s Secret'},
   desc:{he:'עני ביקש עזרה — והגבאי קנה ממנו מפתח חלוד.',en:'A poor man asked for help — and the gabbai bought a rusty key from him.'},
   text:{he:[
@@ -295,7 +299,7 @@ var STORIES=[
   function openStory(s){var a=document.getElementById('story'),w=s.words[L]||{},h='';
     h+='<button class="back" id="back">'+(L==='he'?'→ לכל הסיפורים':'← All stories')+'</button>';
     h+='<div class="s-tag">'+SER[s.series][L]+(s.kind?' · '+esc(s.kind[L]):'')+'</div><h2 class="s-title">'+esc(s.title[L])+'</h2>';
-    if(s.video)h+='<div class="video"><video src="'+s.video+'" poster="'+s.img+'" controls playsinline preload="auto"></video></div>';else if(s.yt)h+='<div class="video"><iframe src="https://www.youtube-nocookie.com/embed/'+s.yt+'?rel=0&modestbranding=1&playsinline=1" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="'+esc(s.title[L])+'"></iframe></div>';
+    if(s.yt)h+='<div class="video yt-face" data-yt="'+s.yt+'" role="button" tabindex="0" aria-label="'+esc(s.title[L])+'"><img src="'+s.img+'" alt=""><span class="yt-play"><svg viewBox="0 0 24 24"><path d="M7 4l14 8-14 8z"/></svg></span></div>';else if(s.video)h+='<div class="video"><video src="'+s.video+'" poster="'+s.img+'" controls playsinline preload="auto"></video></div>';
     else h+='<img class="s-img" src="'+s.img+'" alt="">';
     h+='<div class="tools"><button class="tool" id="fsUp">A+</button><button class="tool" id="fsDn">A−</button></div>';
     h+='<div class="s-text" id="sText">'+s.text[L].map(function(p){return '<p>'+termify(p,w)+'</p>'}).join('')+'</div>';
@@ -341,5 +345,10 @@ if(p.getBoundingClientRect().height<1)document.documentElement.style.setProperty
 <script>/* smooth video playback */
 document.addEventListener('play',function(e){if(e.target.tagName==='VIDEO')document.body.classList.add('vplay')},true);
 ['pause','ended'].forEach(function(ev){document.addEventListener(ev,function(e){if(e.target.tagName==='VIDEO')document.body.classList.remove('vplay')},true)});</script>
+<script>/* YouTube facade: our poster until tapped, then load the player */
+(function(){function go(el){var id=el.getAttribute('data-yt');if(!id)return;el.removeAttribute('data-yt');
+el.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0&modestbranding=1&playsinline=1" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" title="video"></iframe>';document.body.classList.add('vplay');}
+document.addEventListener('click',function(e){var el=e.target.closest&&e.target.closest('.yt-face');if(el)go(el)});
+document.addEventListener('keydown',function(e){if(e.key==='Enter'&&e.target.classList&&e.target.classList.contains('yt-face'))go(e.target)});})();</script>
 </body>
 </html>
