@@ -163,9 +163,9 @@ body.lang-en .back-btn svg,html[dir="ltr"] .back-btn svg{transform:scaleX(-1)}
 
     <nav class="filters" id="filters">
       <button class="chip on" data-f="all"><svg class="i"><use href="#i-all"/></svg><span data-lang="he">כל הסיפורים</span><span data-lang="en">All stories</span></button>
-      <button class="chip" data-f="shabbat"><svg class="i"><use href="#i-candles"/></svg><span data-lang="he">סיפור לשבת</span><span data-lang="en">Shabbat story</span></button>
+      <button class="chip" data-f="shabbat"><svg class="i"><use href="#i-candles"/></svg><span data-lang="he">סיפור לשבת</span><span data-lang="en">A Shabbat Story</span></button>
       <button class="chip" data-f="melave"><svg class="i"><use href="#i-crown"/></svg><span data-lang="he">מלווה מלכה</span><span data-lang="en">Melave Malka</span></button>
-      <button class="chip" data-f="chachamim"><svg class="i"><use href="#i-book"/></svg><span data-lang="he">מסיפורי חכמינו</span><span data-lang="en">Tales of the Sages</span></button>
+      <button class="chip" data-f="chachamim"><svg class="i"><use href="#i-book"/></svg><span data-lang="he">מסיפורי חכמינו</span><span data-lang="en">Tales of the Tzaddikim</span></button>
     </nav>
     <div class="grid" id="grid"></div>
     <p class="empty" id="empty" hidden><span data-lang="he">סיפורים חדשים בדרך — נתראה בקרוב!</span><span data-lang="en">New stories are on the way — see you soon!</span></p>
@@ -282,7 +282,7 @@ var STORIES=[
     document.documentElement.lang=l;document.documentElement.dir=l==='he'?'rtl':'ltr';
     document.getElementById('bHe').classList.toggle('on',l==='he');document.getElementById('bEn').classList.toggle('on',l==='en');
     store('mg-app-lang',l);renderList();route();};
-  var SER={shabbat:{he:'סיפור לשבת',en:'Shabbat story'},melave:{he:'מלווה מלכה',en:'Melave Malka'},chachamim:{he:'מסיפורי חכמינו',en:'Tales of the Sages'}};
+  var SER={shabbat:{he:'סיפור לשבת',en:'A Shabbat Story'},melave:{he:'מלווה מלכה',en:'Melave Malka'},chachamim:{he:'מסיפורי חכמינו',en:'Tales of the Tzaddikim'}};
   var filter='all';
   function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
   function renderList(){var g=document.getElementById('grid'),h='',n=0;
