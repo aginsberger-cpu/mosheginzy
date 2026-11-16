@@ -231,7 +231,7 @@ var STORIES=[
   words:{he:{'רבי זושא מאניפולי':'מגדולי תלמידי המגיד ממזריטש, אחיו של רבי אלימלך מליז\'נסק. היה ידוע בענווה גדולה ובאהבת כל יהודי.','לקדש':'לעשות קידוש — הברכה על היין שפותחת את סעודת השבת.'},
          en:{'Rabbi Zusha of Anipoli':'One of the great disciples of the Maggid of Mezeritch and brother of Rabbi Elimelech of Lizhensk, known for his deep humility and love for every Jew.','Kiddush':'The blessing over wine that opens the Shabbat meal.'}}
  },
- {id:'aryeh-levin', series:'chachamim', yt:'DOElNYawh6s', video:'media/rabbi-aryeh-levin.mp4', img:'media/aryeh-levin.jpg',
+ {id:'aryeh-levin', series:'chachamim', yt:'DOElNYawh6s', yt_en:'NPrroLqNF5Y', video:'media/rabbi-aryeh-levin.mp4', img:'media/aryeh-levin.jpg',
   title:{he:'רבי אריה לוין והרופא',en:'Rabbi Aryeh Levin and the Doctor'},
   desc:{he:'משפט אחד שאמר לרופא — והרופא לא האמין שהוא שומע.',en:'One sentence he said to the doctor — and the doctor could hardly believe his ears.'},
   kind:{he:'רבי אריה לוין, ירושלים',en:'Rabbi Aryeh Levin, Jerusalem'},
@@ -243,12 +243,14 @@ var STORIES=[
    'ביהדות קוראים לזה [[נושא בעול עם חברו]]. זה לא רק לרחם על מישהו מרחוק, או להגיד לו "יהיה בסדר". זו היכולת להיכנס לנעליים של האדם שמולך... להרגיש את מה שהוא מרגיש, ולתת לו לדעת שהוא לא לבד.',
    'אולי זה הזמן לעצור לרגע, להקשיב באמת למי שיושב מולנו, ולזכור שלפעמים, המילים הכי מרפאות בעולם... הן פשוט: <b>"אני איתך"</b>.'],
   en:[
-   'Rabbi Aryeh Levin was one of the most beloved rabbis in Jerusalem. People of every kind came to him... not for great sermons, but for his open heart and rare sensitivity to every person.',
-   'One day Rabbi Aryeh came to a Jerusalem hospital with his wife, who was suffering from severe pain in her leg. They sat down before the doctor, and Rabbi Aryeh looked at him with soft, worried eyes and said quietly:<span class="quote">"Doctor... my wife\'s leg is hurting <b>us</b> very much."</span>',
-   'The doctor looked at him in amazement. Had he heard right? My wife\'s leg... hurts <b>us</b>?',
-   'Rabbi Aryeh wasn\'t being clever. He truly felt her pain as if it were his own.',
-   'In Judaism this is called [[bearing the burden with a friend]]. It\'s not just pitying someone from afar, or saying "it\'ll be okay". It\'s the ability to step into the other person\'s shoes... to feel what they feel, and let them know they\'re not alone.',
-   'Maybe this is the moment to pause, truly listen to the person in front of us, and remember that sometimes the most healing words in the world are simply: <b>"I\'m with you."</b>']},
+   'Years ago, in the narrow stone streets of Jerusalem, lived Rabbi Aryeh Levin — a man everyone called the "Father of Prisoners" because of his endless love for every human being.',
+   'One quiet morning, his wife woke up with a terrible pain in her foot. She could barely walk, so Rabbi Aryeh gently took her arm, and together they walked slowly to the neighborhood doctor\'s clinic.',
+   'They sat down in the small examination room. The doctor adjusted his glasses, looked at them kindly, and asked, "So, what brings you here today?"',
+   'Rabbi Aryeh looked at the doctor with deep concern in his eyes and said quietly:<span class="quote">"Doctor... <b>our</b> foot is hurting us."</span>',
+   'The doctor paused for a moment, puzzled. He looked at Rabbi Aryeh, then at his wife, and asked, "Excuse me, Rabbi, whose foot is hurting?"',
+   'Rabbi Aryeh smiled gently and answered:<span class="quote">"My wife\'s foot is in pain... and when she hurts, I hurt too."</span>',
+   'Those few words stayed with that doctor for the rest of his life. For Rabbi Aryeh, love wasn\'t just a nice feeling or a polite promise. It meant that two hearts beat as one — when she felt pain, he felt it in his own body. This is what Judaism calls [[bearing the burden with a friend]].',
+   'In a busy world where everyone is rushing, maybe that\'s the secret to real connection: not just standing next to the people we love, but <b>truly feeling what they feel</b>.']},
   lesson:{he:'אהבה אמיתית היא להרגיש את הכאב של האחר כאילו הוא שלך — ולתת לו לדעת שהוא לא לבד.',en:'True love is feeling another\'s pain as if it were your own — and letting them know they\'re not alone.'},
   question:{he:'מתי הרגשתם שמישהו באמת "נושא איתכם בעול"? ואת מי אתם יכולים ללוות השבוע?',en:'When did you feel someone truly shared your burden? Who could you stand beside this week?'},
   words:{he:{'נושא בעול עם חברו':'אחת מ-48 הדרכים שבהן נקנית התורה (פרקי אבות ו). להשתתף באמת בצער ובקושי של האחר.'},
@@ -299,7 +301,8 @@ var STORIES=[
   function openStory(s){var a=document.getElementById('story'),w=s.words[L]||{},h='';
     h+='<button class="back" id="back">'+(L==='he'?'→ לכל הסיפורים':'← All stories')+'</button>';
     h+='<div class="s-tag">'+SER[s.series][L]+(s.kind?' · '+esc(s.kind[L]):'')+'</div><h2 class="s-title">'+esc(s.title[L])+'</h2>';
-    if(s.yt)h+='<div class="video yt-face" data-yt="'+s.yt+'" role="button" tabindex="0" aria-label="'+esc(s.title[L])+'"><img src="'+s.img+'" alt=""><span class="yt-play"><svg viewBox="0 0 24 24"><path d="M7 4l14 8-14 8z"/></svg></span></div>';else if(s.video)h+='<div class="video"><video src="'+s.video+'" poster="'+s.img+'" controls playsinline preload="auto"></video></div>';
+    var yid=(L==='en'&&s.yt_en)?s.yt_en:s.yt;
+    if(yid)h+='<div class="video yt-face" data-yt="'+yid+'" role="button" tabindex="0" aria-label="'+esc(s.title[L])+'"><img src="'+s.img+'" alt=""><span class="yt-play"><svg viewBox="0 0 24 24"><path d="M7 4l14 8-14 8z"/></svg></span></div>';else if(s.video)h+='<div class="video"><video src="'+s.video+'" poster="'+s.img+'" controls playsinline preload="auto"></video></div>';
     else h+='<img class="s-img" src="'+s.img+'" alt="">';
     h+='<div class="tools"><button class="tool" id="fsUp">A+</button><button class="tool" id="fsDn">A−</button></div>';
     h+='<div class="s-text" id="sText">'+s.text[L].map(function(p){return '<p>'+termify(p,w)+'</p>'}).join('')+'</div>';
