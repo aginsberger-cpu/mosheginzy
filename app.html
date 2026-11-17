@@ -694,7 +694,7 @@ updateMuteBtn();
       <img src="%D7%AA%D7%9E%D7%95%D7%A0%D7%94%20%D7%9E%D7%A6%D7%95%D7%99%D7%A0%D7%AA%20%D7%9E%D7%A9%D7%94%20%D7%92%D7%99%D7%A0%D7%96%D7%99.png" alt="משה גינזי"
         onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,var(--gold),var(--gold2))'" />
     </div>
-    <div class="about-name">משה גינזי</div>
+    <div class="about-name" data-he="משה גינזי" data-en="Moshe Ginzy">משה גינזי</div>
     <div class="about-sub" data-he="מחשבה במסלול מחדש" data-en="Rethinking the Journey">מחשבה במסלול מחדש</div>
   </div>
   <div class="about-content">
@@ -712,7 +712,7 @@ updateMuteBtn();
   <button class="about-link" onclick="openSite('https://netivotny.org','ארגון נתיבות')"><span data-he="ארגון נתיבות ←" data-en="Netivot Organization →">ארגון נתיבות ←</span></button>
 </div> 
     <button class="change-btn" onclick="changeUser()" data-he="החלף משתמש / התחל מחדש" data-en="Switch User / Start Over">החלף משתמש / התחל מחדש</button>
-    <div class="footer-copy">© 2026 משה גינזי<br><a href="https://askmosh.com/privacy.html" class="footer-link" data-he="מדיניות פרטיות" data-en="Privacy Policy">מדיניות פרטיות</a> | <a href="https://netivotny.org" class="footer-link">Netivot</a></div>
+    <div class="footer-copy">© 2026 <span data-he="משה גינזי" data-en="Moshe Ginzy">משה גינזי</span><br><a href="https://askmosh.com/privacy.html" class="footer-link" data-he="מדיניות פרטיות" data-en="Privacy Policy">מדיניות פרטיות</a> | <a href="https://netivotny.org" class="footer-link">Netivot</a></div>
   </div>
 </div>
 
@@ -871,6 +871,10 @@ function setLang(lang){
   document.getElementById('chat-input').placeholder=lang==='he'?'כתוב שאלה...':'Type your question...';
   var fn=document.getElementById('f-name');if(fn)fn.placeholder=lang==='he'?'השם שלך':'Your name';
   var fc=document.getElementById('f-city');if(fc)fc.placeholder=lang==='he'?'העיר שלך':'Your city';
+  var fp=document.getElementById('f-phone');if(fp)fp.placeholder=lang==='he'?'050-0000000':'Your phone number';
+  [['history-btn','שיחה קודמת','Previous conversation']].forEach(function(x){var b=document.getElementById(x[0]);if(b)b.title=lang==='he'?x[1]:x[2];});
+  var TT={'שתף':'Share','בהיר/כהה':'Light/Dark','תפריט':'Menu','סגירה':'Close','Share':'שתף','Light/Dark':'בהיר/כהה','Menu':'תפריט','Close':'סגירה'};
+  document.querySelectorAll('.top-bar [title], .top-bar [aria-label], #drawer, #drawer [aria-label]').forEach(function(b){['title','aria-label'].forEach(function(k){var v=b.getAttribute(k);if(!v||!TT[v])return;var isHe=/[\u0590-\u05FF]/.test(v);if((lang==='en')===isHe)b.setAttribute(k,TT[v]);});});
   var lt=document.getElementById('link-tikva');if(lt)lt.href=lang==='en'?'https://tikva.netivotny.org/en/':'https://tikva.netivotny.org';
 }
 
