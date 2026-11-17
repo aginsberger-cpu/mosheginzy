@@ -650,7 +650,7 @@ updateMuteBtn();
     <div class="page-title" data-he="ספריית שיעורים" data-en="Video Library">ספריית שיעורים</div>
   </div>
   <div class="lessons-grid" id="lessons-grid"></div>
-  <a href="https://www.youtube.com/@mosheginzy" target="_blank" rel="noopener" class="more-videos-btn">
+  <a id="more-yt" href="https://www.youtube.com/@mosheginzy" target="_blank" rel="noopener" class="more-videos-btn">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--gold)"><path d="M23 7s-.3-2-1.2-2.7c-1.2-1.2-2.5-1.2-3.1-1.3C16.2 3 12 3 12 3s-4.2 0-6.7.1C4.7 4.2 3.4 4.2 2.2 5.3 1.3 5.9 1 8 1 8S.7 10.3.7 12.6v2.1C.7 17 1 19.1 1 19.1s.3 2 1.2 2.7c1.2 1.2 2.7 1.1 3.4 1.2C7.6 23.1 12 23.1 12 23.1s4.2 0 6.7-.2c.6-.1 1.9-.1 3.1-1.3.9-.7 1.2-2.7 1.2-2.7s.3-2.3.3-4.6v-2.1C23.3 9.9 23 7.6 23 7.6V7zM9.7 15.5V8.4l6.6 3.6-6.6 3.5z"/></svg>
     <span data-he="עוד סרטים בערוץ היוטיוב ←" data-en="More videos on YouTube →">עוד סרטים בערוץ היוטיוב ←</span>
   </a>
@@ -871,6 +871,7 @@ function setLang(lang){
   document.getElementById('chat-input').placeholder=lang==='he'?'כתוב שאלה...':'Type your question...';
   var fn=document.getElementById('f-name');if(fn)fn.placeholder=lang==='he'?'השם שלך':'Your name';
   var fc=document.getElementById('f-city');if(fc)fc.placeholder=lang==='he'?'העיר שלך':'Your city';
+  var my=document.getElementById('more-yt');if(my)my.href=lang==='en'?'https://www.youtube.com/@MosheGinzy-r5d/shorts':'https://www.youtube.com/@mosheginzy';
   var fp=document.getElementById('f-phone');if(fp)fp.placeholder=lang==='he'?'050-0000000':'Your phone number';
   [['history-btn','שיחה קודמת','Previous conversation']].forEach(function(x){var b=document.getElementById(x[0]);if(b)b.title=lang==='he'?x[1]:x[2];});
   var TT={'שתף':'Share','בהיר/כהה':'Light/Dark','תפריט':'Menu','סגירה':'Close','Share':'שתף','Light/Dark':'בהיר/כהה','Menu':'תפריט','Close':'סגירה'};
@@ -1637,10 +1638,38 @@ var lessonsEN = [
 
 var BASE_URL = '';
 
+/* Full video library from the dashboard sheet (same source as the website's videos page).
+   The 6 built-in videos above stay as a fallback if the sheet can't be reached. */
+var LIB_URL='https://script.google.com/macros/s/AKfycbx1IJHkaBhhmqmPIvyPEY8Xr_-OYRZf3KNrRRezqeDUgkJP3IkTLPGUt_y1Hx811avx/exec?action=getVideos';
+var libVideos=null;
+function libEsc(t){return String(t||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function libTitle(t){return String(t||'').replace(/\s*[-–|]?\s*(https?:\/\/)?(askmosh|mosheginzy)\.com\/getapp\S*/gi,'').replace(/\.mp4$/i,'').replace(/\s+/g,' ').trim();}
+function loadLibrary(){
+  try{fetch(LIB_URL).then(function(r){return r.json();}).then(function(d){
+    if(!d||!Array.isArray(d.videos))return;
+    var seen={},out={he:[],en:[]};
+    d.videos.slice().reverse().forEach(function(v){
+      var id=String(v.youtubeId||'').trim();
+      if(v.active!=='yes'||!/^[\w-]{11}$/.test(id))return;
+      var lg=v.language==='en'?'en':'he';
+      var tt=libTitle(v.title),tk=lg+'|'+tt.toLowerCase().replace(/[^a-z0-9\u0590-\u05ff]/g,'');
+      if(seen[lg+id]||(tt&&seen[tk]))return;seen[lg+id]=1;if(tt)seen[tk]=1;
+      out[lg].push({id:id,tag:libEsc(v.tag),title:libEsc(tt),type:'yt'});
+    });
+    if(out.he.length||out.en.length){libVideos=out;renderLessons();}
+  }).catch(function(){});}catch(e){}
+}
+loadLibrary();
+
 function renderLessons(){
   var grid = document.getElementById('lessons-grid');
   if(!grid) return;
   var lessons = currentLang === 'en' ? lessonsEN : lessonsHE;
+  var lib = libVideos && libVideos[currentLang==='en'?'en':'he'];
+  if(lib && lib.length){
+    var have={};lib.forEach(function(x){have[x.id]=1;});
+    lessons = lib.concat(lessons.filter(function(x){return !have[x.id];}));
+  }
   grid.innerHTML = '';
   lessons.forEach(function(l){
     var thumb = l.type === 'yt'
@@ -1648,8 +1677,9 @@ function renderLessons(){
       : BASE_URL + (l.thumb || l.id.replace('.mp4','.jpg'));
     var card = document.createElement('div');
     card.className = 'lesson-card';
+    if(l.type==='yt') card.setAttribute('data-yt', l.id);
     card.onclick = function(){ l.type==='yt' ? openVideo(l.id,l.title) : openMP4(BASE_URL+l.id); var vt=document.getElementById('vpop-title'); if(vt) vt.textContent=l.title||''; };
-    card.innerHTML = '<div class="lesson-thumb"><img src="'+thumb+'" alt="" onerror="this.style.background=\'#111\'"><div class="lesson-play"><div class="lesson-play-btn"><svg viewBox="0 0 24 24" fill="#0f0f0f"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div></div>'
+    card.innerHTML = '<div class="lesson-thumb"><img loading="lazy" src="'+thumb+'" alt=""" onerror="this.style.background=\'#111\'"><div class="lesson-play"><div class="lesson-play-btn"><svg viewBox="0 0 24 24" fill="#0f0f0f"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div></div>'
       + '<div class="lesson-meta"><div class="lesson-tag">'+l.tag+'</div><div class="lesson-title">'+l.title+'</div></div>';
     grid.appendChild(card);
   });

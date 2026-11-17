@@ -169,6 +169,8 @@
     filtered.reverse().forEach(function(v){
       // Check if already added
       if (document.getElementById('dyn-' + v.id)) return;
+      // the app's own Video Library already shows the full list (app.html renderLessons)
+      if (grid.querySelector('[data-yt="' + v.youtubeId + '"]')) return;
       
       var thumb = 'https://img.youtube.com/vi/' + v.youtubeId + '/hqdefault.jpg';
       var card = document.createElement('div');
