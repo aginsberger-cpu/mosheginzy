@@ -777,6 +777,7 @@ updateMuteBtn();
 // גשר התראות לאפליקציה (אנדרואיד / אייפון)
 window.mgHasNativePush=function(){try{return !!((window.Android&&typeof window.Android.requestPushPermission==='function')||(window.webkit&&window.webkit.messageHandlers&&window.webkit.messageHandlers.iosPush));}catch(e){return false;}};
 window.mgOnPushResult=function(granted,token,platform){
+  try{if(granted&&token)localStorage.setItem('mg-push-on','1');}catch(e){}
   if(window._mgPushResolve){window._mgPushResolve(!!granted&&!!token);window._mgPushResolve=null;}
   if(granted&&token){try{fetch(MEKAREV_API+'/api/push/native-register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getMekarevUserId(),token:token,platform:platform||''})}).catch(function(){});}catch(e){}}
 };
