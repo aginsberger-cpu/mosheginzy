@@ -23,8 +23,9 @@
     fetch(SCRIPT_URL + '?action=getNotifications&since=' + since)
       .then(function(r){ return r.json(); })
       .then(function(data){
-        if (data.success && data.notifications && data.notifications.length > 0) {
-          showNotificationBadge(data.notifications.length);
+        var ml=(localStorage.getItem('mg-app-lang')||'he');var mine=(data&&data.notifications||[]).filter(function(n){return !n.language||n.language==='all'||n.language===ml;});
+        if (data.success && mine.length > 0) {
+          showNotificationBadge(mine.length);
           window._mgNotifications = data.notifications;
         }
       })
@@ -32,6 +33,7 @@
   }
 
   function showNotificationBadge(count) {
+    var db=document.getElementById('dr-notif-badge');if(db){db.textContent=count>9?'9+':count;db.style.display='inline-flex';}
     // Find or create bell icon
     var bell = document.getElementById('mg-notif-bell');
     if (!bell) {
@@ -201,6 +203,59 @@
   setInterval(checkNotifications, 5 * 60 * 1000);
 
   // Expose for manual use
+
+  // ============ ALL NOTIFICATIONS (side menu) ============
+  function openAllNotifications() {
+    var lang = (localStorage.getItem('mg-app-lang') || 'he'), isHe = lang !== 'en';
+    var overlay = document.createElement('div');
+    overlay.id = 'mg-notif-overlay';
+    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(3,8,18,.72);z-index:9998;display:flex;align-items:center;justify-content:center;';
+    overlay.onclick = function(e){ if(e.target===overlay){ overlay.remove(); } };
+    var panel = document.createElement('div');
+    panel.style.cssText = 'background:linear-gradient(160deg,#13263F,#0B1A2C);border:1px solid rgba(212,175,94,.55);border-radius:18px;max-width:400px;width:92%;max-height:80vh;overflow-y:auto;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,.5);direction:' + (isHe?'rtl':'ltr') + ';font-family:inherit;';
+    var title = document.createElement('h3');
+    title.style.cssText = 'color:#E8C468;margin:0 0 14px 0;font-size:19px;';
+    title.textContent = isHe ? '🔔 התראות' : '🔔 Notifications';
+    panel.appendChild(title);
+    var list = document.createElement('div');
+    list.textContent = isHe ? 'טוען...' : 'Loading...';
+    list.style.cssText = 'color:#AFBAD0;font-size:14px;';
+    panel.appendChild(list);
+    var closeBtn = document.createElement('button');
+    closeBtn.style.cssText = 'width:100%;padding:11px;background:transparent;color:#E8C468;border:1px solid rgba(212,175,94,.5);border-radius:10px;font-size:14px;cursor:pointer;margin-top:10px;font-family:inherit;';
+    closeBtn.textContent = isHe ? 'סגירה' : 'Close';
+    closeBtn.onclick = function(){ overlay.remove(); };
+    panel.appendChild(closeBtn);
+    overlay.appendChild(panel);
+    document.body.appendChild(overlay);
+    var b1=document.getElementById('mg-notif-badge');if(b1)b1.style.display='none';
+    var b2=document.getElementById('dr-notif-badge');if(b2)b2.style.display='none';
+    fetch(SCRIPT_URL + '?action=getNotifications&since=0')
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        var arr = (data && data.notifications) || [];
+        arr = arr.filter(function(n){ return !n.language || n.language === 'all' || n.language === lang; });
+        if (!arr.length) { list.textContent = isHe ? 'אין התראות כרגע.' : 'No notifications yet.'; return; }
+        var maxTs = 0; arr.forEach(function(n){ if (n.timestamp > maxTs) maxTs = n.timestamp; });
+        if (maxTs) setLastSeenTimestamp(maxTs);
+        list.textContent = ''; list.style.cssText = '';
+        arr.slice().sort(function(x,y){return (y.timestamp||0)-(x.timestamp||0);}).slice(0, 30).forEach(function(n){
+          var item = document.createElement('div');
+          item.style.cssText = 'background:rgba(255,255,255,.04);border-radius:12px;padding:12px 14px;margin-bottom:10px;border:1px solid rgba(212,175,94,.2);';
+          var t = document.createElement('div'); t.style.cssText = 'color:#F4F1EA;font-weight:700;margin-bottom:4px;font-size:15px;'; t.textContent = n.title || ''; item.appendChild(t);
+          var m = document.createElement('div'); m.style.cssText = 'color:#AFBAD0;font-size:14px;line-height:1.5;margin-bottom:6px;'; m.textContent = n.message || ''; item.appendChild(m);
+          var d = document.createElement('div'); d.style.cssText = 'color:#7E8AA3;font-size:12px;'; d.textContent = n.date || ''; item.appendChild(d);
+          if (n.type === 'video' && n.videoId) {
+            item.style.cursor = 'pointer';
+            var h = document.createElement('div'); h.style.cssText = 'color:#E8C468;font-size:13px;margin-top:6px;font-weight:700;'; h.textContent = isHe ? '▶ לצפייה' : '▶ Watch'; item.appendChild(h);
+            item.onclick = function(){ overlay.remove(); if (typeof openVideo === 'function') openVideo(n.videoId, n.title); else window.open('https://www.youtube.com/watch?v=' + n.videoId, '_blank'); };
+          }
+          list.appendChild(item);
+        });
+      })
+      .catch(function(){ list.textContent = isHe ? 'לא הצלחנו לטעון התראות. נסו שוב מאוחר יותר.' : 'Could not load notifications. Please try again later.'; });
+  }
+  window.mgOpenNotifications = openAllNotifications;
   window.mgCheckNotifications = checkNotifications;
   window.mgLoadVideos = loadDynamicVideos;
 })();
