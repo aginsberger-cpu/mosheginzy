@@ -217,6 +217,30 @@
     title.style.cssText = 'color:#E8C468;margin:0 0 14px 0;font-size:19px;';
     title.textContent = isHe ? '🔔 התראות' : '🔔 Notifications';
     panel.appendChild(title);
+    // "turn on notifications" for users who haven't allowed them yet
+    (function(){
+      var on=false;try{on=localStorage.getItem('mg-push-on')==='1';}catch(e){}
+      var nat=window.mgHasNativePush&&window.mgHasNativePush();
+      var web=!nat&&('serviceWorker' in navigator)&&('PushManager' in window)&&typeof Notification!=='undefined';
+      if(web&&Notification.permission==='granted')on=true;
+      if(on||(!nat&&!web))return;
+      var box=document.createElement('div');
+      box.style.cssText='background:rgba(212,175,94,.10);border:1px solid rgba(212,175,94,.45);border-radius:14px;padding:12px 14px;margin:0 0 14px 0;';
+      var tx=document.createElement('div');tx.style.cssText='color:#F4F1EA;font-size:14px;line-height:1.5;margin-bottom:10px;';
+      tx.textContent=isHe?'רוצה לקבל התראה לטלפון כשיש סרטון חדש או תשובה אישית בשבילך? נשלח רק כשיש משהו באמת חשוב.':"Want a notification on your phone when there's a new video or a personal answer for you? We only send what really matters.";
+      var bt=document.createElement('button');bt.type='button';
+      bt.style.cssText='width:100%;padding:11px;background:linear-gradient(135deg,#F0CF7A,#D4AF5E);color:#1a1408;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;';
+      bt.textContent=isHe?'🔔 הפעלת התראות':'🔔 Turn on notifications';
+      bt.onclick=function(){
+        bt.disabled=true;bt.textContent=isHe?'רגע…':'One moment…';
+        var pr=nat?window.mgRequestNativePush():(typeof subscribeMekarevPush==='function'?subscribeMekarevPush():Promise.resolve(false));
+        pr.then(function(ok){
+          if(ok){try{localStorage.setItem('mg-push-on','1');}catch(e){}tx.textContent=isHe?'מעולה! ההתראות הופעלו 🙂':"Great! Notifications are on 🙂";bt.remove();}
+          else{tx.textContent=isHe?'לא הצלחנו להפעיל. אם חסמת בעבר התראות, אפשר להפעיל אותן בהגדרות הטלפון ← AskMosh ← התראות.':"We couldn't turn them on. If you blocked notifications before, you can enable them in your phone's Settings → AskMosh → Notifications.";bt.disabled=false;bt.textContent=isHe?'🔔 לנסות שוב':'🔔 Try again';}
+        });
+      };
+      box.appendChild(tx);box.appendChild(bt);panel.appendChild(box);
+    })();
     var list = document.createElement('div');
     list.textContent = isHe ? 'טוען...' : 'Loading...';
     list.style.cssText = 'color:#AFBAD0;font-size:14px;';
