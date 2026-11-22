@@ -1295,6 +1295,7 @@ var currentLang='he';
 function setLang(lang){
   currentLang=lang;
   localStorage.setItem('mg-lang',lang);
+  try{localStorage.setItem('mg-app-lang',lang);}catch(e){} /* inner pages (Shabbat, zmanim, stories, community, prayers) read this */
   document.getElementById('btn-lang-he').classList.toggle('active',lang==='he');
   document.getElementById('btn-lang-en').classList.toggle('active',lang==='en');
   document.documentElement.setAttribute('lang',lang);
@@ -1326,6 +1327,9 @@ function run(lang){if(busy)return;busy=true;try{
  [].forEach.call(document.querySelectorAll('input[placeholder],textarea[placeholder]'),function(i){
   if(lang==='en'){var v=i.getAttribute('placeholder');if(PH[v]){phOrig.set(i,v);i.setAttribute('placeholder',PH[v]);}}
   else if(phOrig.has(i)){i.setAttribute('placeholder',phOrig.get(i));phOrig.delete(i);}});
+  [].forEach.call(document.querySelectorAll('a[href="shealot/"],a[href="/shealot/"],a[data-he-href]'),function(a){
+  if(lang==='en'){if(!a.hasAttribute('data-he-href'))a.setAttribute('data-he-href',a.getAttribute('href'));a.setAttribute('href','/shealot/en-all.html');}
+  else if(a.hasAttribute('data-he-href')){a.setAttribute('href',a.getAttribute('data-he-href'));}});
 }finally{busy=false;}}
 window.mgSiteTranslate=run;
 var o=window.setLang;window.setLang=function(l){var r=o.apply(this,arguments);run(l);return r;};

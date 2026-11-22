@@ -160,7 +160,7 @@ body:not(.light) .bottom-nav{background:rgba(8,20,31,0.97);}
   <script>/* הגיעו מהאתר — מציגים קישור חזרה לאתר ומסתירים את תפריט האפליקציה */if(/[?&]from=site/.test(location.search)&&!document.body.classList.contains('in-app')){document.body.classList.add('from-site');}</script>
 <div class="header" id="header">
   <div class="header-left">
-    <a class="site-back" href="index.html" aria-label="חזרה לאתר"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg><span>לאתר</span></a>
+    <a class="site-back" href="index.html" aria-label="חזרה לאתר"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg><span><span id="site-back-lbl">לאתר</span></span></a>
     <img id="moshePhoto" src="" alt="Moshe Ginzy">
     <div>
       <h1 id="headerTitle"><span class="am-logo" dir="ltr" aria-label="AskMosh"><span class="am-ask">Ask</span><span class="am-mosh">M<span class="am-o">o</span>sh</span></span></h1>
@@ -220,7 +220,7 @@ var userStats = { totalPts: 0, quizCount: 0, bestStreak: 0 };
 var firebaseLeaders = [];
 var allFirebaseQuestions = [];
 var quizAttempt = 0;
-var lang = new URLSearchParams(window.location.search).get("lang") || "he", isDark = true;
+var lang = new URLSearchParams(window.location.search).get("lang") || (function(){try{return localStorage.getItem("mg-app-lang")}catch(e){return null}})() || "he", isDark = true;
 var currentTab = "question";
 var quizStep = "intro", qi = 0, qSel = null, qDone = false, qScore = 0, qHist = [];
 var questionResponses = [];
@@ -567,6 +567,7 @@ function setLang(l) {
   lang = l;
   document.documentElement.dir = t().dir;
   document.documentElement.lang = l === "he" ? "he" : "en";
+  var sbl=document.getElementById("site-back-lbl");if(sbl)sbl.textContent=l==="he"?"לאתר":"Website";
   document.getElementById("btnHe").classList.toggle("active", l === "he");
   document.getElementById("btnEn").classList.toggle("active", l === "en");
   document.getElementById("headerTitle").innerHTML = '<span class="am-logo" dir="ltr" aria-label="AskMosh"><span class="am-ask">Ask</span><span class="am-mosh">M<span class="am-o">o</span>sh</span></span>';
