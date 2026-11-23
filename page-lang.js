@@ -82,6 +82,10 @@
           a.setAttribute('href', h + (h.indexOf('?') < 0 ? '?' : '&') + 'lang=en');
         }
       });
+      /* Google Play button: English store page for English visitors */
+      [].slice.call(document.querySelectorAll('a[href*="play.google.com"]')).forEach(function (a) {
+        a.setAttribute('href', a.getAttribute('href').replace('hl=he', 'hl=en'));
+      });
       sortFoods();
     } catch (e) {}
     root.classList.add('pl-ready');
