@@ -783,6 +783,13 @@ footer{background:var(--ink3)!important;border-top:1px solid var(--line)!importa
  .mg-caret{display:none}
  .mg-sub-list{display:block;position:static;margin:0;padding:0 1rem 0 0;border:0;box-shadow:none;background:none;min-width:0}
 }
+
+/* כפתור חברותא: זוהר עדין ונצנוץ זהב שעובר מדי כמה שניות */
+@keyframes mgChvGlow{0%,100%{box-shadow:0 0 0 1px rgba(232,196,104,.35),0 6px 20px rgba(232,196,104,.14)}50%{box-shadow:0 0 0 1px rgba(245,220,140,.75),0 0 22px rgba(232,196,104,.38),0 6px 20px rgba(232,196,104,.2)}}
+@keyframes mgChvShine{0%,62%{transform:translateX(-140%) skewX(-20deg)}88%,100%{transform:translateX(260%) skewX(-20deg)}}
+#hero-btn-chavruta{position:relative;overflow:hidden;animation:mgChvGlow 3.2s ease-in-out infinite}
+#hero-btn-chavruta::after{content:"";position:absolute;top:0;bottom:0;left:0;width:38%;pointer-events:none;background:linear-gradient(90deg,rgba(255,236,170,0),rgba(255,236,170,.28),rgba(255,236,170,0));animation:mgChvShine 4.8s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){#hero-btn-chavruta,#hero-btn-chavruta::after{animation:none}}
 </style>
   <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#1a3a6b">
