@@ -455,10 +455,10 @@ body.light .cm-card,body.light .cm-line{background-image:linear-gradient(#fffaf0
 body.light #cm-sheet{background:#fffaf0;color:#1a1408}body.light #cm-sheet input{color:#1a1408;background:#fff}body.light .cm-city{color:#5a4410}
 
 /* כפתור חברותא: זוהר עדין ונצנוץ זהב שעובר מדי כמה שניות */
-@keyframes mgChvGlow{0%,100%{box-shadow:0 0 0 1px rgba(232,196,104,.35),0 6px 20px rgba(232,196,104,.14)}50%{box-shadow:0 0 0 1px rgba(245,220,140,.75),0 0 22px rgba(232,196,104,.38),0 6px 20px rgba(232,196,104,.2)}}
-@keyframes mgChvShine{0%,62%{transform:translateX(-140%) skewX(-20deg)}88%,100%{transform:translateX(260%) skewX(-20deg)}}
-.home-actions button.cta-chavruta{position:relative;overflow:hidden;animation:mgChvGlow 3.2s ease-in-out infinite}
-.home-actions button.cta-chavruta::after{content:"";position:absolute;top:0;bottom:0;left:0;width:38%;pointer-events:none;background:linear-gradient(90deg,rgba(255,236,170,0),rgba(255,236,170,.28),rgba(255,236,170,0));animation:mgChvShine 4.8s ease-in-out infinite}
+@keyframes mgChvGlow{0%,100%{box-shadow:0 0 0 1.5px rgba(232,196,104,.55),0 0 10px rgba(232,196,104,.25)}50%{box-shadow:0 0 0 2px rgba(255,226,140,1),0 0 30px rgba(240,200,90,.65),0 0 60px rgba(232,196,104,.25)}}
+@keyframes mgChvShine{0%,45%{transform:translateX(-140%) skewX(-20deg)}75%,100%{transform:translateX(280%) skewX(-20deg)}}
+.home-actions button.cta-chavruta{position:relative;overflow:hidden;animation:mgChvGlow 2.4s ease-in-out infinite}
+.home-actions button.cta-chavruta::after{content:"";position:absolute;top:0;bottom:0;left:0;width:38%;pointer-events:none;background:linear-gradient(90deg,rgba(255,236,170,0),rgba(255,240,190,.5),rgba(255,236,170,0));animation:mgChvShine 3.6s ease-in-out infinite}
 @media (prefers-reduced-motion:reduce){.home-actions button.cta-chavruta,.home-actions button.cta-chavruta::after{animation:none}}
 </style>
 <!-- Google Analytics: מדידת שימוש באפליקציה, מופרד לפי פלטפורמה (ios / android / web) -->
