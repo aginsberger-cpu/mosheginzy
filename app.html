@@ -368,7 +368,7 @@ body:not(.light) .cta-wa{background:linear-gradient(135deg,rgba(212,168,67,0.15)
 .bq-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,26,44,0) 55%,rgba(11,26,44,.7))}
 .bq-play{position:absolute;z-index:1;left:50%;top:50%;transform:translate(-50%,-50%);width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#F3D27A,#C99A3C);box-shadow:0 0 16px rgba(232,192,64,.5);display:flex;align-items:center;justify-content:center}
 .bq-t{font-size:.85rem;font-weight:700;color:#F0D894;text-shadow:0 0 10px rgba(232,192,64,.3);line-height:1.3}
-.bq-all{align-self:flex-end;color:#C9A24C;font-size:.85rem;text-decoration:none;margin-top:-2px}
+.bq-all{align-self:center;display:inline-flex;align-items:center;justify-content:center;gap:6px;margin:6px auto 4px;padding:9px 22px;border-radius:999px;border:1.5px solid rgba(201,162,76,.75);background:rgba(201,162,76,.10);color:#E8C468;font-size:.92rem;font-weight:700;text-decoration:none;box-shadow:0 0 14px rgba(232,192,64,.12)}.bq-all:active{background:rgba(201,162,76,.25)}
 .mini-row{display:flex;gap:10px;margin-top:.4rem}
 @media(min-width:700px){#screen-home>*{width:100%;max-width:600px;margin-left:auto!important;margin-right:auto!important;box-sizing:border-box}
 #screen-home>.home-photo-wrap{width:calc(100% - 2.4rem);max-width:560px}
@@ -575,6 +575,9 @@ fbq('track','PageView',{content_category:platform});
     <div class="bq-lbl" data-he="סיפורים עם נשמה" data-en="Stories with Soul">סיפורים עם נשמה</div>
     <div class="bq-row st-row"><a class="bq-card" href="stories/#s=haner"><div class="bq-img"><img src="stories/media/haner.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t" data-he="הנר של הבעל שם טוב" data-en="The Baal Shem Tov's Candle">הנר של הבעל שם טוב</span></a><a class="bq-card" href="stories/#s=lecha-dodi"><div class="bq-img"><img src="stories/media/lecha-dodi.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t" data-he="הניגון של לכה דודי" data-en="The Melody of Lecha Dodi">הניגון של לכה דודי</span></a><a class="bq-card" href="stories/#s=honi"><div class="bq-img"><img src="stories/media/honi.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t" data-he="חוני המעגל והחרוב" data-en="Choni &amp; the Carob Tree">חוני המעגל והחרוב</span></a><a class="bq-card" href="stories/#s=haniggun"><div class="bq-img"><img src="stories/media/haniggun.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t" data-he="הניגון שפתח את השערים" data-en="The Melody That Opened the Gates">הניגון שפתח את השערים</span></a><a class="bq-card" href="stories/#s=hashulchan"><div class="bq-img"><img src="stories/media/hashulchan.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t" data-he="מקום לעוד אחד" data-en="Room for One More">מקום לעוד אחד</span></a><a class="bq-card" href="stories/#s=aryeh-levin"><div class="bq-img"><img src="stories/media/aryeh-levin.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t" data-he="רבי אריה לוין והרופא" data-en="Rabbi Aryeh Levin &amp; the Doctor">רבי אריה לוין והרופא</span></a><a class="bq-card" href="stories/#s=hagabai"><div class="bq-img"><img src="stories/media/hagabai.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t" data-he="הסוד של הגבאי השקט" data-en="The Quiet Gabbai's Secret">הסוד של הגבאי השקט</span></a></div>
     <a class="bq-all" href="stories/" data-he="לכל הסיפורים ←" data-en="All stories →">לכל הסיפורים ←</a>
+    <div class="bq-lbl" data-he="פרשת השבוע" data-en="Weekly Torah Portion">פרשת השבוע</div>
+    <div class="bq-row pr-row" id="pr-row"></div>
+    <a class="bq-all" href="parasha/" data-he="לכל הפרשות ←" data-en="All Torah portions →">לכל הפרשות ←</a>
     <div class="mini-row">
       <button class="mini-btn" onclick="window.location.href='community.html?tab=question&lang='+currentLang"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1.8" stroke-linecap="round"><path d="M9 21h6M12 3a6 6 0 00-3 11.19V17h6v-2.81A6 6 0 0012 3z"/></svg><span data-he="שאלת היום" data-en="Question of the Day">שאלת היום</span></button>
       <button class="mini-btn" onclick="window.location.href='community.html?tab=quiz&lang='+currentLang"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1.8" stroke-linecap="round"><path d="M12 15l-2 5l9-11h-5l2-5l-9 11h5z"/></svg><span data-he="חידון שבועי" data-en="Weekly Quiz">חידון שבועי</span></button>
@@ -1877,6 +1880,17 @@ function openMenu(){document.body.classList.add('dr-open')}function closeMenu(){
   if(typeof orig==='function'){window.enhanceBotBubbleShareLink=function(el){var r=orig.apply(this,arguments);try{answers++;var done=localStorage.getItem('mg-community-sent')||localStorage.getItem('mg-community-line');
     if(answers===3&&!done){localStorage.setItem('mg-community-line','1');var b=document.createElement('button');b.className='cm-line';b.innerHTML='<span class="cm-dot">'+HEART.replace(/22/g,'13')+'</span><span>'+(en()?'Continue with someone near you':'להמשיך עם מישהו קרוב אליך')+'</span>';b.onclick=function(){openCommunity('chat');};var row=el&&el.closest?el.closest('.msg-row'):null;var w=document.getElementById('chat-msgs');if(row&&row.parentNode)row.parentNode.insertBefore(b,row.nextSibling);else if(w)w.appendChild(b);}}catch(e){}return r;};}
 })();
+</script>
+<script src="parasha/list.js"></script>
+<script>/* שורת פרשת השבוע בדף הבית: הפרשה של השבת הקרובה ראשונה, ואחריה הקודמות */
+(function(){function build(){var row=document.getElementById('pr-row');if(!row||!window.MG_PARASHOT)return;
+var en=(window.currentLang||document.documentElement.lang)==='en';var P=window.MG_PARASHOT.slice();
+var today=new Date();today.setHours(0,0,0,0);P=P.filter(function(p){return new Date(p.d+'T00:00:00')-today<8*864e5;});
+P.sort(function(a,b){return a.d<b.d?1:-1;});
+row.setAttribute('dir',en?'ltr':'rtl');
+row.innerHTML=P.map(function(p){var v=en?(p.ve||p.v):(p.v||p.ve);var t=en?'Parashat '+p.en:'פרשת '+p.he;
+return '<a class="bq-card" href="parasha/#p='+encodeURIComponent(p.en)+'"><div class="bq-img"><img src="https://i.ytimg.com/vi/'+v+'/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">'+t+'</span></a>';}).join('');}
+build();var o=window.setLang;if(typeof o==='function'){window.setLang=function(){var r=o.apply(this,arguments);try{build();}catch(e){}return r;};}})();
 </script>
 </body>
 </html>
