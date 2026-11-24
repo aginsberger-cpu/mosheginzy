@@ -453,6 +453,13 @@ html[dir="rtl"] .cm-line{padding:7px 8px 7px 14px}
 .cm-line .cm-dot{width:24px;height:24px;box-shadow:none}
 body.light .cm-card,body.light .cm-line{background-image:linear-gradient(#fffaf0,#fffaf0),linear-gradient(120deg,#E8C468,#B8862E 45%,#E8C468)}body.light .cm-txt b,body.light .cm-line{color:#5a4410}
 body.light #cm-sheet{background:#fffaf0;color:#1a1408}body.light #cm-sheet input{color:#1a1408;background:#fff}body.light .cm-city{color:#5a4410}
+
+/* כפתור חברותא: זוהר עדין ונצנוץ זהב שעובר מדי כמה שניות */
+@keyframes mgChvGlow{0%,100%{box-shadow:0 0 0 1px rgba(232,196,104,.35),0 6px 20px rgba(232,196,104,.14)}50%{box-shadow:0 0 0 1px rgba(245,220,140,.75),0 0 22px rgba(232,196,104,.38),0 6px 20px rgba(232,196,104,.2)}}
+@keyframes mgChvShine{0%,62%{transform:translateX(-140%) skewX(-20deg)}88%,100%{transform:translateX(260%) skewX(-20deg)}}
+.home-actions button.cta-chavruta{position:relative;overflow:hidden;animation:mgChvGlow 3.2s ease-in-out infinite}
+.home-actions button.cta-chavruta::after{content:"";position:absolute;top:0;bottom:0;left:0;width:38%;pointer-events:none;background:linear-gradient(90deg,rgba(255,236,170,0),rgba(255,236,170,.28),rgba(255,236,170,0));animation:mgChvShine 4.8s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.home-actions button.cta-chavruta,.home-actions button.cta-chavruta::after{animation:none}}
 </style>
 <!-- Google Analytics: מדידת שימוש באפליקציה, מופרד לפי פלטפורמה (ios / android / web) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-4RW51LT65M"></script>
