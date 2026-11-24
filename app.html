@@ -1917,5 +1917,13 @@ img.src='https://i.ytimg.com/vi/'+id+'/oardefault.jpg';}
 function scan(root){[].forEach.call((root||document).querySelectorAll('.bq-row:not(.st-row) .bq-img img, .lesson-thumb img'),up);}
 scan();new MutationObserver(function(ms){ms.forEach(function(m){[].forEach.call(m.addedNodes,function(n){if(n.nodeType!==1)return;if(n.tagName==='IMG')up(n);else scan(n);});});}).observe(document.body,{childList:true,subtree:true});})();
 </script>
+<style id="play-glass-style">
+/* כפתור הפעלה יוקרתי: עיגול קטן מזכוכית כהה עם קו זהב דק, בפינה התחתונה, כדי לא להסתיר את התמונה */
+.bq-play,.bq-row:not(.st-row) .bq-play{top:auto!important;bottom:12px;left:50%;transform:translateX(-50%);width:30px;height:30px;background:rgba(8,18,32,.55);border:1px solid rgba(240,210,140,.75);box-shadow:0 2px 10px rgba(0,0,0,.35);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.bq-play svg{width:11px;height:11px;margin-left:2px}.bq-play svg path{fill:#F3D27A}
+.lesson-play{align-items:flex-end!important;justify-content:center!important;padding:0 0 12px!important}
+.lesson-play-btn{width:30px!important;height:30px!important;background:rgba(8,18,32,.55)!important;border:1px solid rgba(240,210,140,.75);box-shadow:0 2px 10px rgba(0,0,0,.35)!important;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.lesson-play-btn svg{width:11px!important;height:11px!important;fill:#F3D27A!important}.lesson-play-btn svg polygon{fill:#F3D27A}
+</style>
 </body>
 </html>
