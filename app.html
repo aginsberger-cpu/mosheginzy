@@ -1071,7 +1071,7 @@ inp.value='';inp.style.height='40px';isSending=true;addMsg(txt,'user');showTypin
 // יצחק ביקש שזה יתחיל להיכתב מייד). שאר הזרימה (הודעת "מקליד...",
 // שמירת היסטוריה מקומית, סנכרון ל-Google Sheets, הקראה בקול) נשארה
 // בדיוק אותו דבר, רק בסוף ההזרמה במקום מיד.
-var fullText='';var bubbleEl=null;var finalNoAnswer=false;var finalIsHalacha=false;var finalVideos=[];var finalShowRatingPrompt=false;var finalOfferPush=null;var finalSoftware=null;var finalChavruta=null;var prayerData=null;var isPrayer=false;var spokeEarly=false;
+var fullText='';var bubbleEl=null;var finalNoAnswer=false;var finalIsHalacha=false;var finalVideos=[];var finalShowRatingPrompt=false;var finalOfferPush=null;var finalSoftware=null;var finalChavruta=null;var finalSaveChat=false;var prayerData=null;var isPrayer=false;var spokeEarly=false;
 fetch(MEKAREV_API+'/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getMekarevUserId(),message:txt,lang:currentLang==='en'?'en':'he'})}).then(function(res){
   if(!res.ok||!res.body)throw new Error('http '+res.status);
   var reader=res.body.getReader();var decoder=new TextDecoder('utf-8');var buffer='';
@@ -1119,7 +1119,7 @@ fetch(MEKAREV_API+'/api/chat',{method:'POST',headers:{'Content-Type':'applicatio
           // ורק אם התלמיד/ה עוד לא רשום/ה ולא סירב/ה בעבר.
           finalOfferPush=payload.offerPush||null;
           // מקרב: מילת קוד של תוכנה להורדה -> כרטיס עם כפתורים (ראה addSoftwareCard)
-          finalSoftware=payload.software||null;finalChavruta=payload.chavrutaSignup||null;
+          finalSoftware=payload.software||null;finalChavruta=payload.chavrutaSignup||null;finalSaveChat=!!payload.saveChat;
         }
       }
       return pump();
@@ -1158,6 +1158,7 @@ fetch(MEKAREV_API+'/api/chat',{method:'POST',headers:{'Content-Type':'applicatio
     if(finalOfferPush)addPushOfferPrompt(finalOfferPush);
     if(finalSoftware)addSoftwareCard(finalSoftware);
     if(finalChavruta)addChavrutaSignupCard(finalChavruta);
+    if(finalSaveChat)addSaveChatBtn();
   }else{
     rmTyping();addMsg(currentLang==='en'?'Moshe could not respond — please try again 🙏':'משה לא הצליח לענות — נסה שוב 🙏','bot');
   }
@@ -1419,6 +1420,22 @@ var PUSH_OFFER_TEXTS={
 };
 // מקרב (CHAVRUTA_FORM_V1): התלמיד הסכים לחברותא -> כפתור שפותח חלונית הרשמה (שם ממולא מראש, טלפון, מייל, עיר).
 // השליחה נכנסת לרשימת המעוניינים בחברותא בשרת של מקרב, ומשם ל-CRM.
+/* SAVE_CHAT_V1 - כפתור גדול "שמור את השיחה" בסוף השיחה (השרת מסמן saveChat): שולח את כל השיחה לתפריט השיתוף */
+function shareChat(){
+  var en=currentLang==='en';var parts=[];
+  var rows=document.querySelectorAll('#chat-msgs .msg-row');
+  for(var i=0;i<rows.length;i++){var b=rows[i].querySelector('.msg-bubble');if(!b)continue;var t=(b.innerText||b.textContent||'').trim();if(!t)continue;parts.push((rows[i].classList.contains('user')?(en?'Me: ':'אני: '):(en?'Moshe: ':'משה: '))+t);}
+  var msg=(en?'My conversation with Moshe (AskMosh)':'השיחה שלי עם משה (AskMosh)')+'\n\n'+parts.join('\n\n')+'\n\n'+(en?'The app: ':'האפליקציה: ')+'https://askmosh.com/getapp';
+  if(window.Android&&window.Android.shareApp){window.Android.shareApp(msg);}
+  else if(navigator.share){navigator.share({title:'AskMosh',text:msg}).catch(function(){});}
+  else{window.open('https://wa.me/?text='+encodeURIComponent(msg.slice(-6000)),'_blank');} /* shortcut: קישור וואטסאפ מוגבל באורך, שולחים את סוף השיחה; לשדרג אם יתלוננו */
+}
+function addSaveChatBtn(){
+  var w=document.getElementById('chat-msgs');var old=document.getElementById('save-chat-btn');if(old)old.remove();
+  var b=document.createElement('button');b.id='save-chat-btn';b.type='button';b.textContent=currentLang==='en'?'📤 Save this conversation':'📤 שמור את השיחה';
+  b.style.cssText='display:block;width:92%;max-width:420px;margin:10px auto;padding:16px;border:none;border-radius:14px;background:var(--gold);color:#0f0f0f;font:700 1.1rem var(--font);cursor:pointer;';
+  b.onclick=shareChat;w.appendChild(b);w.scrollTop=w.scrollHeight;document.getElementById('screen-chat').scrollTop=99999;
+}
 function addChavrutaSignupCard(d){
   var en=currentLang==='en';
   var w=document.getElementById('chat-msgs');
