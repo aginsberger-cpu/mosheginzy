@@ -98,10 +98,11 @@ p.pr sup{font-family:Assistant,sans-serif;font-size:.6em;color:#C9A24C;margin:0 
 .pc .pqd{display:block;color:var(--ivory);font-size:.98rem;line-height:1.45;margin-top:2px}
 .pc.on{border-color:var(--gold)!important}.pc.on .pqi{outline:0!important}
 html.pl-en .pc{text-align:left!important}
+.pnav{display:flex;justify-content:space-between;gap:10px;margin:10px 0 4px}.pnav button{flex:1;padding:11px 14px;border-radius:999px;border:1.5px solid rgba(212,175,94,.6);background:rgba(212,175,94,.08);color:#F0D894;font:inherit;font-weight:700;font-size:.92rem;cursor:pointer}.pnav button[disabled]{opacity:.35;cursor:default}
 </style><body><div class="wrap" id="wrap">
 <div class="top"><a class="home" href="/"><span class="am-logo" dir="ltr" aria-label="AskMosh"><span class="am-ask">Ask</span><span class="am-mosh">M<span class="am-o">o</span>sh</span></span></a><a href="/" class="homebtn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9h-6v-6H9v6H3z"/></svg>לדף הראשי</a></div>
 <h1 data-en="Weekly Torah Portion">פרשת השבוע</h1><p data-en="Every week, Moshe Ginzy on the Torah portion in about a minute. Simple language, no lecture." class="lead">כל שבוע, משה גינזי על הפרשה בדקה. בשפה פשוטה, בלי דרשות.</p>
-<div class="now"><span class="tag" id="ptag" data-en="This Shabbat">השבת</span><span class="nm" id="pname"></span><span class="ps" id="psum"></span></div>
+<div class="pnav"><button type="button" id="pprev"></button><button type="button" id="pnext"></button></div><div class="now"><span class="tag" id="ptag" data-en="This Shabbat">השבת</span><span class="nm" id="pname"></span><span class="ps" id="psum"></span></div>
 <div class="player"><iframe id="pframe" title="פרשת השבוע" loading="lazy" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe></div>
 <p class="sig small" style="text-align:center" data-en="Moshe Ginzy">משה גינזי</p>
 <h3 data-en="The Book of Genesis" class="sec">ספר בראשית</h3>
@@ -121,7 +122,9 @@ function vid(p){return en?(p.ve||p.v):(p.v||p.ve);}
 function show(i,isNow){var p=P[i];document.getElementById('pframe').src='https://www.youtube-nocookie.com/embed/'+vid(p)+'?rel=0&playsinline=1';
 document.getElementById('pname').textContent=(en?'Parashat ':'פרשת ')+(en?p.en:p.he);
 document.getElementById('psum').textContent=en?p.se:p.sh;var tg=document.getElementById('ptag');tg.style.display=isNow?'':'none';
-[].forEach.call(document.querySelectorAll('.pc'),function(b){b.classList.toggle('on',+b.getAttribute('data-i')===i)});}
+[].forEach.call(document.querySelectorAll('.pc'),function(b){b.classList.toggle('on',+b.getAttribute('data-i')===i)});var pv=document.getElementById('pprev'),pn=document.getElementById('pnext');if(pv&&pn){var o=P[i-1],q=P[i+1];
+pv.disabled=!o;pn.disabled=!q;pv.textContent=o?(en?'← '+o.en:'→ '+o.he):'';pn.textContent=q?(en?q.en+' →':q.he+' ←'):'';
+pv.onclick=function(){if(o){show(i-1,i-1===cur&&isNow);}};pn.onclick=function(){if(q){show(i+1,i+1===cur&&isNow);}};}}
 /* הפרשה של השבת הקרובה: הסרטון הראשון שתאריך השבת שלו היום או אחריו. אם אין, האחרון */
 var today=new Date();today.setHours(0,0,0,0);var cur=P.length-1,isNow=false;
 for(var i=0;i<P.length;i++){if(new Date(P[i].d+'T23:59:59')>=today){cur=i;isNow=true;break;}}
