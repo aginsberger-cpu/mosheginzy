@@ -138,7 +138,7 @@ body.vplay *{animation-play-state:paused!important}
 .back-btn{display:inline-flex;align-items:center;gap:4px;height:36px;padding:0 12px 0 10px;border-radius:999px;border:1px solid rgba(214,178,94,.35);background:rgba(255,255,255,.05);color:#ecd9a3;font:600 14px 'Heebo',system-ui,sans-serif;text-decoration:none;cursor:pointer}
 .back-btn svg{width:18px;height:18px;stroke:#d6b25e;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 body.lang-en .back-btn svg,html[dir="ltr"] .back-btn svg{transform:scaleX(-1)}
-.next-st{display:flex;align-items:center;gap:12px;margin:22px 0 8px;padding:14px 18px;border-radius:16px;text-decoration:none;border:1.5px solid rgba(212,175,94,.6);background:linear-gradient(135deg,rgba(212,175,94,.14),rgba(212,175,94,.04));box-shadow:0 0 18px rgba(232,192,64,.12)}.next-st .nl{flex:none;font-size:.82rem;font-weight:700;color:#C9A24C}.next-st .nt{flex:1;font-weight:700;color:#F0D894}.next-st .na{flex:none;font-size:1.3rem;color:#E8C468}
+.all-st{display:block;text-align:center;margin:0 0 8px;padding:10px;border-radius:999px;border:1px solid rgba(212,175,94,.35);color:#E8C468;text-decoration:none;font-weight:700;font-size:.92rem}.next-st{display:flex;align-items:center;gap:12px;margin:22px 0 8px;padding:14px 18px;border-radius:16px;text-decoration:none;border:1.5px solid rgba(212,175,94,.6);background:linear-gradient(135deg,rgba(212,175,94,.14),rgba(212,175,94,.04));box-shadow:0 0 18px rgba(232,192,64,.12)}.next-st .nl{flex:none;font-size:.82rem;font-weight:700;color:#C9A24C}.next-st .nt{flex:1;font-weight:700;color:#F0D894}.next-st .na{flex:none;font-size:1.3rem;color:#E8C468}
 </style>
 </head>
 <body class="lang-he">
@@ -401,6 +401,7 @@ var STORIES=[
       +'<button class="btn" id="shareS"><svg class="i"><use href="#i-share"/></svg>'+(L==='he'?'שליחה לחבר':'Share with a friend')+'</button></div>';
     var si=STORIES.indexOf(s),ns=STORIES[(si+1)%STORIES.length];
     if(ns&&ns!==s)h+='<a class="next-st" href="#s='+ns.id+'"><span class="nl">'+(L==='he'?'לסיפור הבא':'Next story')+'</span><span class="nt">'+esc(ns.title[L])+'</span><span class="na">'+(L==='he'?'←':'→')+'</span></a>';
+    h+='<a class="all-st" href="#">'+(L==='he'?'→ לכל הסיפורים':'← All stories')+'</a>';
     a.innerHTML=h;document.body.classList.add('reading');window.scrollTo(0,0);
     document.getElementById('back').onclick=function(){history.length>1?history.back():location.hash=''};
     var fs=1,tx=document.getElementById('sText');
