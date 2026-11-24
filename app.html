@@ -1899,5 +1899,23 @@ row.innerHTML=P.map(function(p){var v=en?(p.ve||p.v):(p.v||p.ve);var t=en?'Paras
 return '<a class="bq-card" href="parasha/#p='+encodeURIComponent(p.en)+'"><div class="bq-img"><img src="https://i.ytimg.com/vi/'+v+'/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">'+t+'</span></a>';}).join('');}
 build();var o=window.setLang;if(typeof o==='function'){window.setLang=function(){var r=o.apply(this,arguments);try{build();}catch(e){}return r;};}})();
 </script>
+<style id="vthumb-style">
+/* כרטיסי סרטונים בצורת הסרטון (9:16): התמונה ממלאת את כל הכרטיס, בלי פסים ובלי חיתוך */
+.bq-row:not(.st-row) .bq-card{flex:0 0 150px}
+.bq-row:not(.st-row) .bq-img{height:267px}
+.bq-row:not(.st-row) .bq-play{top:68%}
+.lesson-thumb{aspect-ratio:9/16!important}
+.lesson-play{align-items:flex-end!important;padding-bottom:22%}
+img.vt-wide{object-fit:contain!important;background:#0F2236}
+</style>
+<script>/* תמונה אנכית גדולה מיוטיוב (oardefault); אם אין, תמונה אנכית מתוך הסרטון (frame0); לסרטון רוחבי, התמונה הרגילה */
+(function(){var RX=/^https:\/\/(?:i|img)\.ytimg\.com\/vi\/([A-Za-z0-9_-]{11})\/hqdefault\.jpg/;var RX2=/^https:\/\/img\.youtube\.com\/vi\/([A-Za-z0-9_-]{11})\/hqdefault\.jpg/;
+function up(img){if(img.dataset.vt)return;if(!img.closest('.bq-row:not(.st-row) .bq-img, .lesson-thumb'))return;var m=(img.getAttribute('src')||'').match(RX)||(img.getAttribute('src')||'').match(RX2);if(!m)return;var id=m[1];img.dataset.vt='1';
+img.addEventListener('load',function h(){var s=img.src;if(s.indexOf('oardefault')>-1&&img.naturalWidth<200){img.src='https://i.ytimg.com/vi/'+id+'/frame0.jpg';}else if(s.indexOf('frame0')>-1&&img.naturalWidth>img.naturalHeight){img.classList.add('vt-wide');img.src='https://i.ytimg.com/vi/'+id+'/hqdefault.jpg';img.removeEventListener('load',h);}});
+img.addEventListener('error',function(){if(img.src.indexOf('hqdefault')<0)img.src='https://i.ytimg.com/vi/'+id+'/hqdefault.jpg';});
+img.src='https://i.ytimg.com/vi/'+id+'/oardefault.jpg';}
+function scan(root){[].forEach.call((root||document).querySelectorAll('.bq-row:not(.st-row) .bq-img img, .lesson-thumb img'),up);}
+scan();new MutationObserver(function(ms){ms.forEach(function(m){[].forEach.call(m.addedNodes,function(n){if(n.nodeType!==1)return;if(n.tagName==='IMG')up(n);else scan(n);});});}).observe(document.body,{childList:true,subtree:true});})();
+</script>
 </body>
 </html>
