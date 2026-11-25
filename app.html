@@ -1447,6 +1447,15 @@ function addChavrutaSignupCard(d){
   var openBtn=document.createElement('button');openBtn.type='button';openBtn.className='referral-btn followup';
   openBtn.textContent=en?'📝 Sign up for a chavruta':'📝 הרשמה לחברותא';
   openBtn.onclick=function(){openChavrutaSignup(d,function(){p.textContent=en?"Thank you! You're signed up - we'll contact you soon 🙏":'תודה! נרשמת לחברותא, ניצור איתך קשר בהקדם 🙏';actions.remove();});};
+  /* CHAVRUTA_WA_V1 - לחיצה אחת במקום הקלדת מספר: נפתח וואטסאפ אל משה עם הודעה מוכנה */
+  var waBtn=document.createElement('button');waBtn.type='button';waBtn.className='referral-btn';
+  waBtn.textContent=en?'💬 Talk to me on WhatsApp':'💬 דברו איתי בוואטסאפ';
+  waBtn.onclick=function(){
+    var nm=String(d.name||(typeof userName!=='undefined'?userName:'')||'').trim();
+    var msg=en?('Hello'+(nm?', this is '+nm:'')+' from the AskMosh app. I would like a personal chavruta.'):('שלום'+(nm?', אני '+nm:'')+' מהאפליקציה AskMosh. אשמח לחברותא אישית.');
+    window.open('https://wa.me/'+(cachedMoshePhone||'972584094045')+'?text='+encodeURIComponent(msg),'_blank');
+  };
+  actions.appendChild(waBtn);
   actions.appendChild(openBtn);div.appendChild(actions);
   w.appendChild(div);w.scrollTop=w.scrollHeight;
 }
