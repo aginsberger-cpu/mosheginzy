@@ -1455,7 +1455,7 @@ function addChavrutaSignupCard(d){
     var msg=en?('Hello'+(nm?', this is '+nm:'')+' from the AskMosh app. I would like a personal chavruta.'):('שלום'+(nm?', אני '+nm:'')+' מהאפליקציה AskMosh. אשמח לחברותא אישית.');
     window.open('https://wa.me/'+(cachedMoshePhone||'972584094045')+'?text='+encodeURIComponent(msg),'_blank');
   };
-  actions.appendChild(waBtn);
+  if(d&&d.wa)actions.appendChild(waBtn); /* רק כשחסר טלפון (השרת מסמן wa); בהצעה הראשונה - רק הטופס, שנרשם ב-CRM */
   actions.appendChild(openBtn);div.appendChild(actions);
   w.appendChild(div);w.scrollTop=w.scrollHeight;
 }
