@@ -443,5 +443,5 @@ document.addEventListener('play',function(e){if(e.target.tagName==='VIDEO')docum
 el.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0&modestbranding=1&playsinline=1" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" title="video"></iframe>';document.body.classList.add('vplay');}
 document.addEventListener('click',function(e){var el=e.target.closest&&e.target.closest('.yt-face');if(el)go(el)});
 document.addEventListener('keydown',function(e){if(e.key==='Enter'&&e.target.classList&&e.target.classList.contains('yt-face'))go(e.target)});})();</script>
-</body>
+<style id="glass-play">.thumb .play{top:auto!important;bottom:10px!important;left:50%!important;right:auto!important;inset-inline-start:auto!important;transform:translateX(-50%)!important;width:30px!important;height:30px!important;border-radius:50%!important;display:flex!important;align-items:center!important;justify-content:center!important;background:rgba(8,18,32,.55)!important;border:1px solid rgba(240,210,140,.75)!important;box-shadow:0 2px 10px rgba(0,0,0,.35)!important;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}.thumb .play svg{width:12px!important;height:12px!important;fill:#F3D27A!important}.thumb .play svg path{fill:#F3D27A!important}</style></body>
 </html>
