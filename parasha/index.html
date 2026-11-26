@@ -123,7 +123,7 @@ function show(i,isNow){var p=P[i];document.getElementById('pframe').src='https:/
 document.getElementById('pname').textContent=(en?'Parashat ':'פרשת ')+(en?p.en:p.he);
 document.getElementById('psum').textContent=en?p.se:p.sh;var tg=document.getElementById('ptag');tg.style.display=isNow?'':'none';
 [].forEach.call(document.querySelectorAll('.pc'),function(b){b.classList.toggle('on',+b.getAttribute('data-i')===i)});var pv=document.getElementById('pprev'),pn=document.getElementById('pnext');if(pv&&pn){var o=P[i-1],q=P[i+1];
-pv.disabled=!o;pn.disabled=!q;pv.textContent=o?(en?'← '+o.en:'→ '+o.he):'';pn.textContent=q?(en?q.en+' →':q.he+' ←'):'';
+pv.disabled=!o;pn.disabled=!q;pv.style.visibility=o?'':'hidden';pn.style.visibility=q?'':'hidden';pv.textContent=o?(en?'← '+o.en:'→ '+o.he):'';pn.textContent=q?(en?q.en+' →':q.he+' ←'):'';
 pv.onclick=function(){if(o){show(i-1,i-1===cur&&isNow);}};pn.onclick=function(){if(q){show(i+1,i+1===cur&&isNow);}};}}
 /* הפרשה של השבת הקרובה: הסרטון הראשון שתאריך השבת שלו היום או אחריו. אם אין, האחרון */
 var today=new Date();today.setHours(0,0,0,0);var cur=P.length-1,isNow=false;
