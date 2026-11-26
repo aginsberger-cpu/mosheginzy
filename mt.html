@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mosh Tov · מוש טוב</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" sizes="48x48" href="favicon.png">
+<link rel="stylesheet" href="askmosh-brand.css">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:Heebo,Arial,sans-serif;color:#F4F1EA;background:radial-gradient(1000px 500px at 50% -150px,#16304D 0%,#07121F 60%) fixed;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;box-sizing:border-box}
+.card{max-width:420px;width:100%;text-align:center;background:rgba(14,32,52,.75);border:1px solid rgba(212,175,94,.28);border-radius:22px;padding:28px 22px}
+.ring{width:62px;height:62px;margin:0 auto 12px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(212,175,94,.28);background:rgba(212,175,94,.08)}
+.ring svg{width:30px;height:30px;stroke:#F3D27A;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+h1{color:#F3D27A;font-size:1.6rem;margin:0 0 6px}.mt-en{font-family:'Playfair Display',Georgia,serif}
+p{color:#D9DEE5;line-height:1.7;margin:0 0 18px}
+.b{display:block;width:100%;font:inherit;font-weight:600;font-size:1.05rem;padding:14px;border-radius:14px;border:0;cursor:pointer;margin-bottom:10px}
+.yes{background:linear-gradient(135deg,#F3D27A,#C99A3C);color:#1a1408}.no{background:transparent;color:#E9D9A8;border:1px solid rgba(212,175,94,.35)}
+.reasons{display:none;margin-top:6px}.reasons.on{display:block}
+.chip{display:inline-block;font:inherit;font-size:.9rem;padding:8px 13px;margin:4px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:rgba(7,18,31,.6);color:#D9DEE5;cursor:pointer}
+small{color:#A9B4C2;display:block;margin-top:14px;font-size:.78rem}
+</style>
+</head>
+<body>
+<div class="card" id="c">
+  <div class="ring"><svg viewBox="0 0 24 24"><path d="M9 2.6h6l2.4 3-5.4 5-5.4-5z"/><path d="M6.6 5.6h10.8"/><path d="M10.6 5.6L12 10.6l1.4-5"/><circle cx="12" cy="15.8" r="5.3"/></svg></div>
+  <h1><span class="mt-en" dir="ltr">Mosh Tov</span> · מוש טוב</h1>
+  <p>מעוניין/ת לשמוע עוד על ההצעה?<br>התשובה מגיעה רק לשדכן.</p>
+  <button class="b yes" onclick="send('yes')">כן, מעוניין/ת 💍</button>
+  <button class="b no" onclick="document.getElementById('r').classList.add('on')">לא כרגע</button>
+  <div class="reasons" id="r"><p style="margin:6px 0 4px;font-size:.9rem">רוצה לספר למה? זה עוזר לנו להציע טוב יותר (לא חובה)</p>
+    <button class="chip" onclick="send('no','גיל')">גיל</button><button class="chip" onclick="send('no','מקום')">מקום</button><button class="chip" onclick="send('no','סגנון')">סגנון</button><button class="chip" onclick="send('no','לא מתאים לי עכשיו')">לא עכשיו</button><button class="chip" onclick="send('no','')">בלי סיבה</button></div>
+  <small>דיסקרטי לגמרי. אף אחד לא רואה את התשובה חוץ מהשדכן.</small>
+</div>
+<script>
+var API='https://script.google.com/macros/s/AKfycbzxbWAuuEzBgQLv_jgfCqwgD0gWTo2bbCQsEas0pxPpDHoh21c677LajUbjF2V-_YJ_/exec';
+var t=(location.search.match(/[?&]t=([A-Za-z0-9]+)/)||[])[1]||'';
+function send(a,reason){var c=document.getElementById('c');c.style.opacity=.6;
+  fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'answer',token:t,answer:a,reason:reason||''})}).then(function(r){return r.json()})
+  .then(function(j){if(!j.ok)throw 0;c.style.opacity=1;c.innerHTML='<div class="ring"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><h1>תודה!</h1><p>'+(a==='yes'?'השדכן יחזור אליך בקרוב עם פרטים. בהצלחה!':'קיבלנו. נמשיך לחפש בשבילך את ההצעה הנכונה.')+'</p>'})
+  .catch(function(){c.style.opacity=1;alert('לא הצלחנו לשלוח. נסו שוב, או השיבו לשדכן בוואטסאפ.')})}
+if(!t){document.getElementById('c').innerHTML='<h1><span class="mt-en" dir="ltr">Mosh Tov</span></h1><p>הקישור לא תקין. אפשר להשיב לשדכן ישירות בוואטסאפ.</p>'}
+</script>
+</body>
+</html>
