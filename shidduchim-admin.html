@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mosh Tov · ניהול שידוכים</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" sizes="48x48" href="favicon.png">
+<link rel="stylesheet" href="askmosh-brand.css">
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Heebo:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07121F;--card:rgba(14,32,52,.75);--line:rgba(212,175,94,.26);--gold:#D4AF5E;--gold2:#F3D27A;--ink:#F4F1EA;--muted:#A9B4C2;--ok:#7FD1A8}
+*{box-sizing:border-box}
+body{margin:0;font-family:Heebo,Arial,sans-serif;color:var(--ink);background:radial-gradient(1200px 600px at 50% -200px,#16304D 0%,var(--bg) 60%) fixed;min-height:100vh}
+.top{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;border-bottom:1px solid rgba(255,255,255,.06)}
+.top .am-logo{font-size:1.35rem}.who{font-size:.8rem;color:var(--muted)}
+.wrap{max-width:980px;margin:0 auto;padding:18px}
+h1{font-family:'Frank Ruhl Libre',serif;color:var(--gold2);margin:4px 0 2px;font-size:1.7rem}
+.mt-en{font-family:'Playfair Display',Georgia,serif}
+.sub{color:var(--muted);margin:0 0 16px;font-size:.92rem}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center}
+.stat b{display:block;font-size:1.5rem;color:var(--gold2);font-family:'Frank Ruhl Libre',serif}.stat span{font-size:.8rem;color:var(--muted)}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.tab{font:inherit;padding:9px 16px;border-radius:999px;border:1px solid var(--line);background:transparent;color:#E9D9A8;cursor:pointer}
+.tab.on{background:linear-gradient(135deg,#F3D27A,#C99A3C);color:#1a1408;border-color:transparent;font-weight:600}
+.search{flex:1;min-width:160px;font:inherit;color:var(--ink);background:rgba(7,18,31,.65);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:9px 14px}
+.add{font:inherit;padding:9px 16px;border-radius:999px;border:1px dashed var(--gold);background:transparent;color:var(--gold2);cursor:pointer}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.p{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+.p h3{margin:0;font-size:1.08rem;display:flex;justify-content:space-between;align-items:center}
+.pill{font-size:.72rem;font-weight:500;padding:3px 9px;border-radius:999px;border:1px solid var(--line);color:#E9D9A8}
+.pill.new{background:rgba(127,209,168,.12);border-color:rgba(127,209,168,.4);color:var(--ok)}
+.meta{color:var(--muted);font-size:.86rem;margin:4px 0 8px}
+.look{font-size:.86rem;color:#D9DEE5;margin-bottom:8px}.look b{color:#E9D9A8;font-weight:500}
+.inote{font-size:.82rem;color:#E9D9A8;background:rgba(212,175,94,.07);border-right:2px solid var(--gold);padding:6px 10px;border-radius:6px;margin-bottom:10px}
+.acts{display:flex;gap:8px}
+.b{font:inherit;font-size:.86rem;padding:8px 12px;border-radius:10px;cursor:pointer;border:1px solid var(--line);background:transparent;color:#E9D9A8}
+.b.pri{background:linear-gradient(135deg,#F3D27A,#C99A3C);color:#1a1408;border:0;font-weight:600}
+.ov{position:fixed;inset:0;background:rgba(3,8,14,.72);backdrop-filter:blur(4px);display:none;align-items:flex-start;justify-content:center;padding:30px 14px;overflow:auto;z-index:10}
+.ov.on{display:flex}
+.modal{width:min(640px,100%);background:#0C1B2D;border:1px solid var(--line);border-radius:20px;padding:20px}
+.modal h2{font-family:'Frank Ruhl Libre',serif;color:var(--gold2);margin:0 0 4px}
+.modal .hint{color:var(--muted);font-size:.86rem;margin:0 0 14px}
+.m{display:flex;gap:12px;align-items:flex-start;padding:12px;border:1px solid rgba(255,255,255,.08);border-radius:14px;margin-bottom:10px;background:rgba(255,255,255,.02)}
+.score{flex:0 0 58px;height:58px;border-radius:50%;display:grid;place-items:center;font-weight:600;color:#1a1408;background:conic-gradient(#E8C468 calc(var(--v)*1%),rgba(255,255,255,.08) 0)}
+.score i{width:46px;height:46px;border-radius:50%;background:#0C1B2D;display:grid;place-items:center;color:var(--gold2);font-style:normal;font-size:.95rem}
+.m h4{margin:0 0 2px;font-size:1rem}.why{margin:6px 0 0;padding:0;list-style:none;font-size:.82rem;color:#D9DEE5}
+.why li{margin:2px 0}.why li.y::before{content:"✓ ";color:var(--ok)}.why li.n::before{content:"• ";color:#F2C27A}
+.close{float:left;background:none;border:0;color:var(--muted);font-size:1.4rem;cursor:pointer}
+.demo{font-size:.75rem;color:#F2C27A;text-align:center;margin:16px 0 0}
+
+.pair{display:grid;grid-template-columns:1fr 62px 1fr;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin-bottom:10px;cursor:pointer}
+.pair .side h4{margin:0;font-size:1rem}.pair .side div{color:var(--muted);font-size:.8rem}
+.pair .side.l{text-align:left}
+.st{display:inline-block;margin-top:6px;font-size:.72rem;padding:2px 9px;border-radius:999px;border:1px solid var(--line);color:#E9D9A8}
+.st.go{background:rgba(127,209,168,.12);border-color:rgba(127,209,168,.4);color:var(--ok)}
+.cmp{display:grid;grid-template-columns:1fr auto 1fr;gap:0;border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden;margin:10px 0}
+.cmp div{padding:8px 10px;font-size:.86rem;border-bottom:1px solid rgba(255,255,255,.06)}
+.cmp .k{color:var(--muted);text-align:center;background:rgba(255,255,255,.03);font-size:.78rem}
+.cmp .ok{color:var(--ok)}.cmp .gap{color:#F2C27A}
+.cmp .h{font-weight:600;color:var(--gold2);font-size:.95rem}
+.flow{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.flow button{font:inherit;font-size:.78rem;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:transparent;color:#E9D9A8;cursor:pointer}
+.flow button.on{background:linear-gradient(135deg,#F3D27A,#C99A3C);color:#1a1408;border:0;font-weight:600}
+.wa{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;font:inherit;font-weight:600;padding:12px;border-radius:12px;border:0;background:#1FA855;color:#fff;cursor:pointer;margin-top:8px}
+.msg{white-space:pre-wrap;background:rgba(31,168,85,.08);border:1px solid rgba(31,168,85,.35);border-radius:12px;padding:10px 12px;font-size:.86rem;color:#DDEFE4;margin-top:8px}
+.gapnote{background:rgba(242,194,122,.08);border:1px solid rgba(242,194,122,.35);color:#F2D9A8;border-radius:12px;padding:10px 12px;font-size:.86rem;margin-bottom:12px}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<header class="top">
+  <span class="am-logo" dir="ltr"><span class="am-ask">Ask</span><span class="am-mosh">M<span class="am-o">o</span>sh</span></span>
+  <span class="who">כניסת שדכן · גישה לשידוכים בלבד</span>
+</header>
+<main class="wrap">
+  <h1><span class="mt-en" dir="ltr">Mosh Tov</span> · ניהול שידוכים</h1>
+  <p class="sub">כל הנרשמים, מחולקים לבחורים ולבחורות. ההתאמות הן הצעה בלבד. ההחלטה תמיד שלך.</p>
+  <div class="stats" id="stats"></div>
+  <div class="bar">
+    <button class="tab on" data-g="board">✨ לוח התאמות</button><button class="tab" data-g="בחור">בחורים</button><button class="tab" data-g="בחורה">בחורות</button>
+    <input class="search" id="q" placeholder="חיפוש לפי שם, עיר או השקפה">
+    <button class="add" id="addBtn">+ הוספת מועמד</button>
+  </div>
+  <div class="grid" id="list"></div>
+  <p class="demo">תצוגה מקדימה, עם נתונים לדוגמה בלבד.</p>
+</main>
+
+<div class="ov" id="ov"><div class="modal" id="modal"></div></div>
+
+<script>
+var P=[
+ {id:1,g:'בחור',first:'דוד',last:'כ.',age:27,status:'רווק/ה',city:'ירושלים',hashkafa:'דתי לאומי',work:'מהנדס תוכנה',ageFrom:22,ageTo:27,lookH:'דתי לאומי, דתי',lookPlace:'ישראל',isNew:true,note:'',about:'אוהב משפחה, טיולים ושיעור תורה בערב'},
+ {id:2,g:'בחור',first:'אברהם',last:'ל.',age:34,status:'גרוש/ה',city:'ניו יורק',hashkafa:'מסורתי',work:'רואה חשבון',ageFrom:27,ageTo:35,lookH:'מסורתי, בתהליך התקרבות',lookPlace:'ארה״ב',isNew:false,note:'דיברתי איתו 20.11, מעדיף ניו ג׳רזי או ניו יורק'},
+ {id:3,g:'בחור',first:'יוסף',last:'מ.',age:52,status:'אלמן/ה',city:'לייקווד',hashkafa:'דתי',work:'בעל עסק',ageFrom:42,ageTo:52,lookH:'דתי',lookPlace:'ארה״ב',isNew:false,note:''},
+ {id:4,g:'בחורה',first:'רחל',last:'ש.',age:24,status:'רווק/ה',city:'ירושלים',hashkafa:'דתי לאומי',work:'סטודנטית לחינוך',ageFrom:24,ageTo:30,lookH:'דתי לאומי',lookPlace:'ישראל',isNew:true,note:''},
+ {id:5,g:'בחורה',first:'מיכל',last:'א.',age:31,status:'רווק/ה',city:'ניו ג׳רזי',hashkafa:'בתהליך התקרבות',work:'מעצבת',ageFrom:30,ageTo:38,lookH:'מסורתי, בתהליך התקרבות',lookPlace:'ארה״ב',isNew:false,note:''},
+ {id:6,g:'בחורה',first:'שרה',last:'ג.',age:46,status:'גרוש/ה',city:'ניו יורק',hashkafa:'דתי',work:'אחות',ageFrom:44,ageTo:56,lookH:'דתי',lookPlace:'ארה״ב',isNew:true,note:''},
+ {id:7,g:'בחורה',first:'נועה',last:'ב.',age:26,status:'רווק/ה',city:'תל אביב',hashkafa:'מסורתי',work:'עורכת דין',ageFrom:26,ageTo:32,lookH:'מסורתי, דתי',lookPlace:'ישראל',isNew:false,note:''}
+];
+var G='board';
+var US=/ניו|לייקווד|ארה|ג׳רזי|ברוקלין|מיאמי|לוס/,IL=/ירושלים|תל אביב|חיפה|ישראל|בני ברק|מודיעין/;
+function region(c){return US.test(c)?'ארה״ב':IL.test(c)?'ישראל':c}
+function score(a,b){var s=0,why=[];
+  var ab=b.age>=a.ageFrom&&b.age<=a.ageTo, ba=a.age>=b.ageFrom&&a.age<=b.ageTo;
+  if(ab&&ba){s+=35;why.push(['y','הגיל מתאים לשני הצדדים'])}else if(ab||ba){s+=18;why.push(['n','הגיל מתאים רק לצד אחד'])}else why.push(['n','הגיל מחוץ לטווח שביקשו']);
+  var h1=a.lookH.indexOf(b.hashkafa)>-1,h2=b.lookH.indexOf(a.hashkafa)>-1;
+  if(h1&&h2){s+=35;why.push(['y','ההשקפה מתאימה לשניהם ('+b.hashkafa+')'])}else if(h1||h2){s+=18;why.push(['n','ההשקפה מתאימה חלקית'])}else why.push(['n','השקפה שונה']);
+  if(region(b.city)===a.lookPlace||a.lookPlace==='גמיש'){s+=20;why.push(['y','מקום מגורים מתאים ('+region(b.city)+')'])}else why.push(['n','גרים במקום אחר ('+b.city+')']);
+  if((a.status==='רווק/ה')===(b.status==='רווק/ה')){s+=10;why.push(['y','שלב חיים דומה'])}
+  return {s:s,why:why}}
+
+var STATUS={};var FLOW=['הוצע','הבחור מעוניין','הבחורה מעוניינת','נפגשו','ממשיכים','מזל טוב 🎉','לא מתאים'];
+function bestPairs(){var all=[];P.filter(p=>p.g==='בחור').forEach(a=>P.filter(p=>p.g==='בחורה').forEach(b=>{var r=score(a,b);all.push({a:a,b:b,r:r})}));
+  all.sort((x,y)=>y.r.s-x.r.s);var used={},out=[];all.forEach(x=>{if(x.r.s<55||used[x.a.id]||used[x.b.id])return;used[x.a.id]=used[x.b.id]=1;out.push(x)});return out}
+function board(){var pr=bestPairs(),m=P.filter(p=>p.g==='בחור').length,w=P.length-m;
+  document.getElementById('list').style.display='block';
+  document.getElementById('list').innerHTML=(w>m?'<div class="gapnote">יש '+w+' בחורות ו-'+m+' בחורים. כל אחד מקבל הצעה אחת פעילה בכל פעם, ומי שמחכה הכי הרבה זמן מקבל עדיפות. כדאי לפרסם כדי להביא עוד בחורים.</div>':'')
+   +'<p class="sub" style="margin:0 0 10px">ההצעות הכי מתאימות עכשיו. לחיצה פותחת השוואה, ושם שולחים בוואטסאפ.</p>'
+   +pr.map(x=>{var k=x.a.id+'-'+x.b.id,st=STATUS[k];return '<div class="pair" onclick="cmp('+x.a.id+','+x.b.id+')"><div class="side"><h4>'+x.a.first+' '+x.a.last+'</h4><div>'+x.a.age+' · '+x.a.city+'</div>'+(st?'<span class="st go">'+st+'</span>':'')+'</div><div class="score" style="--v:'+x.r.s+'"><i>'+x.r.s+'%</i></div><div class="side l"><h4>'+x.b.first+' '+x.b.last+'</h4><div>'+x.b.age+' · '+x.b.city+'</div></div></div>'}).join('')}
+function row(k,a,b,ok){return '<div class="'+(ok?'ok':'gap')+'">'+a+'</div><div class="k">'+k+'</div><div class="'+(ok?'ok':'gap')+'" style="text-align:left">'+b+'</div>'}
+function anon(p){return p.age+', '+p.city+', '+p.hashkafa+', '+p.work+(p.about?'. כתב/ה: "'+p.about+'"':'')}
+function cmp(ai,bi){var a=P.find(p=>p.id===ai),b=P.find(p=>p.id===bi),r=score(a,b),k=ai+'-'+bi;
+  var ageOk=b.age>=a.ageFrom&&b.age<=a.ageTo&&a.age>=b.ageFrom&&a.age<=b.ageTo,hOk=a.lookH.indexOf(b.hashkafa)>-1&&b.lookH.indexOf(a.hashkafa)>-1,pOk=region(a.city)===region(b.city);
+  var msg='שלום '+a.first+', כאן Mosh Tov 💍\nיש לנו הצעה שנראית לנו מתאימה:\n'+anon(b)+'\nמעוניין לשמוע עוד?\n👈 askmosh.com/mt/r?k=XXXX';
+  open('<button class="close" onclick="shut()">×</button><h2>השוואה</h2><div class="cmp">'
+   +'<div class="h">'+a.first+' '+a.last+'</div><div class="k"></div><div class="h" style="text-align:left">'+b.first+' '+b.last+'</div>'
+   +row('גיל',a.age+' (מחפש '+a.ageFrom+'–'+a.ageTo+')',b.age+' (מחפשת '+b.ageFrom+'–'+b.ageTo+')',ageOk)
+   +row('השקפה',a.hashkafa,b.hashkafa,hOk)+row('מקום',a.city,b.city,pOk)+row('מצב',a.status,b.status,(a.status==='רווק/ה')===(b.status==='רווק/ה'))+row('עיסוק',a.work,b.work,true)
+   +'</div><p class="hint" style="margin:6px 0">✨ משה: שניהם כתבו על משפחה ועל לימוד. ציון התאמה '+r.s+'%.</p>'
+   +'<div class="flow">'+FLOW.map(f=>'<button class="'+(STATUS[k]===f?'on':'')+'" onclick="setSt(\''+k+'\',\''+f+'\','+ai+','+bi+')">'+f+'</button>').join('')+'</div>'
+   +'<div class="msg">'+msg+'</div><button class="wa" onclick="alert(\'בגרסה האמיתית: נפתח וואטסאפ עם ההודעה מוכנה למשלוח ל'+a.first+'\')">שליחה בוואטסאפ ל'+a.first+' (קודם לצד אחד)</button>'
+   +'<p class="hint" style="margin-top:8px;text-align:center">בלי שם, בלי טלפון ובלי תמונה. רק אם '+a.first+' יענה "מעוניין", תישלח הצעה ל'+b.first+'.</p>')}
+function setSt(k,f,a,b){STATUS[k]=f;cmp(a,b)}
+function stats(){var n=P.length,m=P.filter(p=>p.g==='בחור').length;document.getElementById('stats').innerHTML=
+  '<div class="stat"><b>'+n+'</b><span>נרשמים</span></div><div class="stat"><b>'+m+'</b><span>בחורים</span></div><div class="stat"><b>'+(n-m)+'</b><span>בחורות</span></div><div class="stat"><b>'+P.filter(p=>p.isNew).length+'</b><span>חדשים השבוע</span></div>'}
+function render(){if(G==='board'){board();return}document.getElementById('list').style.display='';var q=document.getElementById('q').value.trim();
+  document.getElementById('list').innerHTML=P.filter(p=>p.g===G&&(!q||(p.first+p.city+p.hashkafa).indexOf(q)>-1)).map(p=>
+   '<div class="p"><h3>'+p.first+' '+p.last+(p.isNew?' <span class="pill new">חדש</span>':' <span class="pill">'+p.status+'</span>')+'</h3>'
+   +'<div class="meta">'+p.age+' · '+p.city+' · '+p.hashkafa+' · '+p.work+'</div>'
+   +'<div class="look"><b>מחפש/ת:</b> גיל '+p.ageFrom+'–'+p.ageTo+', '+p.lookH+', '+p.lookPlace+'</div>'
+   +(p.note?'<div class="inote">הערה פנימית: '+p.note+'</div>':'')
+   +'<div class="acts"><button class="b pri" onclick="match('+p.id+')">הצע התאמות</button><button class="b" onclick="note('+p.id+')">הערה</button><button class="b">פרטים מלאים</button></div></div>').join('')}
+function match(id){var a=P.find(p=>p.id===id),other=P.filter(p=>p.g!==a.g).map(b=>({b:b,r:score(a,b)})).sort((x,y)=>y.r.s-x.r.s).slice(0,3);
+  open('<button class="close" onclick="shut()">×</button><h2>התאמות ל'+a.first+'</h2><p class="hint">'+a.age+' · '+a.city+' · '+a.hashkafa+'. ההצעות המתאימות ביותר מהצד השני:</p>'
+   +other.map(o=>'<div class="m"><div class="score" style="--v:'+o.r.s+'"><i>'+o.r.s+'%</i></div><div style="flex:1"><h4>'+o.b.first+' '+o.b.last+'</h4><div class="meta" style="margin:0">'+o.b.age+' · '+o.b.city+' · '+o.b.hashkafa+' · '+o.b.status+'</div><ul class="why">'+o.r.why.map(w=>'<li class="'+w[0]+'">'+w[1]+'</li>').join('')+'</ul></div></div>').join(''))}
+function note(id){var a=P.find(p=>p.id===id);open('<button class="close" onclick="shut()">×</button><h2>הערה פנימית: '+a.first+'</h2><p class="hint">רק השדכן רואה את ההערה.</p><textarea id="nt" style="width:100%;min-height:110px;font:inherit;color:#F4F1EA;background:rgba(7,18,31,.65);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:12px">'+a.note+'</textarea><div style="margin-top:12px;display:flex;gap:8px"><button class="b pri" onclick="saveNote('+id+')">שמירה</button><button class="b" onclick="shut()">ביטול</button></div>')}
+function saveNote(id){P.find(p=>p.id===id).note=document.getElementById('nt').value;shut();render()}
+function shut2(){}
+function open(h){document.getElementById('modal').innerHTML=h;document.getElementById('ov').classList.add('on')}
+function shut(){document.getElementById('ov').classList.remove('on');if(G==='board')board()}
+document.getElementById('ov').onclick=function(e){if(e.target.id==='ov')shut()};
+document.querySelectorAll('.tab').forEach(t=>t.onclick=function(){document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));t.classList.add('on');G=t.dataset.g;render()});
+document.getElementById('q').oninput=render;
+document.getElementById('addBtn').onclick=function(){open('<button class="close" onclick="shut()">×</button><h2>הוספת מועמד</h2><p class="hint">למי שפנה בטלפון או דרך מכרים. אותם שדות כמו בטופס ההרשמה.</p><p class="meta">בגרסה האמיתית ייפתח כאן טופס מלא.</p>')};
+stats();render();
+</script>
+</body>
+</html>

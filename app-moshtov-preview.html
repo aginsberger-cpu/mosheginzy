@@ -1,0 +1,1976 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<script src="askmosh-migrate.js"></script>
+<meta charset="UTF-8">
+<link rel="canonical" href="https://askmosh.com/app.html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0B1A2C">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>AskMosh | משה גינזי — מגלים את היהדות</title>
+<meta property="og:title" content="AskMosh | משה גינזי">
+<meta property="og:description" content="כל השאלות במקום אחד, על פי ספרי היהדות. לא ה-AI שהכרת.">
+<meta property="og:image" content="https://askmosh.com/askmosh-icon-192.png">
+<meta property="og:url" content="https://askmosh.com/app.html">
+<meta property="og:type" content="website">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+:root{
+  --gold:#D4A843;--gold2:#C09030;--gold3:#E8C060;
+  --bg:#141210;--card:#1e1b17;--card2:#252118;
+  --border:rgba(212,168,67,0.25);--border2:rgba(212,168,67,0.45);
+  --txt:#f0e8d8;--muted:#9a8a72;
+  --font:'Heebo',sans-serif;--font-display:'Cormorant Garamond','Heebo',sans-serif;
+--nav-h:64px;--top-bar:50px;--safe-top:env(safe-area-inset-top, 0px);
+}
+/* LIGHT MODE */
+body.light{
+  --bg:#faf6ef;--card:#fff;--card2:#f5f0e6;
+  --border:rgba(212,168,67,0.3);--border2:rgba(212,168,67,0.5);
+  --txt:#1a1408;--muted:#6a5a3a;
+}
+html,body{height:100%;background:var(--bg);color:var(--txt);font-family:var(--font);transition:background .3s,color .3s;}
+body{overflow:hidden;}
+
+/* TOP BAR */
+.top-bar{position:fixed;top:0;left:0;right:0;z-index:300;height:calc(var(--top-bar) + env(safe-area-inset-top,0px));padding-top:env(safe-area-inset-top,0px);display:flex;align-items:center;justify-content:space-between;padding-left:16px;padding-right:16px;background:linear-gradient(135deg,rgba(20,16,10,0.99),rgba(25,20,12,0.99));backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(212,168,67,0.3);box-shadow:0 2px 20px rgba(0,0,0,0.5);}
+body.light .top-bar{background:linear-gradient(135deg,rgba(250,246,235,0.99),rgba(255,252,240,0.99));}
+
+.top-bar-title{font-family:var(--font-display);font-size:1.25rem;color:#E8C040;font-weight:400;letter-spacing:.06em;text-shadow:0 0 25px rgba(232,192,64,0.5),0 2px 4px rgba(0,0,0,0.3);}.top-bar-right{display:flex;align-items:center;gap:8px;}
+
+.lang-toggle{display:flex;align-items:center;background:rgba(255,255,255,0.06);border:1px solid rgba(212,168,67,0.4);border-radius:20px;overflow:hidden;padding:2px;gap:2px;box-shadow:0 2px 8px rgba(0,0,0,0.3);}
+.lang-btn{
+  padding:6px 14px;font-size:.72rem;font-weight:700;
+  font-family:var(--font);letter-spacing:.06em;
+  border:none;background:transparent;color:var(--muted);
+  cursor:pointer;transition:all .25s;border-radius:16px;
+}
+.lang-btn.active{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#0f0f0f;}
+
+/* DARK/LIGHT TOGGLE */
+.theme-btn{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--card2);border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:1rem;
+  transition:all .2s;
+}
+
+/* SCREENS */
+.screen{
+  position:fixed;inset:0;display:none;flex-direction:column;
+  background:var(--bg);z-index:1;overflow-y:auto;
+  padding-top:calc(var(--top-bar) + var(--safe-top));padding-bottom:var(--nav-h);
+  -webkit-overflow-scrolling:touch;
+}
+.screen.active{display:flex;z-index:2;}
+
+/* ══ HOME ══ */
+#screen-home{background:var(--bg);padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom,0px) + 16px);}
+
+.home-photo-wrap{
+  margin:1.2rem 1.2rem .8rem;
+  border-radius:20px;overflow:hidden;
+  position:relative;
+  box-shadow:0 8px 32px rgba(0,0,0,0.35);
+  flex-shrink:0;
+}
+.home-photo-wrap img{
+  width:100%;display:block;
+  object-fit:cover;object-position:50% 15%;
+  max-height:380px;
+}
+.home-photo-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to bottom,transparent 70%,var(--bg) 100%);
+}
+
+.home-headline{padding:.8rem 1.5rem .5rem;text-align:center;}
+.home-headline h1{
+  font-family:var(--font-display);font-size:1.7rem;font-weight:400;
+  color:var(--txt);line-height:1.35;margin-bottom:.4rem;
+}
+.home-headline h1 span{color:var(--gold);}
+.home-headline p{font-size:.87rem;color:var(--muted);line-height:1.7;}
+
+/* 3 STEPS */
+.steps-row{display:flex;gap:10px;padding:.7rem 1.2rem;}
+.step-card{
+  flex:1;background:var(--card);border:1px solid var(--border);
+  border-radius:16px;padding:.9rem .5rem;text-align:center;
+}
+.step-num{
+  width:28px;height:28px;border-radius:50%;
+  background:linear-gradient(135deg,rgba(197,160,89,0.2),rgba(197,160,89,0.05));
+  border:1px solid rgba(197,160,89,0.5);
+  color:var(--gold);font-size:.72rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto .5rem;
+}
+.step-text{font-size:.66rem;color:var(--muted);line-height:1.55;}
+
+/* BUTTONS */
+.home-actions{padding:.7rem 1.2rem 1.5rem;display:flex;flex-direction:column;gap:.7rem;}
+
+.cta-main{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;
+  background:linear-gradient(135deg,#F0C040,#D4A843,#B8880A);
+  color:#0f0f0f;border:none;border-radius:16px;padding:17px 20px;
+  font-size:1rem;font-weight:800;font-family:var(--font);cursor:pointer;
+  letter-spacing:.03em;position:relative;overflow:hidden;
+  box-shadow:0 4px 20px rgba(197,160,89,0.4),0 1px 0 rgba(255,255,255,0.2) inset;
+  transition:transform .15s;
+}
+.cta-main::before{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(255,255,255,0.18),transparent 60%);pointer-events:none;}
+.cta-main:active{transform:scale(.98);}
+.cta-main svg{width:20px;height:20px;flex-shrink:0;}
+
+.cta-wa{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:linear-gradient(135deg,rgba(37,211,102,0.15),rgba(37,211,102,0.08));border:1.5px solid rgba(37,211,102,0.6);color:#2ecc71;border-radius:16px;padding:15px 20px;font-size:.95rem;font-weight:700;font-family:var(--font);cursor:pointer;text-decoration:none;transition:all .2s;box-shadow:0 4px 15px rgba(37,211,102,0.15);}
+.cta-wa:active{background:rgba(37,211,102,0.25);}
+.cta-wa svg{width:22px;height:22px;flex-shrink:0;}
+
+.cta-chavruta{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:linear-gradient(135deg,rgba(212,168,67,0.15),rgba(212,168,67,0.07));border:1.5px solid rgba(212,168,67,0.5);color:var(--gold3);border-radius:16px;padding:15px 20px;font-size:.95rem;font-weight:700;font-family:var(--font);cursor:pointer;transition:all .2s;box-shadow:0 4px 15px rgba(212,168,67,0.12);}
+.cta-chavruta:active{background:rgba(212,168,67,0.22);}
+.cta-chavruta svg{flex-shrink:0;}
+
+/* ══ CHAT ══ */
+#screen-chat{padding-bottom:calc(var(--nav-h) + 72px);}
+.chat-hero{
+  display:flex;flex-direction:column;align-items:center;
+  width:100%;padding:1.2rem 1.5rem 1rem;
+  border-bottom:1px solid var(--border);text-align:center;
+  background:radial-gradient(ellipse at 50% 0%,rgba(197,160,89,0.1) 0%,transparent 70%);
+}
+.chat-avatar-wrap{
+  width:100%;display:flex;justify-content:center;
+  margin-bottom:.9rem;
+}
+.chat-avatar-ring{
+  width:170px;height:170px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:conic-gradient(var(--gold3),var(--gold2),var(--gold),var(--gold3));
+  padding:3px;margin:0 auto;
+  box-shadow:0 0 25px rgba(197,160,89,0.3),0 0 50px rgba(197,160,89,0.1);
+}
+.chat-avatar-inner{
+  width:100%;height:100%;border-radius:50%;overflow:hidden;background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+}
+.chat-avatar-inner img{
+  width:100%;height:100%;border-radius:50%;
+  object-fit:cover;object-position:center center;display:block;filter:brightness(0.95) contrast(1.05) saturate(0.9);
+}
+.chat-avatar-fallback{
+  width:100%;height:100%;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-size:3rem;color:#0f0f0f;
+}
+.chat-intro{max-width:340px;margin:0 auto;}
+.chat-intro-lead{font-family:var(--font-display);font-size:1.1rem;font-style:italic;color:var(--txt);line-height:1.6;margin-bottom:.8rem;}
+.chat-intro-qs{font-size:.82rem;color:var(--muted);line-height:1.85;}
+.chat-intro-qs em{color:var(--txt);font-style:normal;}
+
+.chat-name-panel{background:var(--card);border:1px solid var(--border);border-radius:16px;margin:1rem 1.2rem;padding:1.1rem;}
+.chat-name-label{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:.5rem;}
+.chat-name-input{width:100%;background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:11px 14px;color:var(--txt);font-size:.95rem;font-family:var(--font);outline:none;margin-bottom:.8rem;-webkit-appearance:none;}
+.chat-name-input:focus{border-color:var(--gold);}
+.chat-name-input::placeholder{color:var(--muted);}
+.gender-row{display:flex;gap:8px;margin-bottom:.8rem;}
+.gender-btn{flex:1;background:transparent;border:1px solid var(--border);border-radius:10px;padding:10px;color:var(--muted);font-family:var(--font);font-size:.85rem;cursor:pointer;transition:all .2s;}
+.gender-btn.active{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#0f0f0f;border-color:var(--gold);font-weight:700;}
+.start-btn{width:100%;background:linear-gradient(135deg,var(--gold3),var(--gold),var(--gold2));color:#0f0f0f;border:none;border-radius:12px;padding:14px;font-size:1rem;font-weight:800;font-family:var(--font);cursor:pointer;box-shadow:0 4px 16px rgba(197,160,89,0.3),0 1px 0 rgba(255,255,255,0.15) inset;position:relative;overflow:hidden;}
+.start-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(255,255,255,0.15),transparent 60%);pointer-events:none;}
+
+.chat-msgs{padding:12px 14px;display:flex;flex-direction:column;gap:10px;}
+.msg-row{display:flex;gap:8px;align-items:flex-end;}
+.msg-row.user{flex-direction:row-reverse;}
+.msg-av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--gold3),var(--gold2));display:flex;align-items:center;justify-content:center;font-size:.65rem;color:#0f0f0f;font-weight:700;flex-shrink:0;}
+.msg-bubble{max-width:78%;padding:10px 14px;border-radius:18px;font-size:.88rem;line-height:1.7;}
+.msg-bubble.bot{background:var(--card);border:1px solid var(--border);border-bottom-right-radius:4px;}
+.msg-bubble.user{background:linear-gradient(135deg,rgba(197,160,89,0.18),rgba(184,144,58,0.12));border:1px solid rgba(197,160,89,0.28);border-bottom-left-radius:4px;}
+.typing-dots{display:flex;gap:4px;padding:12px 14px;background:var(--card);border:1px solid var(--border);border-radius:18px;border-bottom-right-radius:4px;width:fit-content;}
+@keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+.typing-dots span{width:6px;height:6px;border-radius:50%;background:var(--gold);display:block;}
+.typing-dots span:nth-child(1){animation:bounce 1.2s infinite}
+.typing-dots span:nth-child(2){animation:bounce 1.2s .2s infinite}
+.typing-dots span:nth-child(3){animation:bounce 1.2s .4s infinite}
+
+/* תיבת הצעה שמופיעה אחרי תשובה שהמנוע סימן שלא כיסתה את השאלה
+   במדויק (noAnswer) - מציעה לפנות ישירות למשה בוואטסאפ, או להשאיר
+   את השאלה לבירור מעמיק ולקבל התראה כשיש תשובה. תואם למה שכבר קיים
+   באתר/אפליקציית מקרב עצמה (public/index.html, addReferralSuggestion). */
+.referral-suggestion{align-self:flex-start;max-width:82%;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px 14px;font-size:.85rem;line-height:1.6;color:var(--txt);}
+.referral-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;}
+.referral-btn{display:inline-flex;align-items:center;gap:6px;border:none;border-radius:16px;padding:7px 12px;font-size:.8rem;cursor:pointer;color:#fff;background:#25D366;touch-action:manipulation;}
+.referral-btn:disabled{opacity:.6;cursor:default;}
+.referral-btn.followup{background:var(--gold2);color:#141210;}
+
+/* מקרב: כרטיס דירוג שיחה - מוצג פעם אחת בכל שיחה, אחרי כמה שאלות
+   (השרת כבר קובע מתי, ראה showRatingPrompt ב-server.js) - זהה בתפקוד
+   ל-addRatingPrompt שכבר קיים באתר/אפליקציית מקרב עצמה
+   (public/index.html), רק שכאן, כמו שאר תיבות ההצעה בקובץ הזה, לא
+   נקרא עד עכשיו בכלל מה-payload שהשרת שולח (בדיוק כמו שקרה לפני כן
+   עם videos) - זו הסיבה שהדירוג "הפסיק לעבוד": הוא בעצם אף פעם לא
+   עבד באפליקציה הזו, רק באתר. */
+.rating-prompt{align-self:flex-start;max-width:82%;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px 14px;font-size:.85rem;line-height:1.6;color:var(--txt);}
+.rating-prompt-title{margin-bottom:8px;}
+.rating-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
+.rating-chip{border:1px solid var(--border2);background:transparent;color:var(--txt);border-radius:16px;padding:6px 12px;font-size:.78rem;cursor:pointer;touch-action:manipulation;font-family:var(--font);}
+.rating-chip.selected{background:linear-gradient(135deg,var(--gold3),var(--gold2));color:#0f0f0f;border-color:transparent;}
+.rating-submit-btn{border:none;border-radius:16px;padding:7px 14px;font-size:.8rem;cursor:pointer;color:#0f0f0f;background:linear-gradient(135deg,var(--gold3),var(--gold2));font-family:var(--font);}
+.rating-submit-btn:disabled{opacity:.5;cursor:default;}
+
+.chat-input-bar{position:fixed;bottom:var(--nav-h);left:0;right:0;z-index:50;background:rgba(26,26,26,0.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--border);padding:10px 12px;display:flex;gap:8px;align-items:flex-end;}
+body.light .chat-input-bar{background:rgba(245,240,232,0.97);}
+.chat-input-bar.hidden{display:none;}
+.ci{flex:1;background:var(--card2);border:1px solid var(--border);border-radius:18px;padding:10px 16px;color:var(--txt);font-size:16px;font-family:var(--font);outline:none;-webkit-appearance:none;resize:none;min-height:40px;max-height:120px;line-height:1.4;overflow-y:auto;}.ci::placeholder{color:var(--muted);}
+.send-btn{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold3),var(--gold2));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 10px rgba(197,160,89,0.3);transition:transform .15s;}
+.send-btn:active{transform:scale(.93);}
+.mic-btn{width:40px;height:40px;border-radius:50%;background:var(--card2);border:1px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(197,160,89,.5)}50%{box-shadow:0 0 0 8px rgba(197,160,89,0)}}
+.mic-btn.listening{border-color:var(--gold);background:rgba(197,160,89,0.12);animation:pulse 1.2s infinite;}
+
+/* PAGE HEADER */
+.page-header{background:rgba(26,26,26,0.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;position:sticky;top:0;z-index:10;}
+body.light .page-header{background:rgba(245,240,232,0.97);}
+.back-btn{background:var(--card2);border:1px solid var(--border);border-radius:10px;color:var(--gold);font-size:.82rem;cursor:pointer;padding:7px 13px;font-family:var(--font);font-weight:600;transition:background .15s;}
+.page-title{font-family:var(--font-display);font-size:1.4rem;font-weight:300;color:var(--gold);flex:1;text-align:center;}
+
+/* LESSONS */
+.lessons-grid{padding:12px;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.lesson-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:transform .2s;}
+.lesson-card:active{transform:scale(.97);}
+.lesson-thumb{position:relative;aspect-ratio:16/9;overflow:hidden;background:#111;}
+.lesson-thumb img{width:100%;height:100%;object-fit:cover;}
+.lesson-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.5);}
+.lesson-play-btn{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--gold3),var(--gold2));display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(197,160,89,0.4);}
+.lesson-play-btn svg{width:14px;height:14px;fill:#0f0f0f;margin-right:-2px;}
+.lesson-meta{padding:8px 10px;}
+.lesson-tag{font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:.2rem;}
+.lesson-title{font-family:var(--font-display);font-size:.85rem;line-height:1.3;color:var(--txt);}
+/* מקרב: כרטיס תצוגה מקדימה לסרטון מוצע בתוך הצ'אט - עיצוב זהה
+   ל-lesson-card (ספריית שיעורים) למעלה, רק ברוחב מוגבל שמתאים לתוך
+   בועת שיחה במקום עמודה ברשת. ראה addVideoSuggestions. */
+.chat-video-card{margin-top:8px;max-width:230px;background:var(--card2);border:1px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer;transition:transform .15s;}
+.chat-video-card:active{transform:scale(.97);}
+.chat-video-thumb{position:relative;aspect-ratio:16/9;overflow:hidden;background:#111;}
+.chat-video-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+.chat-video-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.35);}
+.chat-video-play-btn{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--gold3),var(--gold2));display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(197,160,89,0.4);}
+.chat-video-play-btn svg{width:12px;height:12px;fill:#0f0f0f;margin-right:-2px;}
+.chat-video-title{padding:7px 10px;font-family:var(--font-display);font-size:.82rem;line-height:1.3;color:var(--txt);}
+.more-videos-btn{display:flex;align-items:center;justify-content:center;gap:8px;margin:4px 12px 16px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;color:var(--gold);font-family:var(--font);font-size:.88rem;cursor:pointer;text-decoration:none;}
+
+/* CHAVRUTA */
+.chavruta-hero{padding:1.5rem;text-align:center;border-bottom:1px solid var(--border);}
+.chavruta-title{font-family:var(--font-display);font-size:1.7rem;font-weight:300;color:var(--gold);margin-bottom:.5rem;}
+.chavruta-desc{font-size:.85rem;color:var(--muted);line-height:1.8;max-width:300px;margin:0 auto;}
+.explainer{background:var(--card2);border:1px solid var(--border);border-radius:16px;margin:1rem;padding:1.2rem;}
+.explainer-title{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;}
+.explainer-row{display:flex;gap:10px;align-items:flex-start;margin-bottom:.7rem;}
+.explainer-icon{font-size:1.1rem;flex-shrink:0;margin-top:1px;}
+.explainer-text{font-size:.82rem;color:var(--muted);line-height:1.7;}
+.explainer-text strong{color:var(--txt);}
+.form-wrap{padding:1rem;}
+.form-field{margin-bottom:.9rem;}
+.form-label{display:block;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem;}
+.form-input{width:100%;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 16px;color:var(--txt);font-size:16px;font-family:var(--font);outline:none;-webkit-appearance:none;transition:border-color .2s;}
+.form-input:focus{border-color:var(--gold);}
+.form-input::placeholder{color:var(--muted);}
+.submit-btn{width:100%;background:linear-gradient(135deg,var(--gold3),var(--gold),var(--gold2));color:#0f0f0f;border:none;border-radius:14px;padding:16px;font-size:1rem;font-weight:800;font-family:var(--font);cursor:pointer;box-shadow:0 4px 20px rgba(197,160,89,0.3),0 1px 0 rgba(255,255,255,0.15) inset;position:relative;overflow:hidden;transition:transform .15s;}
+.submit-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(255,255,255,0.15),transparent 60%);pointer-events:none;}
+.submit-btn:active{transform:scale(.98);}
+.privacy-note{font-size:.68rem;color:var(--muted);text-align:center;margin-top:.7rem;}
+
+/* ABOUT */
+.about-hero{padding:2rem 1.5rem;text-align:center;border-bottom:1px solid var(--border);}
+.about-avatar{width:120px;height:120px;border-radius:50%;overflow:hidden;margin:0 auto .8rem;border:3px solid var(--gold);box-shadow:0 0 0 4px rgba(197,160,89,0.2),0 0 25px rgba(197,160,89,0.2);display:flex;align-items:center;justify-content:center;}
+.about-avatar img{width:100%;height:100%;object-fit:cover;object-position:50% 25%;display:block;}
+.about-name{font-family:var(--font-display);font-size:1.7rem;color:var(--gold);}
+.about-sub{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:.3rem;}
+.about-content{padding:1.2rem;}
+.about-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.1rem;margin-bottom:.9rem;}
+.about-card-title{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem;}
+.about-card-text{font-size:.85rem;color:var(--muted);line-height:1.8;}
+.verse-box{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.3rem;text-align:center;margin-bottom:.9rem;position:relative;overflow:hidden;}
+.verse-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.verse-text{font-family:var(--font-display);font-style:italic;font-size:1.05rem;line-height:1.6;margin-bottom:.4rem;}
+.verse-src{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);}
+.about-links{display:flex;flex-direction:column;gap:.6rem;margin-bottom:.9rem;}
+.about-link{display:block;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 16px;color:var(--gold);text-decoration:none;font-size:.85rem;text-align:center;}
+.change-btn{width:100%;background:transparent;border:1px solid var(--border);border-radius:12px;padding:12px;color:var(--muted);font-family:var(--font);font-size:.82rem;cursor:pointer;margin-bottom:.9rem;}
+.footer-copy{font-size:.62rem;color:var(--muted);line-height:1.8;text-align:center;padding:1rem;}
+.footer-link{color:var(--gold);text-decoration:none;}
+
+/* THANKS */
+#screen-thanks{align-items:center;justify-content:center;padding:2rem;}
+.thanks-icon{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--gold3),var(--gold2));display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin-bottom:1.2rem;box-shadow:0 4px 20px rgba(197,160,89,0.3);}
+.thanks-title{font-family:var(--font-display);font-size:1.8rem;color:var(--gold);margin-bottom:.5rem;text-align:center;}
+.thanks-text{font-size:.88rem;color:var(--muted);line-height:1.8;text-align:center;max-width:280px;margin-bottom:1.5rem;}
+.thanks-back-btn{background:transparent;border:1px solid var(--border);border-radius:12px;padding:12px 24px;color:var(--gold);font-family:var(--font);font-size:.85rem;cursor:pointer;}
+
+/* BOTTOM NAV */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(15,15,15,0.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--border);border-radius:18px 18px 0 0;display:flex;height:var(--nav-h);padding-bottom:env(safe-area-inset-bottom);}
+body.light .bottom-nav{background:rgba(245,240,232,0.97);}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--muted);font-size:.58rem;font-weight:500;cursor:pointer;border:none;background:none;font-family:var(--font);transition:color .2s;text-decoration:none;}
+.bn-item.active{color:#E8C040;}
+.bn-item svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+
+/* VIDEO POPUP */
+#video-popup{display:none;position:fixed;inset:0;z-index:999;background:#000;flex-direction:column;}
+#video-popup.open{display:flex;}
+.vpop-inner{position:relative;width:100%;height:100%;display:flex;flex-direction:column;}
+.vpop-topbar{display:flex;align-items:center;justify-content:space-between;padding:calc(12px + env(safe-area-inset-top,0px)) 16px 12px;background:rgba(0,0,0,0.8);flex-shrink:0;}
+.vpop-close{background:rgba(255,255,255,0.15);border:1.5px solid rgba(255,255,255,0.3);border-radius:12px;color:#fff;font-size:.95rem;font-weight:700;cursor:pointer;font-family:var(--font);padding:10px 20px;display:flex;align-items:center;gap:6px;}
+.vpop-title{color:rgba(255,255,255,0.7);font-size:.85rem;font-family:var(--font);}
+.vpop-frame{position:relative;flex:1;max-height:80vh;margin:auto 0;background:#000;overflow:hidden;}
+.vpop-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:none;}
+
+/* LTR */
+html[lang="en"]{direction:ltr;}
+html[lang="en"] .chat-name-input,html[lang="en"] .ci,html[lang="en"] .form-input{direction:ltr;}
+html[lang="en"] .msg-bubble.bot{border-bottom-right-radius:18px;border-bottom-left-radius:4px;}
+html[lang="en"] .msg-bubble.user{border-bottom-left-radius:18px;border-bottom-right-radius:4px;}
+html[lang="en"] .msg-row.user{flex-direction:row;}
+html[lang="en"] .msg-row:not(.user){flex-direction:row-reverse;}
+/* ערכת צבעים: כחול לילה וזהב, כמו באתר */
+body:not(.light){
+  --bg:#0B1A2C;--card:#0F2236;--card2:#132A42;
+  --gold:#D4AF5A;--gold2:#C8A24A;--gold3:#E6C77A;
+  --border:rgba(200,162,74,0.28);--border2:rgba(200,162,74,0.5);
+  --txt:#EDE6D6;--muted:#A9B2BC;
+  background:radial-gradient(ellipse 900px 500px at 80% -10%,rgba(200,162,74,.10),transparent 70%),#0B1A2C;
+}
+body:not(.light) .top-bar{background:linear-gradient(180deg,rgba(8,20,31,.98),rgba(11,26,44,.96));}
+body:not(.light) .bottom-nav,body:not(.light) .chat-input-bar,body:not(.light) .page-header{background:rgba(8,20,31,.97);}
+body:not(.light) .msg-bubble.user{background:linear-gradient(135deg,rgba(200,162,74,.22),rgba(200,162,74,.14));border-color:rgba(200,162,74,.35);}
+
+.home-headline h1{font-family:'Cormorant Garamond','Heebo',sans-serif!important;font-weight:300;}
+html[lang="he"] .bq-lbl,html[lang="he"] .page-title,html[lang="he"] .chavruta-title,html[lang="he"] .about-name,html[lang="he"] .dr-t,html[lang="he"] .sh-t{font-weight:400}
+/* ══ NEW HOME (Oct 2026) ══ */
+.bq-row{justify-content:flex-start}
+
+body:not(.light) .cta-wa{background:linear-gradient(135deg,rgba(212,168,67,0.15),rgba(212,168,67,0.07));border:1.5px solid rgba(212,168,67,0.5);color:var(--gold3);box-shadow:0 4px 15px rgba(212,168,67,0.12);}
+.shabbat-strip{flex-shrink:0;box-shadow:0 0 18px rgba(232,192,64,.12);text-shadow:0 0 12px rgba(232,192,64,.35);display:none;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap;margin:.9rem 1.2rem 0;padding:7px 12px;border:1px solid rgba(232,196,104,.45);border-radius:999px;background:rgba(212,168,67,.08);color:#F0D894;font-size:.8rem;text-align:center}
+.shabbat-strip{cursor:pointer}.shabbat-strip b{font-weight:700}.shabbat-strip .chg{opacity:.75;font-size:.72rem;text-decoration:underline}
+#sh-bg{position:fixed;inset:0;z-index:950;background:rgba(4,10,18,.6);display:none}#sh-bg.on{display:block}
+#sh-sheet{position:fixed;left:0;right:0;bottom:0;z-index:951;max-height:75vh;overflow-y:auto;background:linear-gradient(180deg,rgba(18,40,66,.98),rgba(11,26,44,.99));border-top:1px solid rgba(232,196,104,.5);border-radius:20px 20px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px));transform:translateY(105%);transition:transform .25s;direction:rtl;max-width:600px;margin:0 auto}#sh-sheet.on{transform:none}
+.sh-t{color:#E8C468;font-family:var(--font-display);font-size:1.2rem;margin:0 0 10px;text-align:center}
+.sh-c{display:block;width:100%;text-align:right;background:none;border:none;border-bottom:1px solid rgba(232,196,104,.12);color:#F0D894;font-family:var(--font);font-size:1rem;padding:12px 6px;cursor:pointer}.sh-c.loc{color:#E8C468;font-weight:700}.sh-g{color:var(--muted);font-size:.8rem;margin:12px 6px 2px}.shabbat-strip .sep{opacity:.45}
+.bq-lbl{text-shadow:0 0 18px rgba(232,192,64,.45);display:flex;align-items:center;gap:10px;color:#E8C468;font-family:var(--font-display);font-size:1.05rem;margin:1rem 0 .2rem}
+.bq-lbl::before,.bq-lbl::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(232,196,104,0),rgba(232,196,104,.75),rgba(232,196,104,0))}
+.bq-row{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -1.2rem;padding:4px 1.2rem 6px;scroll-padding-inline:1.2rem;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.bq-row::-webkit-scrollbar{display:none}
+.bq-row::after{content:"";flex:0 0 1px}
+.bq-card{flex:0 0 170px;min-width:0;scroll-snap-align:start;display:flex;flex-direction:column;gap:6px;text-decoration:none}
+.bq-img{position:relative;height:242px;border-radius:14px;overflow:hidden;background:#0F2236}
+.bq-img img{width:100%;height:100%;object-fit:cover;display:block}
+.bq-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,26,44,0) 55%,rgba(11,26,44,.7))}
+.bq-play{position:absolute;z-index:1;left:50%;top:50%;transform:translate(-50%,-50%);width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#F3D27A,#C99A3C);box-shadow:0 0 16px rgba(232,192,64,.5);display:flex;align-items:center;justify-content:center}
+.bq-t{font-size:.85rem;font-weight:700;color:#F0D894;text-shadow:0 0 10px rgba(232,192,64,.3);line-height:1.3}
+.bq-all{align-self:center;display:inline-flex;align-items:center;justify-content:center;gap:6px;margin:6px auto 4px;padding:9px 22px;border-radius:999px;border:1.5px solid rgba(201,162,76,.75);background:rgba(201,162,76,.10);color:#E8C468;font-size:.92rem;font-weight:700;text-decoration:none;box-shadow:0 0 14px rgba(232,192,64,.12)}.bq-all:active{background:rgba(201,162,76,.25)}
+.mini-row{display:flex;gap:10px;margin-top:.4rem}
+@media(min-width:700px){#screen-home>*{width:100%;max-width:600px;margin-left:auto!important;margin-right:auto!important;box-sizing:border-box}
+#screen-home>.home-photo-wrap{width:calc(100% - 2.4rem);max-width:560px}
+#screen-home>.shabbat-strip{max-width:560px;width:calc(100% - 2.4rem)}
+.bq-row{justify-content:flex-start!important;margin:0 -1.2rem!important;padding:4px 1.2rem 6px!important}
+.top-bar{padding-left:max(16px,calc(50% - 300px))!important;padding-right:max(16px,calc(50% - 300px))!important}
+.bottom-nav{left:50%!important;right:auto!important;width:100%;max-width:600px;transform:translateX(-50%)}}
+.mini-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;font-size:.82rem;font-weight:700;color:#e8d48b;border:1px solid rgba(212,168,67,.4);border-radius:999px;padding:10px 6px;background:linear-gradient(135deg,rgba(212,168,67,0.1),rgba(212,168,67,0.03));box-shadow:0 3px 12px rgba(212,168,67,.08);font-family:var(--font);cursor:pointer}
+#dr-bg{position:fixed;inset:0;z-index:900;background:rgba(4,10,18,.55);opacity:0;pointer-events:none;transition:opacity .25s}
+#drawer{position:fixed;top:0;bottom:0;right:0;z-index:901;width:78%;max-width:320px;background:linear-gradient(180deg,rgba(18,40,66,.97),rgba(11,26,44,.98));backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-left:1px solid rgba(232,196,104,.45);box-shadow:-10px 0 40px rgba(0,0,0,.5);transform:translateX(105%);transition:transform .28s ease;padding:calc(env(safe-area-inset-top,0px) + 14px) 16px 20px;box-sizing:border-box;direction:rtl}
+body.dr-open #dr-bg{opacity:1;pointer-events:auto}body.dr-open #drawer{transform:none}
+.dr-hd{display:flex;align-items:center;justify-content:space-between;padding-bottom:12px;border-bottom:1px solid rgba(232,196,104,.3);margin-bottom:8px}
+.dr-t{font-family:var(--font-display);color:#E8C468;font-size:1.3rem;text-shadow:0 0 14px rgba(232,192,64,.4)}
+.dr-x{background:none;border:1px solid rgba(232,196,104,.45);color:#E8C468;width:34px;height:34px;border-radius:50%;font-size:14px;cursor:pointer}
+.dr-list{display:flex;flex-direction:column}
+.dr-ver{margin-top:auto;padding:18px 6px calc(env(safe-area-inset-bottom,0px) + 4px);font-size:.78rem;color:rgba(240,216,148,.45);text-align:center;letter-spacing:.3px;direction:rtl}
+#drawer{display:flex;flex-direction:column;overflow-y:auto}
+.dr-it{display:flex;align-items:center;gap:12px;padding:14px 6px;border:none;border-bottom:1px solid rgba(232,196,104,.12);background:none;color:#F0D894;font-family:var(--font);font-size:1rem;font-weight:700;text-decoration:none;text-align:right;width:100%;cursor:pointer}
+.src-wrap{padding:0 1.2rem;margin-bottom:28px}
+.src-lbl{margin:1.4rem 0 .7rem}
+.src-line{display:flex;gap:10px;overflow-x:auto;margin:0 -1.2rem;padding:4px 1.2rem 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.src-line::-webkit-scrollbar{display:none}
+.src-chip{flex:none;display:flex;align-items:center;gap:8px;padding:8px 16px 8px 8px;border-radius:999px;text-decoration:none;border:1px solid transparent;background-image:linear-gradient(rgba(14,32,52,.96),rgba(14,32,52,.96)),linear-gradient(120deg,#F5DC8C,#B8862E 45%,#F0D894);background-origin:border-box;background-clip:padding-box,border-box;box-shadow:0 4px 16px rgba(232,196,104,.12);transition:transform .15s}
+html[dir="rtl"] .src-chip{padding:8px 8px 8px 16px}
+.src-chip:active{transform:scale(.96)}
+.src-chip b{font-family:var(--font);font-size:.9rem;font-weight:500;color:#F5E6B8;white-space:nowrap}
+.src-dot{width:30px;height:30px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#F0D894,#B8862E)}
+body.light .src-chip{background-image:linear-gradient(#fffaf0,#fffaf0),linear-gradient(120deg,#E8C468,#B8862E 45%,#E8C468)}
+body.light .src-chip b{color:#5a4410}
+
+/* חיבור לקהילה באזור */
+.cm-card{display:flex;align-items:center;gap:12px;width:100%;text-align:start;padding:12px 14px;border-radius:18px;border:1px solid transparent;background-image:linear-gradient(rgba(14,32,52,.96),rgba(14,32,52,.96)),linear-gradient(120deg,#F5DC8C,#B8862E 45%,#F0D894);background-origin:border-box;background-clip:padding-box,border-box;box-shadow:0 6px 20px rgba(232,196,104,.12);cursor:pointer;font-family:var(--font);transition:transform .15s}
+.cm-card:active{transform:scale(.98)}
+/* link to the daily zmanim page, under the Shabbat strip */
+.zm-link{display:flex;align-items:center;justify-content:center;gap:7px;width:max-content;max-width:calc(100% - 2.4rem);margin:.55rem auto 0;padding:6px 16px;border-radius:999px;border:1px solid transparent;
+  background-image:linear-gradient(rgba(14,32,52,.96),rgba(14,32,52,.96)),linear-gradient(120deg,#F5DC8C,#B8862E 45%,#F0D894);background-origin:border-box;background-clip:padding-box,border-box;
+  color:#F5E6B8;font-family:'Heebo',var(--font);font-size:.82rem;font-weight:600;letter-spacing:.01em;text-decoration:none;box-shadow:0 4px 14px rgba(232,196,104,.12)}
+.zm-link svg{color:#E8C468;flex:none}.zm-link .zm-arr{color:#E8C468;font-size:1rem;line-height:1}
+html[dir="ltr"] .zm-link .zm-arr{transform:scaleX(-1)}
+body.light .zm-link{background-image:linear-gradient(#fffaf0,#fffaf0),linear-gradient(120deg,#E8C468,#B8862E 45%,#E8C468);color:#5a4410}
+/* Shabbat guide button (same look as chavruta) + community card sized like the other home buttons */
+.cta-shabbat{text-decoration:none;box-sizing:border-box}
+.home-actions .cm-card{padding:7px 14px;gap:10px;min-height:0}
+.home-actions .cm-card .cm-dot{width:30px;height:30px;box-shadow:0 0 10px rgba(232,196,104,.3)}
+.home-actions .cm-card .cm-dot svg{width:15px;height:15px}
+.home-actions .cm-card .cm-txt{gap:0}
+.home-actions .cm-card .cm-txt b{line-height:1.3}
+.home-actions .cm-card .cm-txt small{font-size:.72rem;line-height:1.25}
+/* WhatsApp / Chavruta / Shabbat buttons: navy with gold border, like the community card (dark mode) */
+body:not(.light) .home-actions .cta-wa,body:not(.light) .home-actions .cta-chavruta{border:1px solid transparent;background-image:linear-gradient(rgba(14,32,52,.96),rgba(14,32,52,.96)),linear-gradient(120deg,#F5DC8C,#B8862E 45%,#F0D894);background-origin:border-box;background-clip:padding-box,border-box;color:#F5E6B8;box-shadow:0 6px 20px rgba(232,196,104,.12)}
+body:not(.light) .home-actions .cta-chavruta svg{color:#E8C468}
+/* community card centered like the other home buttons */
+.home-actions .cm-card{justify-content:center;box-sizing:border-box}
+.home-actions .cm-card .cm-txt{flex:0 1 auto;text-align:center}
+.home-actions .cm-card .cm-arr{display:none}
+.cm-dot{width:40px;height:40px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#F0D894,#B8862E);box-shadow:0 0 16px rgba(232,196,104,.35)}
+.cm-txt{flex:1;display:flex;flex-direction:column;gap:2px}
+.cm-txt b{font-size:.95rem;font-weight:700;color:#F5E6B8}
+.cm-txt small{font-size:.78rem;color:#9a8a72}
+.cm-arr{font-size:1.4rem;color:#E8C468;line-height:1}
+html[dir="ltr"] .cm-arr{transform:scaleX(-1)}
+#cm-bg{position:fixed;inset:0;z-index:960;background:rgba(3,10,20,.6);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .25s}
+#cm-bg.on{opacity:1;pointer-events:auto}
+#cm-sheet{position:fixed;left:0;right:0;bottom:0;z-index:961;max-width:600px;margin:0 auto;max-height:90vh;overflow-y:auto;background:linear-gradient(180deg,rgba(20,44,74,.98),rgba(11,26,44,.99));border-top:1px solid rgba(232,196,104,.55);border-radius:26px 26px 0 0;padding:10px 20px calc(24px + env(safe-area-inset-bottom,0px));color:#f0e8d8;font-family:var(--font);transform:translateY(105%);transition:transform .3s cubic-bezier(.2,.8,.2,1);box-shadow:0 -10px 40px rgba(0,0,0,.45)}
+#cm-sheet.on{transform:none}
+#cm-sheet .cm-grab{width:44px;height:4px;border-radius:4px;background:rgba(232,196,104,.45);margin:0 auto 14px}
+#cm-sheet .cm-hd{display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:16px}
+#cm-sheet .cm-hd .cm-dot{width:52px;height:52px}
+#cm-sheet .cm-t{text-align:center;font-family:'Frank Ruhl Libre',var(--font-display);font-size:1.3rem;color:#E8C468}
+#cm-sheet .cm-s{text-align:center;font-size:.84rem;color:#9a8a72}
+#cm-sheet .cm-l{display:block;font-size:.8rem;color:#E8C468;margin:14px 2px 8px;letter-spacing:.2px}
+.cm-cities{display:flex;flex-wrap:wrap;gap:8px}
+.cm-city{padding:8px 14px;border-radius:999px;border:1px solid rgba(232,196,104,.35);background:rgba(255,255,255,.03);color:#F5E6B8;font:500 .86rem var(--font);cursor:pointer;transition:all .15s}
+.cm-city.on{background:linear-gradient(135deg,#F0D894,#B8862E);color:#14223a;border-color:transparent;font-weight:700;box-shadow:0 4px 14px rgba(232,196,104,.3)}
+#cm-sheet input{width:100%;border:1px solid rgba(232,196,104,.3);border-radius:14px;padding:13px 15px;background:rgba(255,255,255,.04);color:#f0e8d8;font-size:1rem;font-family:var(--font);outline:none;transition:border-color .15s,box-shadow .15s}
+#cm-sheet input:focus{border-color:#E8C468;box-shadow:0 0 0 3px rgba(232,196,104,.15)}
+#cm-sheet .cm-note{display:flex;gap:8px;align-items:flex-start;font-size:.75rem;color:#9a8a72;margin:16px 2px;line-height:1.55}
+#cm-sheet .cm-send{width:100%;border:none;background:linear-gradient(135deg,#F5DC8C,#D4A843 55%,#B8862E);color:#1a1408;font-weight:700;font-size:1rem;border-radius:999px;padding:15px;font-family:var(--font);cursor:pointer;box-shadow:0 8px 24px rgba(212,168,67,.3)}
+#cm-sheet .cm-x{position:absolute;top:14px;inset-inline-end:16px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(232,196,104,.25);color:#E8C468;font-size:1.1rem;line-height:1;cursor:pointer}
+.cm-line{display:flex;align-items:center;gap:8px;margin:8px auto 4px;padding:7px 14px 7px 8px;border-radius:999px;border:1px solid transparent;background-image:linear-gradient(rgba(14,32,52,.96),rgba(14,32,52,.96)),linear-gradient(120deg,#F5DC8C,#B8862E 45%,#F0D894);background-origin:border-box;background-clip:padding-box,border-box;font:500 .82rem var(--font);color:#F5E6B8;cursor:pointer;box-shadow:0 4px 14px rgba(232,196,104,.12)}
+html[dir="rtl"] .cm-line{padding:7px 8px 7px 14px}
+.cm-line .cm-dot{width:24px;height:24px;box-shadow:none}
+body.light .cm-card,body.light .cm-line{background-image:linear-gradient(#fffaf0,#fffaf0),linear-gradient(120deg,#E8C468,#B8862E 45%,#E8C468)}body.light .cm-txt b,body.light .cm-line{color:#5a4410}
+body.light #cm-sheet{background:#fffaf0;color:#1a1408}body.light #cm-sheet input{color:#1a1408;background:#fff}body.light .cm-city{color:#5a4410}
+
+/* כפתור חברותא: זוהר עדין ונצנוץ זהב שעובר מדי כמה שניות */
+@keyframes mgChvGlow{0%,100%{box-shadow:0 0 0 1.5px rgba(232,196,104,.55),0 0 10px rgba(232,196,104,.25)}50%{box-shadow:0 0 0 2px rgba(255,226,140,1),0 0 30px rgba(240,200,90,.65),0 0 60px rgba(232,196,104,.25)}}
+@keyframes mgChvShine{0%,45%{transform:translateX(-140%) skewX(-20deg)}75%,100%{transform:translateX(280%) skewX(-20deg)}}
+.home-actions button.cta-chavruta{position:relative;overflow:hidden;animation:mgChvGlow 2.4s ease-in-out infinite}
+.home-actions button.cta-chavruta::after{content:"";position:absolute;top:0;bottom:0;left:0;width:38%;pointer-events:none;background:linear-gradient(90deg,rgba(255,236,170,0),rgba(255,240,190,.5),rgba(255,236,170,0));animation:mgChvShine 3.6s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.home-actions button.cta-chavruta,.home-actions button.cta-chavruta::after{animation:none}}
+</style>
+<!-- Google Analytics: מדידת שימוש באפליקציה, מופרד לפי פלטפורמה (ios / android / web) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4RW51LT65M"></script>
+<script>
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments);}
+(function(){
+  var P='web';
+  try{
+    if(window.webkit&&window.webkit.messageHandlers&&window.webkit.messageHandlers.iosMic)P='ios';
+    else if(window.Android)P='android';
+  }catch(e){}
+  window.mgPlatform=P;
+  gtag('js',new Date());
+  gtag('set','user_properties',{app_platform:P});
+  gtag('config','G-4RW51LT65M',{app_platform:P,page_title:'App - '+P});
+})();
+</script>
+<link rel="stylesheet" href="askmosh-brand.css">
+<style id="vpop-bq-style">
+/* חלון הסרטון בעיצוב AskMosh (אוקטובר 2026) - CSS בלבד */
+#video-popup{background:radial-gradient(120% 60% at 50% 0%,#16304F 0%,#0B1A2C 60%,#081424 100%)!important}
+.vpop-topbar{background:transparent!important;gap:12px;border-bottom:1px solid rgba(212,175,94,.25)}
+.vpop-title{flex:1;min-width:0;color:#F0D894!important;font-family:'Frank Ruhl Libre',var(--font-display),serif!important;font-size:1.15rem!important;font-weight:700;text-shadow:0 0 10px rgba(232,192,64,.3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:right}
+#video-popup .vpop-close{background:rgba(11,26,44,.6)!important;color:#E8C468!important;border:1.5px solid rgba(232,196,104,.7)!important;box-shadow:0 0 14px rgba(232,192,64,.25);font-size:18px!important;width:40px!important;height:40px!important}
+.vpop-frame{flex:1;width:auto;max-width:460px;max-height:none!important;margin:16px auto calc(20px + env(safe-area-inset-bottom,0px))!important;align-self:stretch;width:calc(100% - 32px);border-radius:18px;border:1.5px solid rgba(212,168,67,.55);box-shadow:0 8px 30px rgba(0,0,0,.45),0 0 26px rgba(212,168,67,.18);background:#06101C!important}
+@media(min-width:700px){.vpop-frame{max-width:900px}}
+</style>
+<style id="lessons-bq-style">
+/* ספריית שיעורים בעיצוב "שאלות גדולות" (אוקטובר 2026) - CSS בלבד */
+.lessons-grid{gap:16px 12px;padding:14px;grid-template-columns:repeat(2,minmax(0,1fr))!important;align-items:start;overflow-x:hidden}
+#screen-lessons{overflow-x:hidden;touch-action:pan-y}
+.lesson-card,.lesson-meta{min-width:0;max-width:100%}
+.lesson-thumb{width:100%}
+.lesson-thumb img{max-width:100%}
+@supports not (aspect-ratio:1/1){.lesson-thumb{height:0;padding-top:133.33%}.lesson-thumb img{position:absolute;inset:0}}
+.lesson-title{overflow-wrap:anywhere;word-break:break-word}
+.lesson-tag[style]{display:inline-block;padding:1px 8px;border-radius:999px;background:rgba(201,168,76,.18)!important}
+.lesson-card{background:transparent!important;border:none!important;border-radius:0!important;overflow:visible!important;display:flex;flex-direction:column;gap:7px}
+.lesson-thumb{aspect-ratio:3/4!important;border-radius:14px;overflow:hidden;border:1.5px solid rgba(212,168,67,.55);box-shadow:0 4px 18px rgba(212,168,67,.15);background:#0F2236!important}
+.lesson-thumb img{display:block;object-fit:cover!important}
+.lesson-play{background:linear-gradient(180deg,rgba(11,26,44,0) 55%,rgba(11,26,44,.7))!important}
+.lesson-play-btn{background:linear-gradient(135deg,#F3D27A,#C99A3C)!important;box-shadow:0 0 16px rgba(232,192,64,.5)!important}
+.lesson-play-btn svg{fill:#1a1408!important}
+.lesson-meta{padding:0 2px!important}
+.lesson-tag{font-size:.62rem!important;letter-spacing:.04em!important;color:#C9A24C!important;margin-bottom:2px!important}
+.lesson-title{font-family:inherit!important;font-size:.85rem!important;font-weight:700;line-height:1.3!important;color:#F0D894!important;text-shadow:0 0 10px rgba(232,192,64,.3)}
+body.light .lesson-title{color:#7A5A12!important;text-shadow:none}
+body.light .lesson-tag{color:#9A7420!important}
+</style>
+<style id="bq-lang-style">html[lang="en"] .bq-he-only{display:none!important}html:not([lang="en"]) .bq-en-only{display:none!important}</style>
+<script>/* מסמן שהמשתמש בתוך האפליקציה, כדי שכפתור "לדף הראשי" בדפי התוכן יחזור לאפליקציה ולא לאתר */try{sessionStorage.setItem("mg-in-app","1")}catch(e){}</script>
+<style>.mt-card{margin-top:14px;text-decoration:none;color:inherit}</style></head>
+  <!-- Facebook Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','2233613250771990');
+var platform='web';
+if(window.webkit&&window.webkit.messageHandlers&&window.webkit.messageHandlers.iosMic)platform='ios';
+else if(window.Android)platform='android';
+fbq('track','PageView',{content_category:platform});
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2233613250771990&ev=PageView&noscript=1"/></noscript>
+<!-- End Facebook Pixel -->
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar"><div class="top-bar-title" style="font-size:1.5rem"><span class="am-logo" dir="ltr" aria-label="AskMosh"><span class="am-ask">Ask</span><span class="am-mosh">M<span class="am-o">o</span>sh</span></span></div>
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="lang-he" onclick="setLang('he')">עב</button>
+    <button class="lang-btn" id="lang-en" onclick="setLang('en')">EN</button>
+  </div>
+<button class="theme-btn" id="history-btn" onclick="showHistory()" title="שיחה קודמת"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg><button class="theme-btn" id="share-btn" onclick="shareApp()" title="שתף"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button><button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="בהיר/כהה">🌙</button><button class="theme-btn" id="menu-btn" onclick="openMenu()" title="תפריט" aria-label="תפריט"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div>
+
+<!-- HOME -->
+<div class="screen active" id="screen-home">
+  <div class="shabbat-strip" id="shabbat-strip"></div>
+  <a class="zm-link" href="zmanim/"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg><span data-he="לכל זמני היום" data-en="All daily zmanim">לכל זמני היום</span><span class="zm-arr" aria-hidden="true">‹</span></a>
+  <div class="home-photo-wrap">
+    <img src="%D7%AA%D7%9E%D7%95%D7%A0%D7%94%20%D7%9E%D7%A6%D7%95%D7%99%D7%A0%D7%AA%20%D7%9E%D7%A9%D7%94%20%D7%92%D7%99%D7%A0%D7%96%D7%99.png" alt="משה גינזי"
+      onerror="this.style.display='none'" />
+    <div class="home-photo-overlay"></div>
+  </div>
+
+  <div class="home-headline">
+    <h1 data-he="מגלים את היהדות בקצב שלך.<br><span>בלי פילטרים, בלי כפייה.</span>"
+        data-en="Discovering Judaism at your own pace.<br><span>No pressure. No judgment.</span>">
+      מגלים את היהדות בקצב שלך.<br><span>בלי פילטרים, בלי כפייה.</span>
+    </h1>
+    <p data-he="רוצה להכיר את השורשים, לשאול את השאלות הקשות — בגובה העיניים, בזמן שלך, וללא כל עלות."
+       data-en="Explore your roots and ask the hard questions — on your level, on your time, completely free.">
+      רוצה להכיר את השורשים, לשאול את השאלות הקשות — בגובה העיניים, בזמן שלך, וללא כל עלות.
+    </p>
+  </div>
+
+
+  <div class="home-actions">
+    <button class="cta-main" onclick="goToChat()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#0f0f0f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span data-he="שאל שאלה — דבר עם משה" data-en="Ask a Question — Talk with Moshe">שאל שאלה — דבר עם משה</span>
+    </button>
+    <button class="cta-chavruta" onclick="goScreen('chavruta');setNav('chavruta')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <span data-he="הצטרף לחברותא — לימוד אישי חינמי" data-en="Join Chavruta — Free Personal Study">הצטרף לחברותא — לימוד אישי חינמי</span>
+     </button>
+     <a class="cta-chavruta cta-shabbat" href="shabbat/">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 2.5c1.3 1.5 1.3 2.8 0 3.8-1.3-1-1.3-2.3 0-3.8zM15.5 2.5c1.3 1.5 1.3 2.8 0 3.8-1.3-1-1.3-2.3 0-3.8z"/><rect x="6.5" y="8" width="4" height="10.5" rx="1"/><rect x="13.5" y="8" width="4" height="10.5" rx="1"/><path d="M4 21.5h16"/></svg>
+      <span data-he="השבת הראשונה שלי — מדריך למתחילים" data-en="My First Shabbat — Beginner's Guide">השבת הראשונה שלי — מדריך למתחילים</span>
+     </a>
+     <a class="cta-chavruta cta-shabbat" href="stories/">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.5C10 5 7 4.5 3.5 5v14c3.5-.5 6.5 0 8.5 1.5 2-1.5 5-2 8.5-1.5V5C17 4.5 14 5 12 6.5z"/><path d="M12 6.5v14"/></svg>
+      <span data-he="סיפורים עם נשמה — סיפורי צדיקים קצרים" data-en="Stories with Soul — Short Tales of the Righteous">סיפורים עם נשמה — סיפורי צדיקים קצרים</span>
+     </a>
+     <button class="cm-card" onclick="openCommunity('home')"><span class="cm-dot"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#14223a" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z"/></svg></span><span class="cm-txt"><b data-he="התחבר לקהילה באזור שלך" data-en="Connect with a community near you">התחבר לקהילה באזור שלך</b><small data-he="לימוד ושיחה עם אנשים קרובים אליך" data-en="Learn and talk with people near you">לימוד ושיחה עם אנשים קרובים אליך</small></span><span class="cm-arr" aria-hidden="true">‹</span></button>
+    <div class="bq-lbl" data-he="שאלות גדולות" data-en="Big Questions">שאלות גדולות</div>
+    <div class="bq-row bq-he-only"><a class="bq-card" href="shealot/lehavin-o-lenatzeach.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/CxgVx86BfGU/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">להבין או לנצח?</span></a><a class="bq-card" href="shealot/sheela-o-terutz.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/6SvTBa_GAdI/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">שאלה או תירוץ?</span></a><a class="bq-card" href="shealot/lilmod-o-lenatzeach.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/F8iqkuGs5Z0/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">בא ללמוד או לנצח?</span></a><a class="bq-card" href="shealot/lo-onim.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/jg5Ms8IKr9U/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">קראו ולא ענו?</span></a><a class="bq-card" href="shealot/bigdei-esav.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/EJRl9a95Zc0/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">הבגדים של עשיו</span></a><a class="bq-card" href="shealot/lajk-bli-maase.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/vda79FrnlXA/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">לייק במקום מעשה?</span></a><a class="bq-card" href="shealot/anti-leyahadut.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/aUm2rFG_g8U/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">אנטי ליהדות?</span></a><a class="bq-card" href="shealot/mashmaut-bamakom-hanachon.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/LMidJEmvwnY/hqdefault.jpg" alt="" loading="lazy" style="transform:scale(1.34)"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">משמעות אמיתית</span></a><a class="bq-card" href="shealot/lishol-hakol.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/72-aCkBZ5MA/hqdefault.jpg" alt="" loading="lazy" style="transform:scale(1.34)"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">מותר לשאול הכל</span></a><a class="bq-card" href="shealot/lehagid-ma-shechoshvim.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/a-vi02Uw130/hqdefault.jpg" alt="" loading="lazy" style="transform:scale(1.34)"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">להגיד מה שחושבים</span></a><a class="bq-card" href="shealot/kesef-vestatus.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/6H4mhuZ0NXo/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">כסף וסטטוס</span></a><a class="bq-card" href="shealot/ahava-amitit.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/IG1rHQtL4po/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">להתאהב באמת</span></a><a class="bq-card" href="shealot/hakol-magia-li.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/1gStwGCX7Gk/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">"הכל מגיע לי"</span></a><a class="bq-card" href="shealot/musar-ishi.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/OkJ-SuyhPB4/hqdefault.jpg" alt="" loading="lazy" style="transform:scale(1.34)"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">מוסר או הצגה?</span></a><a class="bq-card" href="shealot/tarbut-haani.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/iSkFN7a6u0k/hqdefault.jpg" alt="" loading="lazy" style="transform:scale(1.34)"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">תרבות האני</span></a><a class="bq-card" href="shealot/lama-lehitpalel.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/-yCAc3_Vpnw/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">למה להתפלל?</span></a><a class="bq-card" href="shealot/netiyot.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/Dl0ihVFLplQ/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">נטיות</span></a><a class="bq-card" href="shealot/lama-nifrad.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/gWdCv4ArUjU/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">למה בנפרד?</span></a><a class="bq-card" href="shealot/osher.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/8467oRB41M0/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">למה מאושרים?</span></a><a class="bq-card" href="shealot/tachbura-beshabbat.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/WmEHr5hZ6oU/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">תחבורה בשבת</span></a><a class="bq-card" href="shealot/hadata.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/9C3ZqqeCNPk/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">הדתה?</span></a><a class="bq-card" href="shealot/giyus-vetora.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/haZnb6wLDps/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">צבא ותורה</span></a><a class="bq-card" href="shealot/shabbat.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/COSXtMRuNTg/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">למה שבת?</span></a><a class="bq-card" href="shealot/kashrut.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/kQDK1WozOdQ/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">למה כשרות?</span></a><a class="bq-card" href="shealot/avoda-veparnasa.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/QrukkbTBxD8/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">עבודה ותורה</span></a><a class="bq-card" href="shealot/nashim-beyahadut.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/ui85Ru5Pw5c/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">מקפחת נשים?</span></a><a class="bq-card" href="shealot/adam-tov.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/20vPQfwgN20/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">למה מצוות?</span></a><a class="bq-card" href="shealot/chatuna-yehudit.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/eoMU0FHR6tA/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">חתונה יהודית</span></a><a class="bq-card" href="shealot/im-yesh-elokim.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/oMHgWZy7KsM/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">למה יש כאב?</span></a><a class="bq-card" href="shealot/lama-lehitchaten.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/h0tzsRN9u-A/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">למה להתחתן?</span></a><a class="bq-card" href="shealot/isha-beyahadut.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/9hh4MvLtOS8/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">מעמד האישה</span></a><a class="bq-card" href="shealot/lama-mesabechet.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/XFhaIPf76sk/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">למה היהדות מסבכת?</span></a><a class="bq-card" href="shealot/zugiut.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/tbgsMRpGibM/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">למה הזוגיות מתפרקת?</span></a><a class="bq-card" href="shealot/kibud-horim.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/9Qb8ZAnqLqg/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">כיבוד הורים</span></a><a class="bq-card" href="shealot/lisloach.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/uxtyRco2n8I/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">איך לסלוח?</span></a><a class="bq-card" href="shealot/lama-yesh-sevel.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/fkSkpRoEzpQ/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">למה יש סבל?</span></a><a class="bq-card" href="shealot/achrei-hamavet.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/JOEBBrYtEyA/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">אחרי המוות?</span></a><a class="bq-card" href="shealot/shtifat-moach.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/UKUuazWL7sU/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">שטיפת מוח?</span></a><a class="bq-card" href="shealot/mada-veemuna.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/HNc_6HBawX0/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">מדע ואמונה</span></a><a class="bq-card" href="shealot/lo-dati-yahadut.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/Z20H_iAlQSc/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">לא דתי?</span></a></div>
+    <a class="bq-all bq-he-only" href="shealot/">לכל השאלות ←</a>
+    <div class="bq-row bq-en-only" id="big-q-en" dir="ltr"><a class="bq-card" href="shealot/en-seen-no-reply.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/EpDi_WHPbyw/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">Seen but no reply?</span></a><a class="bq-card" href="shealot/en-science-and-creation.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/qi3bz93PUxM/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">Dinosaurs?</span></a><a class="bq-card" href="shealot/en-faith-or-brainwashing.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/z0Vwbb3rtYQ/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">Faith or brainwashing?</span></a><a class="bq-card" href="shealot/en-why-so-complicated.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/ldP6XoUDfwI/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">Why so many rules?</span></a><a class="bq-card" href="shealot/en-meaning-wrong-places.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/PTu2mX17wms/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">Meaning in the wrong places?</span></a><a class="bq-card" href="shealot/en-ask-anything.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/aYpxRtdEcqQ/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">Ask anything</span></a><a class="bq-card" href="shealot/en-say-what-you-think.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/nqVCWYQbb3g/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">Scary to speak up?</span></a><a class="bq-card" href="shealot/en-likes-not-action.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/G-3blhV9iic/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">Likes, not action?</span></a><a class="bq-card" href="shealot/en-anti-judaism.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/Q-XpvXVrU4c/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">Turning against it?</span></a><a class="bq-card" href="shealot/en-culture-loves-questions.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/Q9iJt-UpN88/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">Loves questions</span></a><a class="bq-card" href="shealot/en-trends-fade-roots-remain.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/CgN3me_gqP4/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">Roots remain</span></a><a class="bq-card" href="shealot/en-mental-health-hack.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/mknEvhS8hWM/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">Mental health hack</span></a><a class="bq-card" href="shealot/en-why-be-jewish.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/-oUzDHl6QxM/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">Why be Jewish?</span></a><a class="bq-card" href="shealot/en-so-much-pain.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/EKP9WHjlku0/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">Why so much pain?</span></a><a class="bq-card" href="shealot/en-women-in-judaism.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/7ga9vlxy03Y/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">Women in Judaism</span></a><a class="bq-card" href="shealot/en-jewish-marriage.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/FX42XXzjoyo/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">Jewish marriage</span></a><a class="bq-card" href="shealot/en-good-person.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/Fs2NVruRE7s/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">Why mitzvot?</span></a><a class="bq-card" href="shealot/en-work-and-torah.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/ZbxYdYGCiCI/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">Work &amp; Torah</span></a><a class="bq-card" href="shealot/en-kosher.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/yE2lZRbGCaY/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">Why kosher?</span></a><a class="bq-card" href="shealot/en-shabbat.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/APyXSh8R2Pw/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">Why Shabbat?</span></a><a class="bq-card" href="shealot/en-army-and-torah.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/AshGrvrR1dg/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">Army &amp; Torah</span></a><a class="bq-card" href="shealot/en-suffering.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/U3mux8B_ubM/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">Why suffering?</span></a><a class="bq-card" href="shealot/en-why-marry.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/BOHNQ6gkvTM/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">Why get married?</span></a><a class="bq-card" href="shealot/en-parents.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/lDAtwIP8toM/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">Difficult parents?</span></a><a class="bq-card" href="shealot/en-forgiveness.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/Y8T10B5k4eI/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">How to forgive?</span></a><a class="bq-card" href="shealot/en-relationships.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/vWiA8ntq1lA/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">Why relationships fail?</span></a><a class="bq-card" href="shealot/en-not-religious.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/j8hk8z7-PNw/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">Not religious?</span></a><a class="bq-card" href="shealot/en-after-death.html"><div class="bq-img"><img src="https://i.ytimg.com/vi/DwQ76cU4g-o/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">After death?</span></a></div>
+    <a class="bq-all bq-en-only" dir="ltr" href="shealot/en-all.html">All Big Questions →</a>
+    <div class="bq-lbl" data-he="סיפורים עם נשמה" data-en="Stories with Soul">סיפורים עם נשמה</div>
+    <div class="bq-row st-row"><a class="bq-card" href="stories/#s=haner"><div class="bq-img"><img src="stories/media/haner.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t" data-he="הנר של הבעל שם טוב" data-en="The Baal Shem Tov's Candle">הנר של הבעל שם טוב</span></a><a class="bq-card" href="stories/#s=lecha-dodi"><div class="bq-img"><img src="stories/media/lecha-dodi.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t" data-he="הניגון של לכה דודי" data-en="The Melody of Lecha Dodi">הניגון של לכה דודי</span></a><a class="bq-card" href="stories/#s=honi"><div class="bq-img"><img src="stories/media/honi.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t" data-he="חוני המעגל והחרוב" data-en="Choni &amp; the Carob Tree">חוני המעגל והחרוב</span></a><a class="bq-card" href="stories/#s=haniggun"><div class="bq-img"><img src="stories/media/haniggun.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t" data-he="הניגון שפתח את השערים" data-en="The Melody That Opened the Gates">הניגון שפתח את השערים</span></a><a class="bq-card" href="stories/#s=hashulchan"><div class="bq-img"><img src="stories/media/hashulchan.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t" data-he="מקום לעוד אחד" data-en="Room for One More">מקום לעוד אחד</span></a><a class="bq-card" href="stories/#s=aryeh-levin"><div class="bq-img"><img src="stories/media/aryeh-levin.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t" data-he="רבי אריה לוין והרופא" data-en="Rabbi Aryeh Levin &amp; the Doctor">רבי אריה לוין והרופא</span></a><a class="bq-card" href="stories/#s=hagabai"><div class="bq-img"><img src="stories/media/hagabai.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t" data-he="הסוד של הגבאי השקט" data-en="The Quiet Gabbai's Secret">הסוד של הגבאי השקט</span></a></div>
+    <a class="bq-all" href="stories/" data-he="לכל הסיפורים ←" data-en="All stories →">לכל הסיפורים ←</a>
+    <div class="bq-lbl" data-he="פרשת השבוע" data-en="Weekly Torah Portion">פרשת השבוע</div>
+    <div class="bq-row pr-row" id="pr-row"></div>
+    <a class="bq-all" href="parasha/" data-he="לכל הפרשות ←" data-en="All Torah portions →">לכל הפרשות ←</a>
+    <a class="cm-card mt-card" href="shidduchim.html"><span class="cm-dot"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#14223a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2.6h6l2.4 3-5.4 5-5.4-5z"/><path d="M6.6 5.6h10.8"/><path d="M10.6 5.6L12 10.6l1.4-5"/><circle cx="12" cy="15.8" r="5.3"/></svg></span><span class="cm-txt"><b data-he="Mosh Tov · שידוכים אישיים" data-en="Mosh Tov · Personal Matchmaking"><span dir="ltr" style="font-family:'Playfair Display',Georgia,serif">Mosh Tov</span> · שידוכים אישיים</b><small data-he="דיסקרטי, בלי תמונות, לכל גיל ולכל שלב בחיים" data-en="Discreet, no photos, for every age and stage">דיסקרטי, בלי תמונות, לכל גיל ולכל שלב בחיים</small></span><span class="cm-arr" aria-hidden="true">‹</span></a>
+    <div class="mini-row">
+      <button class="mini-btn" onclick="window.location.href='community.html?tab=question&lang='+currentLang"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1.8" stroke-linecap="round"><path d="M9 21h6M12 3a6 6 0 00-3 11.19V17h6v-2.81A6 6 0 0012 3z"/></svg><span data-he="שאלת היום" data-en="Question of the Day">שאלת היום</span></button>
+      <button class="mini-btn" onclick="window.location.href='community.html?tab=quiz&lang='+currentLang"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1.8" stroke-linecap="round"><path d="M12 15l-2 5l9-11h-5l2-5l-9 11h5z"/></svg><span data-he="חידון שבועי" data-en="Weekly Quiz">חידון שבועי</span></button>
+    </div>
+  </div>
+    <div class="src-wrap">
+    <div class="bq-lbl src-lbl" data-he="מהמקורות" data-en="From the Sources">מהמקורות</div>
+    <div class="src-line"><a class="src-chip" href="brachot/"><span class="src-dot"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#14223a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-1.5 2.5-4 4-4 7a4 4 0 0 0 8 0c0-3-2.5-4.5-4-7z"/><path d="M12 14v7M9 21h6"/></svg></span><b data-he="ברכות" data-en="Blessings">ברכות</b></a><a class="src-chip" href="tefilot/"><span class="src-dot"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#14223a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.2 6.6H21l-5.5 4 2.1 6.6L12 15.2 6.4 19.2l2.1-6.6L3 8.6h6.8z"/></svg></span><b data-he="סגולות ותפילות" data-en="Prayers &amp; Segulot">סגולות ותפילות</b></a><a class="src-chip" href="brachot/ma-mevarchim.html"><span class="src-dot"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#14223a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7c-4-2-8 1-7 6s4 8 7 7c3 1 6-2 7-7s-3-8-7-6z"/><path d="M12 7c0-2 1-4 3-4"/></svg></span><b data-he="מה מברכים" data-en="Which blessing?">מה מברכים</b></a><a class="src-chip" href="tehilim/"><span class="src-dot"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#14223a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h11a3 3 0 0 1 3 3v11H7a3 3 0 0 1-3-3z"/><path d="M18 8h1a1 1 0 0 1 1 1v10M8 9h6M8 13h6"/></svg></span><b data-he="תהילים" data-en="Tehillim">תהילים</b></a></div>
+    </div>
+</div>
+<!-- CHAT -->
+<div class="screen" id="screen-chat">
+<button id="mute-btn" onclick="toggleMute()" style="position:fixed;top:calc(var(--top-bar) + env(safe-area-inset-top,0px) + 10px);left:12px;z-index:250;width:40px;height:40px;border-radius:50%;border:1px solid rgba(212,168,67,0.4);background:rgba(20,16,10,0.85);font-size:18px;cursor:pointer">🔊</button>
+<script>
+function isMuted(){try{return localStorage.getItem('mg-mute')==='1';}catch(e){return false;}}
+function updateMuteBtn(){var b=document.getElementById('mute-btn');if(b)b.textContent=isMuted()?'🔇':'🔊';}
+function toggleMute(){var m=!isMuted();try{localStorage.setItem('mg-mute',m?'1':'0');}catch(e){}if(m&&currentAudio){try{currentAudio.stop();}catch(e){}currentAudio=null;}updateMuteBtn();}
+updateMuteBtn();
+</script>
+  <div class="chat-hero" id="chat-hero-section">
+    <div class="chat-avatar-wrap">
+      <div class="chat-avatar-ring">
+        <div class="chat-avatar-inner">
+          <img src="%D7%AA%D7%9E%D7%95%D7%A0%D7%94%20%D7%9E%D7%A6%D7%95%D7%99%D7%A0%D7%AA%20%D7%9E%D7%A9%D7%94%20%D7%92%D7%99%D7%A0%D7%96%D7%99.png" alt="משה גינזי"
+            onerror="this.parentElement.innerHTML='<div class=\'chat-avatar-fallback\'>מ</div>'" />
+        </div>
+      </div>
+    </div>
+    <div class="chat-intro">
+      <div class="chat-intro-lead" data-he="מה שאתה שואל בלב — אפשר לשאול אותו בקול 👇" data-en="The questions in your heart — you can ask them out loud 👇">מה שאתה שואל בלב — אפשר לשאול אותו בקול 👇</div>
+      <div class="chat-intro-qs"
+           data-he="<em>למה לי לחיות בצורה מסוימת? מה אני חייב לעולם? האם יש טעם לכל זה?</em><br><br>אלה לא שאלות של &quot;דתיים&quot; — אלה השאלות שכל אדם שואל את עצמו."
+           data-en="<em>Why should I live a certain way? What do I owe the world? Does any of this mean something?</em><br><br>These aren't just &quot;religious&quot; questions — they're what every person asks themselves.">
+        <em>למה לי לחיות בצורה מסוימת? מה אני חייב לעולם? האם יש טעם לכל זה?</em><br><br>
+        אלה לא שאלות של "דתיים" — אלה השאלות שכל אדם שואל את עצמו.
+      </div>
+    </div>
+  </div>
+  <div class="chat-name-panel" id="name-panel">
+    <span class="chat-name-label" data-he="שמך:" data-en="Your name:">שמך:</span>
+    <input class="chat-name-input" id="name-input" placeholder="כתוב שמך..." onkeydown="if(event.key==='Enter')startApp()" />
+    <div class="gender-row">
+      <button class="gender-btn" id="btn-f" onclick="setGender('נקבה')" data-he="אישה" data-en="Woman">אישה</button>
+      <button class="gender-btn" id="btn-m" onclick="setGender('זכר')" data-he="גבר" data-en="Man">גבר</button>
+    </div>
+    <button class="start-btn" onclick="startApp()" data-he="התחל לשוחח ←" data-en="Start Chatting →">התחל לשוחח ←</button>
+  </div>
+  <div class="chat-msgs" id="chat-msgs"></div>
+  <div class="chat-input-bar hidden" id="chat-input-bar">
+    <button class="send-btn" onclick="sendMsg()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="#0f0f0f"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
+    </button>
+    <button class="mic-btn" id="mic-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+        <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+        <line x1="12" y1="19" x2="12" y2="23"/>
+        <line x1="8" y1="23" x2="16" y2="23"/>
+      </svg>
+    </button>
+   <textarea class="ci" id="chat-input" rows="1" placeholder="כתוב שאלה..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg();}" oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,120)+'px';"></textarea>
+  </div>
+</div>
+
+<!-- LESSONS -->
+<div class="screen" id="screen-lessons">
+  <div class="page-header">
+    <button class="back-btn" onclick="goScreen('home')"><span class="back-arrow">→</span> <span data-he="חזרה" data-en="Back">חזרה</span></button>
+    <div class="page-title" data-he="ספריית שיעורים" data-en="Video Library">ספריית שיעורים</div>
+  </div>
+  <div class="lessons-grid" id="lessons-grid"></div>
+  <a id="more-yt" href="https://www.youtube.com/@mosheginzy" target="_blank" rel="noopener" class="more-videos-btn">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--gold)"><path d="M23 7s-.3-2-1.2-2.7c-1.2-1.2-2.5-1.2-3.1-1.3C16.2 3 12 3 12 3s-4.2 0-6.7.1C4.7 4.2 3.4 4.2 2.2 5.3 1.3 5.9 1 8 1 8S.7 10.3.7 12.6v2.1C.7 17 1 19.1 1 19.1s.3 2 1.2 2.7c1.2 1.2 2.7 1.1 3.4 1.2C7.6 23.1 12 23.1 12 23.1s4.2 0 6.7-.2c.6-.1 1.9-.1 3.1-1.3.9-.7 1.2-2.7 1.2-2.7s.3-2.3.3-4.6v-2.1C23.3 9.9 23 7.6 23 7.6V7zM9.7 15.5V8.4l6.6 3.6-6.6 3.5z"/></svg>
+    <span data-he="עוד סרטים בערוץ היוטיוב ←" data-en="More videos on YouTube →">עוד סרטים בערוץ היוטיוב ←</span>
+  </a>
+</div>
+
+<!-- CHAVRUTA -->
+<div class="screen" id="screen-chavruta">
+  <div class="page-header">
+    <button class="back-btn" onclick="goScreen('home')"><span class="back-arrow">→</span> <span data-he="חזרה" data-en="Back">חזרה</span></button>
+    <div class="page-title" data-he="חברותא אישית" data-en="Personal Chavruta">חברותא אישית</div>
+  </div>
+  <div class="chavruta-hero">
+    <div class="chavruta-title" data-he="מה זה חברותא?" data-en="What is Chavruta?">מה זה חברותא?</div>
+    <div class="chavruta-desc" data-he="שותף אישי לשיחה טלפונית שבועית — קשר אנושי אמיתי, בזמן שלך." data-en="A personal partner for a weekly call — genuine human connection, on your schedule.">שותף אישי לשיחה טלפונית שבועית — קשר אנושי אמיתי, בזמן שלך.</div>
+  </div>
+  <div class="explainer">
+    <div class="explainer-title" data-he="הערך המוסף" data-en="What You Get">הערך המוסף</div>
+    <div class="explainer-row"><div class="explainer-icon">📞</div><div class="explainer-text"><strong data-he="שיחה שבועית אחד על אחד" data-en="Weekly one-on-one call">שיחה שבועית אחד על אחד</strong><span data-he=" — לא סרטון, לא שיעור מוקלט." data-en=" — not a video, not a recorded lesson."> — לא סרטון, לא שיעור מוקלט.</span></div></div>
+    <div class="explainer-row"><div class="explainer-icon">🤝</div><div class="explainer-text"><strong data-he="ללמוד ביחד" data-en="Learning together">ללמוד ביחד</strong><span data-he=" — שיטת לימוד יהודית עתיקה." data-en=" — an ancient Jewish method of study."> — שיטת לימוד יהודית עתיקה.</span></div></div>
+    <div class="explainer-row"><div class="explainer-icon">🎯</div><div class="explainer-text"><strong data-he="בגובה העיניים" data-en="Real talk">בגובה העיניים</strong><span data-he=" — בלי שיפוט, בלי לחץ." data-en=" — no judgment, no pressure."> — בלי שיפוט, בלי לחץ.</span></div></div>
+    <div class="explainer-row"><div class="explainer-icon">💛</div><div class="explainer-text"><strong data-he="חינם לחלוטין" data-en="Completely free">חינם לחלוטין</strong><span data-he=" — ללא עלות, ללא מחויבות." data-en=" — no cost, no commitment."> — ללא עלות, ללא מחויבות.</span></div></div>
+  </div>
+  <div class="form-wrap">
+    <div class="form-field"><label class="form-label" data-he="שם מלא *" data-en="Full Name *">שם מלא *</label><input class="form-input" id="f-name" placeholder="השם שלך" /></div>
+    <div class="form-field"><label class="form-label" data-he="טלפון *" data-en="Phone *">טלפון *</label><input class="form-input" id="f-phone" type="tel" placeholder="050-0000000" /></div>
+    <div class="form-field"><label class="form-label" data-he="מייל" data-en="Email">מייל</label><input class="form-input" id="f-email" type="email" placeholder="your@email.com" /></div>
+    <div class="form-field"><label class="form-label" data-he="עיר מגורים" data-en="City">עיר מגורים</label><input class="form-input" id="f-city" placeholder="..." /></div>
+    <button class="submit-btn" onclick="submitForm()" data-he="קבע לימוד חינמי ←" data-en="Schedule Free Study →">קבע לימוד חינמי ←</button>
+    <div class="privacy-note" data-he="🔒 הפרטים שלך נשמרים בצנעה" data-en="🔒 Your details are kept private">🔒 הפרטים שלך נשמרים בצנעה</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="screen" id="screen-about">
+  <div class="page-header">
+    <button class="back-btn" onclick="goScreen('home')"><span class="back-arrow">→</span> <span data-he="חזרה" data-en="Back">חזרה</span></button>
+    <div class="page-title" data-he="אודות" data-en="About">אודות</div>
+  </div>
+  <div class="about-hero">
+    <div class="about-avatar">
+      <img src="%D7%AA%D7%9E%D7%95%D7%A0%D7%94%20%D7%9E%D7%A6%D7%95%D7%99%D7%A0%D7%AA%20%D7%9E%D7%A9%D7%94%20%D7%92%D7%99%D7%A0%D7%96%D7%99.png" alt="משה גינזי"
+        onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,var(--gold),var(--gold2))'" />
+    </div>
+    <div class="about-name" data-he="משה גינזי" data-en="Moshe Ginzy">משה גינזי</div>
+    <div class="about-sub" data-he="מחשבה במסלול מחדש" data-en="Rethinking the Journey">מחשבה במסלול מחדש</div>
+  </div>
+  <div class="about-content">
+    <div class="about-card">
+      <div class="about-card-title" data-he="מי הוא משה?" data-en="Who is Moshe?">מי הוא משה?</div>
+      <div class="about-card-text" data-he="משה גינזי הוא לא רב, לא מטיף, ולא כאן כדי להחזיר אותך בתשובה. הוא אדם שמאמין שחכמת אלפי שנות יהדות שייכת גם לך, בדיוק כמו שאתה." data-en="Moshe Ginzy is not a rabbi, not a preacher, and not here to make you religious. He believes that thousands of years of Jewish wisdom belongs to you — exactly as you are.">משה גינזי הוא לא רב, לא מטיף, ולא כאן כדי להחזיר אותך בתשובה. הוא אדם שמאמין שחכמת אלפי שנות יהדות שייכת גם לך, בדיוק כמו שאתה.</div>
+    </div>
+    <div class="verse-box">
+      <div class="verse-text" data-he="כל אדם הוא עולם שלם" data-en="Every person is an entire world">כל אדם הוא עולם שלם</div>
+      <div class="verse-src">— <span data-he="משנה סנהדרין" data-en="Mishnah Sanhedrin">משנה סנהדרין</span></div>
+    </div>
+   <div class="about-links">
+  <button class="about-link" onclick="openSite('https://askmosh.com','askmosh.com')">askmosh.com →</button>
+  <button class="about-link" id="link-tikva" onclick="openSite(currentLang==='en'?'https://tikva.netivotny.org/en/':'https://tikva.netivotny.org','אבני תקווה')"><span data-he="אבני תקווה ←" data-en="Avnei Tikva →">אבני תקווה ←</span></button>
+  <button class="about-link" onclick="openSite('https://netivotny.org','ארגון נתיבות')"><span data-he="ארגון נתיבות ←" data-en="Netivot Organization →">ארגון נתיבות ←</span></button>
+</div> 
+    <button class="change-btn" onclick="changeUser()" data-he="החלף משתמש / התחל מחדש" data-en="Switch User / Start Over">החלף משתמש / התחל מחדש</button>
+    <div class="footer-copy">© 2026 <span data-he="משה גינזי" data-en="Moshe Ginzy">משה גינזי</span><br><a href="https://askmosh.com/privacy.html" class="footer-link" data-he="מדיניות פרטיות" data-en="Privacy Policy">מדיניות פרטיות</a> | <a href="https://netivotny.org" class="footer-link">Netivot</a></div>
+  </div>
+</div>
+
+<!-- THANKS -->
+<div class="screen" id="screen-thanks">
+  <div class="thanks-icon">🙏</div>
+  <div class="thanks-title" data-he="תודה שנרשמת!" data-en="Thank You!">תודה שנרשמת!</div>
+  <div class="thanks-text" data-he="קיבלנו את פרטיך. <strong style='color:var(--gold)'>משה יחזור אליך תוך 24 שעות</strong> לתיאום החברותא הראשונה." data-en="We received your details. <strong style='color:var(--gold)'>Moshe will reach out within 24 hours</strong> to schedule your first session.">קיבלנו את פרטיך. <strong style="color:var(--gold)">משה יחזור אליך תוך 24 שעות</strong> לתיאום החברותא הראשונה.</div>
+  <button class="thanks-back-btn" onclick="goScreen('home')" data-he="חזור לדף הראשי" data-en="Back to Home">חזור לדף הראשי</button>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="bn-item active" id="nav-home" onclick="goScreen('home');setNav('home')">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <span data-he="בית" data-en="Home">בית</span>
+  </button>
+  <button class="bn-item" id="nav-chat" onclick="goScreen('chat');setNav('chat')">
+    <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <span data-he="שאל משה" data-en="Ask Moshe">שאל משה</span>
+  </button>
+      <button class="bn-item" id="nav-community" onclick="window.location.href='community.html?lang='+currentLang">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="9" cy="7" r="3"/><circle cx="17" cy="7" r="3"/><path d="M5 21v-2a4 4 0 014-4h0M13 21v-2a4 4 0 014-4h0"/></svg>
+      <span data-he="קהילה" data-en="Community">קהילה</span>
+    </button>
+  <button class="bn-item" id="nav-lessons" onclick="goScreen('lessons');setNav('lessons')">
+    <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+    <span data-he="שיעורים" data-en="Lessons">שיעורים</span>
+  </button>
+  <button class="bn-item" id="nav-chavruta" onclick="goScreen('chavruta');setNav('chavruta')">
+    <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    <span data-he="חברותא" data-en="Chavruta">חברותא</span>
+  </button>
+  <button class="bn-item bn-mt" id="nav-moshtov" onclick="window.location.href='shidduchim.html'">
+    <svg viewBox="0 0 24 24"><path d="M9 2.6h6l2.4 3-5.4 5-5.4-5z"/><path d="M6.6 5.6h10.8"/><path d="M10.6 5.6L12 10.6l1.4-5"/><circle cx="12" cy="15.8" r="5.3"/></svg>
+    <span data-he="שידוכים" data-en="Matches">שידוכים</span>
+  </button>
+</nav>
+<!-- HISTORY POPUP -->
+<div id="history-popup" style="display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.7);align-items:center;justify-content:center;padding:1rem;">
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;width:100%;max-width:400px;max-height:80vh;overflow-y:auto;padding:1.2rem;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+      <span style="font-family:var(--font-display);font-size:1.1rem;color:var(--gold);">היסטוריית שיחה</span>
+      <button onclick="document.getElementById('history-popup').style.display='none'" style="background:none;border:none;color:var(--muted);font-size:1.2rem;cursor:pointer;">✕</button>
+    </div>
+    <div id="history-content" style="font-size:.85rem;color:var(--txt);line-height:1.8;white-space:pre-wrap;"></div>
+  </div>
+</div>
+<!-- VIDEO POPUP -->
+<div id="video-popup">
+  <div class="vpop-inner">
+    <div class="vpop-topbar">
+<button class="vpop-close" onclick="closeVideo()" style="background:rgba(0,0,0,0.7);color:#fff;border:2px solid #fff;border-radius:50%;width:44px;height:44px;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;">✕</button>     <div class="vpop-title" id="vpop-title"></div>
+    </div>
+    <div class="vpop-nav"><button type="button" id="vpop-prev" onclick="mgVpopStep(-1)"></button><button type="button" id="vpop-next" onclick="mgVpopStep(1)"></button></div><div class="vpop-frame"><iframe id="vpop-iframe" src="" allowfullscreen allow="autoplay"></iframe></div>
+  </div>
+</div>
+
+
+
+<script>
+// גשר התראות לאפליקציה (אנדרואיד / אייפון)
+window.mgHasNativePush=function(){try{return !!((window.Android&&typeof window.Android.requestPushPermission==='function')||(window.webkit&&window.webkit.messageHandlers&&window.webkit.messageHandlers.iosPush));}catch(e){return false;}};
+window.mgOnPushResult=function(granted,token,platform){
+  try{if(granted&&token)localStorage.setItem('mg-push-on','1');}catch(e){}
+  if(window._mgPushResolve){window._mgPushResolve(!!granted&&!!token);window._mgPushResolve=null;}
+  if(granted&&token){try{fetch(MEKAREV_API+'/api/push/native-register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getMekarevUserId(),token:token,platform:platform||''})}).catch(function(){});}catch(e){}}
+};
+window.mgRequestNativePush=function(){return new Promise(function(res){
+  window._mgPushResolve=res;
+  setTimeout(function(){if(window._mgPushResolve){window._mgPushResolve(false);window._mgPushResolve=null;}},60000);
+  try{if(window.Android&&window.Android.requestPushPermission)window.Android.requestPushPermission();else window.webkit.messageHandlers.iosPush.postMessage('request');}catch(e){res(false);}
+});};
+function openSite(url, title) {
+  /* במחשב (לא בתוך אפליקציית הטלפון) אתר שלם נפתח בלשונית חדשה, כי בחלון הקטן הוא נדחס ונראה מבולגן */
+  try{var w=window,native=w.Android||(w.webkit&&w.webkit.messageHandlers&&(w.webkit.messageHandlers.iosMic||w.webkit.messageHandlers.iosPush));if(!native&&(w.innerWidth||0)>=700){var nw=w.open(url,'_blank','noopener');return;}}catch(e){}
+  var iframe = document.getElementById('vpop-iframe');
+  var vid = document.getElementById('vpop-video');
+  if(vid){ vid.pause(); vid.src=''; vid.style.display='none'; }
+  iframe.style.display = 'block';
+  iframe.src = url;
+  var titleEl = document.getElementById('vpop-title');
+  if(titleEl) titleEl.textContent = title || '';
+  document.getElementById('video-popup').classList.add('open');
+}
+
+function showHistory(){
+  var h=localStorage.getItem('mg-history-'+userName)||'';
+  var popup=document.getElementById('history-popup');
+  var content=document.getElementById('history-content');
+ 
+
+
+  if(!h){content.textContent='אין היסטוריה עדיין.';}
+  else{content.textContent=h.slice(-1000);}
+  popup.style.display='flex';
+}
+  function shareApp(){var link='https://askmosh.com/app.html';var txt=(currentLang==='en'?'Moshe Ginzy - ask, learn and grow 👇':'היכנסו לאפליקציה של משה גינזי 👇');var msg=txt+' '+link;if(window.Android&&window.Android.shareApp){window.Android.shareApp(msg);}else if(navigator.share){navigator.share({title:(currentLang==='en'?'Moshe Ginzy':'משה גינזי'),text:txt,url:link}).catch(function(){});}else{window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');}}
+  function shareAnswer(txt,q){var msg=(q?(currentLang==='en'?'I asked: ':'שאלתי: ')+q+'\n\n':'')+(currentLang==='en'?'Moshe answered: ':'משה ענה לי: ')+txt+(currentLang==='en'?' 💛 Download the app: ':' 💛 הורד את האפליקציה: ')+'https://askmosh.com/getapp';if(window.Android&&window.Android.shareApp){window.Android.shareApp(msg);}else if(navigator.share){navigator.share({title:'משה גינזי',text:msg}).catch(function(){});}else{window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');}}
+// מקרב: מנוע הצ'אט הוחלף מ-Dify לשרת של מקרב (Netivot) - העיצוב וכל
+// שאר האפליקציה נשארו בדיוק אותו דבר, לפי בקשת יצחק. MEKAREV_UID הוא
+// מזהה קבוע פר-מכשיר (כמו USER_ID באתר/אפליקציית מקרב עצמה) - נשמר
+// ב-localStorage בנפרד משם המשתמש (userName), כי השרת של מקרב מזהה כל
+// שיחה לפי מזהה קבוע כזה, לא לפי שם חופשי.
+var MEKAREV_API='https://hirabbi.com';
+function getMekarevUserId(){
+  var id=localStorage.getItem('mekarev-user-id');
+  if(!id){id='mg-'+Date.now()+'-'+Math.random().toString(36).slice(2);localStorage.setItem('mekarev-user-id',id);}
+  return id;
+}
+// מקרב (update): שני מספרי וואטסאפ נפרדים מוגדרים בשרת של מקרב עצמו
+// (/api/config, אותו מקום בדיוק שבו public/index.html של אתר מקרב שולף
+// אותם) - moshePhone (מספר כללי) ו-halachaPhone (קו הלכה ייעודי). קודם
+// כפתור הוואטסאפ כאן היה מקובע תמיד למספר אחד קבוע בקוד - זה גרם לזה
+// ששאלות הלכה הופנו לאותו מספר כללי במקום לקו ההלכה. שולפים את שניהם
+// פעם אחת מוקדם (ברקע, לא חוסם כלום) ומטמינים אותם, בדיוק כמו
+// fetchMoshePhone/cachedHalachaPhone באתר מקרב עצמו.
+var cachedMoshePhone='';
+var cachedHalachaPhone='';
+// מקרב: אותו /api/config בדיוק, רק שולפים כאן גם vapidPublicKey - המפתח
+// הציבורי הדרוש כדי להירשם ל-Push (ראה subscribeMekarevPush למטה).
+var cachedVapidPublicKey='';
+fetch(MEKAREV_API+'/api/config').then(function(r){return r.json();}).then(function(data){
+  cachedMoshePhone=data.moshePhone||'';
+  cachedHalachaPhone=data.halachaPhone||'';
+  cachedVapidPublicKey=data.vapidPublicKey||'';
+}).catch(function(){});
+var isSending=false;
+var EL_VOICE='jSyAO1W1N4S7u904a6Z3';
+var currentAudio=null;
+var audioCtx=null;
+var userName='';var userGender='';
+var currentLang='he';
+var SHEET_URL='https://script.google.com/macros/s/AKfycbxyB1W8mxmy9paWNbgCTYbZCAJzwufgRUabhA1N2G2XLNUsuk9HxR9ZD7J8fQfvPacMXw/exec';function toggleTheme(){
+  var isLight=document.body.classList.toggle('light');
+  localStorage.setItem('mg-theme',isLight?'light':'dark');
+  document.getElementById('theme-btn').textContent=isLight?'🌙':'☀️';
+}
+
+// LANG
+function setLang(lang){
+  currentLang=lang;
+  localStorage.setItem('mg-app-lang',lang);
+  document.getElementById('lang-he').classList.toggle('active',lang==='he');
+  document.getElementById('lang-en').classList.toggle('active',lang==='en');
+  document.documentElement.setAttribute('lang',lang);
+  document.documentElement.setAttribute('dir',lang==='he'?'rtl':'ltr');
+  document.querySelectorAll('[data-'+lang+']').forEach(function(el){
+    var val=el.getAttribute('data-'+lang);
+    if(!val)return;
+    if(el.tagName==='INPUT'){el.placeholder=val;return;}
+ el.innerHTML=val;
+  });
+  document.querySelectorAll('.back-arrow').forEach(function(a){a.textContent=lang==='he'?'→':'←';});
+  renderLessons();
+  document.getElementById('name-input').placeholder=lang==='he'?'כתוב שמך...':'Enter your name...';
+  document.getElementById('chat-input').placeholder=lang==='he'?'כתוב שאלה...':'Type your question...';
+  var fn=document.getElementById('f-name');if(fn)fn.placeholder=lang==='he'?'השם שלך':'Your name';
+  var fc=document.getElementById('f-city');if(fc)fc.placeholder=lang==='he'?'העיר שלך':'Your city';
+  var my=document.getElementById('more-yt');if(my)my.href=lang==='en'?'https://www.youtube.com/@MosheGinzy-r5d/shorts':'https://www.youtube.com/@mosheginzy';
+  var fp=document.getElementById('f-phone');if(fp)fp.placeholder=lang==='he'?'050-0000000':'Your phone number';
+  [['history-btn','שיחה קודמת','Previous conversation']].forEach(function(x){var b=document.getElementById(x[0]);if(b)b.title=lang==='he'?x[1]:x[2];});
+  var TT={'שתף':'Share','בהיר/כהה':'Light/Dark','תפריט':'Menu','סגירה':'Close','Share':'שתף','Light/Dark':'בהיר/כהה','Menu':'תפריט','Close':'סגירה'};
+  document.querySelectorAll('.top-bar [title], .top-bar [aria-label], #drawer, #drawer [aria-label]').forEach(function(b){['title','aria-label'].forEach(function(k){var v=b.getAttribute(k);if(!v||!TT[v])return;var isHe=/[\u0590-\u05FF]/.test(v);if((lang==='en')===isHe)b.setAttribute(k,TT[v]);});});
+  var lt=document.getElementById('link-tikva');if(lt)lt.href=lang==='en'?'https://tikva.netivotny.org/en/':'https://tikva.netivotny.org';
+}
+
+// NAV
+function goScreen(name){
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
+  document.getElementById('screen-'+name).classList.add('active');
+  setNav(name);
+}
+function setNav(name){
+  document.querySelectorAll('.bn-item').forEach(function(b){b.classList.remove('active');});
+  var nb=document.getElementById('nav-'+name);if(nb)nb.classList.add('active');
+}
+function goToChat(){goScreen('chat');}
+
+// INIT
+window.onload=function(){
+  var savedTheme=localStorage.getItem('mg-theme');
+  if(savedTheme==='light'){document.body.classList.add('light');document.getElementById('theme-btn').textContent='🌙';}
+  else{document.getElementById('theme-btn').textContent='☀️';}
+  var savedLang=localStorage.getItem('mg-app-lang')||'he';
+  setLang(savedLang);
+  renderLessons();
+  var savedName=localStorage.getItem('mg-app-name');
+  if(savedName){
+    userName=savedName;userGender=localStorage.getItem('mg-app-gender')||'';
+    document.getElementById('name-input').value=savedName;
+    if(userGender==='נקבה')document.getElementById('btn-f').classList.add('active');
+    if(userGender==='זכר')document.getElementById('btn-m').classList.add('active');
+    showChatMode();
+  }
+};
+
+function setGender(g){userGender=g;document.getElementById('btn-f').classList.toggle('active',g==='נקבה');document.getElementById('btn-m').classList.toggle('active',g==='זכר');}
+function startApp(){
+  var n=document.getElementById('name-input').value.trim();
+  if(!n){document.getElementById('name-input').focus();return;}
+  userName=n;localStorage.setItem('mg-app-name',n);localStorage.setItem('mg-app-gender',userGender);
+  // מודיעים לשרת של מקרב מה השם (והמגדר, אם כבר נבחר) - כדי שהתשובות
+  // יהיו מותאמות אישית (פנייה בשם, לשון זכר/נקבה נכונה), בדיוק כמו
+  // בזרימת ההיכרות הרגילה באתר/אפליקציית מקרב עצמה.
+  var mUid=getMekarevUserId();
+  fetch(MEKAREV_API+'/api/identify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:mUid,replyText:n})}).catch(function(){});
+  if(userGender==='זכר'||userGender==='נקבה'){
+    fetch(MEKAREV_API+'/api/gender',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:mUid,replyText:userGender})}).catch(function(){});
+  }
+  showChatMode();
+}
+function showChatMode(){
+  var s=document.createElement('script');s.src=SHEET_URL+'?action=getHistory&name='+encodeURIComponent(userName)+'&callback=onHistory';document.head.appendChild(s);window.onHistory=function(d){if(d&&d.history){localStorage.setItem('mg-history-'+userName,d.history);}};
+  document.getElementById('name-panel').style.display='none';
+  document.getElementById('chat-input-bar').classList.remove('hidden');
+  if(document.getElementById('chat-msgs').children.length===0){
+    var g;
+    if(currentLang==='en'){g='Hello '+userName+'! 👋 I\'m Moshe. The questions in your heart — you can ask them out loud.';}
+    else if(userGender==='נקבה'){g='שלום '+userName+'! 👋 אני משה. מה שאת שואלת בלב — אפשר לשאול אותו בקול.';}
+    else{g='שלום '+userName+'! 👋 אני משה. מה שאתה שואל בלב — אפשר לשאול אותו בקול.';}
+    addMsg(g,'bot');
+  }
+}
+function changeUser(){localStorage.removeItem('mg-app-name');localStorage.removeItem('mg-app-gender');location.reload();}
+
+// CHAT
+// מקרב (יצחק: "הוא לא שם לי לינק שאני יכול ללחוץ עליו בקלות ולשתף אותו
+// עם כל החברים") - כשהבוט עצמו כותב בתשובה את קישור השיתוף
+// (https://askmosh.com/getapp, לפי הכלל ב-systemPrompt.js), הטקסט
+// עד עכשיו הופיע כמחרוזת רגילה בתוך הבועה (textContent) - לא לחיץ
+// בכלל, ואפילו אם היה לחיץ הוא רק פותח את דף ה-getapp (שמעביר אוטומטית
+// לחנות), לא את תפריט השיתוף האמיתי. הפונקציה הזו מזהה את הקישור הזה
+// בתוך טקסט תשובת הבוט ומחליפה אותו בכפתור אמיתי שפותח את תפריט השיתוף
+// (shareApp, אותה פונקציה בדיוק כמו כפתור השיתוף בסרגל הכלים).
+function enhanceBotBubbleShareLink(bubbleEl,text){
+  var marker='https://askmosh.com/getapp';
+  var idx=text.indexOf(marker);
+  if(idx===-1){marker='https://mosheginzy.com/getapp';idx=text.indexOf(marker);}
+  if(idx===-1||!bubbleEl)return;
+  bubbleEl.textContent='';
+  var before=text.slice(0,idx);
+  var after=text.slice(idx+marker.length);
+  if(before)bubbleEl.appendChild(document.createTextNode(before));
+  if(after)bubbleEl.appendChild(document.createTextNode(after));
+  // יצחק ביקש כפתור אמיתי ומספיק גדול (לא רק לינק טקסט קטן) שפותח את
+  // תפריט השיתוף המלא של הטלפון - בדיוק כמו כפתור השיתוף הראשי
+  // (shareApp), רק ממוקם כאן בתוך הודעת הבוט עצמה, בשורה משלו.
+  var btnWrap=document.createElement('div');
+  btnWrap.style.cssText='margin-top:10px;';
+  var shareBtn=document.createElement('button');
+  shareBtn.type='button';
+  shareBtn.className='referral-btn followup';
+  shareBtn.style.cssText='width:100%;justify-content:center;padding:12px 16px;font-size:.95rem;font-weight:700;border-radius:22px;';
+  shareBtn.textContent=currentLang==='en'?'📲 Share the app':'📲 שתף את האפליקציה';
+  shareBtn.onclick=function(e){e.preventDefault();shareApp();};
+  btnWrap.appendChild(shareBtn);
+  bubbleEl.appendChild(btnWrap);
+}
+var lastUserQ='';/* share: question + answer */function addMsg(txt,who){if(who==='user')lastUserQ=txt;var askedQ=lastUserQ;
+  var w=document.getElementById('chat-msgs');
+  var row=document.createElement('div');row.className='msg-row '+(who==='user'?'user':'');
+ var av=document.createElement('div');av.className='msg-av';if(who==='bot'){av.style.backgroundImage="url('%D7%AA%D7%9E%D7%95%D7%A0%D7%94%20%D7%9E%D7%A6%D7%95%D7%99%D7%A0%D7%AA%20%D7%9E%D7%A9%D7%94%20%D7%92%D7%99%D7%A0%D7%96%D7%99.png')";av.style.backgroundSize='cover';av.style.backgroundPosition='center';}else{av.textContent='☺';}
+  var bubble=document.createElement('div');bubble.className='msg-bubble '+(who==='bot'?'bot':'user');bubble.textContent=txt;
+row.appendChild(av);row.appendChild(bubble);if(who==='bot'){var sb=document.createElement('button');sb.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>';sb.style.cssText='background:none;border:none;color:var(--gold);cursor:pointer;padding:4px 8px;flex-shrink:0;';sb.onclick=function(){shareAnswer(bubble.textContent,askedQ);};row.appendChild(sb);}w.appendChild(row);  w.scrollTop=w.scrollHeight;document.getElementById('screen-chat').scrollTop=99999;
+  return bubble;
+}
+function showTyping(){
+  var w=document.getElementById('chat-msgs');
+  var row=document.createElement('div');row.className='msg-row';row.id='typing-row';
+var av=document.createElement('div');av.className='msg-av';av.style.backgroundImage="url('%D7%AA%D7%9E%D7%95%D7%A0%D7%94%20%D7%9E%D7%A6%D7%95%D7%99%D7%A0%D7%AA%20%D7%9E%D7%A9%D7%94%20%D7%92%D7%99%D7%A0%D7%96%D7%99.png')";av.style.backgroundSize='cover';av.style.backgroundPosition='center';
+  var t=document.createElement('div');t.className='typing-dots';t.innerHTML='<span></span><span></span><span></span>';
+  row.appendChild(av);row.appendChild(t);w.appendChild(row);document.getElementById('screen-chat').scrollTop=99999;
+}
+function rmTyping(){var t=document.getElementById('typing-row');if(t)t.remove();}
+// מקרב: כרטיס תהילים / תפילה (PRAYER_CARD_V1) - השרת שולח אירוע type:'prayer' עם קטעים נפרדים.
+// כל פרק מוצג בנפרד (עם כפתורי מספרי פרקים + הקודם/הבא), אותיות גדולות בגופן תנ"כי, בלי הקראה קולית.
+function addPrayerCard(pr){
+  if(!pr||!pr.sections||!pr.sections.length)return null;
+  var w=document.getElementById('chat-msgs');if(!w)return null;
+  if(!document.getElementById('prayer-font-link')){try{var lk=document.createElement('link');lk.id='prayer-font-link';lk.rel='stylesheet';lk.href='https://fonts.googleapis.com/css2?family=Noto+Serif+Hebrew:wght@400;700&display=swap';document.head.appendChild(lk);}catch(e){}}
+  var P={bg:'#fbf5e6',line:'#e3d2a4',ink:'#2a2114',gold:'#a8822f',hl:'#f4e3a5',muted:'#8a7650'};
+  var SERIF="'Noto Serif Hebrew','Frank Ruhl Libre','David','Times New Roman',serif";
+  var secs=pr.sections,many=secs.length>1,cur=0;
+  var size=1.3;try{var sv=parseFloat(localStorage.getItem('mg-prayer-size'));if(sv>=1&&sv<=2.2)size=sv;}catch(e){}
+  function heb(n){var o='';var H=[[400,'ת'],[300,'ש'],[200,'ר'],[100,'ק'],[90,'צ'],[80,'פ'],[70,'ע'],[60,'ס'],[50,'נ'],[40,'מ'],[30,'ל'],[20,'כ'],[10,'י'],[9,'ט'],[8,'ח'],[7,'ז'],[6,'ו'],[5,'ה'],[4,'ד'],[3,'ג'],[2,'ב'],[1,'א']];
+    for(var i=0;i<H.length;i++){while(n>=H[i][0]){if(n===15){o+='טו';n=0;break;}if(n===16){o+='טז';n=0;break;}o+=H[i][1];n-=H[i][0];}}return o;}
+  function el(tag,css,text,parent){var e=document.createElement(tag);if(css)e.style.cssText=css;if(text!=null)e.textContent=text;if(parent)parent.appendChild(e);return e;}
+  var wrap=el('div','align-self:stretch;width:94%;max-width:660px;margin:6px auto 14px;direction:rtl;text-align:right;scroll-margin-top:90px;');
+  wrap.className='prayer-card';wrap.dir='rtl';wrap.setAttribute('data-nospeak','1');
+  // כותרת
+  var head=el('div','display:flex;align-items:center;justify-content:center;gap:10px;margin:2px 0 10px;flex-wrap:wrap;',null,wrap);
+  el('div','font-family:'+SERIF+';font-size:1.25rem;font-weight:700;color:#c9a24e;text-align:center;letter-spacing:.3px;','❦ '+(pr.title||'')+' ❦',head);
+  var sz=el('div','display:flex;gap:4px;',null,head);
+  function szBtn(t,d){var b=el('button','background:transparent;border:1px solid #c9a24e;color:#c9a24e;border-radius:8px;padding:2px 9px;font-size:.85rem;cursor:pointer;font-family:inherit;',t,sz);b.type='button';b.title=d>0?'הגדלת אותיות':'הקטנת אותיות';b.onclick=function(){size=Math.max(1,Math.min(2.2,Math.round((size+d)*100)/100));try{localStorage.setItem('mg-prayer-size',String(size));}catch(e){}body.style.fontSize=size+'rem';};}
+  szBtn('א+',0.15);szBtn('א−',-0.15);
+  // מספרי פרקים
+  var chips=[];
+  if(many){
+    var cr=el('div','display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:0 0 12px;',null,wrap);
+    secs.forEach(function(s,i){var c=el('button','min-width:40px;padding:6px 9px;border-radius:10px;border:1px solid '+P.line+';background:#fffaf0;color:'+P.ink+';font-family:'+SERIF+';font-size:1rem;font-weight:700;cursor:pointer;',s.chip||String(i+1),cr);c.type='button';c.onclick=function(){show(i,true);};chips.push(c);});
+  }
+  // כרטיס הפרק
+  var card=el('div','background:'+P.bg+';border:1px solid '+P.line+';border-radius:16px;padding:22px 20px 18px;box-shadow:0 2px 10px rgba(0,0,0,.18);color:'+P.ink+';scroll-margin-top:90px;',null,wrap);
+  var label=el('div','display:inline-block;background:'+P.hl+';color:'+P.ink+';font-family:'+SERIF+';font-weight:700;font-size:1.15rem;padding:4px 16px;border-radius:9px;margin:0 0 16px;',null,card);
+  var body=el('div','font-family:'+SERIF+';font-size:'+size+'rem;line-height:2.2;text-align:right;color:'+P.ink+';word-spacing:1px;',null,card);
+  var nav=null,prevB=null,nextB=null,cnt=null;
+  if(many){
+    nav=el('div','display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:18px;padding-top:12px;border-top:1px solid '+P.line+';',null,card);
+    var nb='padding:9px 16px;border-radius:10px;border:none;background:'+P.gold+';color:#fff;font-size:.95rem;font-weight:700;cursor:pointer;font-family:inherit;';
+    prevB=el('button',nb,'› הפרק הקודם',nav);prevB.type='button';prevB.onclick=function(){show(cur-1,true);};
+    cnt=el('div','color:'+P.muted+';font-size:.9rem;',null,nav);
+    nextB=el('button',nb,'הפרק הבא ‹',nav);nextB.type='button';nextB.onclick=function(){show(cur+1,true);};
+  }
+  function show(i,scroll){
+    if(i<0||i>=secs.length)return;cur=i;var s=secs[i];
+    label.textContent=s.label||s.title||'';
+    body.innerHTML='';
+    if(s.chip){
+      body.style.whiteSpace='normal';
+      String(s.text||'').split('\n').forEach(function(v,vi){v=v.trim();if(!v)return;
+        var sp=el('span','margin-left:.45em;',null,body);
+        el('span','font-size:.62em;color:'+P.gold+';font-weight:700;margin-left:.25em;vertical-align:.2em;',heb(vi+1),sp);
+        sp.appendChild(document.createTextNode(v+(/[׃:]$/.test(v)?'':':')+' '));
+      });
+    }else{
+      body.style.whiteSpace='pre-wrap';body.textContent=s.text||'';
+    }
+    chips.forEach(function(c,ci){c.style.background=ci===i?P.gold:'#fffaf0';c.style.color=ci===i?'#fff':P.ink;c.style.borderColor=ci===i?P.gold:P.line;});
+    if(many){cnt.textContent=(i+1)+' / '+secs.length;prevB.style.visibility=i>0?'visible':'hidden';nextB.style.visibility=i<secs.length-1?'visible':'hidden';}
+    if(scroll){try{card.scrollIntoView({behavior:'smooth',block:'start'});}catch(e){}}
+  }
+  show(0,false);
+  w.appendChild(wrap);
+  try{wrap.scrollIntoView({block:'start'});}catch(e){w.scrollTop=w.scrollHeight;}
+  return wrap;
+}
+function sendMsg(){
+  if(window.stopMic)window.stopMic();
+  if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+  if(audioCtx.state==='suspended')audioCtx.resume();
+  var micB=document.getElementById('mic-btn');
+  var inp=document.getElementById('chat-input');
+  var txt=inp.value.trim();if(!txt||isSending)return;
+inp.value='';inp.style.height='40px';isSending=true;addMsg(txt,'user');showTyping();
+// מקרב: השאלה נשלחת עכשיו לשרת של מקרב (בדיוק כמו שהאתר/אפליקציית
+// מקרב עצמה שולחת) - במקום ל-Dify. בהזרמה (streaming, /api/chat, בדיוק
+// כמו ב-public/app.js של אתר מקרב) כדי שהתשובה תיכתב על המסך בזמן
+// אמת במקום להופיע כולה בבת אחת בסוף (מה שקרה עם /api/chat/simple -
+// יצחק ביקש שזה יתחיל להיכתב מייד). שאר הזרימה (הודעת "מקליד...",
+// שמירת היסטוריה מקומית, סנכרון ל-Google Sheets, הקראה בקול) נשארה
+// בדיוק אותו דבר, רק בסוף ההזרמה במקום מיד.
+var fullText='';var bubbleEl=null;var finalNoAnswer=false;var finalIsHalacha=false;var finalVideos=[];var finalShowRatingPrompt=false;var finalOfferPush=null;var finalSoftware=null;var finalChavruta=null;var finalSaveChat=false;var prayerData=null;var isPrayer=false;var spokeEarly=false;
+fetch(MEKAREV_API+'/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getMekarevUserId(),message:txt,lang:currentLang==='en'?'en':'he'})}).then(function(res){
+  if(!res.ok||!res.body)throw new Error('http '+res.status);
+  var reader=res.body.getReader();var decoder=new TextDecoder('utf-8');var buffer='';
+  function pump(){
+    return reader.read().then(function(chunk){
+      if(chunk.done)return;
+      buffer+=decoder.decode(chunk.value,{stream:true});
+      var idx;
+      while((idx=buffer.indexOf('\n\n'))!==-1){
+        var frame=buffer.slice(0,idx);buffer=buffer.slice(idx+2);
+        var line=frame.split('\n').filter(function(l){return l.indexOf('data: ')===0;})[0];
+        if(!line)continue;
+        var payload;try{payload=JSON.parse(line.slice(6));}catch(e){continue;}
+        if(payload.type==='prayer'){
+          isPrayer=true;
+          if(typeof window.addPrayerCard==='function'){prayerData=payload;rmTyping();window.addPrayerCard(payload);}
+        }else if(payload.type==='delta'){
+          fullText+=payload.text;
+          if(prayerData)continue;
+          if(!bubbleEl){rmTyping();bubbleEl=addMsg('','bot');}
+          bubbleEl.textContent=fullText;
+          // הקראה מוקדמת: ברגע שהמשפט הראשון שלם (ואחריו כבר מגיע טקסט), שולחים אותו לקול בלי לחכות לסוף התשובה
+          if(!spokeEarly&&!isPrayer){var fm=fullText.match(/^\s*([^.!?؟]+[.!?؟]+)\s/);if(fm&&fm[1].trim().length>=5){spokeEarly=true;speakText(fm[1]);}}
+          var w=document.getElementById('chat-msgs');w.scrollTop=w.scrollHeight;
+        }else if(payload.type==='done'){
+          finalNoAnswer=Boolean(payload.noAnswer);
+          if(payload.prayer)isPrayer=true;
+          finalIsHalacha=Boolean(payload.isHalacha);
+          // מקרב: השרת מחזיר כאן גם עד שני סרטונים רלוונטיים שנבחרו
+          // אוטומטית לפי השאלה/התשובה (ראה getVideoSuggestions ב-
+          // server.js של מקרב) - עד עכשיו השדה הזה פשוט לא נקרא כאן
+          // בכלל, אז אף פעם לא הוצג סרטון בגרסת האפליקציה הזו (בניגוד
+          // לאתר/אפליקציית מקרב עצמה, public/index.html, ששם זה כן
+          // עבד) - זו בדיוק הסיבה שבגללה שאלות כמו "שרצים בדגי הסלמון"
+          // או "צבא לחרדים" מעולם לא הראו סרטון פה, למרות שהשרת בחר
+          // אותו נכון בכל פעם.
+          finalVideos=Array.isArray(payload.videos)?payload.videos:[];
+          // מקרב: אותו דבר בדיוק קרה עם דירוג השיחה (showRatingPrompt) -
+          // השדה פשוט לא נקרא כאן, אז זה "הפסיק לעבוד" באפליקציה הזו
+          // כי הוא בעצם אף פעם לא עבד כאן (רק באתר, public/index.html).
+          finalShowRatingPrompt=Boolean(payload.showRatingPrompt);
+          // מקרב (יצחק: "אני רוצה שהבוט יקבל אישור להתראות דרך הטלפון") -
+          // השרת מחזיר כאן offerPush ('video'/'question'/'callback'/'offer')
+          // רק ברגעים שבאמת שווה להציע (ראה shouldOfferPush ב-server.js),
+          // ורק אם התלמיד/ה עוד לא רשום/ה ולא סירב/ה בעבר.
+          finalOfferPush=payload.offerPush||null;
+          // מקרב: מילת קוד של תוכנה להורדה -> כרטיס עם כפתורים (ראה addSoftwareCard)
+          finalSoftware=payload.software||null;finalChavruta=payload.chavrutaSignup||null;finalSaveChat=!!payload.saveChat;
+        }
+      }
+      return pump();
+    });
+  }
+  return pump();
+}).then(function(){
+  isSending=false;
+  if(isPrayer&&(prayerData||fullText)){
+    // תהילים/תפילה: בלי הקראה קולית (ElevenLabs), ובהיסטוריה נשמרת רק הכותרת
+    if(spokeEarly&&currentAudio){try{currentAudio.stop();}catch(e){}currentAudio=null;}
+    var pt=(prayerData&&prayerData.title)||fullText.split('\n')[0].substring(0,80);
+    try{var ph=localStorage.getItem('mg-history-'+userName)||'';localStorage.setItem('mg-history-'+userName,ph+(ph?'\n':'')+pt);}catch(e){}
+    fetch(SHEET_URL+'?action=saveHistory&name='+encodeURIComponent(userName)+'&history='+encodeURIComponent('['+pt+']')+'&t='+Date.now()).catch(function(){});
+    return;
+  }
+  if(fullText){
+    enhanceBotBubbleShareLink(bubbleEl,fullText);
+    linkifyBubble(bubbleEl);
+    var h=localStorage.getItem('mg-history-'+userName)||'';var newH=h+(h?'\n':'')+fullText.substring(0,200);localStorage.setItem('mg-history-'+userName,newH);fetch(SHEET_URL+'?action=saveHistory&name='+encodeURIComponent(userName)+'&history='+encodeURIComponent(fullText)+'&t='+Date.now())
+.then(function(r){
+  return r.text();
+})
+.then(function(x){
+  console.log('SHEET OK:',x);
+})
+.catch(function(e){
+  console.log('SHEET ERROR:',e);
+}); window._shcb=function(){};if(!spokeEarly)speakText(fullText);
+    // מקרב: בדיוק כמו באתר/אפליקציית מקרב עצמה - אם המנוע סימן שהתשובה
+    // לא כיסתה את השאלה במדויק (noAnswer), מציעים בנוסף פנייה ישירה
+    // למשה בוואטסאפ, או להשאיר את השאלה לבירור עם התראה בהמשך.
+    if(finalNoAnswer)addReferralSuggestion(txt,finalIsHalacha);
+    if(finalVideos&&finalVideos.length)addVideoSuggestions(finalVideos);
+    if(finalShowRatingPrompt)addRatingPrompt();
+    if(finalOfferPush)addPushOfferPrompt(finalOfferPush);
+    if(finalSoftware)addSoftwareCard(finalSoftware);
+    if(finalChavruta)addChavrutaSignupCard(finalChavruta);
+    if(finalSaveChat)addSaveChatBtn();
+  }else{
+    rmTyping();addMsg(currentLang==='en'?'Moshe could not respond — please try again 🙏':'משה לא הצליח לענות — נסה שוב 🙏','bot');
+  }
+}).catch(function(){rmTyping();isSending=false;addMsg(currentLang==='en'?'Moshe could not respond — please try again 🙏':'משה לא הצליח לענות — נסה שוב 🙏','bot');});
+}
+// מקרב: הופך כתובות (https://...) בתשובת הבוט לקישורים לחיצים.
+function linkifyBubble(bubbleEl){
+  if(!bubbleEl)return;
+  var re=/https?:\/\/[^\s<>"']+/g;
+  var walker=document.createTreeWalker(bubbleEl,NodeFilter.SHOW_TEXT,null);
+  var nodes=[];var n;while((n=walker.nextNode()))nodes.push(n);
+  nodes.forEach(function(node){
+    var text=node.nodeValue;re.lastIndex=0;
+    if(!re.test(text))return;re.lastIndex=0;
+    var frag=document.createDocumentFragment();var last=0;var m;
+    while((m=re.exec(text))){
+      var url=m[0].replace(/[.,!?:;)\]״"'׳]+$/,'');
+      if(m.index>last)frag.appendChild(document.createTextNode(text.slice(last,m.index)));
+      var a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener';a.textContent=url;
+      a.style.cssText='color:var(--gold);text-decoration:underline;word-break:break-all;';
+      frag.appendChild(a);last=m.index+url.length;re.lastIndex=last;
+    }
+    if(last<text.length)frag.appendChild(document.createTextNode(text.slice(last)));
+    node.parentNode.replaceChild(frag,node);
+  });
+}
+// מקרב: כרטיס "תוכנה להורדה" - מופיע כשהשרת מחזיר software (מילת קוד, ראה software.js בשרת).
+// עיצוב זהה לדף tools.askmosh.com/d/... : כרטיס פרטי התוכנה, ומתחתיו -
+// בטלפון: הסבר + כתובת האתר + העתקה / וואטסאפ לעצמי / מייל / שיתוף; במחשב: כפתור הורדה.
+function addSoftwareCard(sw){
+  if(!sw||!sw.name)return;
+  var en=currentLang==='en';
+  var w=document.getElementById('chat-msgs');
+  var ua=navigator.userAgent||'';
+  var isMobile=Boolean(window.Android)||/Android|iPhone|iPad|iPod|Mobile/i.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1);
+  var C={card:'#1b2029',line:'#2c3340',ink:'#e8ebf1',muted:'#a3abba',accent:'#6ea0e8',bg:'#12151c'};
+  var wrap=document.createElement('div');wrap.className='software-card';wrap.dir='rtl';
+  wrap.style.cssText='align-self:stretch;max-width:520px;width:92%;margin:4px auto 8px;font-family:inherit;line-height:1.6;color:'+C.ink+';';
+  function box(){var d=document.createElement('div');d.style.cssText='background:'+C.card+';border:1px solid '+C.line+';border-radius:14px;padding:18px 16px;margin-bottom:12px;';wrap.appendChild(d);return d;}
+  function el(tag,css,text,parent){var e=document.createElement(tag);if(css)e.style.cssText=css;if(text!=null)e.textContent=text;(parent||wrap).appendChild(e);return e;}
+  // כרטיס 1: פרטי התוכנה
+  var top=box();
+  el('div','font-size:1.35rem;font-weight:700;margin:0 0 4px;',sw.name,top);
+  if(sw.description)el('div','color:'+C.muted+';margin:0 0 4px;',sw.description,top);
+  el('div','font-size:.8rem;color:'+C.muted+';',(en?'Windows program':'תוכנה למחשב Windows')+(sw.size?' · '+sw.size:''),top);
+  var main=box();
+  var ICON={
+    copy:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>',
+    wa:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.5A8.4 8.4 0 1 1 21 11.5z"/></svg>',
+    mail:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>',
+    share:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v13"/></svg>',
+    dl:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>'
+  };
+  var acts=document.createElement('div');acts.style.cssText='display:grid;gap:10px;margin-top:4px;';
+  function btn(icon,label,bg,fn){
+    var b=document.createElement('button');b.type='button';
+    b.style.cssText='display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;font-size:1.02rem;font-weight:600;border:0;border-radius:11px;color:#fff;cursor:pointer;font-family:inherit;touch-action:manipulation;background:'+bg+';';
+    b.innerHTML=ICON[icon];var sp=document.createElement('span');sp.textContent=label;b.appendChild(sp);
+    b.onclick=function(e){e.preventDefault();fn(b,sp);};acts.appendChild(b);return b;
+  }
+  if(!isMobile){
+    if(sw.downloadUrl){
+      btn('dl',en?'Download to computer':'הורדה למחשב',C.accent,function(){window.location.href=sw.downloadUrl;});
+      main.appendChild(acts);
+      el('div','font-size:.85rem;color:'+C.muted+';margin-top:12px;',en?'After downloading, open the file. If a blue "Windows protected your PC" window appears, click "More info" and then "Run anyway".':'אחרי ההורדה פותחים את הקובץ. אם מופיע חלון כחול "Windows protected your PC" - לוחצים על More info ואז על Run anyway. זה קורה בכל תוכנה חדשה שעדיין לא מוכרת ל-Windows.',main);
+    }else{
+      el('div','color:'+C.muted+';',en?'The download link will be available here soon.':'הקישור להורדה יהיה זמין כאן בקרוב.',main);
+    }
+  }else{
+    var site=sw.siteUrl||'https://askmosh.com';
+    var host=site.replace(/^https?:\/\//,'');
+    var msg=(en?'On a computer, go to ':'להיכנס מהמחשב ל-')+site+(sw.code?(en?' and type in the chat: ':" ולכתוב בצ'אט: ")+sw.code:'')+(en?' - to download ':' - ולהוריד את ')+sw.name;
+    el('div','font-size:1.05rem;font-weight:700;margin:0 0 8px;',en?'This program is for computers':'התוכנה הזו מיועדת למחשב',main);
+    var p=el('div','font-size:1rem;margin:0;',null,main);
+    p.appendChild(document.createTextNode(en?'When you are at a computer, go to ':'כשתהיו ליד המחשב, היכנסו לאתר '));
+    var hb=document.createElement('b');hb.dir='ltr';hb.textContent=host;p.appendChild(hb);
+    if(sw.code){
+      p.appendChild(document.createTextNode(en?' and type in the chat ':" וכתבו בצ'אט "));
+      var chip=document.createElement('span');chip.textContent=sw.code;
+      chip.style.cssText='background:'+C.bg+';border:1px solid '+C.line+';border-radius:6px;padding:1px 7px;white-space:nowrap;';
+      p.appendChild(chip);
+    }
+    p.appendChild(document.createTextNode(en?' - and you will get a direct download button.':' - ותקבלו כפתור להורדה ישירה למחשב.'));
+    el('div','font-size:.85rem;color:'+C.muted+';margin-top:14px;',en?'So you don\'t forget, send yourself the site address:':'כדי לא לשכוח, שלחו לעצמכם את כתובת האתר:',main);
+    el('div','direction:ltr;text-align:center;font-size:.95rem;background:'+C.bg+';border:1px dashed '+C.line+';border-radius:9px;padding:10px;margin:10px 0 14px;word-break:break-all;user-select:all;',site,main);
+    var copyLabel=en?'Copy site address':'העתקת כתובת האתר';
+    btn('copy',copyLabel,C.accent,function(b,sp){
+      function done(){b.style.background='#1a7f37';sp.textContent=en?'✓ Copied':'✓ הכתובת הועתקה';setTimeout(function(){b.style.background=C.accent;sp.textContent=copyLabel;},3000);}
+      function fallback(){var ta=document.createElement('textarea');ta.value=site;ta.setAttribute('readonly','');ta.style.cssText='position:fixed;opacity:0;';document.body.appendChild(ta);ta.select();ta.setSelectionRange(0,site.length);var ok=false;try{ok=document.execCommand('copy');}catch(e){}document.body.removeChild(ta);if(ok)done();}
+      if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(site).then(done,fallback);else fallback();
+    });
+    btn('wa',en?'Send to myself on WhatsApp':'שליחה לעצמי בוואטסאפ','#1f8f4e',function(){
+      var waUrl='https://wa.me/?text='+encodeURIComponent(msg);
+      // באפליקציה המותקנת: wa.me נפתח בוואטסאפ שמוגדר כברירת מחדל (אצל חלק - ביזנס),
+      // ולכן פותחים את תפריט השיתוף, ושם בוחרים את וואטסאפ הרגיל.
+      if(window.Android&&window.Android.shareApp){window.Android.shareApp(msg);return;}
+      if(/Android/i.test(ua)){
+        // דפדפן באנדרואיד: לפתוח את וואטסאפ הרגיל (ולא ביזנס); אם לא מותקן - wa.me
+        window.location.href='intent://send?text='+encodeURIComponent(msg)+'#Intent;scheme=whatsapp;package=com.whatsapp;S.browser_fallback_url='+encodeURIComponent(waUrl)+';end';
+      }else{window.open(waUrl,'_blank');}
+    });
+    btn('mail',en?'Send to my email':'שליחה למייל שלי','#6b4fa3',function(){
+      // באפליקציה המותקנת (WebView) קישור mailto עלול לא להיפתח - שם פותחים את תפריט השיתוף (כולל Gmail)
+      if(window.Android&&window.Android.shareApp){window.Android.shareApp(msg);return;}
+      window.location.href='mailto:?subject='+encodeURIComponent(en?'AskMosh - open on a computer':'AskMosh - להיכנס מהמחשב')+'&body='+encodeURIComponent(msg);
+    });
+    // באפליקציה המותקנת כפתורי הוואטסאפ והמייל כבר פותחים את תפריט השיתוף - אין צורך בכפתור נוסף
+    if(!window.Android&&navigator.share){
+      btn('share',en?'Share another way':'שיתוף בדרך אחרת','#4a5568',function(){
+        navigator.share({title:'AskMosh',text:msg}).catch(function(){});
+      });
+    }
+    main.appendChild(acts);
+  }
+  w.appendChild(wrap);w.scrollTop=w.scrollHeight;
+}
+// מקרב: תיבת הצעה שמופיעה אחרי תשובה שהמנוע סימן שלא כיסתה את השאלה
+// במדויק - מקבילה בדיוק ל-addReferralSuggestion באתר מקרב עצמו
+// (public/index.html), כולל ההבחנה בין שאלת הלכה לשאלה כללית: אם השרת
+// סימן שזו שאלת הלכה (isHalacha) וקיים מספר קו הלכה מוגדר
+// (cachedHalachaPhone) - הכפתור פונה לקו ההלכה הייעודי; אחרת (שאלה
+// כללית, או שאין קו הלכה מוגדר) - פונה למספר הכללי של משה
+// (cachedMoshePhone), בדיוק כמו שהיה קודם.
+function addReferralSuggestion(question,isHalacha){
+  var useHalacha=Boolean(isHalacha&&cachedHalachaPhone);
+  var w=document.getElementById('chat-msgs');
+  var div=document.createElement('div');div.className='referral-suggestion';
+  var p=document.createElement('div');
+  if(useHalacha){
+    p.textContent=currentLang==='en'?'This question deserves a precise halachic answer for your specific situation.':'זו שאלה שמגיעה לה מענה הלכתי מדויק למקרה הספציפי שלך.';
+  }else{
+    p.textContent=currentLang==='en'?"I couldn't find a precise answer to this in the sources I have.":'לא מצאתי לזה תשובה מדויקת מהמקורות שיש לי.';
+  }
+  div.appendChild(p);
+  var actions=document.createElement('div');actions.className='referral-actions';
+  var waBtn=document.createElement('button');waBtn.type='button';waBtn.className='referral-btn';
+  if(useHalacha){
+    waBtn.textContent=currentLang==='en'?'📞 Contact the halacha line on WhatsApp':'📞 פנה לקו ההלכה בוואטסאפ';
+    waBtn.onclick=function(){window.open('https://wa.me/'+cachedHalachaPhone+'?text='+encodeURIComponent(question),'_blank');};
+  }else{
+    waBtn.textContent=currentLang==='en'?'💬 Send to Moshe on WhatsApp':'💬 שלח למשה בוואטסאפ';
+    waBtn.onclick=function(){
+      var phone=cachedMoshePhone||'972584094045';
+      window.open('https://wa.me/'+phone+'?text='+encodeURIComponent(question),'_blank');
+    };
+  }
+  actions.appendChild(waBtn);
+  var followupBtn=document.createElement('button');followupBtn.type='button';followupBtn.className='referral-btn followup';
+  var followupIdleText=currentLang==='en'?'🔔 We will notify you when we have an answer':'🔔 נשלח לך מענה בהתראה כשיש לנו תשובה';
+  followupBtn.textContent=followupIdleText;
+  followupBtn.onclick=function(){
+    followupBtn.disabled=true;
+    followupBtn.textContent=currentLang==='en'?'Please wait…':'רגע…';
+    fetch(MEKAREV_API+'/api/followup/request',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getMekarevUserId(),question:question})}).then(function(r){if(!r.ok)throw new Error('http '+r.status);return r.json();}).then(function(){
+      followupBtn.textContent=currentLang==='en'?'✓ Got it - we will notify you':'✓ קיבלנו - נשלח לך התראה כשיש לנו תשובה';
+    }).catch(function(){
+      followupBtn.disabled=false;followupBtn.textContent=followupIdleText;
+    });
+  };
+  actions.appendChild(followupBtn);
+  div.appendChild(actions);
+  w.appendChild(div);w.scrollTop=w.scrollHeight;
+}
+// מקרב: מציג אחרי תשובת הבוט עד שני כפתורי "סרטון מומלץ" - מקביל בדיוק
+// ל-addVideoSuggestions באתר/אפליקציית מקרב עצמה (public/index.html),
+// רק שכאן, בהתאם לעיצוב הקיים של האפליקציה הזו, לא מטמיעים את הנגן
+// ישירות בתוך הצ'אט אלא משתמשים בפופאפ הווידאו הקיים (openVideo, אותו
+// אחד שמשמש את "ספריית שיעורים") - לחיצה על הכפתור פותחת אותו במסך מלא.
+function addVideoSuggestions(videos){
+  var w=document.getElementById('chat-msgs');
+  videos.forEach(function(v){
+    if(!v||!v.youtubeId)return;
+    var div=document.createElement('div');div.className='referral-suggestion';
+    var p=document.createElement('div');
+    p.textContent=currentLang==='en'?'This might help too - a short explanation video:':'זה עשוי לעזור גם - סרטון הסבר קצר:';
+    div.appendChild(p);
+    // כרטיס עם תמונה ממוזערת אמיתית מיוטיוב (בדיוק כמו כרטיסי "ספריית
+    // שיעורים" הקיימים, lesson-card) - לפי בקשת יצחק, כדי שזה ייראה
+    // כמו שיתוף סרטון רגיל מיוטיוב ולא רק כפתור טקסט.
+    var card=document.createElement('div');card.className='chat-video-card';
+    card.onclick=function(){openVideo(v.youtubeId,v.title);};
+    var thumb=document.createElement('div');thumb.className='chat-video-thumb';
+    var img=document.createElement('img');
+    img.src='https://img.youtube.com/vi/'+v.youtubeId+'/hqdefault.jpg';
+    img.alt='';
+    thumb.appendChild(img);
+    var play=document.createElement('div');play.className='chat-video-play';
+    play.innerHTML='<div class="chat-video-play-btn"><svg viewBox="0 0 24 24" fill="#0f0f0f"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>';
+    thumb.appendChild(play);
+    card.appendChild(thumb);
+    var titleEl=document.createElement('div');titleEl.className='chat-video-title';
+    titleEl.textContent=v.title||(currentLang==='en'?'Watch video':'צפייה בסרטון');
+    card.appendChild(titleEl);
+    div.appendChild(card);
+    w.appendChild(div);
+  });
+  w.scrollTop=w.scrollHeight;
+}
+// מקרב: כרטיס דירוג שיחה - מקביל בדיוק ל-addRatingPrompt באתר/
+// אפליקציית מקרב עצמה (public/index.html). בחירה מרובה (אפשר לסמן כמה
+// תגיות יחד), ולחיצה על "שלח" שולחת אותן ומחליפה את הכרטיס בהודעת
+// תודה קצרה כדי שלא אפשר יהיה לשלוח שוב.
+var RATING_CHIPS=[
+  {value:'נחמד',he:'נחמד',en:'Nice',negative:false},
+  {value:'מעניין',he:'מעניין',en:'Interesting',negative:false},
+  {value:'מועיל',he:'מועיל',en:'Helpful',negative:false},
+  {value:'מחכים',he:'מחכים',en:'Insightful',negative:false},
+  {value:'לא_רלוונטי',he:'לא רלוונטי',en:'Not relevant',negative:true},
+  {value:'לא_ברור',he:'לא ברור',en:'Unclear',negative:true},
+  {value:'משעמם',he:'משעמם',en:'Boring',negative:true}
+];
+function submitConversationRating(tags){
+  return fetch(MEKAREV_API+'/api/chat/rating',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getMekarevUserId(),tags:tags})}).catch(function(){});
+}
+function addRatingPrompt(){
+  var w=document.getElementById('chat-msgs');
+  var div=document.createElement('div');div.className='rating-prompt';
+  var title=document.createElement('div');title.className='rating-prompt-title';
+  title.textContent=currentLang==='en'?'How was this conversation?':'איך הייתה השיחה?';
+  div.appendChild(title);
+  var chipsWrap=document.createElement('div');chipsWrap.className='rating-chips';
+  var selected={};
+  RATING_CHIPS.forEach(function(c){
+    var chip=document.createElement('button');chip.type='button';
+    chip.className='rating-chip'+(c.negative?' negative':'');
+    chip.textContent=currentLang==='en'?c.en:c.he;
+    chip.onclick=function(){
+      if(selected[c.value]){delete selected[c.value];chip.classList.remove('selected');}
+      else{selected[c.value]=true;chip.classList.add('selected');}
+      submitBtn.disabled=Object.keys(selected).length===0;
+    };
+    chipsWrap.appendChild(chip);
+  });
+  div.appendChild(chipsWrap);
+  var submitBtn=document.createElement('button');submitBtn.type='button';submitBtn.className='rating-submit-btn';
+  submitBtn.textContent=currentLang==='en'?'Send':'שלח';
+  submitBtn.disabled=true;
+  submitBtn.onclick=function(){
+    submitBtn.disabled=true;
+    submitBtn.textContent=currentLang==='en'?'Sending…':'שולח…';
+    submitConversationRating(Object.keys(selected)).then(function(){
+      chipsWrap.remove();submitBtn.remove();
+      title.textContent=currentLang==='en'?'Thanks! 🙏':'תודה! 🙏';
+    });
+  };
+  div.appendChild(submitBtn);
+  w.appendChild(div);w.scrollTop=w.scrollHeight;
+}
+// מקרב (יצחק: "אני רוצה שהבוט יקבל אישור להתראות דרך הטלפון... אנחנו
+// לא נשגע אותו, רק במקרים בודדים שזה חשוב בשבילו") - כרטיס בקשת הרשאה
+// להתראות, מקביל בעיצוב לכרטיסי addReferralSuggestion/addRatingPrompt
+// למעלה. מוצג רק כשהשרת מחזיר offerPush (ראה shouldOfferPush ב-
+// server.js) - כלומר רק ברגעים קונקרטיים ששווה להציע, לא בכל תשובה.
+var PUSH_OFFER_TEXTS={
+  video:{he:'רוצה שנעדכן אותך בהתראה כשיש לנו בשבילך משהו חשוב - סרטון מעניין, הודעה אישית או תשובה לשאלה שלך?',en:'Want us to notify you when we have something important for you - an interesting video, a personal message or an answer to your question?'},
+  question:{he:'השאלה הזו דורשת קצת בירור - רוצה שנעדכן אותך בהתראה ברגע שיש לנו תשובה?',en:'This question needs a bit more digging - want us to notify you the moment we have an answer?'},
+  callback:{he:'ביקשת שנחזור אליך - רוצה שנעדכן אותך בהתראה כשזה קורה?',en:'You asked for a call back - want us to notify you when that happens?'},
+  offer:{he:'רוצה שנעדכן אותך בהתראה כדי שלא נשכח מזה יחד?',en:'Want us to send you a gentle reminder about this?'}
+};
+// מקרב (CHAVRUTA_FORM_V1): התלמיד הסכים לחברותא -> כפתור שפותח חלונית הרשמה (שם ממולא מראש, טלפון, מייל, עיר).
+// השליחה נכנסת לרשימת המעוניינים בחברותא בשרת של מקרב, ומשם ל-CRM.
+/* SAVE_CHAT_V1 - כפתור גדול "שמור את השיחה" בסוף השיחה (השרת מסמן saveChat): שולח את כל השיחה לתפריט השיתוף */
+function shareChat(){
+  var en=currentLang==='en';var parts=[];
+  var rows=document.querySelectorAll('#chat-msgs .msg-row');
+  for(var i=0;i<rows.length;i++){var b=rows[i].querySelector('.msg-bubble');if(!b)continue;var t=(b.innerText||b.textContent||'').trim();if(!t)continue;parts.push((rows[i].classList.contains('user')?(en?'Me: ':'אני: '):(en?'Moshe: ':'משה: '))+t);}
+  var msg=(en?'My conversation with Moshe (AskMosh)':'השיחה שלי עם משה (AskMosh)')+'\n\n'+parts.join('\n\n')+'\n\n'+(en?'The app: ':'האפליקציה: ')+'https://askmosh.com/getapp';
+  if(window.Android&&window.Android.shareApp){window.Android.shareApp(msg);}
+  else if(navigator.share){navigator.share({title:'AskMosh',text:msg}).catch(function(){});}
+  else{window.open('https://wa.me/?text='+encodeURIComponent(msg.slice(-6000)),'_blank');} /* shortcut: קישור וואטסאפ מוגבל באורך, שולחים את סוף השיחה; לשדרג אם יתלוננו */
+}
+function addSaveChatBtn(){
+  var w=document.getElementById('chat-msgs');var old=document.getElementById('save-chat-btn');if(old)old.remove();
+  var b=document.createElement('button');b.id='save-chat-btn';b.type='button';b.textContent=currentLang==='en'?'📤 Save this conversation':'📤 שמור את השיחה';
+  b.style.cssText='display:block;width:92%;max-width:420px;margin:10px auto;padding:16px;border:none;border-radius:14px;background:var(--gold);color:#0f0f0f;font:700 1.1rem var(--font);cursor:pointer;';
+  b.onclick=shareChat;w.appendChild(b);w.scrollTop=w.scrollHeight;document.getElementById('screen-chat').scrollTop=99999;
+}
+function addChavrutaSignupCard(d){
+  var en=currentLang==='en';
+  var w=document.getElementById('chat-msgs');
+  var div=document.createElement('div');div.className='referral-suggestion';
+  var p=document.createElement('div');
+  p.textContent=en?'Want to sign up for a free personal chavruta? It takes half a minute.':'רוצה להירשם לחברותא אישית, בחינם? זה לוקח חצי דקה.';
+  div.appendChild(p);
+  var actions=document.createElement('div');actions.className='referral-actions';
+  var openBtn=document.createElement('button');openBtn.type='button';openBtn.className='referral-btn followup';
+  openBtn.textContent=en?'📝 Sign up for a chavruta':'📝 הרשמה לחברותא';
+  openBtn.onclick=function(){openChavrutaSignup(d,function(){p.textContent=en?"Thank you! You're signed up - we'll contact you soon 🙏":'תודה! נרשמת לחברותא, ניצור איתך קשר בהקדם 🙏';actions.remove();});};
+  /* CHAVRUTA_WA_V1 - לחיצה אחת במקום הקלדת מספר: נפתח וואטסאפ אל משה עם הודעה מוכנה */
+  var waBtn=document.createElement('button');waBtn.type='button';waBtn.className='referral-btn';
+  waBtn.textContent=en?'💬 Talk to me on WhatsApp':'💬 דברו איתי בוואטסאפ';
+  waBtn.onclick=function(){
+    var nm=String(d.name||(typeof userName!=='undefined'?userName:'')||'').trim();
+    var msg=en?('Hello'+(nm?', this is '+nm:'')+' from the AskMosh app. I would like a personal chavruta.'):('שלום'+(nm?', אני '+nm:'')+' מהאפליקציה AskMosh. אשמח לחברותא אישית.');
+    window.open('https://wa.me/'+(cachedMoshePhone||'972584094045')+'?text='+encodeURIComponent(msg),'_blank');
+  };
+  if(d&&d.wa)actions.appendChild(waBtn); /* רק כשחסר טלפון (השרת מסמן wa); בהצעה הראשונה - רק הטופס, שנרשם ב-CRM */
+  actions.appendChild(openBtn);div.appendChild(actions);
+  w.appendChild(div);w.scrollTop=w.scrollHeight;
+}
+function openChavrutaSignup(d,onDone){
+  var en=currentLang==='en';
+  var ov=document.createElement('div');
+  ov.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px;';
+  var box=document.createElement('form');box.dir=en?'ltr':'rtl';box.noValidate=true;
+  box.style.cssText='background:var(--card);color:var(--txt);border:1px solid var(--border2);border-radius:16px;padding:20px 18px;width:100%;max-width:400px;max-height:90vh;overflow-y:auto;font-family:var(--font);';
+  var h=document.createElement('div');h.style.cssText='font-size:1.2rem;font-weight:700;margin-bottom:4px;color:var(--gold);';
+  h.textContent=en?'Sign up for a chavruta':'הרשמה לחברותא';box.appendChild(h);
+  var sub=document.createElement('div');sub.style.cssText='font-size:.88rem;color:var(--muted);margin-bottom:14px;';
+  sub.textContent=en?'Free, at a time that suits you, also by phone.':'בחינם לגמרי, בזמן שנוח לך, גם בטלפון.';box.appendChild(sub);
+  function field(label,type,val,ac,req){
+    var l=document.createElement('label');l.style.cssText='display:block;font-size:.9rem;margin-bottom:10px;';
+    l.textContent=label+(req?' *':'');
+    var i=document.createElement('input');i.type=type;i.value=val||'';i.autocomplete=ac;if(req)i.required=true;
+    i.style.cssText='display:block;width:100%;box-sizing:border-box;margin-top:4px;padding:11px 12px;font-size:1rem;border-radius:10px;border:1px solid var(--border2);background:var(--card2);color:var(--txt);font-family:inherit;';
+    l.appendChild(i);box.appendChild(l);return i;
+  }
+  var fName=field(en?'Name':'שם','text',d.name||(typeof userName!=='undefined'?userName:''),'name',false);
+  var fPhone=field(en?'Phone':'טלפון','tel',d.phone,'tel',true);fPhone.inputMode='tel';fPhone.dir='ltr';
+  var fEmail=field(en?'Email':'מייל','email',d.email,'email',false);fEmail.dir='ltr';
+  var fCity=field(en?'City':'עיר','text',d.city,'address-level2',false);
+  var err=document.createElement('div');err.setAttribute('role','alert');err.style.cssText='color:#e05a4f;font-size:.88rem;min-height:1.2em;margin-bottom:8px;';box.appendChild(err);
+  var row=document.createElement('div');row.style.cssText='display:flex;gap:10px;';
+  var send=document.createElement('button');send.type='submit';send.className='referral-btn followup';send.style.flex='1';send.textContent=en?'Send':'שליחה';
+  var cancel=document.createElement('button');cancel.type='button';cancel.className='referral-btn';cancel.style.background='rgba(120,120,120,0.35)';cancel.textContent=en?'Cancel':'ביטול';
+  row.appendChild(send);row.appendChild(cancel);box.appendChild(row);
+  function close(){ov.remove();document.removeEventListener('keydown',onKey);}
+  function onKey(e){if(e.key==='Escape')close();}
+  cancel.onclick=close;ov.onclick=function(e){if(e.target===ov)close();};document.addEventListener('keydown',onKey);
+  box.onsubmit=function(e){
+    e.preventDefault();
+    var digits=fPhone.value.replace(/\D/g,'');
+    if(digits.length<9||digits.length>13){err.textContent=en?'Please enter a valid phone number':'נא לכתוב מספר טלפון תקין';fPhone.focus();return;}
+    if(fEmail.value.trim()&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fEmail.value.trim())){err.textContent=en?'Please check the email address':'נא לבדוק את כתובת המייל';fEmail.focus();return;}
+    send.disabled=true;send.textContent=en?'Sending…':'שולח…';err.textContent='';
+    fetch(MEKAREV_API+'/api/chavruta/signup',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getMekarevUserId(),name:fName.value,phone:fPhone.value,email:fEmail.value,city:fCity.value})})
+      .then(function(r){return r.json().then(function(j){return {ok:r.ok,j:j};});})
+      .then(function(x){if(!x.ok){var er=new Error('');er.srv=x.j&&x.j.error;throw er;}close();onDone();})
+      .catch(function(e2){send.disabled=false;send.textContent=en?'Send':'שליחה';err.textContent=(e2&&e2.srv)||(en?'Could not send, please try again':'לא הצלחנו לשלוח, נסה שוב');});
+  };
+  ov.appendChild(box);document.body.appendChild(ov);
+  (fPhone.value?fName:fPhone).focus();
+}
+function addPushOfferPrompt(reason){
+  var nativePush=window.mgHasNativePush&&window.mgHasNativePush();
+  if(!nativePush){
+    if(!('serviceWorker' in navigator)||!('PushManager' in window))return;
+    if(typeof Notification!=='undefined'&&Notification.permission==='denied')return;
+  }
+  var w=document.getElementById('chat-msgs');
+  var div=document.createElement('div');div.className='referral-suggestion';
+  var texts=PUSH_OFFER_TEXTS[reason]||PUSH_OFFER_TEXTS.question;
+  var p=document.createElement('div');
+  p.textContent=(currentLang==='en'?texts.en:texts.he)+' '+(currentLang==='en'?"(we're not here to bother you - we'll only send something when it's really important)":'(אנחנו לא כאן כדי להטריד אותך - נשלח רק כשיש משהו באמת חשוב בשבילך)');
+  div.appendChild(p);
+  var actions=document.createElement('div');actions.className='referral-actions';
+  var yesBtn=document.createElement('button');yesBtn.type='button';yesBtn.className='referral-btn followup';
+  yesBtn.textContent=currentLang==='en'?'🔔 Yes, please':'🔔 כן, אשמח';
+  var noBtn=document.createElement('button');noBtn.type='button';noBtn.className='referral-btn';noBtn.style.background='rgba(120,120,120,0.35)';
+  noBtn.textContent=currentLang==='en'?'No thanks':'לא תודה';
+  yesBtn.onclick=function(){
+    yesBtn.disabled=true;noBtn.disabled=true;
+    yesBtn.textContent=currentLang==='en'?'One moment…':'רגע…';
+    (nativePush?window.mgRequestNativePush():subscribeMekarevPush()).then(function(ok){
+      if(ok){
+        p.textContent=currentLang==='en'?"Great - we'll update you when there's something important 🙂":'מעולה - נעדכן אותך כשיש משהו חשוב 🙂';
+      }else{
+        p.textContent=currentLang==='en'?"Couldn't turn on notifications on this device/browser right now.":'לא הצלחנו להפעיל התראות במכשיר/דפדפן הזה כרגע.';
+      }
+      actions.remove();
+    });
+  };
+  noBtn.onclick=function(){
+    noBtn.disabled=true;yesBtn.disabled=true;
+    fetch(MEKAREV_API+'/api/push/decline',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getMekarevUserId()})}).catch(function(){});
+    p.textContent=currentLang==='en'?'No problem - you can always turn this on later.':'אין בעיה - תמיד אפשר להפעיל את זה מאוחר יותר.';
+    actions.remove();
+  };
+  actions.appendChild(yesBtn);actions.appendChild(noBtn);
+  div.appendChild(actions);
+  w.appendChild(div);w.scrollTop=w.scrollHeight;
+}
+// ראה enableAdminPush בעמוד הניהול של מקרב - אותה זרימה בדיוק (בקשת
+// הרשאה -> רישום Service Worker -> יצירת מנוי Push -> שמירתו בשרת),
+// רק שכאן זה למול /api/push/subscribe (לא /api/admin-push/subscribe)
+// ועם /sw.js של mosheginzy.com עצמו (לא של שרת מקרב).
+function urlBase64ToUint8Array(base64String){
+  var padding='='.repeat((4-base64String.length%4)%4);
+  var base64=(base64String+padding).replace(/-/g,'+').replace(/_/g,'/');
+  var rawData=atob(base64);
+  var outputArray=new Uint8Array(rawData.length);
+  for(var i=0;i<rawData.length;i++){outputArray[i]=rawData.charCodeAt(i);}
+  return outputArray;
+}
+function subscribeMekarevPush(){
+  return new Promise(function(resolve){
+    (async function(){
+      try{
+        if(!cachedVapidPublicKey){
+          var cfgRes=await fetch(MEKAREV_API+'/api/config');
+          var cfg=await cfgRes.json();
+          cachedVapidPublicKey=cfg.vapidPublicKey||'';
+        }
+        if(!cachedVapidPublicKey)return resolve(false);
+        var reg=await navigator.serviceWorker.register('/sw.js');
+        await navigator.serviceWorker.ready;
+        var sub=await reg.pushManager.getSubscription();
+        if(!sub){
+          var permission=await Notification.requestPermission();
+          if(permission!=='granted')return resolve(false);
+          sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:urlBase64ToUint8Array(cachedVapidPublicKey)});
+        }
+        var res=await fetch(MEKAREV_API+'/api/push/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getMekarevUserId(),subscription:sub.toJSON()})});
+        resolve(Boolean(res&&res.ok));
+      }catch(e){
+        resolve(false);
+      }
+    })();
+  });
+}
+function speakText(txt){if(isMuted())return;if(currentAudio){try{currentAudio.stop();}catch(e){}currentAudio=null;}var sentences=txt.match(/[^.!?؟]+[.!?؟]+/g)||[txt];var shortTxt=sentences[0].trim();if(!shortTxt||shortTxt.length<5)shortTxt=txt.substring(0,120);if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();fetch(MEKAREV_API+'/api/speak',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:shortTxt,lang:currentLang==='en'?'en':'he'})}).then(function(r){if(!r.ok)throw new Error('speak status '+r.status);return r.arrayBuffer();}).then(function(buf){return audioCtx.decodeAudioData(buf);}).then(function(decoded){var src=audioCtx.createBufferSource();src.buffer=decoded;src.connect(audioCtx.destination);src.start(0);currentAudio=src;}).catch(function(e){console.warn('speakText error:',e);});}
+
+// MIC
+(function(){
+  var micBtn=document.getElementById('mic-btn');
+  if(!micBtn) return;
+
+  // iOS native app — use Swift mic handler
+  var isIOSNative=window.webkit&&window.webkit.messageHandlers&&window.webkit.messageHandlers.iosMic;
+  if(isIOSNative){
+    var iosListening=false;
+    window.iosMicStarted=function(){iosListening=true;micBtn.classList.add('listening');};
+    window.iosMicResult=function(text){var inp=document.getElementById('chat-input');inp.value=text;inp.style.height='auto';inp.style.height=Math.min(inp.scrollHeight,120)+'px';};
+    window.iosMicStopped=function(){iosListening=false;micBtn.classList.remove('listening');var inp=document.getElementById('chat-input');var v=inp.value.trim();if(v){setTimeout(function(){sendMsg();},300);}};
+    window.iosMicError=function(err){iosListening=false;micBtn.classList.remove('listening');if(err==='not-allowed'){alert(currentLang==='en'?'Please allow microphone and speech recognition in Settings.':'אנא אפשר גישה למיקרופון וזיהוי דיבור בהגדרות.');}};
+    window.stopMic=function(){if(iosListening){window.webkit.messageHandlers.iosMic.postMessage('stop');}};
+    micBtn.addEventListener('click',function(e){e.preventDefault();if(iosListening){window.webkit.messageHandlers.iosMic.postMessage('stop');}else{window.webkit.messageHandlers.iosMic.postMessage('start:'+currentLang);}});
+    return;
+  }
+
+  // Android / desktop — Web Speech API (unchanged)
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){micBtn.style.display='none';return;}
+  var listening=false;var rec=null;
+  window.stopMic=function stopMic(){
+    listening=false;micBtn.classList.remove('listening');
+    if(rec){try{rec.abort();}catch(e){}}rec=null;
+  }
+  micBtn.addEventListener('click',function(e){
+    e.preventDefault();
+    if(listening){stopMic();return;}
+    try{
+      rec=new SR();rec.lang=currentLang==='en'?'en-US':'he-IL';
+      rec.continuous=false;rec.interimResults=true;rec.maxAlternatives=1;
+      listening=true;micBtn.classList.add('listening');
+      var inp=document.getElementById('chat-input');var finalTxt='';inp.value='';
+      // Auto stop after 8 seconds
+      var autoStop=setTimeout(function(){if(listening)stopMic();},8000);
+      rec.onresult=function(e){
+        clearTimeout(autoStop);
+        var ft='';var it='';
+        for(var i=e.resultIndex;i<e.results.length;i++){
+          if(e.results[i].isFinal)ft+=e.results[i][0].transcript;
+          else it+=e.results[i][0].transcript;
+        }
+   if(ft){inp.value=ft;finalTxt=ft;inp.style.height='auto';inp.style.height=Math.min(inp.scrollHeight,120)+'px';stopMic();}
+        else if(it){inp.value=it;inp.style.height='auto';inp.style.height=Math.min(inp.scrollHeight,120)+'px';}
+      };
+      rec.onend=function(){
+        listening=false;micBtn.classList.remove('listening');rec=null;
+        var v=(finalTxt||document.getElementById('chat-input').value).trim();
+        if(v){setTimeout(function(){sendMsg();},2000);}
+      };
+      rec.onerror=function(e){
+        console.warn('mic:',e.error);stopMic();
+     if(e.error==='not-allowed'&&!window.micAlerted){window.micAlerted=true;alert(currentLang==='en'?'Please allow microphone access in your phone Settings > Apps > Moshe Ginzy > Permissions':'אנא אפשר גישה למיקרופון בהגדרות הטלפון > אפליקציות > משה גינזי > הרשאות');}
+      };
+      rec.start();
+    }catch(e){stopMic();}
+  });
+})();
+function submitForm(){
+  var name=document.getElementById('f-name').value.trim();
+  var phone=document.getElementById('f-phone').value.trim();
+  if(!name||!phone){alert(currentLang==='en'?'Please fill in name and phone.':'נא למלא שם וטלפון');return;}
+  var SHEET='https://script.google.com/macros/s/AKfycbwL7Ezboysip0pPmZJsR_jVbvPJrLCmP8r6PqdRDoSMHNywuqO_Io6HaZyqy6Ot7AQn/exec';
+  var data={name:name,phone:phone,email:document.getElementById('f-email').value,city:document.getElementById('f-city').value};
+fetch('https://formspree.io/f/xnjwdeyd',{method:'POST',body:JSON.stringify(data),headers:{'Content-Type':'application/json','Accept':'application/json'}});try{var fd=new URLSearchParams();fd.append('name',data.name+' (APP)');fd.append('phone',data.phone);fd.append('email',data.email||'');fd.append('city',data.city||'');fd.append('src','app');fetch('https://fac4fac.com/web_lead.php',{method:'POST',body:fd,mode:'no-cors'});}catch(e){}  document.getElementById('f-name').value='';document.getElementById('f-phone').value='';document.getElementById('f-email').value='';document.getElementById('f-city').value='';
+  goScreen('thanks');
+}
+
+
+// LESSONS DATA
+var lessonsHE = [
+  {id:'EJRl9a95Zc0', tag:'פרשת השבוע', title:'הבגדים של עשיו', type:'yt'},
+  {id:'62t1C2qZOJk', tag:'אמונה', title:'מי מנהל את האירוע?', type:'yt'},
+  {id:'tti5WUy7kDo', tag:'הצלחה', title:'כסף והצלחה', type:'yt'},
+  {id:'zvTXEa1CkZc', tag:'משמעות', title:'משמעות החיים', type:'yt'},
+  {id:'qNqf6BgdSDs', tag:'משפחה', title:'הילדים שלנו', type:'yt'},
+  {id:'eYJzCv7qyPU', tag:'פלא', title:'מתמטיקה של הפלא', type:'yt'}
+];
+var lessonsEN = [
+  {id:'0Rrh-PypAz0', tag:'Awareness', title:'Where Are My Keys? 🗝️', type:'yt'},
+  {id:'1rw0zKfs7pI', tag:'Soul', title:'A Quiet Journey to the Heart 💛', type:'yt'},
+  {id:'IPUsEfwXloY', tag:'Shabbat', title:'When Was the Last Time You Were in Flight Mode? 🚫', type:'yt'},
+  {id:'IFEQKl-9msA', tag:'Faith', title:'The Unexpected Festival Guests 🎪', type:'yt'},
+  {id:'bQcYiz6o92Y', tag:'Wisdom', title:"The Old Man's Secret 👴", type:'yt'},
+  {id:'ous_1zjURhg', tag:'Life', title:'Travelling Soon? ✈️', type:'yt'}
+];
+
+var BASE_URL = '';
+
+/* Full video library from the dashboard sheet (same source as the website's videos page).
+   The 6 built-in videos above stay as a fallback if the sheet can't be reached. */
+var LIB_URL='https://script.google.com/macros/s/AKfycbx1IJHkaBhhmqmPIvyPEY8Xr_-OYRZf3KNrRRezqeDUgkJP3IkTLPGUt_y1Hx811avx/exec?action=getVideos';
+var libVideos=null;
+function libEsc(t){return String(t||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function libTitle(t){return String(t||'').replace(/\s*[-–|]?\s*(https?:\/\/)?(askmosh|mosheginzy)\.com\/getapp\S*/gi,'').replace(/\.mp4$/i,'').replace(/\s+/g,' ').trim();}
+function loadLibrary(){
+  try{fetch(LIB_URL).then(function(r){return r.json();}).then(function(d){
+    if(!d||!Array.isArray(d.videos))return;
+    var seen={},out={he:[],en:[]};
+    d.videos.slice().reverse().forEach(function(v){
+      var id=String(v.youtubeId||'').trim();
+      if(v.active!=='yes'||!/^[\w-]{11}$/.test(id))return;
+      var lg=v.language==='en'?'en':'he';
+      var tt=libTitle(v.title),tk=lg+'|'+tt.toLowerCase().replace(/[^a-z0-9\u0590-\u05ff]/g,'');
+      if(seen[lg+id]||(tt&&seen[tk]))return;seen[lg+id]=1;if(tt)seen[tk]=1;
+      out[lg].push({id:id,tag:libEsc(v.tag),title:libEsc(tt),type:'yt'});
+    });
+    if(out.he.length||out.en.length){libVideos=out;renderLessons();}
+  }).catch(function(){});}catch(e){}
+}
+loadLibrary();
+
+function renderLessons(){
+  var grid = document.getElementById('lessons-grid');
+  if(!grid) return;
+  var lessons = currentLang === 'en' ? lessonsEN : lessonsHE;
+  var lib = libVideos && libVideos[currentLang==='en'?'en':'he'];
+  if(lib && lib.length){
+    var have={};lib.forEach(function(x){have[x.id]=1;});
+    lessons = lib.concat(lessons.filter(function(x){return !have[x.id];}));
+  }
+  grid.innerHTML = '';
+  lessons.forEach(function(l){
+    var thumb = l.type === 'yt'
+      ? 'https://img.youtube.com/vi/'+l.id+'/hqdefault.jpg'
+      : BASE_URL + (l.thumb || l.id.replace('.mp4','.jpg'));
+    var card = document.createElement('div');
+    card.className = 'lesson-card';
+    if(l.type==='yt') card.setAttribute('data-yt', l.id);
+    card.onclick = function(){ l.type==='yt' ? openVideo(l.id,l.title) : openMP4(BASE_URL+l.id); var vt=document.getElementById('vpop-title'); if(vt) vt.textContent=l.title||''; };
+    card.innerHTML = '<div class="lesson-thumb"><img loading="lazy" src="'+thumb+'" alt=""" onerror="this.style.background=\'#111\'"><div class="lesson-play"><div class="lesson-play-btn"><svg viewBox="0 0 24 24" fill="#0f0f0f"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div></div>'
+      + '<div class="lesson-meta"><div class="lesson-tag">'+l.tag+'</div><div class="lesson-title">'+l.title+'</div></div>';
+    grid.appendChild(card);
+  });
+}
+
+function openMP4(url){
+  document.getElementById('vpop-iframe').style.display='none';
+  var vid = document.getElementById('vpop-video');
+  if(!vid){
+    vid = document.createElement('video');
+    vid.id = 'vpop-video';
+    vid.controls = true;
+    vid.autoplay = true;
+    vid.playsinline = true;
+    vid.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;background:#000;';
+    document.querySelector('.vpop-frame').appendChild(vid);
+  }
+  vid.src = url;
+  vid.style.display = 'block';
+  document.getElementById('video-popup').classList.add('open');
+}
+
+// VIDEO
+function openVideo(id,title){
+  var vid=document.getElementById('vpop-video');if(vid){vid.pause();vid.src='';vid.style.display='none';}
+  document.getElementById('vpop-iframe').style.display='block';
+  document.getElementById('vpop-iframe').src='https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0&playsinline=1';
+  var titleEl=document.getElementById('vpop-title');if(titleEl)titleEl.textContent=title||'';
+  document.getElementById('video-popup').classList.add('open');
+  // Try fullscreen on mobile
+  var el=document.getElementById('video-popup');
+  if(el.requestFullscreen){el.requestFullscreen();}
+  else if(el.webkitRequestFullscreen){el.webkitRequestFullscreen();}
+}
+function closeVideo(){
+  var vid=document.getElementById('vpop-video');if(vid){vid.pause();vid.src='';}
+  document.getElementById('vpop-iframe').src='';
+  document.getElementById('video-popup').classList.remove('open');
+  if(document.exitFullscreen){try{document.exitFullscreen();}catch(e){}}
+  else if(document.webkitExitFullscreen){try{document.webkitExitFullscreen();}catch(e){}}
+}
+  // SWIPE BETWEEN SCREENS
+(function(){
+  var screens = ['home','chat','lessons','chavruta','about'];
+  var startX = 0, startY = 0, skip = false;
+  /* don't switch screens when the finger is on a sideways-scrolling row (Big Questions, lessons, etc.) */
+  function inHScroll(el){
+    for(; el && el !== document.body; el = el.parentElement){
+      if(el.scrollWidth > el.clientWidth + 2){
+        var ox = getComputedStyle(el).overflowX;
+        if(ox === 'auto' || ox === 'scroll') return true;
+      }
+    }
+    return false;
+  }
+  document.addEventListener('touchstart', function(e){
+    startX = e.touches[0].clientX; startY = e.touches[0].clientY;
+    skip = e.touches.length > 1 || inHScroll(e.target);
+  }, {passive:true});
+  document.addEventListener('touchend', function(e){
+    if(skip) return;
+    var diff = startX - e.changedTouches[0].clientX;
+    var dy = Math.abs(startY - e.changedTouches[0].clientY);
+    if(Math.abs(diff) < 60 || dy > Math.abs(diff)) return;
+    var current = screens.indexOf(document.querySelector('.screen.active').id.replace('screen-',''));
+    if(current === -1) return;
+    if(diff > 0 && current < screens.length-1) goScreen(screens[current+1]);
+    else if(diff < 0 && current > 0) goScreen(screens[current-1]);
+  }, {passive:true});
+})();
+
+</script>
+  <script src="moshe-notifications.js"></script>
+  <script>/* תיקון: חלון הסרטון מעל הכל */ (function(){var v=document.getElementById("video-popup"); if(v) document.body.appendChild(v);})();</script>
+<script>
+/* Google Analytics: ספירת פעולות באפליקציה. עוטף את הפונקציות הקיימות בלי לשנות אותן. */
+(function(){
+  /* כל אירוע נשלח ל-Google Analytics, וגם לאפליקציית האנדרואיד אם יש בה את הגשר window.Android.logEvent
+     (שם הוא נשלח ל-Firebase Analytics). באפליקציה ישנה בלי הגשר, רק Google Analytics. בלי טקסט של המשתמש. */
+  function t(name,params){
+    params=params||{};
+    try{var p={};for(var k in params)p[k]=params[k];p.app_platform=window.mgPlatform||'web';gtag('event',name,p);}catch(e){}
+    try{if(window.Android&&typeof window.Android.logEvent==='function')window.Android.logEvent(String(name),JSON.stringify(params));}catch(e){}
+    /* אפליקציית האייפון: רק שם האירוע, ל-Singular (בלי טקסט של המשתמש) */
+    try{if((name==='ask_question'||name==='answer_received')&&window.webkit&&window.webkit.messageHandlers&&window.webkit.messageHandlers.iosEvent)window.webkit.messageHandlers.iosEvent.postMessage(String(name));}catch(e){}
+  }
+  function wrap(fn,before){var orig=window[fn];if(typeof orig!=='function')return;window[fn]=function(){try{before.apply(this,arguments);}catch(e){}return orig.apply(this,arguments);};}
+  var qNum=0;try{qNum=parseInt(localStorage.getItem('mg-question-count')||'0',10)||0;}catch(e){}
+  var screenNames={home:'home',chat:'ask_moshe',lessons:'lessons',chavruta:'chavruta',about:'about',thanks:'chavruta_thanks'};
+  function screen(n){n=String(n);var s=screenNames[n]||n;t('app_screen',{screen_name:s});try{if(window.Android&&typeof window.Android.logEvent==='function')window.Android.logEvent('screen_view',JSON.stringify({screen_name:s,screen_class:'AskMosh'}));}catch(e){}}
+  wrap('goScreen',function(n){screen(n);});
+  wrap('sendMsg',function(){var i=document.getElementById('chat-input');if(i&&i.value&&i.value.trim()&&!window.isSending){qNum++;try{localStorage.setItem('mg-question-count',String(qNum));}catch(e){}t('ask_question',{question_number:qNum});}});
+  wrap('enhanceBotBubbleShareLink',function(){t('answer_received',{question_number:qNum});});
+  wrap('openVideo',function(id,title){t('video_play',{video_title:String(title||id||'')});});
+  wrap('openMP4',function(url){t('video_play',{video_title:String(url||'').split('/').pop()});});
+  wrap('submitForm',function(){var n=document.getElementById('f-name'),ph=document.getElementById('f-phone');if(n&&ph&&n.value.trim()&&ph.value.trim())t('generate_lead',{form:'chavruta'});});
+})();
+// מקרב: תוספות לצ'אט שנטענות מהשרת (CHAT_ADDONS_V1) - כך שינויי תצוגה בצ'אט נעשים מהשרת בלי לגעת בגיטהאב
+(function(){try{var s=document.createElement('script');s.src='https://hirabbi.com/chat-addons.js?t='+Math.floor(Date.now()/300000);s.async=true;document.head.appendChild(s);}catch(e){}})();
+</script>
+<script>/* Shabbat strip: times by city (Hebcal), city saved per user. Bilingual (he/en). */
+(function(){try{
+var C=[['ישראל',[['ירושלים',31.7683,35.2137,'Asia/Jerusalem',40],['תל אביב',32.0853,34.7818,'Asia/Jerusalem',20],['חיפה',32.7940,34.9896,'Asia/Jerusalem',30],['בני ברק',32.0807,34.8338,'Asia/Jerusalem',20],['פתח תקווה',32.0840,34.8878,'Asia/Jerusalem',20],['בית שמש',31.7470,34.9881,'Asia/Jerusalem',20],['אשדוד',31.8014,34.6435,'Asia/Jerusalem',20],['נתניה',32.3215,34.8532,'Asia/Jerusalem',20],['באר שבע',31.2518,34.7913,'Asia/Jerusalem',20]]],
+['צפון אמריקה',[['ניו יורק',40.7128,-74.0060,'America/New_York',18],['לייקווד',40.0821,-74.2097,'America/New_York',18],['מיאמי',25.7617,-80.1918,'America/New_York',18],['שיקגו',41.8781,-87.6298,'America/Chicago',18],['לוס אנג׳לס',34.0522,-118.2437,'America/Los_Angeles',18],['טורונטו',43.6532,-79.3832,'America/Toronto',18],['מונטריאול',45.5017,-73.5673,'America/Toronto',18],['מקסיקו סיטי',19.4326,-99.1332,'America/Mexico_City',18]]],
+['דרום אמריקה',[['בואנוס איירס',-34.6037,-58.3816,'America/Argentina/Buenos_Aires',18],['סנטיאגו',-33.4489,-70.6693,'America/Santiago',18],['סאו פאולו',-23.5505,-46.6333,'America/Sao_Paulo',18]]],
+['אירופה',[['לונדון',51.5074,-0.1278,'Europe/London',18],['פריז',48.8566,2.3522,'Europe/Paris',18],['אנטוורפן',51.2194,4.4025,'Europe/Brussels',18],['מוסקבה',55.7558,37.6173,'Europe/Moscow',18]]],
+['עוד',[['יוהנסבורג',-26.2041,28.0473,'Africa/Johannesburg',18],['סידני',-33.8688,151.2093,'Australia/Sydney',18],['מלבורן',-37.8136,144.9631,'Australia/Melbourne',18]]]];
+var EN={'ישראל':'Israel','צפון אמריקה':'North America','דרום אמריקה':'South America','אירופה':'Europe','עוד':'More',
+'ירושלים':'Jerusalem','תל אביב':'Tel Aviv','חיפה':'Haifa','בני ברק':'Bnei Brak','פתח תקווה':'Petah Tikva','בית שמש':'Beit Shemesh','אשדוד':'Ashdod','נתניה':'Netanya','באר שבע':'Beersheba',
+'ניו יורק':'New York','לייקווד':'Lakewood','מיאמי':'Miami','שיקגו':'Chicago','לוס אנג׳לס':'Los Angeles','טורונטו':'Toronto','מונטריאול':'Montreal','מקסיקו סיטי':'Mexico City',
+'בואנוס איירס':'Buenos Aires','סנטיאגו':'Santiago','סאו פאולו':'São Paulo','לונדון':'London','פריז':'Paris','אנטוורפן':'Antwerp','מוסקבה':'Moscow',
+'יוהנסבורג':'Johannesburg','סידני':'Sydney','מלבורן':'Melbourne','המיקום שלך':'Your location'};
+var TX={he:{in:'כניסת שבת',out:'יציאה',chg:'שינוי עיר',title:'זמני שבת לפי עיר',loc:'📍 לפי המיקום שלי',locating:'מאתר מיקום...',locfail:'📍 לא הצלחנו לאתר מיקום. בחרו עיר'},
+        en:{in:'Shabbat begins',out:'Ends',chg:'Change city',title:'Shabbat times by city',loc:'📍 Use my location',locating:'Finding your location...',locfail:'📍 Could not find your location. Please choose a city'}};
+function L(){var l='he';try{l=(typeof currentLang!=='undefined'&&currentLang)||localStorage.getItem('mg-app-lang')||'he';}catch(e){}return l==='en'?'en':'he';}
+function N(he){return L()==='en'&&EN[he]?EN[he]:he;}
+var ALL=[];C.forEach(function(g){g[1].forEach(function(c){ALL.push(c);});});
+var el=document.getElementById('shabbat-strip');if(!el)return;
+function get(){try{var v=JSON.parse(localStorage.getItem('mg-shabbat-city')||'null');if(v&&v.length===5)return v;}catch(e){}
+ var tz='';try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||'';}catch(e){}
+ for(var i=0;i<ALL.length;i++){if(ALL[i][3]===tz)return ALL[i];}return ALL[0];}
+function save(c){try{localStorage.setItem('mg-shabbat-city',JSON.stringify(c));}catch(e){}}
+function t(x){var m=(x&&x.date||'').match(/T(\d\d):(\d\d)/);if(!m)return '';if(L()!=='en')return m[1]+':'+m[2];var h=+m[1],ap=h>=12?'PM':'AM';h=h%12||12;return h+':'+m[2]+' '+ap;}
+var cur=null,data=null,reqId=0;
+function render(){if(!cur||!data)return;var T=TX[L()],d=data;
+  var cn=null,h=null,p=null;(d.items||[]).forEach(function(it){if(it.category==='candles'&&!cn)cn=it;if(it.category==='havdalah'&&!h)h=it;if(it.category==='parashat'&&!p)p=it;});
+  if(!cn)return;var html='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D4AF5E" stroke-width="1.8" stroke-linecap="round"><path d="M12 3c1.3 1.5 1.6 2.6 0 4.2-1.6-1.6-1.3-2.7 0-4.2z"/><rect x="9.5" y="9" width="5" height="11" rx="1"/></svg><span>'+T.in+' <b>'+N(cur[0])+' '+t(cn)+'</b></span>';
+  if(h)html+='<span class="sep">·</span><span>'+T.out+' <b>'+t(h)+'</b></span>';
+  if(p){var pt=L()==='en'?(p.title||''):(p.hebrew||'');if(pt)html+='<span class="sep">·</span><span>'+pt+'</span>';}
+  html+='<span class="chg">'+T.chg+'</span>';
+  el.innerHTML=html;el.style.display='flex';}
+function load(c){cur=c;var my=++reqId;
+ var u='https://www.hebcal.com/shabbat?cfg=json&geo=pos&latitude='+c[1]+'&longitude='+c[2]+'&tzid='+encodeURIComponent(c[3])+'&M=on&lg=s&b='+c[4];
+ fetch(u).then(function(r){return r.json()}).then(function(d){if(my!==reqId)return;data=d;render();}).catch(function(){});}
+var bg=document.createElement('div');bg.id='sh-bg';var sh=document.createElement('div');sh.id='sh-sheet';
+document.body.appendChild(bg);document.body.appendChild(sh);
+function close(){bg.classList.remove('on');sh.classList.remove('on');}
+function pick(c){save(c);close();load(c);}
+function buildSheet(){var T=TX[L()];sh.style.direction=L()==='en'?'ltr':'rtl';sh.style.textAlign=L()==='en'?'left':'right';
+ var h='<div class="sh-t">'+T.title+'</div><button class="sh-c loc" data-loc="1" style="text-align:inherit">'+T.loc+'</button>';
+ C.forEach(function(g,gi){h+='<div class="sh-g">'+N(g[0])+'</div>';g[1].forEach(function(c,ci){h+='<button class="sh-c" style="text-align:inherit" data-g="'+gi+'" data-c="'+ci+'">'+N(c[0])+'</button>';});});
+ sh.innerHTML=h;}
+buildSheet();
+sh.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var T=TX[L()];
+ if(b.getAttribute('data-loc')){if(!navigator.geolocation){close();return;}b.textContent=T.locating;
+  navigator.geolocation.getCurrentPosition(function(pos){var tz='Asia/Jerusalem';try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||tz;}catch(e){}
+   pick(['המיקום שלך',pos.coords.latitude.toFixed(4),pos.coords.longitude.toFixed(4),tz,tz==='Asia/Jerusalem'?20:18]);b.textContent=TX[L()].loc;},
+   function(){b.textContent=TX[L()].locfail;},{timeout:10000,maximumAge:3600000});return;}
+ pick(C[+b.getAttribute('data-g')][1][+b.getAttribute('data-c')]);});
+bg.addEventListener('click',close);
+el.addEventListener('click',function(){bg.classList.add('on');sh.classList.add('on');});
+/* re-render Shabbat strip + city list + menu links when the language changes */
+function onLang(){buildSheet();render();try{var en=L()==='en',a=document.getElementById('dr-shealot');if(a)a.setAttribute('href',en?'shealot/en-all.html':'shealot/');[].slice.call(document.querySelectorAll('#drawer a.dr-it[href^="brachot/"],#drawer a.dr-it[href^="tefilot/"],#drawer a.dr-it[href^="tehilim/"],.src-line a')).forEach(function(x){var h=x.getAttribute('href').replace(/\?lang=(en|he)$/,'');x.setAttribute('href',h+'?lang='+(en?'en':'he'));});var dr=document.getElementById('drawer');if(dr){dr.style.direction=en?'ltr':'rtl';dr.querySelectorAll('.dr-it').forEach(function(x){x.style.textAlign=en?'left':'right';});dr.setAttribute('aria-label',en?'Menu':'תפריט');}}catch(e){}}
+if(typeof window.setLang==='function'){var _sl=window.setLang;window.setLang=function(l){var r=_sl.apply(this,arguments);try{onLang();}catch(e){}return r;};}
+onLang();
+load(get());
+}catch(e){}})();</script>
+
+
+<div id="dr-bg" onclick="closeMenu()"></div><aside id="drawer" aria-label="תפריט"><div class="dr-hd"><span class="dr-t" data-he="תפריט" data-en="Menu">תפריט</span><button class="dr-x" onclick="closeMenu()" aria-label="סגירה">✕</button></div><nav class="dr-list"><button class="dr-it" id="dr-notif" onclick="closeMenu();if(window.mgOpenNotifications)mgOpenNotifications();"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8C468" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><span data-he="התראות" data-en="Notifications">התראות</span><span id="dr-notif-badge" style="display:none;margin-inline-start:auto;min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:#D7372F;color:#fff;font-size:12px;font-weight:700;align-items:center;justify-content:center">0</span></button><a class="dr-it" id="dr-shealot" href="shealot/"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8C468" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7M12 17h.01"/></svg><span data-he="שאלות גדולות" data-en="Big Questions">שאלות גדולות</span></a><a class="dr-it" href="parasha/"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8C468" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10 9.5v5l4.5-2.5z"/></svg><span data-he="פרשת השבוע" data-en="Weekly Parasha">פרשת השבוע</span></a><a class="dr-it" href="brachot/"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8C468" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 5.5 10.5 3l1.5 2 1.5-2 1 2.5"/><path d="M12 5.5c-4.4 0-8 3.4-8 7.6S7.6 21 12 21s8-3.7 8-7.9-3.6-7.6-8-7.6z"/></svg><span data-he="ברכות" data-en="Blessings">ברכות</span></a><a class="dr-it" href="shabbat/"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8C468" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 2.5c1.3 1.5 1.3 2.8 0 3.8-1.3-1-1.3-2.3 0-3.8zM15.5 2.5c1.3 1.5 1.3 2.8 0 3.8-1.3-1-1.3-2.3 0-3.8z"/><rect x="6.5" y="8" width="4" height="10.5" rx="1"/><rect x="13.5" y="8" width="4" height="10.5" rx="1"/><path d="M4 21.5h16"/></svg><span data-he="שבת למתחילים" data-en="Shabbat for Beginners">שבת למתחילים</span></a><a class="dr-it" href="zmanim/"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8C468" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg><span data-he="זמני היום" data-en="Daily Zmanim">זמני היום</span></a><a class="dr-it" href="stories/"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8C468" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.5C10 5 7 4.5 3.5 5v14c3.5-.5 6.5 0 8.5 1.5 2-1.5 5-2 8.5-1.5V5C17 4.5 14 5 12 6.5z"/><path d="M12 6.5v14"/></svg><span data-he="סיפורים עם נשמה" data-en="Stories with Soul">סיפורים עם נשמה</span></a><a class="dr-it" href="shidduchim.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8C468" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2.6h6l2.4 3-5.4 5-5.4-5z"/><path d="M6.6 5.6h10.8"/><path d="M10.6 5.6L12 10.6l1.4-5"/><circle cx="12" cy="15.8" r="5.3"/></svg><span data-he="Mosh Tov · שידוכים" data-en="Mosh Tov · Matchmaking">Mosh Tov · שידוכים</span></a><a class="dr-it" href="brachot/ma-mevarchim.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8C468" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h10M4 18h6"/></svg><span data-he="מה מברכים על...?" data-en="Which blessing on...?">מה מברכים על...?</span></a><a class="dr-it" href="tefilot/"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8C468" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.5C10 5 7 4.5 3 5v13c4-.5 7 0 9 1.5 2-1.5 5-2 9-1.5V5c-4-.5-7 0-9 1.5z"/><path d="M12 6.5V19"/></svg><span data-he="סגולות ותפילות" data-en="Prayers & Segulot">סגולות ותפילות</span></a><a class="dr-it" href="tehilim/"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8C468" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h10v14a2 2 0 0 1-2 2H7"/><path d="M7 20a2 2 0 0 1-2-2V6h4"/><path d="M12 8h4M12 12h4M12 16h2"/></svg><span data-he="תהילים" data-en="Psalms (Tehillim)">תהילים</span></a><a class="dr-it" href="tehilim/tikun-haklali.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8C468" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h10v14a2 2 0 0 1-2 2H7"/><path d="M7 20a2 2 0 0 1-2-2V6h4"/><path d="M12 8h4M12 12h4M12 16h2"/></svg><span data-he="תיקון הכללי" data-en="Tikkun HaKlali">תיקון הכללי</span></a><a class="dr-it" href="tehilim/mizmor-letoda.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8C468" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h10v14a2 2 0 0 1-2 2H7"/><path d="M7 20a2 2 0 0 1-2-2V6h4"/><path d="M12 8h4M12 12h4M12 16h2"/></svg><span data-he="מזמור לתודה" data-en="Psalm of Thanksgiving">מזמור לתודה</span></a><a class="dr-it" href="lama-askmosh.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8C468" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10 9.5v5l4.5-2.5z"/></svg><span data-he="למה AskMosh?" data-en="Why AskMosh?">למה AskMosh?</span></a><button class="dr-it" onclick="closeMenu();goScreen('about');setNav('about')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8C468" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg><span data-he="אודות" data-en="About">אודות</span></button><button class="dr-it" onclick="closeMenu();var w=document.querySelector('.cta-wa');if(w)w.click();"><svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.8 14.03c-.25.69-1.43 1.32-2 1.4-.51.08-1.16.11-1.87-.12-.43-.14-.98-.32-1.69-.62-2.98-1.29-4.92-4.29-5.07-4.49-.15-.2-1.21-1.61-1.21-3.07s.77-2.18 1.04-2.48c.27-.3.6-.37.79-.37h.57c.18 0 .43-.07.67.51.25.6.84 2.06.92 2.21.07.15.12.32.02.52-.1.2-.15.32-.3.5-.15.17-.31.39-.45.52-.15.15-.3.31-.13.61.17.3.77 1.27 1.65 2.06 1.13 1.01 2.09 1.32 2.39 1.47.3.15.47.12.65-.07.17-.2.74-.87.94-1.17.2-.3.4-.25.67-.15.27.1 1.73.82 2.03.97.3.15.5.22.57.35.07.12.07.72-.18 1.41z"/></svg><span data-he="צור קשר בוואטסאפ" data-en="Contact us on WhatsApp">צור קשר בוואטסאפ</span></button></nav><div class="dr-ver" id="dr-ver">AskMosh</div><script>(function(){try{var ua=navigator.userAgent||"",k=window.iosMic||(window.webkit&&window.webkit.messageHandlers&&window.webkit.messageHandlers.iosMic)?"i":(window.Android||/Android/i.test(ua))?"a":/iPhone|iPad/i.test(ua)?"i":"w",ph={i:"אייפון",a:"אנדרואיד",w:"אתר"}[k],pe={i:"iPhone",a:"Android",w:"Web"}[k],d=new Date(document.lastModified);if(isNaN(d))d=new Date();var t=d.getDate()+"."+(d.getMonth()+1)+"."+d.getFullYear(),v=document.getElementById("dr-ver"),he="AskMosh · "+ph+" · עודכן "+t,en="AskMosh · "+pe+" · Updated "+t;v.setAttribute("data-he",he);v.setAttribute("data-en",en);var l="he";try{l=localStorage.getItem("mg-app-lang")||"he";}catch(e){}v.textContent=l==="en"?en:he;}catch(e){}})();</script></aside>
+<script>(function(){try{if(/[?&]open=chat\b/.test(location.search)){window.addEventListener('load',function(){setTimeout(function(){try{goScreen('chat');setNav('chat');}catch(e){}},250);});}}catch(e){}})();
+function openMenu(){document.body.classList.add('dr-open')}function closeMenu(){document.body.classList.remove('dr-open')}</script>
+
+<div id="cm-bg" onclick="closeCommunity()"></div>
+<div id="cm-sheet" role="dialog" aria-modal="true"><button class="cm-x" onclick="closeCommunity()" aria-label="close">×</button><div id="cm-body"></div></div>
+<script>
+/* חיבור לקהילה באזור: המשתמש בוחר בעצמו להשאיר פרטים. נשלח לאותם מקומות כמו טופס החברותא, עם סימון "קהילה". תוכן השאלות לא נשלח. */
+(function(){
+  var CITIES=[['ניו יורק','New York'],['ניו ג׳רזי','New Jersey'],['וושינגטון','Washington DC'],['בוסטון','Boston'],['שיקגו','Chicago'],['מיאמי','Miami'],['לוס אנג׳לס','Los Angeles'],['טורונטו','Toronto'],['לונדון','London'],['ישראל','Israel'],['אחר','Other']];
+  function en(){return (window.currentLang||'he')==='en';}
+  function esc(x){return String(x).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  var src='home';
+  var HEART='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#14223a" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z"/></svg>';
+  var LOCK='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E8C468" stroke-width="1.8" stroke-linecap="round" style="flex:none;margin-top:2px"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>';
+  var picked=-1;
+  function form(){var E=en();picked=-1;var chips=CITIES.map(function(c,i){return '<button type="button" class="cm-city" data-i="'+i+'" onclick="pickCity('+i+')">'+esc(E?c[1]:c[0])+'</button>';}).join('');
+    return '<div dir="'+(E?'ltr':'rtl')+'"><div class="cm-grab"></div><div class="cm-hd"><span class="cm-dot">'+HEART+'</span><div class="cm-t">'+(E?'Connect with a community near you':'התחבר לקהילה באזור שלך')+'</div><div class="cm-s">'+(E?'Someone from a community near you will reach out':'מישהו מהקהילה הקרובה אליך ייצור איתך קשר')+'</div></div>'
+    +'<span class="cm-l">'+(E?'Your city':'העיר שלך')+'</span><div class="cm-cities">'+chips+'</div>'
+    +'<label class="cm-l" for="cm-name">'+(E?'Name':'שם')+'</label><input id="cm-name" autocomplete="name">'
+    +'<label class="cm-l" for="cm-contact">'+(E?'Phone or email':'טלפון או מייל')+'</label><input id="cm-contact" autocomplete="tel">'
+    +'<div class="cm-note">'+LOCK+'<span>'+(E?'Your details go only to a community organization in your area. The questions you asked are never shared.':'הפרטים יועברו רק לארגון קהילתי באזור שלך. השאלות ששאלת לא יועברו.')+' <a href="https://askmosh.com/privacy.html" style="color:#E8C468">'+(E?'Privacy':'פרטיות')+'</a></span></div>'
+    +'<button class="cm-send" onclick="sendCommunity()">'+(E?'Send':'שלח')+'</button></div>';}
+  window.pickCity=function(i){picked=i;[].slice.call(document.querySelectorAll('.cm-city')).forEach(function(b){b.classList.toggle('on',+b.getAttribute('data-i')===i);});};
+  window.openCommunity=function(from){src=from||'home';document.getElementById('cm-body').innerHTML=form();document.getElementById('cm-bg').classList.add('on');document.getElementById('cm-sheet').classList.add('on');try{if(typeof gtag==='function')gtag('event','community_open',{source:src});}catch(e){}};
+  window.closeCommunity=function(){document.getElementById('cm-bg').classList.remove('on');document.getElementById('cm-sheet').classList.remove('on');};
+  window.sendCommunity=function(){var E=en();var ci=picked,n=document.getElementById('cm-name').value.trim(),c=document.getElementById('cm-contact').value.trim();
+    if(ci<0||!n||!c){alert(E?'Please choose a city and fill in your name and phone or email.':'נא לבחור עיר ולמלא שם וטלפון או מייל');return;}
+    var city=CITIES[ci][1],isMail=c.indexOf('@')>0;
+    var data={type:'community',name:n,phone:isMail?'':c,email:isMail?c:'',city:city,source:src,lang:E?'en':'he'};
+    try{fetch('https://formspree.io/f/xnjwdeyd',{method:'POST',body:JSON.stringify(data),headers:{'Content-Type':'application/json','Accept':'application/json'}}).catch(function(){});}catch(e){}
+    try{var fd=new URLSearchParams();fd.append('name',n+' (COMMUNITY)');fd.append('phone',data.phone);fd.append('email',data.email);fd.append('city',city);fd.append('src','community-'+src);fetch('https://fac4fac.com/web_lead.php',{method:'POST',body:fd,mode:'no-cors'}).catch(function(){});}catch(e){}
+    try{localStorage.setItem('mg-community-sent','1');}catch(e){}
+    try{if(typeof gtag==='function')gtag('event','generate_lead',{form:'community',source:src});}catch(e){}
+    document.getElementById('cm-body').innerHTML='<div dir="'+(E?'ltr':'rtl')+'" style="text-align:center;padding:18px 0 8px"><div class="cm-grab"></div><div class="cm-hd"><span class="cm-dot">'+HEART+'</span></div><div class="cm-t">'+(E?'Thank you!':'תודה!')+'</div><div class="cm-s" style="font-size:.95rem;margin-top:8px">'+(E?'Someone from your area will be in touch soon 🙏':'מישהו מהאזור שלך ייצור איתך קשר בקרוב 🙏')+'</div><button class="cm-send" style="margin-top:14px" onclick="closeCommunity()">'+(E?'Close':'סגור')+'</button></div>';};
+  /* בצ'אט: שורה עדינה אחת, אחרי התשובה השלישית, פעם אחת בלבד */
+  var answers=0;
+  var orig=window.enhanceBotBubbleShareLink;
+  if(typeof orig==='function'){window.enhanceBotBubbleShareLink=function(el){var r=orig.apply(this,arguments);try{answers++;var done=localStorage.getItem('mg-community-sent')||localStorage.getItem('mg-community-line');
+    if(answers===3&&!done){localStorage.setItem('mg-community-line','1');var b=document.createElement('button');b.className='cm-line';b.innerHTML='<span class="cm-dot">'+HEART.replace(/22/g,'13')+'</span><span>'+(en()?'Continue with someone near you':'להמשיך עם מישהו קרוב אליך')+'</span>';b.onclick=function(){openCommunity('chat');};var row=el&&el.closest?el.closest('.msg-row'):null;var w=document.getElementById('chat-msgs');if(row&&row.parentNode)row.parentNode.insertBefore(b,row.nextSibling);else if(w)w.appendChild(b);}}catch(e){}return r;};}
+})();
+</script>
+<script src="parasha/list.js"></script>
+<script>/* שורת פרשת השבוע בדף הבית: הפרשה של השבת הקרובה ראשונה, ואחריה הקודמות */
+(function(){function build(){var row=document.getElementById('pr-row');if(!row||!window.MG_PARASHOT)return;
+var en=(window.currentLang||document.documentElement.lang)==='en';var P=window.MG_PARASHOT.slice();
+var today=new Date();today.setHours(0,0,0,0);P=P.filter(function(p){return new Date(p.d+'T00:00:00')-today<8*864e5;});
+P.sort(function(a,b){return a.d<b.d?1:-1;});
+row.setAttribute('dir',en?'ltr':'rtl');
+row.innerHTML=P.map(function(p){var v=en?(p.ve||p.v):(p.v||p.ve);var t=en?'Parashat '+p.en:'פרשת '+p.he;
+return '<a class="bq-card" href="parasha/#p='+encodeURIComponent(p.en)+'"><div class="bq-img"><img src="https://i.ytimg.com/vi/'+v+'/hqdefault.jpg" alt="" loading="lazy"><span class="bq-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1408"><path d="M7 4l14 8-14 8z"/></svg></span></div><span class="bq-t">'+t+'</span></a>';}).join('');}
+build();var o=window.setLang;if(typeof o==='function'){window.setLang=function(){var r=o.apply(this,arguments);try{build();}catch(e){}return r;};}})();
+</script>
+<script src="/img/covers/list.js"></script>
+<style id="vthumb-style">
+/* כרטיסי סרטונים בצורת הסרטון (9:16): התמונה ממלאת את כל הכרטיס, בלי פסים ובלי חיתוך */
+.bq-row:not(.st-row) .bq-card{flex:0 0 150px}
+.bq-row:not(.st-row) .bq-img{height:267px}
+.bq-row:not(.st-row) .bq-play{top:68%}
+.lesson-thumb{aspect-ratio:9/16!important}
+.lesson-play{align-items:flex-end!important;padding-bottom:22%}
+img.vt-wide{object-fit:contain!important;background:#0F2236}
+</style>
+<script>/* תמונה אנכית גדולה מיוטיוב (oardefault); אם אין, תמונה אנכית מתוך הסרטון (frame0); לסרטון רוחבי, התמונה הרגילה */
+(function(){var RX=/^https:\/\/(?:i|img)\.ytimg\.com\/vi\/([A-Za-z0-9_-]{11})\/hqdefault\.jpg/;var RX2=/^https:\/\/img\.youtube\.com\/vi\/([A-Za-z0-9_-]{11})\/hqdefault\.jpg/;
+function up(img){if(img.dataset.vt)return;if(!img.closest('.bq-row:not(.st-row) .bq-img, .lesson-thumb'))return;var m=(img.getAttribute('src')||'').match(RX)||(img.getAttribute('src')||'').match(RX2);if(!m)return;var id=m[1];img.dataset.vt='1';if((window.MG_COVERS||[]).indexOf(id)>-1){img.src='/img/covers/'+id+'.jpg';img.classList.add('vt-cover');return;}
+img.addEventListener('load',function h(){var s=img.src;if(s.indexOf('oardefault')>-1&&img.naturalWidth<200){img.src='https://i.ytimg.com/vi/'+id+'/frame0.jpg';}else if(s.indexOf('frame0')>-1&&img.naturalWidth>img.naturalHeight){img.classList.add('vt-wide');img.src='https://i.ytimg.com/vi/'+id+'/hqdefault.jpg';img.removeEventListener('load',h);}});
+img.addEventListener('error',function(){if(img.src.indexOf('hqdefault')<0)img.src='https://i.ytimg.com/vi/'+id+'/hqdefault.jpg';});
+img.src='https://i.ytimg.com/vi/'+id+'/oardefault.jpg';}
+function scan(root){[].forEach.call((root||document).querySelectorAll('.bq-row:not(.st-row) .bq-img img, .lesson-thumb img'),up);}
+scan();new MutationObserver(function(ms){ms.forEach(function(m){[].forEach.call(m.addedNodes,function(n){if(n.nodeType!==1)return;if(n.tagName==='IMG')up(n);else scan(n);});});}).observe(document.body,{childList:true,subtree:true});})();
+</script>
+<style id="play-glass-style">
+/* כפתור הפעלה יוקרתי: עיגול קטן מזכוכית כהה עם קו זהב דק, בפינה התחתונה, כדי לא להסתיר את התמונה */
+.bq-play,.bq-row:not(.st-row) .bq-play{top:auto!important;bottom:12px;left:50%;transform:translateX(-50%);width:30px;height:30px;background:rgba(8,18,32,.55);border:1px solid rgba(240,210,140,.75);box-shadow:0 2px 10px rgba(0,0,0,.35);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.bq-play svg{width:11px;height:11px;margin-left:2px}.bq-play svg path{fill:#F3D27A}
+.lesson-play{align-items:flex-end!important;justify-content:center!important;padding:0 0 12px!important}
+.lesson-play-btn{width:30px!important;height:30px!important;background:rgba(8,18,32,.55)!important;border:1px solid rgba(240,210,140,.75);box-shadow:0 2px 10px rgba(0,0,0,.35)!important;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.lesson-play-btn svg{width:11px!important;height:11px!important;fill:#F3D27A!important}.lesson-play-btn svg polygon{fill:#F3D27A}
+</style>
+<style>.vpop-nav{display:none;justify-content:space-between;gap:10px;padding:8px 16px;flex-shrink:0}.vpop-nav.on{display:flex}.vpop-nav button{flex:1;padding:10px 12px;border-radius:999px;border:1.5px solid rgba(212,175,94,.6);background:rgba(212,175,94,.10);color:#F0D894;font:inherit;font-weight:700;font-size:.9rem;cursor:pointer}.vpop-nav button[disabled]{opacity:.3}</style>
+<script>/* מעבר לסרטון הבא/הקודם מתוך ספריית הסרטונים */
+(function(){var o=window.openVideo,idx=-1,ids=[];
+function list(){return [].slice.call(document.querySelectorAll('#screen-lessons .lesson-card[data-yt]')).filter(function(c){return c.offsetParent!==null||true;});}
+function upd(){var nav=document.querySelector('.vpop-nav');if(!nav)return;var en=(window.currentLang==='en');
+var pv=document.getElementById('vpop-prev'),pn=document.getElementById('vpop-next');
+nav.classList.toggle('on',idx>-1);pv.disabled=idx<=0;pn.disabled=idx<0||idx>=ids.length-1;
+pv.textContent=en?'‹ Previous':'› הקודם';pn.textContent=en?'Next ›':'הבא ‹';}
+window.openVideo=function(id,title){var c=list();ids=c.map(function(x){return x.getAttribute('data-yt')});idx=ids.indexOf(id);
+var r=o.apply(this,arguments);upd();return r;};
+window.mgVpopStep=function(d){var c=list();var j=idx+d;if(j<0||j>=c.length)return;var t=c[j].querySelector('.lesson-title');
+o(ids[j],t?t.textContent:'');var vt=document.getElementById('vpop-title');if(vt&&t)vt.textContent=t.textContent;idx=j;upd();};
+var oc=window.closeVideo;window.closeVideo=function(){idx=-1;upd();return oc.apply(this,arguments);};})();
+</script>
+</body>
+</html>
