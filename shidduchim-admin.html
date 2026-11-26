@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mosh Tov · ניהול שידוכים</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" sizes="48x48" href="favicon.png">
+<link rel="stylesheet" href="askmosh-brand.css">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07121F;--card:rgba(14,32,52,.75);--line:rgba(212,175,94,.26);--gold:#D4AF5E;--gold2:#F3D27A;--ink:#F4F1EA;--muted:#A9B4C2;--ok:#7FD1A8;--warn:#F2C27A}
+*{box-sizing:border-box}
+body{margin:0;font-family:Heebo,Arial,sans-serif;color:var(--ink);background:radial-gradient(1200px 600px at 50% -200px,#16304D 0%,var(--bg) 60%) fixed;min-height:100vh}
+.top{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;border-bottom:1px solid rgba(255,255,255,.06)}
+.top .am-logo{font-size:1.3rem}.who{font-size:.8rem;color:var(--muted)}.who button{font:inherit;background:none;border:1px solid var(--line);color:#E9D9A8;border-radius:999px;padding:4px 10px;margin-inline-start:8px;cursor:pointer}
+.wrap{max-width:980px;margin:0 auto;padding:18px}
+h1{color:var(--gold2);margin:4px 0 2px;font-size:1.6rem;font-weight:700}.mt-en{font-family:'Playfair Display',Georgia,serif}
+.sub{color:var(--muted);margin:0 0 14px;font-size:.9rem}
+.login{max-width:360px;margin:60px auto;text-align:center}.login .card{padding:24px}
+input,select,textarea{width:100%;font:inherit;font-size:16px;color:var(--ink);background:rgba(7,18,31,.65);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:11px 13px;outline:none}
+input:focus,textarea:focus,select:focus{border-color:var(--gold)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.stat{text-align:center;padding:10px}.stat b{display:block;font-size:1.5rem;color:var(--gold2)}.stat span{font-size:.8rem;color:var(--muted)}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.tab{font:inherit;padding:9px 16px;border-radius:999px;border:1px solid var(--line);background:transparent;color:#E9D9A8;cursor:pointer}
+.tab.on{background:linear-gradient(135deg,#F3D27A,#C99A3C);color:#1a1408;border-color:transparent;font-weight:600}
+.search{flex:1;min-width:160px;border-radius:999px;padding:9px 14px}
+.b{font:inherit;font-size:.86rem;padding:8px 12px;border-radius:10px;cursor:pointer;border:1px solid var(--line);background:transparent;color:#E9D9A8}
+.b.pri{background:linear-gradient(135deg,#F3D27A,#C99A3C);color:#1a1408;border:0;font-weight:600}
+.b.add{border-style:dashed;border-radius:999px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.p h3{margin:0;font-size:1.05rem;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.pill{font-size:.72rem;font-weight:500;padding:3px 9px;border-radius:999px;border:1px solid var(--line);color:#E9D9A8;white-space:nowrap}
+.pill.new{background:rgba(127,209,168,.12);border-color:rgba(127,209,168,.4);color:var(--ok)}
+.meta{color:var(--muted);font-size:.85rem;margin:4px 0 6px;line-height:1.6}
+.look{font-size:.85rem;color:#D9DEE5;margin-bottom:8px}.look b{color:#E9D9A8;font-weight:500}
+.inote{font-size:.82rem;color:#E9D9A8;background:rgba(212,175,94,.07);border-right:2px solid var(--gold);padding:6px 10px;border-radius:6px;margin-bottom:8px}
+.hist{font-size:.82rem;color:#D9DEE5;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:8px 10px;margin-bottom:8px;line-height:1.7}.hist>b{color:#E9D9A8}.hist i{color:var(--muted)}
+.acts{display:flex;gap:8px;flex-wrap:wrap}
+.daily{background:linear-gradient(135deg,rgba(243,210,122,.12),rgba(212,175,94,.04));margin-bottom:12px;font-size:.88rem;line-height:1.8}.daily>b{color:var(--gold2);font-size:1rem}
+.daily select{width:auto;padding:3px 8px;font-size:.85rem;border-radius:8px}
+.gapnote{background:rgba(242,194,122,.08);border:1px solid rgba(242,194,122,.35);color:#F2D9A8;border-radius:12px;padding:10px 12px;font-size:.86rem;margin-bottom:12px}
+.pair{display:grid;grid-template-columns:1fr 62px 1fr;align-items:center;gap:10px;margin-bottom:10px;cursor:pointer}
+.pair .side h4{margin:0;font-size:1rem}.pair .side div{color:var(--muted);font-size:.8rem}.pair .side.l{text-align:left}
+.score{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#E8C468 calc(var(--v)*1%),rgba(255,255,255,.08) 0)}
+.score i{width:46px;height:46px;border-radius:50%;background:#0C1B2D;display:grid;place-items:center;color:var(--gold2);font-style:normal;font-size:.92rem;font-weight:600}
+.ov{position:fixed;inset:0;background:rgba(3,8,14,.72);backdrop-filter:blur(4px);display:none;align-items:flex-start;justify-content:center;padding:24px 12px;overflow:auto;z-index:10}.ov.on{display:flex}
+.modal{width:min(660px,100%);background:#0C1B2D;border:1px solid var(--line);border-radius:20px;padding:20px}
+.modal h2{color:var(--gold2);margin:0 0 4px;font-size:1.3rem}.modal .hint{color:var(--muted);font-size:.85rem;margin:0 0 12px}
+.close{float:left;background:none;border:0;color:var(--muted);font-size:1.5rem;cursor:pointer;line-height:1}
+.cmp{display:grid;grid-template-columns:1fr auto 1fr;border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden;margin:10px 0}
+.cmp div{padding:7px 10px;font-size:.85rem;border-bottom:1px solid rgba(255,255,255,.06)}
+.cmp .k{color:var(--muted);text-align:center;background:rgba(255,255,255,.03);font-size:.76rem}.cmp .ok{color:var(--ok)}.cmp .gap{color:var(--warn)}.cmp .h{font-weight:600;color:var(--gold2)}
+.why{margin:6px 0 0;padding:0;list-style:none;font-size:.84rem}.why li.y::before{content:"✓ ";color:var(--ok)}.why li.n::before{content:"• ";color:var(--warn)}
+.flow{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.flow button{font:inherit;font-size:.78rem;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:transparent;color:#E9D9A8;cursor:pointer}
+.flow button.on{background:linear-gradient(135deg,#F3D27A,#C99A3C);color:#1a1408;border:0;font-weight:600}
+.wa{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;font:inherit;font-weight:600;padding:12px;border-radius:12px;border:0;background:#1FA855;color:#fff;cursor:pointer;margin-top:8px;text-decoration:none}
+.ans{font-size:.82rem;color:#D9DEE5;margin-top:6px}
+.form2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.form2 label{font-size:.78rem;color:var(--muted)}
+.empty{color:var(--muted);text-align:center;padding:30px}
+.err{color:#F2A19A;font-size:.85rem;margin-top:8px;min-height:1.2em}
+.load{color:var(--muted);text-align:center;padding:40px}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.form2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="top">
+  <span class="am-logo" dir="ltr"><span class="am-ask">Ask</span><span class="am-mosh">M<span class="am-o">o</span>sh</span></span>
+  <span class="who">ניהול Mosh Tov<button id="logout" hidden>יציאה</button></span>
+</header>
+
+<div class="login" id="login">
+  <div class="card">
+    <h1><span class="mt-en" dir="ltr">Mosh Tov</span></h1>
+    <p class="sub">כניסה לניהול השידוכים</p>
+    <input type="password" id="pw" placeholder="סיסמה" autocomplete="current-password">
+    <button class="b pri" id="go" style="width:100%;margin-top:10px;padding:12px">כניסה</button>
+    <div class="err" id="lerr"></div>
+  </div>
+</div>
+
+<main class="wrap" id="app" hidden>
+  <h1><span class="mt-en" dir="ltr">Mosh Tov</span> · ניהול שידוכים</h1>
+  <p class="sub">ההתאמות הן הצעה בלבד. ההחלטה תמיד שלך.</p>
+  <div class="stats" id="stats"></div>
+  <div class="bar">
+    <button class="tab on" data-g="board">✨ לוח התאמות</button><button class="tab" data-g="בחור">בחורים</button><button class="tab" data-g="בחורה">בחורות</button>
+    <input class="search" id="q" placeholder="חיפוש לפי שם, עיר או סגנון">
+    <button class="b add" id="addBtn">+ הוספת מועמד</button>
+    <button class="b" id="reload" title="רענון">↻</button>
+  </div>
+  <div id="list"><div class="load">טוען…</div></div>
+</main>
+
+<div class="ov" id="ov"><div class="modal" id="modal"></div></div>
+
+<script>
+var API='https://script.google.com/macros/s/AKfycbzxbWAuuEzBgQLv_jgfCqwgD0gWTo2bbCQsEas0pxPpDHoh21c677LajUbjF2V-_YJ_/exec';
+var ANSWER='https://askmosh.com/mt.html?t=';
+var KEY='',P=[],PR=[],G='board',CAP=+(localStorage.getItem('mt-cap')||10);
+var ACTIVE=['הוצע','הבחור מעוניין','הבחורה מעוניינת','נפגשו','ממשיכים'];
+var FLOW=['הוצע','הבחור מעוניין','הבחורה מעוניינת','נפגשו','ממשיכים','מזל טוב 🎉','לא מתאים'];
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function api(o){o.key=KEY;return fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(o)}).then(function(r){return r.json()})}
+
+/* כניסה */
+function login(k){KEY=k;return api({action:'list'}).then(function(j){if(!j.ok)throw 0;P=j.people||[];PR=j.proposals||[];
+  try{sessionStorage.setItem('mt-k',k)}catch(e){}document.getElementById('login').hidden=true;document.getElementById('app').hidden=false;document.getElementById('logout').hidden=false;render()})}
+document.getElementById('go').onclick=function(){var b=this;b.disabled=true;document.getElementById('lerr').textContent='';
+  login(document.getElementById('pw').value).catch(function(){document.getElementById('lerr').textContent='סיסמה שגויה, או שאין חיבור.'}).finally(function(){b.disabled=false})};
+document.getElementById('pw').onkeydown=function(e){if(e.key==='Enter')document.getElementById('go').click()};
+document.getElementById('logout').onclick=function(){try{sessionStorage.removeItem('mt-k')}catch(e){}location.reload()};
+document.getElementById('reload').onclick=function(){login(KEY).catch(function(){})};
+try{var k0=sessionStorage.getItem('mt-k');if(k0)login(k0).catch(function(){})}catch(e){}
+
+/* התאמה */
+var US=/ניו|לייקווד|ארה|ג׳רזי|ג'רזי|ברוקלין|מיאמי|לוס|שיקגו|בוסטון|פילדלפיה|new|nj|ny|usa/i,IL=/ירושלים|תל אביב|חיפה|ישראל|בני ברק|מודיעין|israel|באר שבע|נתניה|רמת גן|פתח תקווה/i;
+function region(c){c=String(c||'');return US.test(c)?'ארה״ב':IL.test(c)?'ישראל':c}
+function has(list,v){return String(list||'').split(/,\s*/).indexOf(String(v||''))>-1}
+function on(v){return v==='on'||v===true}
+function score(a,b){var s=0,why=[];
+  var ab=+b.age>=+a.ageFrom&&+b.age<=+a.ageTo,ba=+a.age>=+b.ageFrom&&+a.age<=+b.ageTo;
+  if(ab&&ba){s+=30;why.push(['y','הגיל מתאים לשני הצדדים'])}else if(ab||ba){s+=14;why.push(['n','הגיל מתאים רק לצד אחד'])}else why.push(['n','הגיל מחוץ לטווח שביקשו']);
+  var h1=has(a.lookH,b.hashkafa),h2=has(b.lookH,a.hashkafa);
+  if((on(a.mustH)&&!h1)||(on(b.mustH)&&!h2))return{s:0,why:[['n','סגנון שסומן "חובה" לא מתאים']]};
+  if(h1&&h2){s+=30;why.push(['y','הסגנון מתאים לשניהם'])}else if(h1||h2){s+=14;why.push(['n','הסגנון מתאים חלקית'])}else why.push(['n','סגנון שונה']);
+  var pa=a.lookPlace==='גמיש'||a.lookPlace===region(b.city),pb=b.lookPlace==='גמיש'||b.lookPlace===region(a.city);
+  if((on(a.mustPlace)&&!pa)||(on(b.mustPlace)&&!pb))return{s:0,why:[['n','מקום שסומן "חובה" לא מתאים']]};
+  if(pa&&pb){s+=15;why.push(['y','מקום מגורים מתאים'])}else if(pa||pb){s+=7;why.push(['n','מקום מתאים רק לצד אחד'])}else why.push(['n','גרים במקומות שונים']);
+  var common=String(a.values||'').split(/,\s*/).filter(function(v){return v&&has(b.values,v)});
+  if(common.length){s+=Math.min(common.length,3)*5;why.push(['y','חשוב לשניהם: '+common.join(', ')])}
+  function kidsOk(x,y){return !y.kids||y.kids==='אין'||x.openKids!=='מעדיף/ה שלא'}
+  if(!kidsOk(a,b)||!kidsOk(b,a)){s-=15;why.push(['n','אחד הצדדים מעדיף בלי ילדים'])}
+  return{s:Math.max(0,Math.min(100,s)),why:why}}
+function byId(id){return P.filter(function(p){return p.id===id})[0]}
+function propsOf(id){return PR.filter(function(x){return x.aId===id||x.bId===id})}
+function had(a,b){return PR.some(function(x){return(x.aId===a&&x.bId===b)||(x.aId===b&&x.bId===a)})}
+function busy(id){return PR.some(function(x){return(x.aId===id||x.bId===id)&&ACTIVE.indexOf(x.stage)>-1})}
+function isNew(p){return Date.now()-new Date(p.ts).getTime()<7*864e5}
+function active(p){return p.active!=='לא'}
+function waitDays(p){var last=propsOf(p.id).map(function(x){return new Date(x.ts).getTime()});var t=last.length?Math.max.apply(0,last):new Date(p.ts).getTime();return (Date.now()-t)/864e5}
+function bestPairs(){var men=P.filter(function(p){return p.gender==='בחור'&&active(p)&&!busy(p.id)}),women=P.filter(function(p){return p.gender==='בחורה'&&active(p)&&!busy(p.id)}),all=[];
+  men.forEach(function(a){women.forEach(function(b){if(had(a.id,b.id))return;var r=score(a,b);if(r.s>=55)all.push({a:a,b:b,r:r,w:Math.max(waitDays(a),waitDays(b))})})});
+  all.sort(function(x,y){return(y.r.s+Math.min(y.w,30)/3)-(x.r.s+Math.min(x.w,30)/3)});
+  var used={},out=[];all.forEach(function(x){if(out.length>=CAP||used[x.a.id]||used[x.b.id])return;used[x.a.id]=used[x.b.id]=1;out.push(x)});return out}
+
+/* תצוגה */
+function stats(){var m=P.filter(function(p){return p.gender==='בחור'}).length;
+  document.getElementById('stats').innerHTML='<div class="card stat"><b>'+P.length+'</b><span>נרשמים</span></div><div class="card stat"><b>'+m+'</b><span>בחורים</span></div><div class="card stat"><b>'+(P.length-m)+'</b><span>בחורות</span></div><div class="card stat"><b>'+P.filter(isNew).length+'</b><span>חדשים השבוע</span></div>'}
+function render(){stats();if(G==='board')return board();
+  var q=document.getElementById('q').value.trim(),L=P.filter(function(p){return p.gender===G&&(!q||[p.first,p.last,p.city,p.hashkafa].join(' ').indexOf(q)>-1)});
+  document.getElementById('list').innerHTML=L.length?'<div class="grid">'+L.map(card).join('')+'</div>':'<div class="empty">אין עדיין נרשמים כאן.</div>'}
+function card(p){var h=propsOf(p.id);
+  return '<div class="card p"><h3>'+esc(p.first+' '+p.last)+(isNew(p)?'<span class="pill new">חדש</span>':'<span class="pill">'+esc(p.marital||'')+'</span>')+'</h3>'
+   +'<div class="meta">'+[p.age,p.city,p.hashkafa,p.work,p.marital,p.kids&&p.kids!=='אין'?'ילדים: '+p.kids:''].filter(Boolean).map(esc).join(' · ')+(p.forWhom&&p.forWhom!=='עצמי'?'<br>נרשם/ה ע״י '+esc(p.proxyName)+' ('+esc(p.forWhom)+')':'')+'</div>'
+   +'<div class="look"><b>מחפש/ת:</b> '+esc([p.ageFrom&&('גיל '+p.ageFrom+'–'+p.ageTo),p.lookH,p.lookPlace,p.goal].filter(Boolean).join(', '))+(p.values?'<br><b>חשוב:</b> '+esc(p.values):'')+'</div>'
+   +(p.internalNote?'<div class="inote">הערה פנימית: '+esc(p.internalNote)+'</div>':'')
+   +(h.length?'<div class="hist"><b>היסטוריית הצעות</b>'+h.map(function(x){var o=byId(x.aId===p.id?x.bId:x.aId)||{first:'?',last:''};return '<div>• <b>'+esc(o.first+' '+o.last)+'</b>: '+esc(x.stage)+' ('+new Date(x.updated||x.ts).toLocaleDateString('he-IL')+')'+(x.reason?'. <i>'+esc(x.reason)+'</i>':'')+'</div>'}).join('')+'</div>':'')
+   +'<div class="acts"><button class="b pri" onclick="match(\''+p.id+'\')">הצע התאמות</button><button class="b" onclick="full(\''+p.id+'\')">פרטים מלאים</button><button class="b" onclick="note(\''+p.id+'\')">הערה</button></div></div>'}
+function board(){var pr=bestPairs(),m=P.filter(function(p){return p.gender==='בחור'}).length,w=P.length-m;
+  var wait=PR.filter(function(x){return x.stage==='הוצע'&&Date.now()-new Date(x.updated).getTime()>7*864e5}).length;
+  var open=PR.filter(function(x){return ACTIVE.indexOf(x.stage)>-1});
+  document.getElementById('list').innerHTML='<div class="card daily"><b>☀️ הסבב היומי</b><div>• <b>'+pr.length+'</b> הצעות מומלצות מוכנות</div><div>• <b>'+P.filter(isNew).length+'</b> נרשמים חדשים השבוע</div><div>• <b>'+wait+'</b> הצעות בלי תשובה כבר שבוע</div><div style="margin-top:4px;color:var(--muted)">הצעות ביום: <select onchange="CAP=+this.value;localStorage.setItem(\'mt-cap\',CAP);board()">'+[5,10,20,30,999].map(function(n){return '<option value="'+n+'"'+(n===CAP?' selected':'')+'>'+(n===999?'בלי הגבלה':n)+'</option>'}).join('')+'</select></div></div>'
+   +(w>m*1.5&&P.length>4?'<div class="gapnote">יש '+w+' בחורות ו-'+m+' בחורים. כל אחד מקבל הצעה אחת פעילה בכל פעם, ומי שמחכה הכי הרבה זמן מקבל עדיפות. כדאי לפרסם כדי להביא עוד בחורים.</div>':'')
+   +(open.length?'<p class="sub" style="margin:4px 0 8px">הצעות פעילות ('+open.length+')</p>'+open.map(function(x){var a=byId(x.aId),b=byId(x.bId);if(!a||!b)return'';return pairRow(a,b,score(a,b).s,x.stage+(x.answerA||x.answerB?' · '+[x.answerA&&a.first+': '+x.answerA,x.answerB&&b.first+': '+x.answerB].filter(Boolean).join(', '):''))}).join(''):'')
+   +'<p class="sub" style="margin:12px 0 8px">הצעות מומלצות חדשות</p>'
+   +(pr.length?pr.map(function(x){return pairRow(x.a,x.b,x.r.s,'')}).join(''):'<div class="empty">אין כרגע התאמות חדשות מעל 55%. כשיירשמו עוד, הן יופיעו כאן.</div>')}
+function pairRow(a,b,s,st){return '<div class="card pair" onclick="cmp(\''+a.id+'\',\''+b.id+'\')"><div class="side"><h4>'+esc(a.first+' '+a.last)+'</h4><div>'+esc(a.age+' · '+a.city)+'</div>'+(st?'<div style="color:var(--ok);margin-top:4px">'+esc(st)+'</div>':'')+'</div><div class="score" style="--v:'+s+'"><i>'+s+'%</i></div><div class="side l"><h4>'+esc(b.first+' '+b.last)+'</h4><div>'+esc(b.age+' · '+b.city)+'</div></div></div>'}
+function match(id){var a=byId(id),r=P.filter(function(b){return b.gender!==a.gender&&active(b)}).map(function(b){return{b:b,r:score(a,b)}}).sort(function(x,y){return y.r.s-x.r.s}).slice(0,5);
+  open('<button class="close" onclick="shut()">×</button><h2>התאמות ל'+esc(a.first)+'</h2><p class="hint">'+esc(a.age+' · '+a.city+' · '+a.hashkafa)+'</p>'
+   +(r.length?r.map(function(o){return '<div class="card pair" onclick="cmp(\''+(a.gender==='בחור'?a.id:o.b.id)+'\',\''+(a.gender==='בחור'?o.b.id:a.id)+'\')" style="grid-template-columns:62px 1fr"><div class="score" style="--v:'+o.r.s+'"><i>'+o.r.s+'%</i></div><div><h4 style="margin:0">'+esc(o.b.first+' '+o.b.last)+(had(a.id,o.b.id)?' <span class="pill">כבר הוצע</span>':'')+'</h4><div class="meta" style="margin:0">'+esc(o.b.age+' · '+o.b.city+' · '+o.b.hashkafa)+'</div><ul class="why">'+o.r.why.map(function(w){return '<li class="'+w[0]+'">'+esc(w[1])+'</li>'}).join('')+'</ul></div></div>'}).join(''):'<div class="empty">אין עדיין נרשמים מהצד השני.</div>'))}
+function row(k,a,b,ok){return '<div class="'+(ok?'ok':'gap')+'">'+esc(a)+'</div><div class="k">'+k+'</div><div class="'+(ok?'ok':'gap')+'" style="text-align:left">'+esc(b)+'</div>'}
+function anon(p){return [p.age,p.city,p.hashkafa,p.work,p.marital].filter(Boolean).join(', ')+(p.values?'. חשוב לו/ה: '+p.values:'')}
+function findProp(a,b){return PR.filter(function(x){return(x.aId===a&&x.bId===b)||(x.aId===b&&x.bId===a)})[0]}
+function waMsg(to,other,token){return 'שלום '+to.first+', כאן Mosh Tov 💍\nיש לנו הצעה שנראית לנו מתאימה:\n'+anon(other)+'\nמעוניין/ת לשמוע עוד?\nלתשובה בלחיצה: '+ANSWER+token}
+function waLink(p,text){var n=String(p.phone||'').replace(/\D/g,'');if(n.length===10&&n[0]==='0')n='972'+n.slice(1);else if(n.length===10)n='1'+n;return 'https://wa.me/'+n+'?text='+encodeURIComponent(text)}
+function cmp(ai,bi){var a=byId(ai),b=byId(bi),r=score(a,b),x=findProp(ai,bi);
+  var ageOk=+b.age>=+a.ageFrom&&+b.age<=+a.ageTo&&+a.age>=+b.ageFrom&&+a.age<=+b.ageTo,hOk=has(a.lookH,b.hashkafa)&&has(b.lookH,a.hashkafa),pOk=region(a.city)===region(b.city);
+  var h='<button class="close" onclick="shut()">×</button><h2>השוואה · '+r.s+'%</h2><div class="cmp"><div class="h">'+esc(a.first+' '+a.last)+'</div><div class="k"></div><div class="h" style="text-align:left">'+esc(b.first+' '+b.last)+'</div>'
+   +row('גיל',a.age+' (מחפש '+(a.ageFrom||'?')+'–'+(a.ageTo||'?')+')',b.age+' (מחפשת '+(b.ageFrom||'?')+'–'+(b.ageTo||'?')+')',ageOk)
+   +row('סגנון',a.hashkafa,b.hashkafa,hOk)+row('שבת',a.shabbat||'-',b.shabbat||'-',a.shabbat===b.shabbat)+row('מקום',a.city+' ← '+(a.lookPlace||''),b.city+' ← '+(b.lookPlace||''),pOk)
+   +row('מצב',a.marital+(a.kids&&a.kids!=='אין'?', ילדים '+a.kids:''),b.marital+(b.kids&&b.kids!=='אין'?', ילדים '+b.kids:''),true)+row('עיסוק',a.work||'-',b.work||'-',true)+'</div>'
+   +'<ul class="why">'+r.why.map(function(w){return '<li class="'+w[0]+'">'+esc(w[1])+'</li>'}).join('')+'</ul>'
+   +((a.about||b.about)?'<p class="hint" style="margin-top:10px">במילים שלהם:<br>'+(a.about?'<b>'+esc(a.first)+':</b> '+esc(a.about)+'<br>':'')+(b.about?'<b>'+esc(b.first)+':</b> '+esc(b.about):'')+'</p>':'');
+  if(!x){h+='<button class="b pri" style="width:100%;padding:12px;margin-top:10px" onclick="propose(\''+ai+'\',\''+bi+'\')">יצירת הצעה ושליחה בוואטסאפ</button><p class="hint" style="text-align:center;margin-top:6px">ההודעה אנונימית: בלי שם, בלי טלפון ובלי תמונה.</p>'}
+  else{h+='<div class="flow">'+FLOW.map(function(f){return '<button class="'+(x.stage===f?'on':'')+'" onclick="stage(\''+x.id+'\',\''+f+'\',\''+ai+'\',\''+bi+'\')">'+f+'</button>'}).join('')+'</div>'
+   +'<div class="ans">תשובות: '+esc(a.first)+': <b>'+esc(x.answerA||'עוד לא')+'</b> · '+esc(b.first)+': <b>'+esc(x.answerB||'עוד לא')+'</b></div>'
+   +'<a class="wa" target="_blank" rel="noopener" href="'+waLink(a,waMsg(a,b,x.tokenA))+'">שליחה בוואטסאפ ל'+esc(a.first)+'</a>'
+   +'<a class="wa" style="background:#178A47" target="_blank" rel="noopener" href="'+waLink(b,waMsg(b,a,x.tokenB))+'">שליחה בוואטסאפ ל'+esc(b.first)+' (רק אחרי ש'+esc(a.first)+' אמר כן)</a>'
+   +'<div style="margin-top:10px"><input id="rsn" placeholder="סיבה / הערה להצעה הזו" value="'+esc(x.reason||'')+'"><button class="b" style="margin-top:6px" onclick="stage(\''+x.id+'\',\'\',\''+ai+'\',\''+bi+'\')">שמירת הערה</button></div>'}
+  open(h)}
+function propose(a,b){api({action:'propose',aId:a,bId:b}).then(function(j){if(!j.ok)throw 0;return login(KEY)}).then(function(){cmp(a,b)}).catch(function(){alert('לא הצלחנו ליצור הצעה. נסי שוב.')})}
+function stage(id,st,a,b){var o={action:'setStage',id:id,reason:(document.getElementById('rsn')||{}).value};if(st)o.stage=st;
+  api(o).then(function(){return login(KEY)}).then(function(){cmp(a,b)}).catch(function(){alert('השמירה נכשלה. נסי שוב.')})}
+function note(id){var a=byId(id);open('<button class="close" onclick="shut()">×</button><h2>הערה פנימית: '+esc(a.first)+'</h2><p class="hint">רק מי שבניהול רואה את ההערה.</p><textarea id="nt" style="min-height:110px">'+esc(a.internalNote||'')+'</textarea><div style="margin-top:12px;display:flex;gap:8px"><button class="b pri" onclick="saveNote(\''+id+'\')">שמירה</button><button class="b" onclick="shut()">ביטול</button></div>')}
+function saveNote(id){api({action:'savePerson',person:{id:id,internalNote:document.getElementById('nt').value}}).then(function(){shut();return login(KEY)}).catch(function(){alert('השמירה נכשלה.')})}
+function full(id){var a=byId(id),L={gender:'מין',age:'גיל',city:'עיר',marital:'מצב משפחתי',hashkafa:'סגנון',shabbat:'שבת',kosher:'כשרות',kids:'ילדים',kidsHome:'ילדים בבית',work:'עיסוק',langs:'שפות',ageFrom:'גיל מ',ageTo:'גיל עד',lookH:'סגנון מבוקש',mustH:'סגנון חובה',lookPlace:'מקום',mustPlace:'מקום חובה',openKids:'פתוח לילדים',goal:'מחפש/ת',values:'חשוב בבית',about:'במילים שלו/ה',phone:'טלפון',email:'מייל',notes:'הערות',wa:'הסכים לוואטסאפ',forWhom:'נרשם עבור',proxyName:'שם הממלא',proxyPhone:'טלפון הממלא',source:'מקור',ts:'נרשם'};
+  open('<button class="close" onclick="shut()">×</button><h2>'+esc(a.first+' '+a.last)+'</h2><div class="cmp" style="grid-template-columns:auto 1fr">'+Object.keys(L).filter(function(k){return a[k]!==''&&a[k]!=null}).map(function(k){var v=a[k];if(k==='ts')v=new Date(v).toLocaleDateString('he-IL');if(v==='on')v='כן';return '<div class="k">'+L[k]+'</div><div>'+esc(v)+'</div>'}).join('')+'</div>'
+   +'<button class="b" onclick="toggleActive(\''+id+'\')">'+(a.active==='לא'?'החזרה לפעילים':'הוצאה מהרשימה (התחתן/ה או ביקש/ה להפסיק)')+'</button>')}
+function toggleActive(id){var a=byId(id);api({action:'savePerson',person:{id:id,active:a.active==='לא'?'כן':'לא'}}).then(function(){shut();return login(KEY)})}
+document.getElementById('addBtn').onclick=function(){var F=[['first','שם פרטי'],['last','שם משפחה'],['gender','בחור / בחורה'],['age','גיל'],['city','עיר'],['marital','מצב משפחתי'],['hashkafa','סגנון'],['phone','טלפון'],['ageFrom','מחפש/ת מגיל'],['ageTo','עד גיל'],['lookH','סגנון מבוקש (מופרד בפסיקים)'],['lookPlace','ארה״ב / ישראל / גמיש'],['about','כמה מילים'],['internalNote','הערה פנימית']];
+  open('<button class="close" onclick="shut()">×</button><h2>הוספת מועמד</h2><p class="hint">למי שפנה בטלפון או דרך מכרים. נא לוודא שהוא/היא הסכימו.</p><div class="form2">'+F.map(function(f){return '<div><label>'+f[1]+'</label>'+(f[0]==='gender'?'<select id="n_gender"><option>בחור</option><option>בחורה</option></select>':'<input id="n_'+f[0]+'">')+'</div>'}).join('')+'</div><button class="b pri" style="margin-top:12px;width:100%;padding:12px" onclick="addSave()">שמירה</button>');
+  window.addSave=function(){var p={source:'שדכן',wa:'on'};F.forEach(function(f){p[f[0]]=document.getElementById('n_'+f[0]).value.trim()});if(!p.first||!p.phone){alert('נא למלא לפחות שם וטלפון');return}
+    api({action:'savePerson',person:p}).then(function(){shut();return login(KEY)}).catch(function(){alert('השמירה נכשלה.')})}};
+function open(h){document.getElementById('modal').innerHTML=h;document.getElementById('ov').classList.add('on')}
+function shut(){document.getElementById('ov').classList.remove('on');render()}
+document.getElementById('ov').onclick=function(e){if(e.target.id==='ov')shut()};
+document.querySelectorAll('.tab').forEach(function(t){t.onclick=function(){document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('on')});t.classList.add('on');G=t.dataset.g;render()}});
+document.getElementById('q').oninput=function(){if(G!=='board')render()};
+</script>
+</body>
+</html>
