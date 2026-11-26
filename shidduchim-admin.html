@@ -66,6 +66,8 @@ h1{font-family:'Frank Ruhl Libre',serif;color:var(--gold2);margin:4px 0 2px;font
 .wa{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;font:inherit;font-weight:600;padding:12px;border-radius:12px;border:0;background:#1FA855;color:#fff;cursor:pointer;margin-top:8px}
 .msg{white-space:pre-wrap;background:rgba(31,168,85,.08);border:1px solid rgba(31,168,85,.35);border-radius:12px;padding:10px 12px;font-size:.86rem;color:#DDEFE4;margin-top:8px}
 .gapnote{background:rgba(242,194,122,.08);border:1px solid rgba(242,194,122,.35);color:#F2D9A8;border-radius:12px;padding:10px 12px;font-size:.86rem;margin-bottom:12px}
+.daily{background:linear-gradient(135deg,rgba(243,210,122,.12),rgba(212,175,94,.04));border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin-bottom:12px;font-size:.88rem;line-height:1.8}.daily>b{color:var(--gold2);font-size:1rem}.daily .cap{margin-top:6px;color:var(--muted)}.daily select{font:inherit;background:#0C1B2D;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:3px 8px}
+.hist{font-size:.82rem;color:#D9DEE5;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:8px 10px;margin-bottom:10px;line-height:1.7}.hist>b{color:#E9D9A8}.hist i{color:var(--muted)}
 @media(max-width:700px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
@@ -111,12 +113,14 @@ function score(a,b){var s=0,why=[];
   if((a.status==='רווק/ה')===(b.status==='רווק/ה')){s+=10;why.push(['y','שלב חיים דומה'])}
   return {s:s,why:why}}
 
-var STATUS={};var FLOW=['הוצע','הבחור מעוניין','הבחורה מעוניינת','נפגשו','ממשיכים','מזל טוב 🎉','לא מתאים'];
+var STATUS={};var HIST=[{a:2,b:7,st:'נפגשו',d:'12.11',why:'היה נחמד, אבל לא התאים מבחינת מקום'},{a:1,b:7,st:'לא מתאים',d:'20.11',why:'פער השקפה'},{a:3,b:6,st:'הוצע',d:'19.11',why:'עדיין אין תשובה (שבוע)'}];var CAP=10;
+function histOf(id){return HIST.filter(h=>h.a===id||h.b===id)}
+function had(a,b){return HIST.some(h=>(h.a===a&&h.b===b)||(h.a===b&&h.b===a))}var FLOW=['הוצע','הבחור מעוניין','הבחורה מעוניינת','נפגשו','ממשיכים','מזל טוב 🎉','לא מתאים'];
 function bestPairs(){var all=[];P.filter(p=>p.g==='בחור').forEach(a=>P.filter(p=>p.g==='בחורה').forEach(b=>{var r=score(a,b);all.push({a:a,b:b,r:r})}));
-  all.sort((x,y)=>y.r.s-x.r.s);var used={},out=[];all.forEach(x=>{if(x.r.s<55||used[x.a.id]||used[x.b.id])return;used[x.a.id]=used[x.b.id]=1;out.push(x)});return out}
+  all.sort((x,y)=>y.r.s-x.r.s);var used={},out=[];all.forEach(x=>{if(x.r.s<55||used[x.a.id]||used[x.b.id]||had(x.a.id,x.b.id)||out.length>=CAP)return;used[x.a.id]=used[x.b.id]=1;out.push(x)});return out}
 function board(){var pr=bestPairs(),m=P.filter(p=>p.g==='בחור').length,w=P.length-m;
   document.getElementById('list').style.display='block';
-  document.getElementById('list').innerHTML=(w>m?'<div class="gapnote">יש '+w+' בחורות ו-'+m+' בחורים. כל אחד מקבל הצעה אחת פעילה בכל פעם, ומי שמחכה הכי הרבה זמן מקבל עדיפות. כדאי לפרסם כדי להביא עוד בחורים.</div>':'')
+  var waiting=HIST.filter(h=>h.st==='הוצע').length;document.getElementById('list').innerHTML='<div class="daily"><b>☀️ בוקר טוב · הסבב היומי</b><div>• <b>'+pr.length+'</b> הצעות חדשות מוכנות לשליחה</div><div>• <b>'+P.filter(p=>p.isNew).length+'</b> נרשמים חדשים</div><div>• <b>'+waiting+'</b> הצעות בלי תשובה כבר שבוע. כדאי להזכיר</div><div class="cap">הצעות ביום: <select onchange="CAP=+this.value;board()">'+[5,10,20,30,999].map(n=>'<option value="'+n+'"'+(n===CAP?' selected':'')+'>'+(n===999?'בלי הגבלה':n)+'</option>').join('')+'</select></div></div>'+(w>m?'<div class="gapnote">יש '+w+' בחורות ו-'+m+' בחורים. כל אחד מקבל הצעה אחת פעילה בכל פעם, ומי שמחכה הכי הרבה זמן מקבל עדיפות. כדאי לפרסם כדי להביא עוד בחורים.</div>':'')
    +'<p class="sub" style="margin:0 0 10px">ההצעות הכי מתאימות עכשיו. לחיצה פותחת השוואה, ושם שולחים בוואטסאפ.</p>'
    +pr.map(x=>{var k=x.a.id+'-'+x.b.id,st=STATUS[k];return '<div class="pair" onclick="cmp('+x.a.id+','+x.b.id+')"><div class="side"><h4>'+x.a.first+' '+x.a.last+'</h4><div>'+x.a.age+' · '+x.a.city+'</div>'+(st?'<span class="st go">'+st+'</span>':'')+'</div><div class="score" style="--v:'+x.r.s+'"><i>'+x.r.s+'%</i></div><div class="side l"><h4>'+x.b.first+' '+x.b.last+'</h4><div>'+x.b.age+' · '+x.b.city+'</div></div></div>'}).join('')}
 function row(k,a,b,ok){return '<div class="'+(ok?'ok':'gap')+'">'+a+'</div><div class="k">'+k+'</div><div class="'+(ok?'ok':'gap')+'" style="text-align:left">'+b+'</div>'}
@@ -140,7 +144,7 @@ function render(){if(G==='board'){board();return}document.getElementById('list')
    '<div class="p"><h3>'+p.first+' '+p.last+(p.isNew?' <span class="pill new">חדש</span>':' <span class="pill">'+p.status+'</span>')+'</h3>'
    +'<div class="meta">'+p.age+' · '+p.city+' · '+p.hashkafa+' · '+p.work+'</div>'
    +'<div class="look"><b>מחפש/ת:</b> גיל '+p.ageFrom+'–'+p.ageTo+', '+p.lookH+', '+p.lookPlace+'</div>'
-   +(p.note?'<div class="inote">הערה פנימית: '+p.note+'</div>':'')
+   +(p.note?'<div class="inote">הערה פנימית: '+p.note+'</div>':'')+(histOf(p.id).length?'<div class="hist"><b>היסטוריית הצעות</b>'+histOf(p.id).map(h=>{var o=P.find(x=>x.id===(h.a===p.id?h.b:h.a));return '<div>• <b>'+o.first+' '+o.last+'</b>: '+h.st+' ('+h.d+'). <i>'+h.why+'</i></div>'}).join('')+'</div>':'')
    +'<div class="acts"><button class="b pri" onclick="match('+p.id+')">הצע התאמות</button><button class="b" onclick="note('+p.id+')">הערה</button><button class="b">פרטים מלאים</button></div></div>').join('')}
 function match(id){var a=P.find(p=>p.id===id),other=P.filter(p=>p.g!==a.g).map(b=>({b:b,r:score(a,b)})).sort((x,y)=>y.r.s-x.r.s).slice(0,3);
   open('<button class="close" onclick="shut()">×</button><h2>התאמות ל'+a.first+'</h2><p class="hint">'+a.age+' · '+a.city+' · '+a.hashkafa+'. ההצעות המתאימות ביותר מהצד השני:</p>'

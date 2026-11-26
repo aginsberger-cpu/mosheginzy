@@ -2,128 +2,154 @@
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mosh Tov · מוש טוב — שידוכים אישיים | AskMosh</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Mosh Tov · מוש טוב — שידוכים אישיים ודיסקרטיים | AskMosh</title>
+<meta name="description" content="שידוכים אישיים ודיסקרטיים לכל גיל ולכל שלב בחיים. בלי תמונות, בלי פרופילים פתוחים. נרשמים בשתי דקות, ושדכן אישי חוזר אליכם.">
 <meta name="robots" content="noindex">
 <link rel="icon" type="image/png" sizes="48x48" href="favicon.png">
 <link rel="stylesheet" href="askmosh-brand.css">
-<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Heebo:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#07121F;--card:rgba(14,32,52,.72);--line:rgba(212,175,94,.28);--gold:#D4AF5E;--gold2:#F3D27A;--ink:#F4F1EA;--muted:#A9B4C2}
-*{box-sizing:border-box}
+:root{--bg:#07121F;--card:rgba(14,32,52,.72);--line:rgba(212,175,94,.28);--gold:#D4AF5E;--gold2:#F3D27A;--ink:#F4F1EA;--muted:#A9B4C2;--field:rgba(7,18,31,.65)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;font-family:Heebo,Arial,sans-serif;color:var(--ink);background:radial-gradient(1200px 600px at 50% -200px,#16304D 0%,var(--bg) 60%) fixed;min-height:100vh}
-.top{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,.06)}
-.top .am-logo{font-size:1.5rem}
-.back{color:var(--gold2);text-decoration:none;font-size:.9rem;border:1px solid var(--line);padding:6px 14px;border-radius:999px}
-.wrap{max-width:560px;margin:0 auto;padding:26px 18px 60px}
-.hero{text-align:center;margin-bottom:22px}
-.ring{width:64px;height:64px;margin:0 auto 14px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);background:rgba(212,175,94,.08)}
-.ring svg{width:30px;height:30px;stroke:var(--gold2);fill:none;stroke-width:1.5}
-h1{font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:2rem;margin:0 0 8px;color:var(--gold2)}
-.mt-en{font-family:'Playfair Display',Georgia,serif}.tag{color:#E9D9A8;font-size:1.02rem;margin:0 0 10px;letter-spacing:.01em}
-.sub{color:var(--muted);line-height:1.7;margin:0 auto;max-width:440px;font-size:1rem}
-.trust{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:18px 0 6px}
-.trust span{font-size:.8rem;color:#E9D9A8;border:1px solid var(--line);background:rgba(212,175,94,.07);padding:5px 12px;border-radius:999px}
-.steps{display:flex;gap:6px;margin:22px 0 14px}
-.steps i{flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,.12)}
-.steps i.on{background:linear-gradient(90deg,#F3D27A,#B8862E)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px 20px;backdrop-filter:blur(8px)}
-.card h2{font-family:'Frank Ruhl Libre',serif;font-size:1.3rem;margin:0 0 4px;color:var(--ink)}
-.card .hint{color:var(--muted);font-size:.86rem;margin:0 0 16px}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.f{margin-bottom:14px}
-label{display:block;font-size:.86rem;color:#D9DEE5;margin-bottom:6px}
-label small{color:var(--muted);font-weight:300}
-input,select,textarea{width:100%;font:inherit;color:var(--ink);background:rgba(7,18,31,.65);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:12px 13px;outline:none;transition:border .2s}
-textarea{min-height:92px;resize:vertical;line-height:1.6}
-input:focus,select:focus,textarea:focus{border-color:var(--gold)}
-select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23D4AF5E' stroke-width='1.6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:14px 50%;padding-left:34px}
-.seg{display:flex;gap:8px}
-.seg label{flex:1;margin:0;text-align:center;padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.14);cursor:pointer;color:#D9DEE5}
-.seg input{display:none}
-.seg input:checked+span{color:#1a1408}
-.seg label:has(input:checked){background:linear-gradient(135deg,#F3D27A,#C99A3C);border-color:transparent;color:#1a1408;font-weight:600}
-.chk{display:flex;gap:10px;align-items:flex-start;font-size:.88rem;color:#D9DEE5;line-height:1.6;margin-bottom:12px}
-.chk input{width:20px;height:20px;flex:0 0 20px;margin-top:3px;accent-color:#D4AF5E}
-.nav{display:flex;gap:10px;margin-top:18px}
+.top{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;padding-top:calc(12px + env(safe-area-inset-top,0px));border-bottom:1px solid rgba(255,255,255,.06)}
+.top .am-logo{font-size:1.4rem}
+.back{color:var(--gold2);text-decoration:none;font-size:.88rem;border:1px solid var(--line);padding:6px 14px;border-radius:999px;background:none;font-family:inherit;cursor:pointer}
+.wrap{max-width:540px;margin:0 auto;padding:20px 16px 50px}
+.hero{text-align:center;margin-bottom:14px}
+.ring{width:62px;height:62px;margin:0 auto 12px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);background:radial-gradient(circle at 50% 30%,rgba(243,210,122,.18),rgba(212,175,94,.04))}
+.ring svg{width:30px;height:30px;stroke:var(--gold2);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+h1{font-weight:700;font-size:1.9rem;margin:0 0 6px;color:var(--gold2);letter-spacing:-.01em}
+.mt-en{font-family:'Playfair Display',Georgia,serif}
+.tag{color:#E9D9A8;font-size:1rem;margin:0 0 8px}
+.sub{color:var(--muted);line-height:1.7;margin:0 auto;max-width:430px;font-size:.95rem}
+.trust{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin:14px 0 4px}
+.trust span{font-size:.76rem;color:#E9D9A8;border:1px solid var(--line);background:rgba(212,175,94,.07);padding:4px 11px;border-radius:999px}
+.time{text-align:center;color:var(--muted);font-size:.8rem;margin:10px 0 0}
+.prog{display:flex;align-items:center;gap:10px;margin:18px 0 12px}
+.prog .bar{flex:1;height:4px;border-radius:4px;background:rgba(255,255,255,.1);overflow:hidden}
+.prog .bar i{display:block;height:100%;width:25%;background:linear-gradient(90deg,#F3D27A,#B8862E);transition:width .35s}
+.prog span{font-size:.78rem;color:var(--muted);white-space:nowrap}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px 18px;backdrop-filter:blur(8px)}
+.card h2{font-size:1.25rem;font-weight:600;margin:0 0 2px}
+.card .hint{color:var(--muted);font-size:.85rem;margin:0 0 16px}
+.f{margin-bottom:16px}
+.lbl{display:block;font-size:.88rem;color:#D9DEE5;margin-bottom:8px;font-weight:500}
+.lbl small{color:var(--muted);font-weight:300}
+input,textarea{width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--field);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:12px 13px;outline:none;transition:border .2s}
+textarea{min-height:84px;resize:vertical;line-height:1.6}
+input:focus,textarea:focus{border-color:var(--gold)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-size:.9rem;padding:9px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:var(--field);color:#D9DEE5;cursor:pointer;transition:all .15s;user-select:none}
+.chip.on{background:linear-gradient(135deg,#F3D27A,#C99A3C);color:#1a1408;border-color:transparent;font-weight:600}
+.chips.big .chip{flex:1;text-align:center;padding:13px 10px;font-size:1rem;border-radius:14px}
+.must{display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-size:.8rem;color:var(--muted);cursor:pointer}
+.must input{width:16px;height:16px;accent-color:#D4AF5E}
+.cond{display:none}.cond.show{display:block;animation:fade .25s}
+@keyframes fade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.chk{display:flex;gap:10px;align-items:flex-start;font-size:.86rem;color:#D9DEE5;line-height:1.6;margin-bottom:10px;cursor:pointer}
+.chk input{width:20px;height:20px;flex:0 0 20px;margin-top:2px;accent-color:#D4AF5E}
+.nav{display:flex;gap:10px;margin-top:16px}
 .btn{flex:1;font:inherit;font-weight:600;font-size:1rem;padding:14px;border-radius:14px;cursor:pointer;border:0}
-.btn.pri{background:linear-gradient(135deg,#F3D27A,#C99A3C);color:#1a1408;box-shadow:0 8px 24px rgba(212,175,94,.25)}
-.btn.sec{background:transparent;color:var(--gold2);border:1px solid var(--line);flex:0 0 34%}
+.btn.pri{background:linear-gradient(135deg,#F3D27A,#C99A3C);color:#1a1408;box-shadow:0 8px 24px rgba(212,175,94,.22)}
+.btn.sec{background:transparent;color:var(--gold2);border:1px solid var(--line);flex:0 0 30%}
+.btn[disabled]{opacity:.6}
 .err{color:#F2A19A;font-size:.85rem;min-height:1.2em;margin-top:8px;text-align:center}
-.step{display:none}.step.on{display:block}
-.note{color:var(--muted);font-size:.78rem;text-align:center;margin-top:18px;line-height:1.7}
+.step{display:none}.step.on{display:block;animation:fade .25s}
+.note{color:var(--muted);font-size:.76rem;text-align:center;margin-top:16px;line-height:1.7}
 .note a{color:var(--gold2)}
-.done{text-align:center;padding:36px 22px}
-.done h2{font-size:1.6rem;color:var(--gold2)}
-.done p{color:#D9DEE5;line-height:1.8}
-@media(max-width:420px){.row{grid-template-columns:1fr}}
+.done{text-align:center;padding:30px 20px}
+.done h2{font-size:1.5rem;color:var(--gold2);margin:4px 0 8px}
+.done p{color:#D9DEE5;line-height:1.8;margin:0 0 14px}
+.share{display:inline-flex;align-items:center;gap:8px;margin-top:6px;font:inherit;font-weight:600;padding:11px 18px;border-radius:999px;border:0;background:#1FA855;color:#fff;cursor:pointer;text-decoration:none}
+.resume{display:none;text-align:center;font-size:.82rem;color:#E9D9A8;margin:-4px 0 10px}
+.resume.show{display:block}
+@media(max-width:380px){.two{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <header class="top">
   <span class="am-logo" dir="ltr"><span class="am-ask">Ask</span><span class="am-mosh">M<span class="am-o">o</span>sh</span></span>
-  <a class="back" href="app.html">חזרה</a>
+  <button class="back" onclick="history.length>1?history.back():location.href='app.html'">חזרה</button>
 </header>
 
 <main class="wrap">
-  <section class="hero">
-    <div class="ring"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.4-9.3-8.6C1.1 9.2 2.9 5.5 6.4 5.1c2-.2 3.9.9 5.6 2.9 1.7-2 3.6-3.1 5.6-2.9 3.5.4 5.3 4.1 3.7 7.3C19 16.6 12 21 12 21z"/></svg></div>
-    <h1><span dir="ltr" class="mt-en">Mosh Tov</span> · מוש טוב</h1>
+  <section class="hero" id="hero">
+    <div class="ring"><svg viewBox="0 0 24 24"><path d="M9 2.6h6l2.4 3-5.4 5-5.4-5z"/><path d="M6.6 5.6h10.8"/><path d="M10.6 5.6L12 10.6l1.4-5"/><circle cx="12" cy="15.8" r="5.3"/></svg></div>
+    <h1><span class="mt-en" dir="ltr">Mosh Tov</span> · מוש טוב</h1>
     <p class="tag">שידוכים אישיים ודיסקרטיים, לכל גיל ולכל שלב בחיים</p>
-    <p class="sub">השאירו פרטים, ושדכן אישי יחזור אליכם. בלי פרופילים פתוחים, בלי תמונות ובלי חשיפה. רק הצעות מכבדות שמתאימות לכם.</p>
-    <div class="trust"><span>דיסקרטי לגמרי</span><span>בלי תמונות</span><span>רק השדכן רואה את הפרטים</span><span>ללא עלות</span></div>
+    <p class="sub">משאירים פרטים פעם אחת, ושדכן אישי מחפש בשבילכם. בלי תמונות, בלי פרופילים פתוחים, ובלי לבזבז זמן.</p>
+    <div class="trust"><span>דיסקרטי לגמרי</span><span>בלי תמונות</span><span>רק השדכן רואה</span><span>ללא עלות</span></div>
+    <p class="time">⏱ לוקח בערך שתי דקות</p>
   </section>
 
-  <div class="steps"><i class="on"></i><i></i><i></i><i></i></div>
+  <div class="prog"><div class="bar"><i id="pbar"></i></div><span id="ptxt">שלב 1 מתוך 4</span></div>
+  <p class="resume" id="resume">שמרנו את מה שמילאת. אפשר להמשיך מאיפה שעצרת.</p>
 
-  <form id="f" class="card" novalidate>
-    <!-- שלב 1 -->
+  <form id="f" class="card" novalidate autocomplete="on">
+    <!-- 1: מי -->
     <div class="step on" data-s="1">
-      <h2>קצת עליך</h2><p class="hint">הפרטים הבסיסיים, כדי שנוכל להכיר.</p>
-      <div class="f"><label>אני</label><div class="seg"><label><input type="radio" name="gender" value="בחור" required><span>בחור</span></label><label><input type="radio" name="gender" value="בחורה"><span>בחורה</span></label></div></div>
-      <div class="row"><div class="f"><label>שם פרטי</label><input name="first" required></div><div class="f"><label>שם משפחה</label><input name="last" required></div></div>
-      <div class="row"><div class="f"><label>גיל</label><input name="age" type="number" min="18" max="99" inputmode="numeric" required></div><div class="f"><label>מצב משפחתי</label><select name="status" required><option value="">בחירה</option><option>רווק/ה</option><option>גרוש/ה</option><option>אלמן/ה</option><option>אחר</option></select></div></div>
-      <div class="f"><label>עיר ומדינה</label><input name="city" placeholder="למשל: ירושלים, ישראל" required></div>
+      <h2>נעים להכיר</h2><p class="hint">הפרטים הבסיסיים.</p>
+      <div class="f"><span class="lbl">ההרשמה היא בשביל</span>
+        <div class="chips" data-name="forWhom" data-req><button type="button" class="chip on" data-v="עצמי">עצמי</button><button type="button" class="chip" data-v="בן/בת משפחה">בן/בת משפחה</button><button type="button" class="chip" data-v="חבר/ה">חבר/ה</button></div></div>
+      <div class="f cond" id="c-proxy"><span class="lbl">השם והטלפון שלך <small>(של מי שממלא)</small></span>
+        <div class="two"><input name="proxyName" placeholder="השם שלך"><input name="proxyPhone" type="tel" inputmode="tel" dir="ltr" placeholder="הטלפון שלך"></div>
+        <label class="chk" style="margin-top:10px"><input type="checkbox" name="proxyConsent"><span>מי שאני רושם/ת יודע/ת ומסכים/ה להרשמה.</span></label></div>
+      <div class="f"><span class="lbl" id="l-gender">אני</span><div class="chips big" data-name="gender" data-req><button type="button" class="chip" data-v="בחור">בחור</button><button type="button" class="chip" data-v="בחורה">בחורה</button></div></div>
+      <div class="two"><div class="f"><span class="lbl">שם פרטי</span><input name="first" autocomplete="given-name" required></div><div class="f"><span class="lbl">שם משפחה</span><input name="last" autocomplete="family-name" required></div></div>
+      <div class="two"><div class="f"><span class="lbl">גיל</span><input name="age" type="number" min="18" max="99" inputmode="numeric" required></div><div class="f"><span class="lbl">עיר</span><input name="city" autocomplete="address-level2" placeholder="למשל: ניו יורק" required></div></div>
+      <div class="f"><span class="lbl">מצב משפחתי</span><div class="chips" data-name="status" data-req><button type="button" class="chip" data-v="רווק/ה">רווק/ה</button><button type="button" class="chip" data-v="גרוש/ה">גרוש/ה</button><button type="button" class="chip" data-v="אלמן/ה">אלמן/ה</button></div></div>
     </div>
 
-    <!-- שלב 2 -->
+    <!-- 2: רקע -->
     <div class="step" data-s="2">
-      <h2>רקע</h2><p class="hint">עוזר לשדכן להציע התאמה נכונה. מה שלא רוצים, אפשר להשאיר ריק.</p>
-      <div class="f"><label>סגנון / השקפה</label><select name="hashkafa" required><option value="">בחירה</option><option>חרדי</option><option>דתי לאומי</option><option>דתי</option><option>מסורתי</option><option>בתהליך התקרבות</option><option>אחר</option></select></div>
-      <div class="row"><div class="f"><label>מוצא <small>(לא חובה)</small></label><select name="eda"><option value="">בחירה</option><option>אשכנזי</option><option>ספרדי</option><option>תימני</option><option>מעורב</option><option>אחר</option></select></div><div class="f"><label>שפות</label><input name="langs" placeholder="עברית, אנגלית..."></div></div>
-      <div class="f"><label>עיסוק / לימודים</label><input name="work" placeholder="במה את/ה עוסק/ת או לומד/ת"></div>
-      <div class="f"><label>כמה מילים עליך</label><textarea name="about" placeholder="אופי, תחביבים, מה חשוב לך בחיים..."></textarea></div>
+      <h2>קצת רקע</h2><p class="hint">לחיצה אחת על כל שאלה. מה שלא רוצים, אפשר לדלג.</p>
+      <div class="f"><span class="lbl">הסגנון שלי</span><div class="chips" data-name="hashkafa" data-req><button type="button" class="chip" data-v="חילוני">חילוני</button><button type="button" class="chip" data-v="מסורתי">מסורתי</button><button type="button" class="chip" data-v="בתהליך התקרבות">בתהליך התקרבות</button><button type="button" class="chip" data-v="דתי">דתי</button><button type="button" class="chip" data-v="דתי לאומי">דתי לאומי</button><button type="button" class="chip" data-v="חרדי">חרדי</button></div></div>
+      <div class="f"><span class="lbl">שבת אצלי</span><div class="chips" data-name="shabbat"><button type="button" class="chip" data-v="שומר/ת שבת">שומר/ת שבת</button><button type="button" class="chip" data-v="חלקית">חלקית</button><button type="button" class="chip" data-v="לא כרגע">לא כרגע</button></div></div>
+      <div class="f"><span class="lbl">כשרות בבית</span><div class="chips" data-name="kosher"><button type="button" class="chip" data-v="כשר">כשר</button><button type="button" class="chip" data-v="חלקית">חלקית</button><button type="button" class="chip" data-v="לא כרגע">לא כרגע</button></div></div>
+      <div class="f cond" id="c-kids"><span class="lbl">ילדים</span><div class="chips" data-name="kids"><button type="button" class="chip" data-v="אין">אין</button><button type="button" class="chip" data-v="1–2">1–2</button><button type="button" class="chip" data-v="3 ומעלה">3 ומעלה</button></div>
+        <div class="chips" data-name="kidsHome" style="margin-top:8px"><button type="button" class="chip" data-v="גרים איתי">גרים איתי</button><button type="button" class="chip" data-v="חלק מהזמן">חלק מהזמן</button><button type="button" class="chip" data-v="כבר גדולים">כבר גדולים</button></div></div>
+      <div class="f"><span class="lbl">עיסוק <small>(לא חובה)</small></span><input name="work" placeholder="למשל: מהנדס, מורה, סטודנטית"></div>
+      <div class="f"><span class="lbl">שפות</span><div class="chips multi" data-name="langs"><button type="button" class="chip" data-v="עברית">עברית</button><button type="button" class="chip" data-v="אנגלית">אנגלית</button><button type="button" class="chip" data-v="רוסית">רוסית</button><button type="button" class="chip" data-v="צרפתית">צרפתית</button><button type="button" class="chip" data-v="ספרדית">ספרדית</button></div></div>
     </div>
 
-    <!-- שלב 3 -->
+    <!-- 3: מה מחפשים -->
     <div class="step" data-s="3">
-      <h2>מה את/ה מחפש/ת</h2><p class="hint">כמה שיותר ברור, כך ההצעה תהיה מדויקת יותר.</p>
-      <div class="row"><div class="f"><label>גיל מ־</label><input name="ageFrom" type="number" min="18" max="99" inputmode="numeric"></div><div class="f"><label>עד</label><input name="ageTo" type="number" min="18" max="99" inputmode="numeric"></div></div>
-      <div class="f"><label>סגנון / השקפה מבוקשים</label><input name="lookHashkafa" placeholder="למשל: דתי לאומי או חרדי מודרני"></div>
-      <div class="f"><label>איפה תרצו לגור</label><input name="lookPlace" placeholder="ישראל, ארה״ב, גמיש..."></div>
-      <div class="f"><label>מה חשוב לך בבן/בת הזוג</label><textarea name="lookAbout"></textarea></div>
+      <h2>מה את/ה מחפש/ת</h2><p class="hint">אפשר לסמן "חובה בשבילי" רק על מה שבאמת חשוב, והשאר נשאר גמיש.</p>
+      <div class="f"><span class="lbl">גיל בן/בת הזוג</span><div class="two"><input name="ageFrom" type="number" min="18" max="99" inputmode="numeric" placeholder="מגיל"><input name="ageTo" type="number" min="18" max="99" inputmode="numeric" placeholder="עד גיל"></div></div>
+      <div class="f"><span class="lbl">סגנון שמתאים לי <small>(אפשר כמה)</small></span><div class="chips multi" data-name="lookH"><button type="button" class="chip" data-v="חילוני">חילוני</button><button type="button" class="chip" data-v="מסורתי">מסורתי</button><button type="button" class="chip" data-v="בתהליך התקרבות">בתהליך התקרבות</button><button type="button" class="chip" data-v="דתי">דתי</button><button type="button" class="chip" data-v="דתי לאומי">דתי לאומי</button><button type="button" class="chip" data-v="חרדי">חרדי</button></div>
+        <label class="must"><input type="checkbox" name="mustH">חובה בשבילי</label></div>
+      <div class="f"><span class="lbl">איפה לגור</span><div class="chips" data-name="lookPlace"><button type="button" class="chip" data-v="ארה״ב">ארה״ב</button><button type="button" class="chip" data-v="ישראל">ישראל</button><button type="button" class="chip" data-v="גמיש">גמיש</button></div>
+        <label class="must"><input type="checkbox" name="mustPlace">חובה בשבילי</label></div>
+      <div class="f"><span class="lbl">בן/בת זוג עם ילדים?</span><div class="chips" data-name="openKids"><button type="button" class="chip" data-v="כן">כן, בשמחה</button><button type="button" class="chip" data-v="אפשר">אפשר</button><button type="button" class="chip" data-v="מעדיף/ה שלא">מעדיף/ה שלא</button></div></div>
+      <div class="f cond" id="c-older"><span class="lbl">מה אני מחפש/ת</span><div class="chips" data-name="goal"><button type="button" class="chip" data-v="נישואין">נישואין</button><button type="button" class="chip" data-v="קודם הכרות וחברות">קודם הכרות וחברות</button></div></div>
+      <div class="f"><span class="lbl">הכי חשוב לי בבית <small>(עד 3)</small></span><div class="chips multi" data-name="values" data-max="3"><button type="button" class="chip" data-v="משפחה וילדים">משפחה וילדים</button><button type="button" class="chip" data-v="שבת וחגים ביחד">שבת וחגים ביחד</button><button type="button" class="chip" data-v="בית פתוח לאורחים">בית פתוח לאורחים</button><button type="button" class="chip" data-v="בית שקט ורגוע">בית שקט ורגוע</button><button type="button" class="chip" data-v="צמיחה ולימוד">צמיחה ולימוד</button><button type="button" class="chip" data-v="קריירה והצלחה">קריירה והצלחה</button><button type="button" class="chip" data-v="טיולים והרפתקאות">טיולים והרפתקאות</button><button type="button" class="chip" data-v="הומור וקלילות">הומור וקלילות</button></div></div>
+      <div class="f"><span class="lbl">במילים שלך <small>(לא חובה)</small></span><textarea name="about" placeholder="משפט או שניים: מי את/ה, ומה חשוב לך בבן/בת הזוג"></textarea></div>
     </div>
 
-    <!-- שלב 4 -->
+    <!-- 4: קשר -->
     <div class="step" data-s="4">
-      <h2>איך נחזור אליך</h2><p class="hint">הפרטים האלה מגיעים רק לשדכן, ולא מוצגים לאף אחד אחר.</p>
-      <div class="f"><label>טלפון</label><input name="phone" type="tel" inputmode="tel" dir="ltr" required></div>
-      <div class="f"><label>מייל <small>(לא חובה)</small></label><input name="email" type="email" dir="ltr"></div>
-      <div class="f"><label>זמן נוח לשיחה <small>(לא חובה)</small></label><input name="callTime" placeholder="למשל: ערבים אחרי 20:00"></div>
-      <div class="f"><label>משהו נוסף שחשוב שהשדכן יידע? <small>(לא חובה)</small></label><textarea name="notes" placeholder="כל דבר שתרצו לשתף"></textarea></div>
-      <label class="chk"><input type="checkbox" name="adult" required><span>אני בן/בת 18 ומעלה.</span></label>
-      <label class="chk"><input type="checkbox" name="consent" required><span>אני מסכים/ה שהפרטים יישמרו בדיסקרטיות ויועברו רק לשדכן, לצורך הצעת שידוך. אפשר לבקש מחיקה בכל עת.</span></label>
+      <h2>איך נחזור אליך</h2><p class="hint">הפרטים מגיעים רק לשדכן, ולא מוצגים לאף אחד אחר.</p>
+      <div class="f"><span class="lbl">טלפון (וואטסאפ)</span><input name="phone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="+1 / +972" required></div>
+      <div class="f"><span class="lbl">מייל <small>(לא חובה)</small></span><input name="email" type="email" autocomplete="email" dir="ltr"></div>
+      <div class="f"><span class="lbl">משהו נוסף שחשוב שהשדכן יידע? <small>(לא חובה)</small></span><textarea name="notes" placeholder="כל דבר שתרצו לשתף"></textarea></div>
+      <label class="chk"><input type="checkbox" name="wa" checked><span>אפשר לשלוח לי הצעות בוואטסאפ.</span></label>
+      <label class="chk"><input type="checkbox" name="adult" required><span>בן/בת 18 ומעלה.</span></label>
+      <label class="chk"><input type="checkbox" name="consent" required><span>מסכים/ה שהפרטים יישמרו בדיסקרטיות ויועברו רק לשדכן, לצורך הצעת שידוך. אפשר לבקש מחיקה בכל עת.</span></label>
     </div>
 
-    <div class="err" id="err"></div>
+    <div class="err" id="err" role="alert"></div>
     <div class="nav"><button type="button" class="btn sec" id="prev" hidden>חזרה</button><button type="button" class="btn pri" id="next">המשך</button></div>
   </form>
 
   <div class="card done" id="done" hidden>
     <div class="ring"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
     <h2>הפרטים התקבלו. מוש טוב!</h2>
-    <p>השדכן יעבור על הפרטים ויחזור אליך באופן אישי.<br>בהצלחה, ובשעה טובה!</p>
-    <a class="back" href="app.html">חזרה לאפליקציה</a>
+    <p>השדכן יעבור על הפרטים, ויחזור אליך רק כשיש הצעה שנראית מתאימה.<br>בהצלחה, ובשעה טובה!</p>
+    <a class="share" id="shareBtn" href="#" target="_blank" rel="noopener">שתפו חבר/ה שמחפש/ת 💍</a>
+    <p style="margin-top:16px"><a class="back" href="app.html">חזרה לאפליקציה</a></p>
   </div>
 
   <p class="note">שירות של Congregation Netivot of New York. הפרטים נשמרים לפי <a href="privacy.html">מדיניות הפרטיות</a>.<br>לבקשת מחיקה: <a href="mailto:info@netivotny.org">info@netivotny.org</a></p>
@@ -131,20 +157,45 @@ select{appearance:none;-webkit-appearance:none;background-image:url("data:image/
 
 <script>
 (function(){
-  var s=1,N=4,f=document.getElementById('f'),err=document.getElementById('err'),nx=document.getElementById('next'),pv=document.getElementById('prev'),bars=document.querySelectorAll('.steps i');
+  var s=1,N=4,f=document.getElementById('f'),err=document.getElementById('err'),nx=document.getElementById('next'),pv=document.getElementById('prev'),KEY='mt-draft';
+  var D={forWhom:'עצמי'};
+  function chipsInit(){document.querySelectorAll('.chips').forEach(function(g){var n=g.dataset.name,multi=g.classList.contains('multi'),max=+g.dataset.max||99;
+    g.querySelectorAll('.chip').forEach(function(c){c.onclick=function(){
+      if(multi){var a=D[n]||[],i=a.indexOf(c.dataset.v);if(i>-1)a.splice(i,1);else{if(a.length>=max)return;a.push(c.dataset.v)}D[n]=a}
+      else D[n]=c.dataset.v;
+      paint();save();cond()}})})}
+  function paint(){document.querySelectorAll('.chips').forEach(function(g){var v=D[g.dataset.name];g.querySelectorAll('.chip').forEach(function(c){c.classList.toggle('on',Array.isArray(v)?v.indexOf(c.dataset.v)>-1:v===c.dataset.v)})})}
+  function cond(){
+    var proxy=D.forWhom&&D.forWhom!=='עצמי';document.getElementById('c-proxy').classList.toggle('show',proxy);
+    document.getElementById('l-gender').textContent=proxy?'הוא/היא':'אני';
+    document.getElementById('c-kids').classList.toggle('show',D.status==='גרוש/ה'||D.status==='אלמן/ה');
+    var a=+f.age.value;document.getElementById('c-older').classList.toggle('show',a>=40||D.status==='גרוש/ה'||D.status==='אלמן/ה')}
+  function save(){try{var o={};new FormData(f).forEach(function(v,k){o[k]=v});o._chips=D;localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}}
+  function load(){try{var o=JSON.parse(localStorage.getItem(KEY)||'null');if(!o)return;Object.keys(o).forEach(function(k){if(k[0]==='_')return;var el=f.elements[k];if(!el)return;if(el.type==='checkbox')el.checked=o[k]==='on';else el.value=o[k]});D=o._chips||D;if(o.first)document.getElementById('resume').classList.add('show')}catch(e){}}
   function show(){document.querySelectorAll('.step').forEach(function(e){e.classList.toggle('on',+e.dataset.s===s)});
-    bars.forEach(function(b,i){b.classList.toggle('on',i<s)});pv.hidden=s===1;nx.textContent=s===N?'שליחה':'המשך';err.textContent='';window.scrollTo({top:0,behavior:'smooth'})}
-  function valid(){var ok=true;document.querySelectorAll('.step.on [required]').forEach(function(el){
-      if(el.type==='radio'){if(!f.querySelector('[name="'+el.name+'"]:checked'))ok=false}
-      else if(el.type==='checkbox'){if(!el.checked)ok=false}
-      else if(!el.value.trim())ok=false});
-    var a=f.age.value; if(s===1&&a&&+a<18){err.textContent='ההרשמה מגיל 18 ומעלה.';return false}
-    if(!ok)err.textContent='נא למלא את השדות החסרים.';return ok}
-  nx.onclick=function(){if(!valid())return;if(s<N){s++;show();return}
-    var d={};new FormData(f).forEach(function(v,k){d[k]=v});d.source='app';d.ts=new Date().toISOString();
-    /* PREVIEW: שליחה לשרת תחובר בשלב הבא */
-    f.hidden=true;document.querySelector('.steps').hidden=true;document.getElementById('done').hidden=false;window.scrollTo({top:0})};
+    document.getElementById('pbar').style.width=(s/N*100)+'%';document.getElementById('ptxt').textContent='שלב '+s+' מתוך '+N;
+    pv.hidden=s===1;nx.textContent=s===N?'שליחה':'המשך';err.textContent='';
+    if(s===3&&!f.ageFrom.value&&f.age.value){var a=+f.age.value,m=D.gender==='בחור';f.ageFrom.value=Math.max(18,m?a-7:a-3);f.ageTo.value=m?a+2:a+8}
+    if(s>1){var t=document.querySelector('.prog');window.scrollTo({top:t.offsetTop-10,behavior:'smooth'})}}
+  function valid(){var miss=false;
+    document.querySelectorAll('.step.on [required]').forEach(function(el){if(el.type==='checkbox'?!el.checked:!el.value.trim())miss=true});
+    document.querySelectorAll('.step.on .chips[data-req]').forEach(function(g){if(!D[g.dataset.name])miss=true});
+    if(s===1){var a=+f.age.value;if(a&&a<18){err.textContent='ההרשמה מגיל 18 ומעלה.';return false}
+      if(D.forWhom!=='עצמי'&&(!f.proxyName.value.trim()||!f.proxyPhone.value.trim()||!f.proxyConsent.checked)){err.textContent='נא למלא את הפרטים שלך ולאשר שהוא/היא מסכים/ה.';return false}}
+    if(s===4&&f.phone.value.replace(/\D/g,'').length<7){err.textContent='נא לבדוק את מספר הטלפון.';return false}
+    if(miss)err.textContent='נא למלא את מה שחסר.';return !miss}
+  nx.onclick=function(){if(!valid())return;save();if(s<N){s++;show();return}
+    nx.disabled=true;nx.textContent='שולח…';
+    var d={};new FormData(f).forEach(function(v,k){d[k]=v});Object.keys(D).forEach(function(k){d[k]=Array.isArray(D[k])?D[k].join(', '):D[k]});
+    d.source=/[?&]src=([^&]+)/.test(location.search)?RegExp.$1:'app';d.ts=new Date().toISOString();
+    /* PREVIEW: כאן יישלח לגיליון הסגור בשלב החיבור */
+    try{localStorage.removeItem(KEY)}catch(e){}
+    try{if(typeof gtag==='function')gtag('event','generate_lead',{form:'moshtov'})}catch(e){}
+    document.getElementById('shareBtn').href='https://wa.me/?text='+encodeURIComponent('מכיר/ה מישהו שמחפש שידוך? Mosh Tov · שידוכים אישיים ודיסקרטיים, בלי תמונות, לכל גיל. נרשמים בשתי דקות: https://askmosh.com/shidduchim.html');
+    f.hidden=true;document.querySelector('.prog').hidden=true;document.getElementById('resume').classList.remove('show');document.getElementById('done').hidden=false;window.scrollTo({top:0})};
   pv.onclick=function(){if(s>1){s--;show()}};
+  f.addEventListener('input',function(){save();cond()});
+  load();chipsInit();paint();cond();show();
 })();
 </script>
 </body>
