@@ -1037,6 +1037,8 @@ load(get());
 .mts-ring svg{width:44px;height:44px}
 .mts-eyebrow{font-family:Heebo,Arial,sans-serif;font-size:.78rem;letter-spacing:.22em;color:#D4AF5E;text-transform:uppercase;margin:0 0 8px}
 .mts-t{margin:0 0 8px;font-family:Heebo,Arial,sans-serif;font-weight:700;font-size:2.3rem;line-height:1.15;color:#F4F1EA;letter-spacing:-.01em}
+html[lang="en"] .mts-he{display:none}
+html[lang="en"] .mts-arr{transform:scaleX(-1)}
 .mts-t .en{font-family:'Playfair Display',Georgia,serif;color:#F3D27A;font-weight:700}
 .mts-p{margin:0 0 16px;color:#C9D1DB;font-size:1.05rem;line-height:1.7;max-width:520px}
 .mts-chips{display:flex;flex-wrap:wrap;gap:8px}
@@ -1051,11 +1053,11 @@ load(get());
     <div class="mts-ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2.6h6l2.4 3-5.4 5-5.4-5z"/><path d="M6.6 5.6h10.8"/><path d="M10.6 5.6L12 10.6l1.4-5"/><circle cx="12" cy="15.8" r="5.3"/></svg></div>
     <div>
       <p class="mts-eyebrow" data-he="שידוכים אישיים" data-en="Personal matchmaking">שידוכים אישיים</p>
-      <h2 class="mts-t"><span class="en" dir="ltr">Mosh Tov</span> · <span data-he="מוש טוב" data-en="">מוש טוב</span></h2>
+      <h2 class="mts-t"><span class="en" dir="ltr">Mosh Tov</span><span class="mts-he"> · מוש טוב</span></h2>
       <p class="mts-p" data-he="שידוכים אישיים ודיסקרטיים, לכל גיל ולכל שלב בחיים. משאירים פרטים פעם אחת, ושדכן אישי מחפש בשבילכם." data-en="Personal, discreet matchmaking for every age and stage of life. Leave your details once, and a personal matchmaker searches for you.">שידוכים אישיים ודיסקרטיים, לכל גיל ולכל שלב בחיים. משאירים פרטים פעם אחת, ושדכן אישי מחפש בשבילכם.</p>
       <div class="mts-chips"><span data-he="דיסקרטי לגמרי" data-en="Fully discreet">דיסקרטי לגמרי</span><span data-he="בלי תמונות" data-en="No photos">בלי תמונות</span><span data-he="רק השדכן רואה" data-en="Only the matchmaker sees">רק השדכן רואה</span><span data-he="ללא עלות" data-en="Free">ללא עלות</span></div>
     </div>
-    <a class="mts-cta" href="shidduchim.html?src=site" onclick="try{gtag('event','moshtov_click',{from:'site'})}catch(e){}"><span><span data-he="להרשמה" data-en="Sign up">להרשמה</span><small data-he="בערך שתי דקות" data-en="About two minutes">בערך שתי דקות</small></span><span aria-hidden="true">←</span></a>
+    <a class="mts-cta" href="shidduchim.html?src=site" onclick="try{gtag('event','moshtov_click',{from:'site'})}catch(e){}"><span><span data-he="להרשמה" data-en="Sign up">להרשמה</span><small data-he="בערך שתי דקות" data-en="About two minutes">בערך שתי דקות</small></span><span aria-hidden="true" class="mts-arr">←</span></a>
   </div>
 </section>
 
