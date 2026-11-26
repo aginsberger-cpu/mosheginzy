@@ -578,8 +578,8 @@ function setLang(l) {
   });
   /* Update bottom nav labels */
   var navLabels = l === "he"
-    ? {home:"בית",chat:"שאל משה",community:"קהילה",lessons:"שיעורים",chavruta:"חברותא",about:"אודות"}
-    : {home:"Home",chat:"Ask Moshe",community:"Community",lessons:"Lessons",chavruta:"Chavruta",about:"About"};
+    ? {home:"בית",chat:"שאל משה",community:"קהילה",lessons:"שיעורים",chavruta:"חברותא",about:"שידוכים"}
+    : {home:"Home",chat:"Ask Moshe",community:"Community",lessons:"Lessons",chavruta:"Chavruta",about:"Matches"};
  var nl = document.getElementById("nav-home-lbl"); if (nl) nl.textContent = navLabels.home;
 var nc = document.getElementById("nav-chat-lbl"); if (nc) nc.textContent = navLabels.chat;
 var nco = document.getElementById("nav-community-lbl"); if (nco) nco.textContent = navLabels.community;
@@ -1106,9 +1106,9 @@ document.getElementById("moshePhoto").onerror = function() {
     <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
     <span id="nav-chavruta-lbl">חברותא</span>
   </button>
-  <button class="bn-item" onclick="window.location.href='app.html?screen=about&lang='+lang">
-    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-    <span id="nav-about-lbl">אודות</span>
+  <button class="bn-item" onclick="window.location.href='shidduchim.html?lang='+lang">
+    <svg viewBox="0 0 24 24"><path d="M9 2.6h6l2.4 3-5.4 5-5.4-5z"/><path d="M6.6 5.6h10.8"/><path d="M10.6 5.6L12 10.6l1.4-5"/><circle cx="12" cy="15.8" r="5.3"/></svg>
+    <span id="nav-about-lbl">שידוכים</span>
   </button>
 </nav>
   <!-- ===== תיקון: חידון באנגלית (אפשר למחוק את כל הבלוק הזה כדי לבטל) ===== -->
