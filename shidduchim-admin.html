@@ -155,7 +155,7 @@ function render(){stats();if(G==='board')return board();
   document.getElementById('list').innerHTML=L.length?'<div class="grid">'+L.map(card).join('')+'</div>':'<div class="empty">אין עדיין נרשמים כאן.</div>'}
 function card(p){var h=propsOf(p.id);
   return '<div class="card p"><h3>'+esc(p.first+' '+p.last)+(isNew(p)?'<span class="pill new">חדש</span>':'<span class="pill">'+esc(p.marital||'')+'</span>')+'</h3>'
-   +'<div class="meta">'+[p.age,p.city,p.hashkafa,p.work,p.marital,p.kids&&p.kids!=='אין'?'ילדים: '+p.kids:''].filter(Boolean).map(esc).join(' · ')+(p.forWhom&&p.forWhom!=='עצמי'?'<br>נרשם/ה ע״י '+esc(p.proxyName)+' ('+esc(p.forWhom)+')':'')+'</div>'
+   +'<div class="meta">'+[p.age,p.city,p.hashkafa,p.work,p.marital,p.kids&&p.kids!=='אין'?'ילדים: '+p.kids:'',isEn(p)?'🇺🇸 English':''].filter(Boolean).map(esc).join(' · ')+(p.forWhom&&p.forWhom!=='עצמי'?'<br>נרשם/ה ע״י '+esc(p.proxyName)+' ('+esc(p.forWhom)+')':'')+'</div>'
    +'<div class="look"><b>מחפש/ת:</b> '+esc([p.ageFrom&&('גיל '+p.ageFrom+'–'+p.ageTo),p.lookH,p.lookPlace,p.goal].filter(Boolean).join(', '))+(p.values?'<br><b>חשוב:</b> '+esc(p.values):'')+'</div>'
    +(p.internalNote?'<div class="inote">הערה פנימית: '+esc(p.internalNote)+'</div>':'')
    +(h.length?'<div class="hist"><b>היסטוריית הצעות</b>'+h.map(function(x){var o=byId(x.aId===p.id?x.bId:x.aId)||{first:'?',last:''};return '<div>• <b>'+esc(o.first+' '+o.last)+'</b>: '+esc(x.stage)+' ('+new Date(x.updated||x.ts).toLocaleDateString('he-IL')+')'+(x.reason?'. <i>'+esc(x.reason)+'</i>':'')+'</div>'}).join('')+'</div>':'')
@@ -175,7 +175,12 @@ function match(id){var a=byId(id),r=P.filter(function(b){return b.gender!==a.gen
 function row(k,a,b,ok){return '<div class="'+(ok?'ok':'gap')+'">'+esc(a)+'</div><div class="k">'+k+'</div><div class="'+(ok?'ok':'gap')+'" style="text-align:left">'+esc(b)+'</div>'}
 function anon(p){return [p.age,p.city,p.hashkafa,p.work,p.marital].filter(Boolean).join(', ')+(p.values?'. חשוב לו/ה: '+p.values:'')}
 function findProp(a,b){return PR.filter(function(x){return(x.aId===a&&x.bId===b)||(x.aId===b&&x.bId===a)})[0]}
-function waMsg(to,other,token){return 'שלום '+to.first+', כאן Mosh Tov 💍\nיש לנו הצעה שנראית לנו מתאימה:\n'+anon(other)+'\nמעוניין/ת לשמוע עוד?\nלתשובה בלחיצה: '+ANSWER+token}
+function isEn(p){return /-en$/.test(String(p.source||''))}
+var EN={'בחור':'man','בחורה':'woman','רווק/ה':'single','גרוש/ה':'divorced','אלמן/ה':'widowed','חילוני':'secular','מסורתי':'traditional','בתהליך התקרבות':'growing in observance','דתי':'religious','דתי לאומי':'religious Zionist','חרדי':'Haredi','משפחה וילדים':'family and children','שבת וחגים ביחד':'Shabbat and holidays together','בית פתוח לאורחים':'a home open to guests','בית שקט ורגוע':'a calm, quiet home','צמיחה ולימוד':'growth and learning','קריירה והצלחה':'career and success','טיולים והרפתקאות':'travel and adventure','הומור וקלילות':'humor and lightness'};
+function en(v){return String(v||'').split(/,\s*/).map(function(x){return EN[x]||x}).join(', ')}
+function anonEn(p){return [p.age,p.city,en(p.hashkafa),p.work,en(p.marital)].filter(Boolean).join(', ')+(p.values?'. Important to them: '+en(p.values):'')}
+function waMsg(to,other,token){if(isEn(to))return 'Hi '+to.first+', this is Mosh Tov 💍\nWe have a suggestion that looks like a good fit:\n'+anonEn(other)+'\nWould you like to hear more?\nReply with one tap: '+ANSWER+token+'&lang=en';
+  return 'שלום '+to.first+', כאן Mosh Tov 💍\nיש לנו הצעה שנראית לנו מתאימה:\n'+anon(other)+'\nמעוניין/ת לשמוע עוד?\nלתשובה בלחיצה: '+ANSWER+token}
 function waLink(p,text){var n=String(p.phone||'').replace(/\D/g,'');if(n.length===10&&n[0]==='0')n='972'+n.slice(1);else if(n.length===10)n='1'+n;return 'https://wa.me/'+n+'?text='+encodeURIComponent(text)}
 function cmp(ai,bi){var a=byId(ai),b=byId(bi),r=score(a,b),x=findProp(ai,bi);
   var ageOk=+b.age>=+a.ageFrom&&+b.age<=+a.ageTo&&+a.age>=+b.ageFrom&&+a.age<=+b.ageTo,hOk=has(a.lookH,b.hashkafa)&&has(b.lookH,a.hashkafa),pOk=region(a.city)===region(b.city);
