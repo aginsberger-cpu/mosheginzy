@@ -517,7 +517,20 @@ body.light .lesson-tag{color:#9A7420!important}
 </style>
 <style id="bq-lang-style">html[lang="en"] .bq-he-only{display:none!important}html:not([lang="en"]) .bq-en-only{display:none!important}</style>
 <script>/* מסמן שהמשתמש בתוך האפליקציה, כדי שכפתור "לדף הראשי" בדפי התוכן יחזור לאפליקציה ולא לאתר */try{sessionStorage.setItem("mg-in-app","1")}catch(e){}</script>
-<style>.mt-card{margin-top:14px;text-decoration:none;color:inherit}</style></head>
+<style>.mt-card{margin-top:14px;text-decoration:none;color:inherit}</style><style id="app-moshtov-btn">
+.home-actions .cta-moshtov{position:relative;overflow:hidden;border:1.5px solid transparent!important;
+  background-image:linear-gradient(rgba(14,32,52,.96),rgba(14,32,52,.96)),linear-gradient(120deg,#FFE9A3,#C99A3C 40%,#FFE29A 60%,#D4A843)!important;background-origin:border-box!important;background-clip:padding-box,border-box!important;
+  box-shadow:0 0 0 1px rgba(243,210,122,.10),0 8px 24px rgba(212,175,94,.22)!important;color:#F6E2A6!important}
+.home-actions .cta-moshtov svg{color:#F3D27A}
+.home-actions .cta-moshtov .mt-en{font-family:'Playfair Display',Georgia,serif;font-weight:700;color:#F3D27A}
+.home-actions .cta-moshtov .mt-new{font-style:normal;font-size:.68rem;font-weight:700;color:#1a1408;background:linear-gradient(135deg,#F7DE8F,#C99A3C);padding:2px 8px;border-radius:999px;margin-inline-start:6px}
+.home-actions .cta-moshtov::after{content:"";position:absolute;top:0;bottom:0;width:30%;left:-40%;pointer-events:none;background:linear-gradient(100deg,transparent,rgba(255,255,255,.10),transparent);animation:mtSheen 4.5s ease-in-out infinite}
+@keyframes mtSheen{0%,60%{left:-40%}100%{left:120%}}
+@media (prefers-reduced-motion:reduce){.home-actions .cta-moshtov::after{animation:none}}
+body.light .home-actions .cta-moshtov{background-image:linear-gradient(#fff,#fff),linear-gradient(120deg,#E8C468,#B8862E)!important;color:#5a4410!important}
+body.light .home-actions .cta-moshtov .mt-en,body.light .home-actions .cta-moshtov svg{color:#A9832B}
+</style>
+</head>
   <!-- Facebook Pixel -->
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
@@ -570,6 +583,10 @@ fbq('track','PageView',{content_category:platform});
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
       <span data-he="הצטרף לחברותא — לימוד אישי חינמי" data-en="Join Chavruta — Free Personal Study">הצטרף לחברותא — לימוד אישי חינמי</span>
      </button>
+     <a class="cta-chavruta cta-shabbat cta-moshtov" href="shidduchim.html">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2.6h6l2.4 3-5.4 5-5.4-5z"/><path d="M6.6 5.6h10.8"/><path d="M10.6 5.6L12 10.6l1.4-5"/><circle cx="12" cy="15.8" r="5.3"/></svg>
+      <span><b class="mt-en" dir="ltr">Mosh Tov</b> <span data-he="· שידוכים אישיים" data-en="· Personal matchmaking">· שידוכים אישיים</span></span><i class="mt-new" data-he="חדש" data-en="New">חדש</i>
+     </a>
      <a class="cta-chavruta cta-shabbat" href="shabbat/">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 2.5c1.3 1.5 1.3 2.8 0 3.8-1.3-1-1.3-2.3 0-3.8zM15.5 2.5c1.3 1.5 1.3 2.8 0 3.8-1.3-1-1.3-2.3 0-3.8z"/><rect x="6.5" y="8" width="4" height="10.5" rx="1"/><rect x="13.5" y="8" width="4" height="10.5" rx="1"/><path d="M4 21.5h16"/></svg>
       <span data-he="השבת הראשונה שלי — מדריך למתחילים" data-en="My First Shabbat — Beginner's Guide">השבת הראשונה שלי — מדריך למתחילים</span>
@@ -590,7 +607,6 @@ fbq('track','PageView',{content_category:platform});
     <div class="bq-lbl" data-he="פרשת השבוע" data-en="Weekly Torah Portion">פרשת השבוע</div>
     <div class="bq-row pr-row" id="pr-row"></div>
     <a class="bq-all" href="parasha/" data-he="לכל הפרשות ←" data-en="All Torah portions →">לכל הפרשות ←</a>
-    <a class="cm-card mt-card" href="shidduchim.html"><span class="cm-dot"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#14223a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2.6h6l2.4 3-5.4 5-5.4-5z"/><path d="M6.6 5.6h10.8"/><path d="M10.6 5.6L12 10.6l1.4-5"/><circle cx="12" cy="15.8" r="5.3"/></svg></span><span class="cm-txt"><b data-he="Mosh Tov · שידוכים אישיים" data-en="Mosh Tov · Personal Matchmaking"><span dir="ltr" style="font-family:'Playfair Display',Georgia,serif">Mosh Tov</span> · שידוכים אישיים</b><small data-he="דיסקרטי, בלי תמונות, לכל גיל ולכל שלב בחיים" data-en="Discreet, no photos, for every age and stage">דיסקרטי, בלי תמונות, לכל גיל ולכל שלב בחיים</small></span><span class="cm-arr" aria-hidden="true">‹</span></a>
     <div class="mini-row">
       <button class="mini-btn" onclick="window.location.href='community.html?tab=question&lang='+currentLang"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1.8" stroke-linecap="round"><path d="M9 21h6M12 3a6 6 0 00-3 11.19V17h6v-2.81A6 6 0 0012 3z"/></svg><span data-he="שאלת היום" data-en="Question of the Day">שאלת היום</span></button>
       <button class="mini-btn" onclick="window.location.href='community.html?tab=quiz&lang='+currentLang"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1.8" stroke-linecap="round"><path d="M12 15l-2 5l9-11h-5l2-5l-9 11h5z"/></svg><span data-he="חידון שבועי" data-en="Weekly Quiz">חידון שבועי</span></button>
