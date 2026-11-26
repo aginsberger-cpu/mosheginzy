@@ -56,6 +56,11 @@ input:focus,textarea:focus{border-color:var(--gold)}
 .btn.pri{background:linear-gradient(135deg,#F3D27A,#C99A3C);color:#1a1408;box-shadow:0 8px 24px rgba(212,175,94,.22)}
 .btn.sec{background:transparent;color:var(--gold2);border:1px solid var(--line);flex:0 0 30%}
 .btn[disabled]{opacity:.6}
+.bad{border-color:#E8736A!important;box-shadow:0 0 0 3px rgba(232,115,106,.18)!important;animation:shake .35s}
+.chips.bad{border:1.5px solid #E8736A;border-radius:14px;padding:6px;box-shadow:0 0 0 3px rgba(232,115,106,.14)}
+.lbl.badl{color:#F2A19A!important}.lbl.badl::after{content:" · חסר";font-size:.78rem;font-weight:500}
+.chk.bad span{color:#F2A19A}
+@keyframes shake{0%,100%{transform:none}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
 .err{color:#F2A19A;font-size:.85rem;min-height:1.2em;margin-top:8px;text-align:center}
 .step{display:none}.step.on{display:block;animation:fade .25s}
 .note{color:var(--muted);font-size:.76rem;text-align:center;margin-top:16px;line-height:1.7}
@@ -164,7 +169,7 @@ input:focus,textarea:focus{border-color:var(--gold)}
     g.querySelectorAll('.chip').forEach(function(c){c.onclick=function(){
       if(multi){var a=D[n]||[],i=a.indexOf(c.dataset.v);if(i>-1)a.splice(i,1);else{if(a.length>=max)return;a.push(c.dataset.v)}D[n]=a}
       else D[n]=c.dataset.v;
-      paint();save();cond()}})})}
+      paint();save();cond();g.classList.remove('bad');var l=g.closest('.f')&&g.closest('.f').querySelector('.lbl');if(l)l.classList.remove('badl')}})})}
   function paint(){document.querySelectorAll('.chips').forEach(function(g){var v=D[g.dataset.name];g.querySelectorAll('.chip').forEach(function(c){c.classList.toggle('on',Array.isArray(v)?v.indexOf(c.dataset.v)>-1:v===c.dataset.v)})})}
   function cond(){
     var proxy=D.forWhom&&D.forWhom!=='עצמי';document.getElementById('c-proxy').classList.toggle('show',proxy);
@@ -178,13 +183,17 @@ input:focus,textarea:focus{border-color:var(--gold)}
     pv.hidden=s===1;nx.textContent=s===N?'שליחה':'המשך';err.textContent='';
     if(s===3&&!f.ageFrom.value&&f.age.value){var a=+f.age.value,m=D.gender==='בחור';f.ageFrom.value=Math.max(18,m?a-7:a-3);f.ageTo.value=m?a+2:a+8}
     if(s>1){var t=document.querySelector('.prog');window.scrollTo({top:t.offsetTop-10,behavior:'smooth'})}}
-  function valid(){var miss=false;
-    document.querySelectorAll('.step.on [required]').forEach(function(el){if(el.type==='checkbox'?!el.checked:!el.value.trim())miss=true});
-    document.querySelectorAll('.step.on .chips[data-req]').forEach(function(g){if(!D[g.dataset.name])miss=true});
-    if(s===1){var a=+f.age.value;if(a&&a<18){err.textContent='ההרשמה מגיל 18 ומעלה.';return false}
-      if(D.forWhom!=='עצמי'&&(!f.proxyName.value.trim()||!f.proxyPhone.value.trim()||!f.proxyConsent.checked)){err.textContent='נא למלא את הפרטים שלך ולאשר שהוא/היא מסכים/ה.';return false}}
-    if(s===4&&f.phone.value.replace(/\D/g,'').length<7){err.textContent='נא לבדוק את מספר הטלפון.';return false}
-    if(miss)err.textContent='נא למלא את מה שחסר.';return !miss}
+  function mark(el,bad){if(!el)return;el.classList.toggle('bad',bad);var f=el.closest('.f');if(f){var l=f.querySelector('.lbl');if(l)l.classList.toggle('badl',bad)}}
+  function clearBad(){document.querySelectorAll('.bad').forEach(function(e){e.classList.remove('bad')});document.querySelectorAll('.badl').forEach(function(e){e.classList.remove('badl')})}
+  function valid(){clearBad();var first=null;function bad(el){mark(el.classList&&el.classList.contains('chips')||el.type!=='checkbox'?el:el.closest('.chk'),true);if(el.type==='checkbox')el.closest('.chk').classList.add('bad');if(!first)first=el}
+    document.querySelectorAll('.step.on [required]').forEach(function(el){if(el.type==='checkbox'?!el.checked:!el.value.trim())bad(el)});
+    document.querySelectorAll('.step.on .chips[data-req]').forEach(function(g){if(!D[g.dataset.name])bad(g)});
+    var msg='';
+    if(s===1){var a=+f.age.value;if(a&&a<18){bad(f.age);msg='ההרשמה מגיל 18 ומעלה.'}
+      if(D.forWhom!=='עצמי'){if(!f.proxyName.value.trim())bad(f.proxyName);if(!f.proxyPhone.value.trim())bad(f.proxyPhone);if(!f.proxyConsent.checked)bad(f.proxyConsent)}}
+    if(s===4&&f.phone.value.trim()&&f.phone.value.replace(/\D/g,'').length<7){bad(f.phone);msg='נא לבדוק את מספר הטלפון.'}
+    if(first){err.textContent=msg||'סימנו באדום את מה שחסר.';var t=first.closest('.f')||first.closest('.chk')||first;t.scrollIntoView({behavior:'smooth',block:'center'});if(first.focus&&first.tagName==='INPUT'&&first.type!=='checkbox')setTimeout(function(){first.focus({preventScroll:true})},350);return false}
+    err.textContent='';return true}
   nx.onclick=function(){if(!valid())return;save();if(s<N){s++;show();return}
     nx.disabled=true;nx.textContent='שולח…';
     var d={};new FormData(f).forEach(function(v,k){d[k]=v});Object.keys(D).forEach(function(k){d[k]=Array.isArray(D[k])?D[k].join(', '):D[k]});
@@ -196,10 +205,13 @@ input:focus,textarea:focus{border-color:var(--gold)}
   function done(){
     try{localStorage.removeItem(KEY)}catch(e){}
     try{if(typeof gtag==='function')gtag('event','generate_lead',{form:'moshtov'})}catch(e){}
-    document.getElementById('shareBtn').href='https://wa.me/?text='+encodeURIComponent('מכיר/ה מישהו שמחפש שידוך? Mosh Tov · שידוכים אישיים ודיסקרטיים, בלי תמונות, לכל גיל. נרשמים בשתי דקות: https://askmosh.com/shidduchim.html');
+    var SH='מכיר/ה מישהו שמחפש שידוך? 💍 Mosh Tov · שידוכים אישיים ודיסקרטיים, בלי תמונות, לכל גיל. נרשמים בשתי דקות:',SU='https://askmosh.com/shidduchim.html?src=share',sb=document.getElementById('shareBtn');
+    sb.href='https://wa.me/?text='+encodeURIComponent(SH+' '+SU);
+    sb.onclick=function(e){if(navigator.share){e.preventDefault();navigator.share({title:'Mosh Tov · מוש טוב',text:SH,url:SU}).catch(function(){})}};
     f.hidden=true;document.querySelector('.prog').hidden=true;document.getElementById('resume').classList.remove('show');document.getElementById('done').hidden=false;window.scrollTo({top:0})}
   pv.onclick=function(){if(s>1){s--;show()}};
-  f.addEventListener('input',function(){save();cond()});
+  f.addEventListener('input',function(e){save();cond();var el=e.target;if(el.classList.contains('bad')&&(el.type==='checkbox'?el.checked:el.value.trim())){mark(el,false)}});
+  f.addEventListener('change',function(e){var el=e.target;if(el.type==='checkbox'&&el.checked){var c=el.closest('.chk');if(c)c.classList.remove('bad')}});
   load();chipsInit();paint();cond();show();
 })();
 </script>
