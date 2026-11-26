@@ -157,6 +157,7 @@ input:focus,textarea:focus{border-color:var(--gold)}
 
 <script>
 (function(){
+  var API='https://script.google.com/macros/s/AKfycbzxbWAuuEzBgQLv_jgfCqwgD0gWTo2bbCQsEas0pxPpDHoh21c677LajUbjF2V-_YJ_/exec';
   var s=1,N=4,f=document.getElementById('f'),err=document.getElementById('err'),nx=document.getElementById('next'),pv=document.getElementById('prev'),KEY='mt-draft';
   var D={forWhom:'עצמי'};
   function chipsInit(){document.querySelectorAll('.chips').forEach(function(g){var n=g.dataset.name,multi=g.classList.contains('multi'),max=+g.dataset.max||99;
@@ -188,11 +189,15 @@ input:focus,textarea:focus{border-color:var(--gold)}
     nx.disabled=true;nx.textContent='שולח…';
     var d={};new FormData(f).forEach(function(v,k){d[k]=v});Object.keys(D).forEach(function(k){d[k]=Array.isArray(D[k])?D[k].join(', '):D[k]});
     d.source=/[?&]src=([^&]+)/.test(location.search)?RegExp.$1:'app';d.ts=new Date().toISOString();
-    /* PREVIEW: כאן יישלח לגיליון הסגור בשלב החיבור */
+    fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'register',person:d})})
+     .then(function(r){return r.json()}).then(function(j){if(!j.ok)throw 0;done()})
+     .catch(function(){nx.disabled=false;nx.textContent='שליחה';err.textContent='לא הצלחנו לשלוח. נא לבדוק את החיבור ולנסות שוב.'});
+  };
+  function done(){
     try{localStorage.removeItem(KEY)}catch(e){}
     try{if(typeof gtag==='function')gtag('event','generate_lead',{form:'moshtov'})}catch(e){}
     document.getElementById('shareBtn').href='https://wa.me/?text='+encodeURIComponent('מכיר/ה מישהו שמחפש שידוך? Mosh Tov · שידוכים אישיים ודיסקרטיים, בלי תמונות, לכל גיל. נרשמים בשתי דקות: https://askmosh.com/shidduchim.html');
-    f.hidden=true;document.querySelector('.prog').hidden=true;document.getElementById('resume').classList.remove('show');document.getElementById('done').hidden=false;window.scrollTo({top:0})};
+    f.hidden=true;document.querySelector('.prog').hidden=true;document.getElementById('resume').classList.remove('show');document.getElementById('done').hidden=false;window.scrollTo({top:0})}
   pv.onclick=function(){if(s>1){s--;show()}};
   f.addEventListener('input',function(){save();cond()});
   load();chipsInit();paint();cond();show();
