@@ -964,6 +964,7 @@ function showChatMode(){
     else{g='שלום '+userName+'! 👋 אני משה. מה שאתה שואל בלב — אפשר לשאול אותו בקול.';}
     addMsg(g,'bot');
   }
+  try{fetch(MEKAREV_API+'/api/pending/'+encodeURIComponent(getMekarevUserId())).then(function(r){return r.json();}).then(function(d){((d&&d.messages)||[]).forEach(function(m){if(m&&m.text)addMsg(m.text,'bot');});}).catch(function(){});}catch(e){} // מקרב: הודעה אישית שמחכה לתלמיד בשרת מוצגת בפתיחת הצ'אט
 }
 function changeUser(){localStorage.removeItem('mg-app-name');localStorage.removeItem('mg-app-gender');location.reload();}
 
