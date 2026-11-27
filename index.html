@@ -1444,7 +1444,7 @@ const analytics = firebase.analytics();
     grid.innerHTML=list.map(function(v,i){
       var id=String(v.youtubeId).trim(),m=String(v.tag||'').match(/(?:מרצה|speaker)\s*:\s*([^·,|]+)/i);
       var tag=String(v.tag||'').replace(m?m[0]:'','').replace(/^[\s·,|]+|[\s·,|]+$/g,'');
-      return '<div class="vcard2 mg-yt" data-yt="'+esc(id)+'"><div class="vcard2-thumb"><img loading="lazy" src="https://i.ytimg.com/vi/'+encodeURIComponent(id)+'/oar2.jpg" alt="'+esc(clean(v.title))+'" onload="mgThumbLoad(this)" onerror="mgThumbErr(this)"><div class="vcard2-play">▶</div>'+(i<3?'<span class="mg-new-badge">'+(lang==='en'?'New':'חדש')+'</span>':'')+'</div><div class="vcard2-meta">'+((m||tag)?'<div class="vcard2-tag">'+esc(m?m[1].trim():tag)+'</div>':'')+'<div class="vcard2-title">'+esc(clean(v.title))+'</div></div></div>';
+      return '<div class="vcard2 mg-yt" data-yt="'+esc(id)+'"><div class="vcard2-thumb">'+((window.MG_COVERS||[]).indexOf(id)>-1?'<img loading="lazy" src="/img/covers/'+encodeURIComponent(id)+'.jpg" alt="'+esc(clean(v.title))+'">':'<img loading="lazy" src="https://i.ytimg.com/vi/'+encodeURIComponent(id)+'/oar2.jpg" alt="'+esc(clean(v.title))+'" onload="mgThumbLoad(this)" onerror="mgThumbErr(this)">')+'<div class="vcard2-play">▶</div>'+(i<3?'<span class="mg-new-badge">'+(lang==='en'?'New':'חדש')+'</span>':'')+'</div><div class="vcard2-meta">'+((m||tag)?'<div class="vcard2-tag">'+esc(m?m[1].trim():tag)+'</div>':'')+'<div class="vcard2-title">'+esc(clean(v.title))+'</div></div></div>';
     }).join('');
     box.style.display='';
   }
